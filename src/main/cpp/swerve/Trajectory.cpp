@@ -19,7 +19,7 @@
 
 frc::Timer m_trajTimer;
 
-Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc::XboxController *stick, Vision *vision)
+Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc2::CommandXboxController *stick, Vision *vision)
     : m_drivetrain{drivetrain}, m_odometry{odometry}, m_stick{stick}, m_vision{vision}{
           RobotConfig config = RobotConfig::fromGUISettings();
   
@@ -74,7 +74,7 @@ frc2::CommandPtr Trajectory::manual_drive(bool field_relative)
   return frc2::cmd::Run(
       [this, field_relative]
       {
-        if (m_stick->GetStartButtonReleased())
+        if (m_stick->Start().Get())
         {
           m_drivetrain->zero_yaw();
         }

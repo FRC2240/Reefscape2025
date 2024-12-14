@@ -167,7 +167,7 @@ public:
 
     bool face_direction(units::degree_t tgt, units::meters_per_second_t dx=0_mps, units::meters_per_second_t dy=0_mps);
     // bool face_direction(units::degree_t tgt);
-    ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "rio"};
+    ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "swervecan"};
 
 private:
     // ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "rio"};

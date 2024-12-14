@@ -9,7 +9,14 @@
 Robot::Robot() {}
 
 void Robot::RobotPeriodic() {
+  try
+  {
   frc2::CommandScheduler::GetInstance().Run();
+  }
+  catch(const std::exception& e)
+  {
+        frc::DataLogManager::Log( e.what());
+  }
 }
 
 void Robot::DisabledInit() {}
