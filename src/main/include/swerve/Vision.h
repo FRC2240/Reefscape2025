@@ -72,8 +72,9 @@ private:
 
 
 
+    #pragma warn("change to k2025Reefscape")
     frc::AprilTagFieldLayout layout =
-        frc::LoadAprilTagLayoutField(frc::AprilTagField::k2024Crescendo);
+        frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::k2024Crescendo);
 
     // photon::PhotonPoseEstimator m_left_estimator_a{
     //     layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,

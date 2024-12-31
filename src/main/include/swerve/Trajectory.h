@@ -30,6 +30,7 @@
 #include <pathplanner/lib/config/PIDConstants.h>
 #include <pathplanner/lib/controllers/PPHolonomicDriveController.h>
 
+#include <frc2/command/button/CommandXboxController.h>
 #include "frc2/command/DeferredCommand.h"
 
 #ifndef CFG_NO_DRIVEBASE
@@ -41,7 +42,7 @@ public:
     Trajectory(
         Drivetrain *drivetrain,
         Odometry *odometry,
-        frc::XboxController *stick,
+        frc2::CommandXboxController *stick,
         Vision *vision);
 
    
@@ -60,7 +61,7 @@ private:
     int cyclecounter = 0;
     Drivetrain *m_drivetrain;
     Odometry *m_odometry;
-    frc::XboxController *m_stick;
+    frc2::CommandXboxController *m_stick;
     Vision *m_vision;
 
     units::degree_t desired_angle;
