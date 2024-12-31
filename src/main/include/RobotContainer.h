@@ -19,7 +19,7 @@
 #include <frc2/command/button/Trigger.h>
 #include <pathplanner/lib/auto/NamedCommands.h>
 // #include <ForceLog.h>
-// #include "subsystems/Candle.h" 
+#include "subsystems/Candle.h" 
 // TODO: Add w/ merge
 class RobotContainer
 {
