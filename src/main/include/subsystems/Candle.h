@@ -53,5 +53,4 @@ class Candle : public frc2::SubsystemBase {
         ctre::phoenix::led::LarsonAnimation m_larson_auto{255, 255, 0, 0, 0.5, CONSTANTS::CANDLE::NUM_LEDS};
         //                                              brt  spd
         ctre::phoenix::led::RainbowAnimation m_rainbow {0.5, 0.5};
-        // ctre::phoenix::led::
 };
