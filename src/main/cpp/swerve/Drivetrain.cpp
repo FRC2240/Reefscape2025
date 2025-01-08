@@ -27,7 +27,7 @@ frc::SwerveDriveKinematics<4> kinematics{frc::Translation2d{12.25_in, -12.25_in}
 Drivetrain::Drivetrain()
 {
   ctre::phoenix6::configs::Pigeon2Configuration gyro_conf{};
-  gyro_conf.MountPose.MountPoseYaw = 0_deg;
+  gyro_conf.MountPose.MountPoseYaw = 180_deg;
   gyro.GetConfigurator().Apply(gyro_conf);
   using namespace Module;
   front_left = std::make_unique<SwerveModule>(60, 61, 14, CONSTANTS::DRIVE::CONFIG::FL.offset);
@@ -241,7 +241,7 @@ void Drivetrain::drive(wpi::array<frc::SwerveModuleState, 4> states)
   kinematics.DesaturateWheelSpeeds(&states, MODULE_MAX_SPEED);
 
   auto const [fl, fr, bl, br] = states;
-
+  frc::SmartDashboard::PutNumber("fl/desiredstate", fl.speed.value());
   using namespace Module;
   front_left->setDesiredState(fl);
   front_right->setDesiredState(fr);

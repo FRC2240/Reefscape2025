@@ -6,7 +6,9 @@
 
 #include <frc2/command/CommandScheduler.h>
 
-Robot::Robot() {}
+Robot::Robot() {
+  frc::DataLogManager::Start();
+}
 
 void Robot::RobotPeriodic() {
   try
@@ -43,7 +45,9 @@ void Robot::TeleopInit() {
   }
 }
 
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+  
+}
 
 void Robot::TeleopExit() {}
 
