@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.870717194120763,
+        "x": 7.255080607786017,
         "y": 3.962866391782407
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.016691955076276,
+        "x": 5.401055368741529,
         "y": 3.9742180009744725
       },
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": -179.94674407899493
   },
   "reversed": false,
-  "folder": null,
+  "folder": "leave_1gp",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

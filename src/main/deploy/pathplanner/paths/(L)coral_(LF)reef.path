@@ -21,7 +21,7 @@
       },
       "prevControl": {
         "x": 2.870098152807204,
-        "y": 1.9060985500529668
+        "y": 1.906098550052967
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": 61.330684905826686
   },
   "reversed": false,
-  "folder": null,
+  "folder": "left_4gp",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -130.2100811328696
