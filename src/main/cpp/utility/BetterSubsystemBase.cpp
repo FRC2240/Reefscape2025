@@ -1,5 +1,9 @@
 #include "utility/BetterSubsystemBase.h"
+#include "frc/DataLogManager.h"
+#include <string>
 #include <iostream>
+
+constexpr int MAX_CONFIG_APPLY_ATTEMPTS = 5;
 
 void BetterSubsystemBase::AddPID(MotorUtils::Motor motor) {
   std::vector<MotorUtils::Motor> motorVec {motor};
@@ -9,8 +13,8 @@ void BetterSubsystemBase::AddPID(MotorUtils::Motor motor) {
 void BetterSubsystemBase::AddPID(std::vector<MotorUtils::Motor> motors) {
   this->motors = motors;
 
-  for (int i = 0; i < this->motors.size(); i++) {
-    this->motors.at(i).MotorUtils::Motor::PutDashboard();
+  for (MotorUtils::Motor &const motor : this->motors) {
+    motor.PutDashboard();
   }
 }
 
@@ -24,7 +28,7 @@ void BetterSubsystemBase::SetPID() {
     configs.Slot0.kD = PIDValue.kD; 
 
     ctre::phoenix::StatusCode status = ctre::phoenix::StatusCode::StatusCodeNotInitialized;
-    for (int j = 0; j < 5; j++)
+    for (int j = 0; j < MAX_CONFIG_APPLY_ATTEMPTS; j++)
     {
         status = motors.at(i).motorPtr->GetConfigurator().Apply(configs);
         if (status.IsOK())
@@ -32,13 +36,14 @@ void BetterSubsystemBase::SetPID() {
     }
     if (!status.IsOK())
     {
-        std::cout << "Could not apply configs, error code: " << status.GetName() << std::endl;
+      std::string errString = status.GetName();
+      frc::DataLogManager::Log("Could not apply configs, error code: " + errString);
     }
   }
 }
 
 void BetterSubsystemBase::LogDashboard() {
-  for (int i = 0; i < motors.size(); i++) {
-    motors.at(i).LogDashboard();
+  for (MotorUtils::Motor &const motor : motors) {
+    motor.LogDashboard();
   }
 }

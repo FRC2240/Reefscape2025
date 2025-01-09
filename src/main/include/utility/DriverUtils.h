@@ -7,6 +7,6 @@
 #include <iostream>
 
 namespace DriverUtils {
+  // Put this in periodic
   void DriverTeleopPeriodic();
-
 }

@@ -15,7 +15,8 @@ namespace MotorUtils {
     double kD = 0;
     double kG = 0;
   };
-
+  
+  // If a motor has a name of "", it will use the device name from tunerX
   struct Motor {
     struct LogValues {
       bool position = false;
@@ -24,7 +25,6 @@ namespace MotorUtils {
     };
 
     ctre::phoenix6::hardware::TalonFX *motorPtr;
-    std::string name;
     PIDValues pid;
     LogValues logValues;
     

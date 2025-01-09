@@ -2,6 +2,7 @@
 
 void MotorUtils::Motor::PutDashboard()
 {
+  std::string name = motorPtr->GetDescription();
   frc::SmartDashboard::PutNumber(name + "/PID/kS", pid.kS);
   frc::SmartDashboard::PutNumber(name + "/PID/kP", pid.kP);
   frc::SmartDashboard::PutNumber(name + "/PID/kI", pid.kI);
@@ -11,6 +12,7 @@ void MotorUtils::Motor::PutDashboard()
 
 MotorUtils::PIDValues MotorUtils::Motor::GetDashboard()
 {
+  std::string name = motorPtr->GetDescription();
   PIDValues config;
   config.kS = frc::SmartDashboard::GetNumber(name + "/PID/kS", pid.kS);
   config.kP = frc::SmartDashboard::GetNumber(name + "/PID/kP", pid.kP);
@@ -28,6 +30,7 @@ void MotorUtils::Motor::SetLogValues(MotorUtils::Motor::LogValues logValues) {
 }
 
 void MotorUtils::Motor::LogDashboard() {
+  std::string name = motorPtr->GetDescription();
   if (logValues.position) {
     auto position = motorPtr->GetPosition().GetValueAsDouble();
     frc::SmartDashboard::PutNumber(name + "/LOG/position", position);
