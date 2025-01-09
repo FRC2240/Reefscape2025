@@ -8,6 +8,7 @@
 
 RobotContainer::RobotContainer() {
   ConfigureBindings();
+  m_odometry.putField2d();
 }
 
 void RobotContainer::ConfigureBindings() {

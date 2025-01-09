@@ -11,6 +11,7 @@ Robot::Robot() {
 }
 
 void Robot::RobotPeriodic() {
+  m_container.m_odometry.update();
   try
   {
   frc2::CommandScheduler::GetInstance().Run();
