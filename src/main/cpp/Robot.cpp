@@ -5,6 +5,7 @@
 #include "Robot.h"
 #include "utility/DriverUtils.h"
 #include <frc2/command/CommandScheduler.h>
+#include <frc/DriverStation.h>
 
 Robot::Robot() {
   frc::DataLogManager::Start();
@@ -20,13 +21,18 @@ void Robot::RobotPeriodic() {
   {
         frc::DataLogManager::Log( e.what());
   }
+  m_container.LogDashboard();
 }
 
 void Robot::DisabledInit() {}
 
 void Robot::DisabledPeriodic() {}
 
-void Robot::DisabledExit() {}
+void Robot::DisabledExit() {
+  if (!frc::DriverStation::IsFMSAttached()) {
+    m_container.SetPID();
+  }
+}
 
 void Robot::AutonomousInit() {
   m_autonomousCommand = m_container.GetAutonomousCommand();

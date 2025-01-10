@@ -14,9 +14,12 @@
 #include <units/velocity.h>
 #include <vector>
 #include <units/current.h>
+#include "utility/MotorUtils.h"
 
-#define BETABOT
-//  When using sabertooth, uncomment the above line
+// #define COLFAX_BOT
+
+#define SABERTOOTH
+//  When using the second robot, uncomment the above line
 
 namespace CONSTANTS
 {
@@ -32,6 +35,7 @@ namespace CONSTANTS
         return (source >= target - range && source <= target + range);
     }
 
+
     namespace CORAL
     {
 
@@ -40,15 +44,24 @@ namespace CONSTANTS
 
     }
 
+    namespace WRIST
+    {
+        constexpr int WRIST_ID = 1;
+        constexpr units::angle::turn_t DEFAULT_POSITION = 0_tr;
+        // This is the default PID values for the wrist motor
+        constexpr MotorUtils::PidCoeff PidValue = {0, 0, 0, 0};
+    };
+
     namespace INTAKE
     {
-#ifdef BETABOT
+#ifdef SABERTOOTH
         constexpr auto DELAY = 0.15_s;
         constexpr units::turn_t UP_POSITION = 0.6_tr;
         constexpr units::turn_t DOWN_POSITION = 7.5_tr;
         constexpr int INTAKE_VOLTAGE = -12;
 #endif
-#ifndef BETABOT
+  
+#ifndef SABERTOOTH
         constexpr auto DELAY = 0.35_s;
         constexpr units::turn_t UP_POSITION = 0.8_tr;
         constexpr units::turn_t DOWN_POSITION = 8_tr;
@@ -93,14 +106,15 @@ namespace CONSTANTS
         constexpr int CANCODER_ID = 13; // CHANGEME
         constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
         constexpr double ANGLE_RATIO = 1; // CHANGEME
-#ifdef BETABOT                            // Main robot config
+      
+#ifdef SABERTOOTH                            // Main robot config
         constexpr units::turn_t FENDER_ANGLE = 11.5_tr;
         constexpr units::turn_t AMP_ANGLE = 11_tr;
         constexpr units::turns_per_second_t AMP_VELOCTITY = -6.5_tps;
         constexpr units::turn_t REST_ANGLE = 0.242_tr;
         constexpr units::turns_per_second_t SHOOTER_VELOCITY = 60_tps;
 #endif
-#ifndef BETABOT
+#ifndef SABERTOOTH
         constexpr units::turn_t REST_ANGLE = -0.5_tr;
         constexpr units::turn_t FENDER_ANGLE = -11_tr;
         constexpr units::turn_t AMP_ANGLE = -10_tr;
@@ -150,7 +164,7 @@ namespace CONSTANTS
             constexpr ModuleConfig BR{40, 41, 12, -0.445_tr};
 #endif // COLFAX_BOT
 
-#ifndef BETABOT
+#ifndef SABERTOOTH
 #pragma message("First Robot Config active")
             /* -------------------------------------------------------------------------- */
             /*                     BEGIN FIRST ROBOT CONFIGURATION                        */
@@ -164,9 +178,9 @@ namespace CONSTANTS
 /* -------------------------------------------------------------------------- */
 /*                        END FIRST ROBOT CONFIGURATION                       */
 /* -------------------------------------------------------------------------- */
-#endif // BETABOT
+#endif // SABERTOOTH
 
-#ifdef BETABOT
+#ifdef SABERTOOTH
 #pragma message("Second Robot Config active")
             /* -------------------------------------------------------------------------- */
             /*                       BEGIN SECOND ROBOT CONFIGUATION                      */
@@ -179,7 +193,7 @@ namespace CONSTANTS
 /* -------------------------------------------------------------------------- */
 /*                        END SECOND ROBOT CONFIGUATION                       */
 /* -------------------------------------------------------------------------- */
-#endif // BETABOT
+#endif // SABERTOOTH
         } // namespace CONFIG
     } // namespace DRIVE
 } // namespace CONSTANTS

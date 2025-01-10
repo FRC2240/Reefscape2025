@@ -13,6 +13,13 @@ RobotContainer::RobotContainer() {
     frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
 }
 
+void RobotContainer::SetPID() {
+  m_wrist.SetPID();
+}
+void RobotContainer::LogDashboard() {
+  m_wrist.LogDashboard();
+}
+
 void RobotContainer::ConfigureBindings() {
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
 }
