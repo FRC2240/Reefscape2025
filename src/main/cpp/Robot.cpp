@@ -6,9 +6,12 @@
 #include "utility/DriverUtils.h"
 #include <frc2/command/CommandScheduler.h>
 
-Robot::Robot() {}
+Robot::Robot() {
+  frc::DataLogManager::Start();
+}
 
 void Robot::RobotPeriodic() {
+  m_container.m_odometry.update();
   try
   {
   frc2::CommandScheduler::GetInstance().Run();
@@ -29,7 +32,8 @@ void Robot::AutonomousInit() {
   m_autonomousCommand = m_container.GetAutonomousCommand();
 
   if (m_autonomousCommand) {
-    m_autonomousCommand->Schedule();
+    m_autonomousCommand.value()->Schedule();
+    // &m_autonomousCommand->Schedule();
   }
 }
 
@@ -39,7 +43,7 @@ void Robot::AutonomousExit() {}
 
 void Robot::TeleopInit() {
   if (m_autonomousCommand) {
-    m_autonomousCommand->Cancel();
+    m_autonomousCommand.value()->Cancel();
   }
 }
 
