@@ -36,22 +36,6 @@ template <typename T> static bool IN_THRESHOLD(T source, T target, T range) {
   return (source >= target - range && source <= target + range);
 }
 
-  struct PidCoeff
-  {
-    const double p = .0, /// Proportional. Based off distance from setpoint, most
-                         /// important but high values cause oscilation.
-        i = .0,          /// Integral. Based off the error over time, try to avoid if
-                         /// possible.
-        d = .0,          /// Derivative. Based off velocity from setpoint, can be used to
-                         /// smooth out oscilation caused by high P values.
-        ff = .0,         /// Feed Forward. Provides a constant boost to the output. Used
-                         /// to fight gravity or similar things.
-        iz = .0,         /// I Zone. A deadband (distance from zero) for when I takes
-                         /// effect. Try to avoid if possible.
-        min = .0,        /// Minimum output for control loop.
-        max = .0;        /// Maximum output for control loop.
-  };
-
   namespace CORAL {
 
       static const std::string LIMELIGHT_ID = "limelight-aft";

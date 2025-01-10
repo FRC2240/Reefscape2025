@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Robot.h"
-
+#include "utility/DriverUtils.h"
 #include <frc2/command/CommandScheduler.h>
 
 Robot::Robot() {}
@@ -43,7 +43,9 @@ void Robot::TeleopInit() {
   }
 }
 
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+  DriverUtils::DriverTeleopPeriodic();
+}
 
 void Robot::TeleopExit() {}
 
