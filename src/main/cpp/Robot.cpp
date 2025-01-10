@@ -17,13 +17,18 @@ void Robot::RobotPeriodic() {
   {
         frc::DataLogManager::Log( e.what());
   }
+  m_container.LogDashboard();
 }
 
 void Robot::DisabledInit() {}
 
 void Robot::DisabledPeriodic() {}
 
-void Robot::DisabledExit() {}
+void Robot::DisabledExit() {
+  if (!CONSTANTS::IN_MATCH) {
+    m_container.SetPID();
+  }
+}
 
 void Robot::AutonomousInit() {
   m_autonomousCommand = m_container.GetAutonomousCommand();

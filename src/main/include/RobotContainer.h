@@ -14,6 +14,7 @@
 #include "swerve/Odometry.h"
 #include "swerve/Trajectory.h"
 #include "swerve/Vision.h"
+#include "subsystems/Wrist.h"
 #include <frc/DataLogManager.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc2/command/button/Trigger.h>
@@ -25,6 +26,8 @@ class RobotContainer
 {
   public: 
   RobotContainer();
+  void SetPID();
+  void LogDashboard();
 
   void add_named_commands();
 
@@ -43,10 +46,15 @@ class RobotContainer
       }};
 
   Odometry m_odometry{&m_drivetrain, &m_vision};
+
+  Wrist m_wrist;
+
   void ConfigureBindings();
 
 
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 
   Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision};
+
+  
 };
