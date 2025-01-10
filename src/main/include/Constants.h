@@ -13,7 +13,7 @@
 #include <units/time.h>
 #include <units/velocity.h>
 #include <vector>
-
+#include <units/current.h>
 #include "utility/MotorUtils.h"
 
 // #define COLFAX_BOT
@@ -21,17 +21,10 @@
 #define SABERTOOTH
 //  When using the second robot, uncomment the above line
 
-// #define MOD_AMP
-// When amp module is installed, uncomment the above line
-
-// #define MOD_TRAP
-//  When trap module is installed, uncomment the above line
-
-// #define MOD_BUDDY
-//  When buddy climber is installed, uncomment the above line
-
 namespace CONSTANTS
 {
+
+    constexpr units::ampere_t DEFAULT_CURRENT_LIMIT = 60_A;
 
     // An additive threshold (+/- value) that checks if 2 values (target & source)
     // are within a range A template so it can be used with units. Call it by:
@@ -42,7 +35,6 @@ namespace CONSTANTS
         return (source >= target - range && source <= target + range);
     }
 
-    
 
     namespace CORAL
     {
@@ -68,6 +60,7 @@ namespace CONSTANTS
         constexpr units::turn_t DOWN_POSITION = 7.5_tr;
         constexpr int INTAKE_VOLTAGE = -12;
 #endif
+  
 #ifndef SABERTOOTH
         constexpr auto DELAY = 0.35_s;
         constexpr units::turn_t UP_POSITION = 0.8_tr;
@@ -113,6 +106,7 @@ namespace CONSTANTS
         constexpr int CANCODER_ID = 13; // CHANGEME
         constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
         constexpr double ANGLE_RATIO = 1; // CHANGEME
+      
 #ifdef SABERTOOTH                            // Main robot config
         constexpr units::turn_t FENDER_ANGLE = 11.5_tr;
         constexpr units::turn_t AMP_ANGLE = 11_tr;

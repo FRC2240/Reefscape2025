@@ -4,7 +4,6 @@
 
 #pragma once
 
-
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/CommandXboxController.h>
 
@@ -20,25 +19,26 @@
 #include <frc2/command/button/Trigger.h>
 #include <pathplanner/lib/auto/NamedCommands.h>
 // #include <ForceLog.h>
-#include "subsystems/Candle.h" 
+#include "subsystems/Candle.h"
 // TODO: Add w/ merge
 class RobotContainer
 {
-  public: 
+public:
   RobotContainer();
   void SetPID();
   void LogDashboard();
 
   void add_named_commands();
 
-  frc2::CommandPtr GetAutonomousCommand();
+  frc2::Command *GetAutonomousCommand(); // This is a raw pointer because AutoBuilder::buildAutoChooser() returns frc::SendableChooser<frc2::Command*>
+
+  frc::SendableChooser<frc2::Command *> autoChooser;
 
   frc2::CommandXboxController m_stick0{0};
   frc2::CommandXboxController m_stick1{1};
 
   Drivetrain m_drivetrain;
-  
-  
+
   Vision m_vision{
       [this]() -> units::degree_t
       {
@@ -50,7 +50,6 @@ class RobotContainer
   Wrist m_wrist;
 
   void ConfigureBindings();
-
 
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 

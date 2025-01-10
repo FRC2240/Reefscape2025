@@ -8,6 +8,9 @@
 
 RobotContainer::RobotContainer() {
   ConfigureBindings();
+  m_odometry.putField2d();
+  autoChooser = AutoBuilder::buildAutoChooser();
+    frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
 }
 
 void RobotContainer::SetPID() {
@@ -21,6 +24,6 @@ void RobotContainer::ConfigureBindings() {
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
 }
 
-frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
-  return frc2::cmd::Print("No autonomous command configured");
+frc2::Command* RobotContainer::GetAutonomousCommand() {
+  return autoChooser.GetSelected();
 }

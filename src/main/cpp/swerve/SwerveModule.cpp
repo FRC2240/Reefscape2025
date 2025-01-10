@@ -62,14 +62,14 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     driver_config.MotorOutput.NeutralMode.value = driver_config.MotorOutput.NeutralMode.Brake;
     driver_config.Feedback.SensorToMechanismRatio = 4.722;
     driver_config.Feedback.RotorToSensorRatio = 1.0;
-    driver_config.MotorOutput.Inverted = true;
+    driver_config.MotorOutput.Inverted = false;
     driver.GetConfigurator().Apply(driver_config);
 
     // Configure Turner
 
     ctre::phoenix6::configs::TalonFXConfiguration turner_config{};
     turner_config.Audio.BeepOnBoot = true;
-    turner_config.Slot0.kP = -3.903;
+    turner_config.Slot0.kP = -3.503;
     // turner_config.Slot0.kI = 32;
     // turner_config.Slot0.kD = 0.08;
     turner_config.Slot0.kS = 0;
