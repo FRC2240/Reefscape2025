@@ -5,6 +5,7 @@
 #include "Robot.h"
 #include "utility/DriverUtils.h"
 #include <frc2/command/CommandScheduler.h>
+#include <frc/DriverStation.h>
 
 Robot::Robot() {}
 
@@ -25,7 +26,7 @@ void Robot::DisabledInit() {}
 void Robot::DisabledPeriodic() {}
 
 void Robot::DisabledExit() {
-  if (!CONSTANTS::IN_MATCH) {
+  if (!frc::DriverStation::IsFMSAttached()) {
     m_container.SetPID();
   }
 }

@@ -9,7 +9,7 @@ Wrist::Wrist() {
     AddPID(wristMotor);
     SetPID();
 
-    m_motor.SetPosition(0_tr);
+    m_motor.SetPosition(CONSTANTS::WRIST::DEFAULT_POSITION);
 }
 
 void Wrist::set_angle(units::angle::degree_t angle) {
@@ -52,5 +52,5 @@ frc2::CommandPtr Wrist::set_angle_cmd(units::degree_t angle) {
 
     std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
 
-    return frc2::FunctionalCommand(init, periodic, end, is_finished, {this}).ToPtr();
+    return frc2::FunctionalCommand(init, periodic, end, is_finished, {this}).WithName("wrist_angle");
 }
