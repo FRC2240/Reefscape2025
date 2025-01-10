@@ -4,6 +4,7 @@
 
 #include "swerve/SwerveModule.h"
 #include "swerve/ngr.h"
+#include "utility/MotorUtils.h"
 
 #include <ctre/phoenix6/Pigeon2.hpp>
 #include <frc/BuiltInAccelerometer.h>
@@ -172,11 +173,11 @@ public:
 private:
     // ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "rio"};
     //  AHRS navx{frc::SPI::Port::kMXP};
-    CONSTANTS::PidCoeff pid_coef{2.75, 0.0, 0.6, 0.0, 0.0, -1, 1};
-    frc::PIDController turn_pid{pid_coef.p, pid_coef.i, pid_coef.d};
-    CONSTANTS::PidCoeff pid_coral_coef{6.0, 0.0, 0.0, 0.0, 0.0, -1, 1};
-    frc::PIDController turn_coral_pid{pid_coral_coef.p, pid_coral_coef.i,
-                                      pid_coral_coef.d};
+    MotorUtils::PidCoeff pid_coef{2.75, 0.0, 0.6, 0.0, 0.0, -1, 1};
+    frc::PIDController turn_pid{pid_coef.kP, pid_coef.kI, pid_coef.kD};
+    MotorUtils::PidCoeff pid_coral_coef{6.0, 0.0, 0.0, 0.0, 0.0, -1, 1};
+    frc::PIDController turn_coral_pid{pid_coral_coef.kP, pid_coral_coef.kI,
+                                      pid_coral_coef.kD};
 };
 
 #endif
