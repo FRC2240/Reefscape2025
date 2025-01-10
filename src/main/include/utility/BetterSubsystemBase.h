@@ -9,6 +9,10 @@
 #include <vector>
 #include <string>
 
+// Maximum tries to apply a PID config to a motor. 
+// If unsucessful, a message will be logged to the console
+constexpr int MAX_CONFIG_APPLY_ATTEMPTS = 5;
+
 class BetterSubsystemBase : public frc2::SubsystemBase
 {
 public:

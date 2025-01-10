@@ -10,10 +10,10 @@ void MotorUtils::Motor::PutDashboard()
   frc::SmartDashboard::PutNumber(name + "/PID/kG", pid.kG);
 }
 
-MotorUtils::PIDValues MotorUtils::Motor::GetDashboard()
+MotorUtils::PidCoeff MotorUtils::Motor::GetDashboard()
 {
   std::string name = motorPtr->GetDescription();
-  PIDValues config;
+  PidCoeff config;
   config.kS = frc::SmartDashboard::GetNumber(name + "/PID/kS", pid.kS);
   config.kP = frc::SmartDashboard::GetNumber(name + "/PID/kP", pid.kP);
   config.kI = frc::SmartDashboard::GetNumber(name + "/PID/kI", pid.kI);

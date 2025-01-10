@@ -1,6 +1,5 @@
 #include "utility/DriverUtils.h"
 
-constexpr double ALERT_RUMBLE_DURATION = 1.0;
 
 void DriverUtils::DriverTeleopPeriodic() {
   frc2::CommandXboxController m_stick{0};

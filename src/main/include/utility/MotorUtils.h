@@ -8,15 +8,17 @@
 #include <string>
 
 namespace MotorUtils {
-  struct PIDValues {
-    double kS = 0;
-    double kP = 0;
-    double kI = 0;
-    double kD = 0;
-    double kG = 0;
+  struct PidCoeff {
+    double kP = 0; // Proportion
+    double kI = 0; // Integral
+    double kD = 0; // Derivative
+    double kS = 0; // Static gain
+    double kG = 0; // Gravity gain
+
+    double min = -1; // Minimum output for control loop
+    double max = 1;  // Maximum output for control loop
   };
   
-  // If a motor has a name of "", it will use the device name from tunerX
   struct Motor {
     struct LogValues {
       bool position = false;
@@ -25,11 +27,11 @@ namespace MotorUtils {
     };
 
     ctre::phoenix6::hardware::TalonFX *motorPtr;
-    PIDValues pid;
+    PidCoeff pid;
     LogValues logValues;
     
     void PutDashboard();
-    PIDValues GetDashboard();
+    PidCoeff GetDashboard();
 
     void SetLogValues(LogValues logValues);
     void LogDashboard(); // Sets log values in the dashboard. Should be run periodically
