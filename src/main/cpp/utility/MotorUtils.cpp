@@ -1,6 +1,7 @@
 #include "utility/MotorUtils.h"
 
-MotorUtils::Motor::Motor()
+MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX* motor, CONSTANTS::PidCoeff coeff, MotorUtils::Motor::LogValues values)
+: motorPtr{motor}, pid{coeff}, logValues{values}
 {
   ctre::phoenix6::configs::TalonFXConfiguration base_config{};
   base_config.Audio.BeepOnBoot = true;
@@ -19,9 +20,9 @@ void MotorUtils::Motor::PutDashboard()
   frc::SmartDashboard::PutNumber("motors/" + name + "/PID/kG", pid.kG);
 }
 
-MotorUtils::PidCoeff MotorUtils::Motor::GetDashboard()
+CONSTANTS::PidCoeff MotorUtils::Motor::GetDashboard()
 {
-  PidCoeff config;
+  CONSTANTS::PidCoeff config;
   config.kS = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kS", pid.kS);
   config.kP = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kP", pid.kP);
   config.kI = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kI", pid.kI);

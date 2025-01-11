@@ -173,9 +173,9 @@ public:
 private:
     // ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "rio"};
     //  AHRS navx{frc::SPI::Port::kMXP};
-    MotorUtils::PidCoeff pid_coef{2.75, 0.0, 0.6, 0.0, 0.0, -1, 1};
+    CONSTANTS::PidCoeff pid_coef{2.75, 0.0, 0.6, 0.0, 0.0, -1, 1};
     frc::PIDController turn_pid{pid_coef.kP, pid_coef.kI, pid_coef.kD};
-    MotorUtils::PidCoeff pid_coral_coef{6.0, 0.0, 0.0, 0.0, 0.0, -1, 1};
+    CONSTANTS::PidCoeff pid_coral_coef{6.0, 0.0, 0.0, 0.0, 0.0, -1, 1};
     frc::PIDController turn_coral_pid{pid_coral_coef.kP, pid_coral_coef.kI,
                                       pid_coral_coef.kD};
 };
