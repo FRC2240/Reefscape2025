@@ -14,7 +14,6 @@
 #include <units/velocity.h>
 #include <vector>
 #include <units/current.h>
-#include <map>
 
 // #define COLFAX_BOT
 
@@ -55,12 +54,12 @@ namespace CONSTANTS
 
     }
 
-    namespace BELTIVATOR
+    namespace ELEVATOR
     {
         constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
         constexpr units::angle::turn_t TOP_POS    = 0_tr;
         constexpr units::angle::turn_t THRESHOLD  = 0_tr;
-        constexpr int BELTIVATOR_ID               = 99; //CHANGEME
+        constexpr int ELEVATOR_ID               = 50; //CHANGEME
         static const PidCoeff PidValue            = {0, 0, 0, 0};
         constexpr units::velocity::meters_per_second_t JOYSTICK_SPEED = 1_mps;
         namespace PRESETS {

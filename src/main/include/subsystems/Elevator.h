@@ -10,10 +10,10 @@
 #include <frc2/command/button/CommandXboxController.h>
 #include <frc2/command/RunCommand.h>
 
-class Beltivator: public BetterSubsystemBase {
+class Elevator: public BetterSubsystemBase {
 
     public:
-        Beltivator();
+        Elevator();
 
         frc2::CommandPtr setPositionCommand(units::angle::turn_t pos);
         frc2::CommandPtr idleCommand();    
@@ -23,5 +23,5 @@ class Beltivator: public BetterSubsystemBase {
         void setPosition(units::angle::turn_t pos);
 
     private:
-        ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::BELTIVATOR::BELTIVATOR_ID};
+        ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::ELEVATOR::ELEVATOR_ID};
 };
