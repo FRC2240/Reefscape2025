@@ -14,6 +14,7 @@
 #include "swerve/Trajectory.h"
 #include "swerve/Vision.h"
 #include "subsystems/Wrist.h"
+#include "subsystems/Elevator.h"
 #include <frc/DataLogManager.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc2/command/button/Trigger.h>

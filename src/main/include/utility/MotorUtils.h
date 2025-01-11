@@ -9,19 +9,8 @@
 #include <string>
 
 namespace MotorUtils {
-  struct PidCoeff {
-    double kP = 0; // Proportion
-    double kI = 0; // Integral
-    double kD = 0; // Derivative
-    double kS = 0; // Static gain
-    double kG = 0; // Gravity gain
-
-    double min = -1; // Minimum output for control loop
-    double max = 1;  // Maximum output for control loop
-  };
-  
   struct Motor {
-    Motor();
+
     struct LogValues {
       bool position = false;
       bool velocity = false;
@@ -30,13 +19,15 @@ namespace MotorUtils {
       bool current = true;
     };
 
+    Motor(ctre::phoenix6::hardware::TalonFX* motor, CONSTANTS::PidCoeff coeff, MotorUtils::Motor::LogValues values);
+
     ctre::phoenix6::hardware::TalonFX *motorPtr;
-    PidCoeff pid;
+    CONSTANTS::PidCoeff pid;
     LogValues logValues;
     std::string name;
     
     void PutDashboard();
-    PidCoeff GetDashboard();
+    CONSTANTS::PidCoeff GetDashboard();
 
     void SetLogValues(LogValues logValues);
     void LogDashboard(); // Sets log values in the dashboard. Should be run periodically

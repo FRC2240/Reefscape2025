@@ -14,7 +14,6 @@
 #include <units/velocity.h>
 #include <vector>
 #include <units/current.h>
-#include "utility/MotorUtils.h"
 
 // #define COLFAX_BOT
 
@@ -35,6 +34,17 @@ namespace CONSTANTS
         return (source >= target - range && source <= target + range);
     }
 
+    struct PidCoeff {
+        double kP = 0; // Proportion
+        double kI = 0; // Integral
+        double kD = 0; // Derivative
+        double kS = 0; // Static gain
+        double kG = 0; // Gravity gain
+
+        double min = -1; // Minimum output for control loop
+        double max = 1;  // Maximum output for control loop
+    };
+
 
     namespace CORAL
     {
@@ -44,12 +54,26 @@ namespace CONSTANTS
 
     }
 
+    namespace ELEVATOR
+    {
+        constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
+        constexpr units::angle::turn_t TOP_POS    = 0_tr;
+        constexpr units::angle::turn_t THRESHOLD  = 0_tr;
+        constexpr int ELEVATOR_ID               = 50; //CHANGEME
+        static const PidCoeff PidValue            = {0, 0, 0, 0};
+        constexpr units::velocity::meters_per_second_t JOYSTICK_SPEED = 1_mps;
+        namespace PRESETS {
+            constexpr units::angle::turn_t BOTTOM = BOTTOM_POS;
+            constexpr units::angle::turn_t TOP    = TOP_POS;
+        }
+    }
+
     namespace WRIST
     {
         constexpr int WRIST_ID = 1;
         constexpr units::angle::turn_t DEFAULT_POSITION = 0_tr;
         // This is the default PID values for the wrist motor
-        constexpr MotorUtils::PidCoeff PidValue = {0, 0, 0, 0};
+        static const PidCoeff PidValue = {0, 0, 0, 0};
     };
 
     namespace INTAKE
@@ -77,6 +101,7 @@ namespace CONSTANTS
         constexpr units::turn_t BRACE_POSITION = 2.33_tr;
         constexpr units::turn_t ROTATION_THRESHOLD = 5_tr;
     } // namespace INTAKE
+    
     namespace VISION
     {
         static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
@@ -91,6 +116,7 @@ namespace CONSTANTS
         constexpr int LEFT_ID = 9;   // CHANGEME
         constexpr int RIGHT_ID = 11; // CHANGEME
     } // namespace CLIMBER
+    
     namespace CANDLE
     {
         constexpr int CANDLE_ID = 10;
