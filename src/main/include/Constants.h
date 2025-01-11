@@ -14,6 +14,7 @@
 #include <units/velocity.h>
 #include <vector>
 #include <units/current.h>
+#include <utility/MotorUtils.h>
 
 #define BETABOT
 //  When using sabertooth, uncomment the above line
@@ -112,6 +113,15 @@ namespace CONSTANTS
         constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
 
     } // namespace SHOOTER
+
+    namespace GRABBER
+    {
+        // CONSTEXPR THESE
+        constexpr int right_grabber_motor_CAN_ID = 0; //not yet wired
+        constexpr int left_grabber_motor_CAN_ID = 0; //not yet wired
+        
+        constexpr MotorUtils::PidCoeff PidValue = {0, 0, 0, 0};
+    }
 
     namespace DRIVE
     {
