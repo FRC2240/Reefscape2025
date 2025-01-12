@@ -18,7 +18,7 @@ frc2::CommandPtr Climber::setPositionCommand(units::angle::turn_t pos) {
     {this}).ToPtr();
 }
 
-frc2::CommandPtr Climber::idlecommand() {
+frc2::CommandPtr Climber::Idlecommand() {
     return setPositionCommand(CONSTANTS::CLIMBER::NORM_POS);
 };
 
@@ -26,7 +26,7 @@ frc2::CommandPtr Climber::Extend(){
     return setPositionCommand(CONSTANTS::CLIMBER::EXTEND_POS);
 };
 
-frc2::CommandPtr Climber::climb(){
+frc2::CommandPtr Climber::Climb(){
     return setPositionCommand(CONSTANTS::CLIMBER::CLIMB_POS);
 };
 
