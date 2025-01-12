@@ -8,7 +8,7 @@ Climber::Climber() {
     AddPID(climberMotor);
     SetPID();
 
-    m_motor.SetPosition(CONSTANTS::CLIMBER::NORM);
+    m_motor.SetPosition(CONSTANTS::CLIMBER::NORM_POS);
 }
 
 frc2::CommandPtr Climber::setPositionCommand(units::angle::turn_t pos) {
@@ -19,15 +19,15 @@ frc2::CommandPtr Climber::setPositionCommand(units::angle::turn_t pos) {
 }
 
 frc2::CommandPtr Climber::idlecommand() {
-    return setPositionCommand(CONSTANTS::CLIMBER::NORM);
+    return setPositionCommand(CONSTANTS::CLIMBER::NORM_POS);
 };
 
 frc2::CommandPtr Climber::Extend(){
-    return setPositionCommand(CONSTANTS::CLIMBER::EXTEND);
+    return setPositionCommand(CONSTANTS::CLIMBER::EXTEND_POS);
 };
 
 frc2::CommandPtr Climber::climb(){
-    return setPositionCommand(CONSTANTS::CLIMBER::CLIMB);
+    return setPositionCommand(CONSTANTS::CLIMBER::CLIMB_POS);
 };
 
 void Climber::setPosition(units::angle::turn_t pos) {

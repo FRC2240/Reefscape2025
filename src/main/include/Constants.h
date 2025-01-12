@@ -80,9 +80,9 @@ namespace CONSTANTS
     namespace CLIMBER
     {
         constexpr int CLIMBER_ID = 40; // Change later
-        constexpr units::angle::turn_t CLIMB = 1_tr;
-        constexpr units::angle::turn_t EXTEND = 1_tr;
-        constexpr units::angle::turn_t NORM = 0_tr;
+        constexpr units::angle::turn_t CLIMB_POS = 1_tr;
+        constexpr units::angle::turn_t EXTEND_POS = 1_tr;
+        constexpr units::angle::turn_t NORM_POS = 0_tr;
         static const PidCoeff PidValue = {0, 0, 0, 0};
     };
 
