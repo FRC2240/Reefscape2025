@@ -5,6 +5,7 @@
 #include "utility/MotorUtils.h"
 
 #include <units/angle.h>
+#include <units/angular_velocity.h>
 #include "ctre/phoenix6/TalonFX.hpp"
 #include "frc2/command/CommandPtr.h"
 #include <frc2/command/button/CommandXboxController.h>
