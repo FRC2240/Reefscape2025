@@ -1,5 +1,5 @@
 #include <subsystems/Grabber.h>
-#include <iostream>
+
 
 Grabber::Grabber()
 {
@@ -14,15 +14,20 @@ Grabber::Grabber()
 
 void Grabber::spin(units::turns_per_second_t speed){
     ctre::phoenix6::controls::VelocityVoltage velocity{speed};
-    m_right_motor.SetControl(velocity);
+    ctre::phoenix6::controls::VelocityVoltage inverse_velocity{-1 * speed};
     m_left_motor.SetControl(velocity);
+    m_right_motor.SetControl(inverse_velocity);
+    //unsure if I should do it this way or with the set inverse follow thing
 };
 
-void Grabber::intake(units::turns_per_second_t speed){
-    spin(CONSTANTS::GRABBER::INTAKE_VELOCITY);
-    if(units::millimeter_t{Grabber_sensor.GetRange()} < CONSTANTS::GRABBER::DEFAULT_DIST_TOF){
-            spin(0_tps);
-    };
+frc2::CommandPtr Grabber::intake(units::turns_per_second_t speed){
+    return frc2::cmd::Run(
+        [this, speed] {
+            spin(speed);
+        }, {this}
+    ).Until([this] -> bool {
+        return units::millimeter_t{Grabber_sensor.GetRange()} < CONSTANTS::GRABBER::DEFAULT_DIST_TOF;
+    });
 };
 
 frc2::CommandPtr Grabber::extake(units::turns_per_second_t speed, units::second_t time){

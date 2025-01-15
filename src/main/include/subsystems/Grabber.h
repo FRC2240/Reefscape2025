@@ -18,6 +18,6 @@ private:
     pwf::TimeOfFlight Grabber_sensor{CONSTANTS::GRABBER::TOF_ID};
 
     void spin(units::turns_per_second_t speed);
-    void intake(units::turns_per_second_t speed);
+    frc2::CommandPtr intake(units::turns_per_second_t speed);
     frc2::CommandPtr extake(units::turns_per_second_t speed, units::second_t time);
 };
