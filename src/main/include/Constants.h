@@ -58,8 +58,8 @@ namespace CONSTANTS
     {
         constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
         constexpr units::angle::turn_t TOP_POS    = 1_tr;
-        constexpr units::angle::turn_t THRESHOLD  = 0.1_tr;
         constexpr int ELEVATOR_ID                 = 50; //CHANGEME
+        constexpr double DEADBAND_THRESHOLD       = 0.1;
         static const PidCoeff PidValue            = {0, 0, 0, 0};
         constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
         namespace PRESETS {
