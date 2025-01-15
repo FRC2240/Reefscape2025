@@ -8,33 +8,33 @@ Climber::Climber() {
     AddPID(climberMotor);
     SetPID();
 
-    m_motor.SetPosition(CONSTANTS::CLIMBER::NORM_POS);
+    m_motor.SetPosition(CONSTANTS::CLIMBER::DEFAULT_POS);
 }
 
-frc2::CommandPtr Climber::setPositionCommand(units::angle::turn_t pos) {
+frc2::CommandPtr Climber::SetPositionCommand(units::angle::turn_t pos) {
     return frc2::RunCommand([this, pos] {
-        setPosition(pos);
+        SetPosition(pos);
     },
     {this}).ToPtr();
 }
 
-frc2::CommandPtr Climber::Idlecommand() {
-    return setPositionCommand(CONSTANTS::CLIMBER::NORM_POS);
+frc2::CommandPtr Climber::IdleCommand() {
+    return SetPositionCommand(CONSTANTS::CLIMBER::DEFAULT_POS);
 };
 
 frc2::CommandPtr Climber::Extend(){
-    return setPositionCommand(CONSTANTS::CLIMBER::EXTEND_POS);
+    return SetPositionCommand(CONSTANTS::CLIMBER::EXTEND_POS);
 };
 
 frc2::CommandPtr Climber::Climb(){
-    return setPositionCommand(CONSTANTS::CLIMBER::CLIMB_POS);
+    return SetPositionCommand(CONSTANTS::CLIMBER::CLIMB_POS);
 };
 
-void Climber::setPosition(units::angle::turn_t pos) {
+void Climber::SetPosition(units::angle::turn_t pos) {
     m_motor.SetControl(ctre::phoenix6::controls::PositionVoltage{pos});
 };
 
-units::degree_t Climber::get_angle()
+units::degree_t Climber::GetAngle()
 {
   return m_motor.GetPosition().GetValue();
 };
