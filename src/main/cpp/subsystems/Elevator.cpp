@@ -28,7 +28,16 @@ frc2::CommandPtr Elevator::idleCommand() {
 
 frc2::CommandPtr Elevator::followJoystickCommand(frc2::CommandXboxController* stick) {
     return frc2::RunCommand([this, stick] {
-        //double stickpos = stick.GetLeftY() // CHANGEME
+        double stickpos = stick->GetLeftY(); // CHANGEME
+        if (
+            (stickpos < -CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && getPosition() < CONSTANTS::ELEVATOR::BOTTOM_POS)
+            || (stickpos > CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && getPosition() > CONSTANTS::ELEVATOR::TOP_POS)
+        ) {
+            ctre::phoenix6::controls::VelocityTorqueCurrentFOC req{CONSTANTS::ELEVATOR::JOYSTICK_SPEED * stickpos};
+            m_motor.SetControl(req);
+        } else {
+            m_motor.SetControl(ctre::phoenix6::controls::VelocityTorqueCurrentFOC{0_tps});
+        };
     },
     {this}).ToPtr();
 };
