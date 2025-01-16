@@ -23,7 +23,8 @@
 namespace CONSTANTS
 {
 
-    constexpr units::ampere_t DEFAULT_CURRENT_LIMIT = 60_A;
+    constexpr units::ampere_t DEFAULT_SUPPLY_LIMIT = 60_A;
+    constexpr units::ampere_t DEFAULT_STATOR_LIMIT = 60_A;
 
     // An additive threshold (+/- value) that checks if 2 values (target & source)
     // are within a range A template so it can be used with units. Call it by:
@@ -34,7 +35,8 @@ namespace CONSTANTS
         return (source >= target - range && source <= target + range);
     }
 
-    struct PidCoeff {
+    struct PidCoeff
+    {
         double kP = 0; // Proportion
         double kI = 0; // Integral
         double kD = 0; // Derivative
@@ -43,8 +45,15 @@ namespace CONSTANTS
 
         double min = -1; // Minimum output for control loop
         double max = 1;  // Maximum output for control loop
-    };
 
+        struct CurrentLimits
+        {
+            units::ampere_t supply = CONSTANTS::DEFAULT_SUPPLY_LIMIT;
+            units::ampere_t stator = CONSTANTS::DEFAULT_STATOR_LIMIT;
+        };
+
+        CurrentLimits currentLimits;
+    };
 
     namespace CORAL
     {
@@ -57,14 +66,15 @@ namespace CONSTANTS
     namespace ELEVATOR
     {
         constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
-        constexpr units::angle::turn_t TOP_POS    = 0_tr;
-        constexpr units::angle::turn_t THRESHOLD  = 0_tr;
-        constexpr int ELEVATOR_ID               = 50; //CHANGEME
-        static const PidCoeff PidValue            = {0, 0, 0, 0};
+        constexpr units::angle::turn_t TOP_POS = 0_tr;
+        constexpr units::angle::turn_t THRESHOLD = 0_tr;
+        constexpr int ELEVATOR_ID = 50; // CHANGEME
+        static const PidCoeff PidValue = {0, 0, 0, 0};
         constexpr units::velocity::meters_per_second_t JOYSTICK_SPEED = 1_mps;
-        namespace PRESETS {
+        namespace PRESETS
+        {
             constexpr units::angle::turn_t BOTTOM = BOTTOM_POS;
-            constexpr units::angle::turn_t TOP    = TOP_POS;
+            constexpr units::angle::turn_t TOP = TOP_POS;
         }
     }
 
@@ -84,7 +94,7 @@ namespace CONSTANTS
         constexpr units::turn_t DOWN_POSITION = 7.5_tr;
         constexpr int INTAKE_VOLTAGE = -12;
 #endif
-  
+
 #ifndef SABERTOOTH
         constexpr auto DELAY = 0.35_s;
         constexpr units::turn_t UP_POSITION = 0.8_tr;
@@ -101,7 +111,7 @@ namespace CONSTANTS
         constexpr units::turn_t BRACE_POSITION = 2.33_tr;
         constexpr units::turn_t ROTATION_THRESHOLD = 5_tr;
     } // namespace INTAKE
-    
+
     namespace VISION
     {
         static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
@@ -116,7 +126,7 @@ namespace CONSTANTS
         constexpr int LEFT_ID = 9;   // CHANGEME
         constexpr int RIGHT_ID = 11; // CHANGEME
     } // namespace CLIMBER
-    
+
     namespace CANDLE
     {
         constexpr int CANDLE_ID = 10;
@@ -132,8 +142,8 @@ namespace CONSTANTS
         constexpr int CANCODER_ID = 13; // CHANGEME
         constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
         constexpr double ANGLE_RATIO = 1; // CHANGEME
-      
-#ifdef SABERTOOTH                            // Main robot config
+
+#ifdef SABERTOOTH // Main robot config
         constexpr units::turn_t FENDER_ANGLE = 11.5_tr;
         constexpr units::turn_t AMP_ANGLE = 11_tr;
         constexpr units::turns_per_second_t AMP_VELOCTITY = -6.5_tps;

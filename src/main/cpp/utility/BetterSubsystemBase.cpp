@@ -25,6 +25,9 @@ void BetterSubsystemBase::SetPID() {
     configs.Slot0.kP = PIDValue.kP; 
     configs.Slot0.kI = PIDValue.kI; 
     configs.Slot0.kD = PIDValue.kD; 
+    configs.Slot0.kG = PIDValue.kG;
+    configs.CurrentLimits.SupplyCurrentLimit = PIDValue.currentLimits.supply;
+    configs.CurrentLimits.StatorCurrentLimit = PIDValue.currentLimits.stator;
 
     ctre::phoenix::StatusCode status = ctre::phoenix::StatusCode::StatusCodeNotInitialized;
     for (int j = 0; j < MAX_CONFIG_APPLY_ATTEMPTS; j++)
