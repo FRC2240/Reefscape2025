@@ -34,7 +34,8 @@ namespace CONSTANTS
         return (source >= target - range && source <= target + range);
     }
 
-    struct PidCoeff {
+    struct PidCoeff
+    {
         double kP = 0; // Proportion
         double kI = 0; // Integral
         double kD = 0; // Derivative
@@ -45,7 +46,6 @@ namespace CONSTANTS
         double max = 1;  // Maximum output for control loop
     };
 
-
     namespace CORAL
     {
 
@@ -54,9 +54,27 @@ namespace CONSTANTS
 
     }
 
+    namespace GRABBER
+    {
+        constexpr int LEFT_ID = 32;  // changeme
+        constexpr int RIGHT_ID = 32; // changeme
+        constexpr int TOF_ID = 32; // changeme
+
+        static CONSTANTS::PidCoeff PID;
+
+        //intake
+        constexpr units::turns_per_second_t INTAKE_VELOCITY = 1_tps;//TBD
+        constexpr units::millimeter_t DEFAULT_DIST_TOF = 1_mm; //TBD
+
+        //extake
+        constexpr units::turns_per_second_t EXTAKE_VELOCITY = 1_tps;//TBD
+        constexpr units::second_t EXTAKE_TIME = 1_s; //TBD
+    }
+
     namespace ELEVATOR
     {
         constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
+
         constexpr units::angle::turn_t TOP_POS    = 1_tr;
         constexpr int ELEVATOR_ID                 = 50; //CHANGEME
         constexpr double DEADBAND_THRESHOLD       = 0.1;
@@ -64,7 +82,7 @@ namespace CONSTANTS
         constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
         namespace PRESETS {
             constexpr units::angle::turn_t BOTTOM = BOTTOM_POS;
-            constexpr units::angle::turn_t TOP    = TOP_POS;
+            constexpr units::angle::turn_t TOP = TOP_POS;
         }
     }
 
@@ -76,32 +94,6 @@ namespace CONSTANTS
         static const PidCoeff PidValue = {0, 0, 0, 0};
     };
 
-    namespace INTAKE
-    {
-#ifdef SABERTOOTH
-        constexpr auto DELAY = 0.15_s;
-        constexpr units::turn_t UP_POSITION = 0.6_tr;
-        constexpr units::turn_t DOWN_POSITION = 7.5_tr;
-        constexpr int INTAKE_VOLTAGE = -12;
-#endif
-  
-#ifndef SABERTOOTH
-        constexpr auto DELAY = 0.35_s;
-        constexpr units::turn_t UP_POSITION = 0.8_tr;
-        constexpr units::turn_t DOWN_POSITION = 8_tr;
-        constexpr int INTAKE_VOLTAGE = -12;
-#endif
-        constexpr double LOADED_DIST = 300;
-        constexpr double LOWER_LOADED_DIST = 350;
-        constexpr int TOF_ID = 34;
-        constexpr int LOWER_TOF_ID = 33;
-        constexpr int BELT_ID = 4;
-        constexpr int ANGLE_ID = 3;
-        constexpr units::degree_t AUTO_PICKUP_THRESHOLD = 15_deg;
-        constexpr units::turn_t BRACE_POSITION = 2.33_tr;
-        constexpr units::turn_t ROTATION_THRESHOLD = 5_tr;
-    } // namespace INTAKE
-    
     namespace VISION
     {
         static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
@@ -116,7 +108,7 @@ namespace CONSTANTS
         constexpr int LEFT_ID = 9;   // CHANGEME
         constexpr int RIGHT_ID = 11; // CHANGEME
     } // namespace CLIMBER
-    
+
     namespace CANDLE
     {
         constexpr int CANDLE_ID = 10;
@@ -132,8 +124,8 @@ namespace CONSTANTS
         constexpr int CANCODER_ID = 13; // CHANGEME
         constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
         constexpr double ANGLE_RATIO = 1; // CHANGEME
-      
-#ifdef SABERTOOTH                            // Main robot config
+
+#ifdef SABERTOOTH // Main robot config
         constexpr units::turn_t FENDER_ANGLE = 11.5_tr;
         constexpr units::turn_t AMP_ANGLE = 11_tr;
         constexpr units::turns_per_second_t AMP_VELOCTITY = -6.5_tps;
