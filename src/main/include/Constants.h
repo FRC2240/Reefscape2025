@@ -74,13 +74,13 @@ namespace CONSTANTS
     namespace ELEVATOR
     {
         constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
-        constexpr units::angle::turn_t TOP_POS = 0_tr;
-        constexpr units::angle::turn_t THRESHOLD = 0_tr;
-        constexpr int ELEVATOR_ID = 50; // CHANGEME
-        static const PidCoeff PidValue = {0, 0, 0, 0};
-        constexpr units::velocity::meters_per_second_t JOYSTICK_SPEED = 1_mps;
-        namespace PRESETS
-        {
+
+        constexpr units::angle::turn_t TOP_POS    = 1_tr;
+        constexpr int ELEVATOR_ID                 = 50; //CHANGEME
+        constexpr double DEADBAND_THRESHOLD       = 0.1;
+        static const PidCoeff PidValue            = {0, 0, 0, 0};
+        constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
+        namespace PRESETS {
             constexpr units::angle::turn_t BOTTOM = BOTTOM_POS;
             constexpr units::angle::turn_t TOP = TOP_POS;
         }
