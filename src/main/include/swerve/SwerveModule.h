@@ -8,6 +8,8 @@
 #include <frc/kinematics/SwerveModulePosition.h>
 #include <frc/geometry/Translation2d.h>
 
+#include "utility/BetterSubsystemBase.h"
+
 #include <ctre/phoenix6/TalonFX.hpp>
 #include <ctre/phoenix6/CANcoder.hpp>
 #include "Constants.h"
@@ -15,8 +17,7 @@
 #include <units/angle.h>
 #include <units/current.h>
 
-class SwerveModule
-{
+class SwerveModule : public BetterSubsystemBase {
 public:
     /******************************************************************/
     /*                  Public Function Declarations                  */

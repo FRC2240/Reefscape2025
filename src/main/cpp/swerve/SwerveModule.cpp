@@ -44,20 +44,8 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     configs::TalonFXConfiguration driver_config{};
     driver_config.Audio.BeepOnBoot = true;
     driver_config.Audio.BeepOnConfig = true;
-
-    driver_config.Slot0.kP = 12;
     //  driver_config.MotionMagic.MotionMagicAcceleration
     driver_config.MotionMagic.MotionMagicAcceleration= units::turns_per_second_squared_t{575};
-    // driver_config
-    // driver_config.Slot0.kD = 0.002;
-    // driver_config.Slot0.kI = 0.4;
-    // driver_config.Slot0.kV = 0.0097;
-    // driver_config.Slot0.kD = 0.002; // I is bad, don't use
-    // driver_config.integralZone = 200;
-    // driver_config.Slot0.kI = 0.400;
-    // driver_config.Slot0.kV = 0.0097; // FIXME could be kG, kA or Kv
-    driver_config.CurrentLimits.StatorCurrentLimitEnable = true;
-    driver_config.CurrentLimits.StatorCurrentLimit = 65_A;
     // driver_config.CurrentLimits.SupplyCurrentLimitEnable
     driver_config.MotorOutput.NeutralMode.value = driver_config.MotorOutput.NeutralMode.Brake;
     driver_config.Feedback.SensorToMechanismRatio = 4.722;
@@ -65,14 +53,20 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     driver_config.MotorOutput.Inverted = false;
     driver.GetConfigurator().Apply(driver_config);
 
-    // Configure Turner
+    // Set up BetterSubsystemBase PID configs
+    CONSTANTS::PidCoeff driver_pid;
+    driver_pid.kP = 12;
+    driver_pid.kD = 0;
+    driver_pid.currentLimits.stator = 65_A;
+    MotorUtils::Motor::LogValues driver_logs = {true, true, true, true, true};
+    MotorUtils::Motor driver_motor = {&driver, driver_pid, driver_logs};
+    AddPID(driver_motor);
 
+    // Configure Turner
     ctre::phoenix6::configs::TalonFXConfiguration turner_config{};
     turner_config.Audio.BeepOnBoot = true;
-    turner_config.Slot0.kP = -3.503;
     // turner_config.Slot0.kI = 32;
     // turner_config.Slot0.kD = 0.08;
-    turner_config.Slot0.kS = 0;
     // turner_config.Slot0.
     turner_config.MotorOutput.PeakForwardDutyCycle = .5;
     turner_config.MotorOutput.PeakReverseDutyCycle = -.5;
@@ -86,6 +80,14 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     turner_config.MotorOutput.NeutralMode = 1;
     // turner_config.Feedback.FeedbackSensorSource = signals::FeedbackSensorSourceValue::RemoteCANcoder;
     turner.GetConfigurator().Apply(turner_config);
+
+    CONSTANTS::PidCoeff turner_pid;
+    turner_pid.kP = -3.503;
+    MotorUtils::Motor::LogValues turner_logs = {true, true, true, true, true};
+    MotorUtils::Motor turner_motor = {&turner, turner_pid, turner_logs};
+    AddPID(turner_motor);
+
+    SetPID();
 }
 
 frc::SwerveModuleState SwerveModule::getState()

@@ -6,15 +6,14 @@ MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX *motor, CONSTANTS::Pi
   ctre::phoenix6::configs::TalonFXConfiguration base_config{};
   base_config.Audio.BeepOnBoot = true;
   base_config.Audio.BeepOnConfig = true;
-  base_config.CurrentLimits.SupplyCurrentLimit = currentLimits.supply;
-  base_config.CurrentLimits.StatorCurrentLimit = currentLimits.stator;
+
+  base_config.CurrentLimits.SupplyCurrentLimitEnable = true;
+  base_config.CurrentLimits.StatorCurrentLimitEnable = true;
+  base_config.CurrentLimits.SupplyCurrentLimit = pid.currentLimits.supply;
+  base_config.CurrentLimits.StatorCurrentLimit = pid.currentLimits.stator;
+  
   name = motorPtr->GetDescription();
   motorPtr->GetConfigurator().Apply(base_config);
-}
-
-MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX *motor, CONSTANTS::PidCoeff coeff, CONSTANTS::PidCoeff::CurrentLimits currentLimits, LogValues values) : currentLimits{currentLimits}
-{
-  Motor(motor, coeff, values);
 }
 
 void MotorUtils::Motor::PutDashboard()
@@ -24,8 +23,8 @@ void MotorUtils::Motor::PutDashboard()
   frc::SmartDashboard::PutNumber("motors/" + name + "/PID/kI", pid.kI);
   frc::SmartDashboard::PutNumber("motors/" + name + "/PID/kD", pid.kD);
   frc::SmartDashboard::PutNumber("motors/" + name + "/PID/kG", pid.kG);
-  frc::SmartDashboard::PutNumber("motors/" + name + "/LIMITS/supply", currentLimits.supply.value());
-  frc::SmartDashboard::PutNumber("motors/" + name + "/LIMITS/stator", currentLimits.stator.value());
+  frc::SmartDashboard::PutNumber("motors/" + name + "/LIMITS/supply", pid.currentLimits.supply.value());
+  frc::SmartDashboard::PutNumber("motors/" + name + "/LIMITS/stator", pid.currentLimits.stator.value());
 }
 
 CONSTANTS::PidCoeff MotorUtils::Motor::GetDashboard()
@@ -37,8 +36,8 @@ CONSTANTS::PidCoeff MotorUtils::Motor::GetDashboard()
   config.kD = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kD", pid.kD);
   config.kG = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kG", pid.kG); 
 
-  config.currentLimits.supply = units::ampere_t{frc::SmartDashboard::GetNumber("motors/" + name + "LIMITS/supply", currentLimits.supply.value())};
-  config.currentLimits.stator = units::ampere_t{frc::SmartDashboard::GetNumber("motors/" + name + "LIMITS/stator", currentLimits.stator.value())};
+  config.currentLimits.supply = units::ampere_t{frc::SmartDashboard::GetNumber("motors/" + name + "LIMITS/supply", pid.currentLimits.supply.value())};
+  config.currentLimits.stator = units::ampere_t{frc::SmartDashboard::GetNumber("motors/" + name + "LIMITS/stator", pid.currentLimits.stator.value())};
 
   return config;
 }

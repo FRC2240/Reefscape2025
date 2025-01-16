@@ -9,8 +9,10 @@ void BetterSubsystemBase::AddPID(MotorUtils::Motor motor) {
   AddPID(motorVec);
 }
 
-void BetterSubsystemBase::AddPID(std::vector<MotorUtils::Motor> motors) {
-  this->motors = motors;
+void BetterSubsystemBase::AddPID(std::vector<MotorUtils::Motor> _motors) {
+  for (MotorUtils::Motor &motor : _motors) {
+    this->motors.push_back(motor);
+  }
 
   for (MotorUtils::Motor &motor : this->motors) {
     motor.PutDashboard();

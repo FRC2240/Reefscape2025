@@ -21,11 +21,9 @@ namespace MotorUtils {
 
 
     Motor(ctre::phoenix6::hardware::TalonFX* motor, CONSTANTS::PidCoeff coeff, LogValues values);
-    Motor(ctre::phoenix6::hardware::TalonFX* motor, CONSTANTS::PidCoeff coeff, CONSTANTS::PidCoeff::CurrentLimits currentLimits, LogValues values);
 
     ctre::phoenix6::hardware::TalonFX *motorPtr;
     CONSTANTS::PidCoeff pid;
-    CONSTANTS::PidCoeff::CurrentLimits currentLimits;
     LogValues logValues;
 
     std::string name;
