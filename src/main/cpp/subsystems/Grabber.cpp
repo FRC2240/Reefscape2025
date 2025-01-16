@@ -1,6 +1,5 @@
 #include <subsystems/Grabber.h>
 
-
 Grabber::Grabber()
 {
     MotorUtils::Motor::LogValues log_values{true, true, true, true, true};
@@ -9,31 +8,38 @@ Grabber::Grabber()
 
     AddPID(right_grabber_motor);
     AddPID(left_grabber_motor);
+    ctre::phoenix6::configs::TalonFXConfiguration m_right_conf{};
+
+    // TODO: verify correctness of this config.
     SetPID();
+    m_right_motor.SetControl(ctre::phoenix6::controls::Follower{m_left_motor.GetDeviceID(), 1});
 };
 
-void Grabber::spin(units::turns_per_second_t speed){
-    ctre::phoenix6::controls::VelocityVoltage velocity{speed};
-    ctre::phoenix6::controls::VelocityVoltage inverse_velocity{-1 * speed};
+void Grabber::spin(units::turns_per_second_t speed)
+{
+    ctre::phoenix6::controls::VelocityTorqueCurrentFOC velocity{speed};
     m_left_motor.SetControl(velocity);
-    m_right_motor.SetControl(inverse_velocity);
-    //unsure if I should do it this way or with the set inverse follow thing
 };
 
-frc2::CommandPtr Grabber::intake(units::turns_per_second_t speed){
+frc2::CommandPtr Grabber::intake(units::turns_per_second_t speed)
+{
     return frc2::cmd::Run(
-        [this, speed] {
-            spin(speed);
-        }, {this}
-    ).Until([this] -> bool {
-        return units::millimeter_t{Grabber_sensor.GetRange()} < CONSTANTS::GRABBER::DEFAULT_DIST_TOF;
-    });
+               [this, speed]
+               {
+                   spin(speed);
+               },
+               {this})
+        .Until([this] -> bool
+               { return units::millimeter_t{Grabber_sensor.GetRange()} < CONSTANTS::GRABBER::DEFAULT_DIST_TOF; });
 };
 
-frc2::CommandPtr Grabber::extake(units::turns_per_second_t speed, units::second_t time){
+frc2::CommandPtr Grabber::extake(units::turns_per_second_t speed, units::second_t time)
+{
     return frc2::cmd::Run(
-        [this, speed] {
-            spin(speed);
-        }, {this}
-    ).WithTimeout(time);
+               [this, speed]
+               {
+                   spin(speed);
+               },
+               {this})
+        .WithTimeout(time);
 };
