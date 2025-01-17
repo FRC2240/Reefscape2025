@@ -63,26 +63,26 @@ namespace CONSTANTS
 
         static CONSTANTS::PidCoeff PID = {1};
 
-        //intake
-        constexpr units::turns_per_second_t INTAKE_VELOCITY = 1_tps;//TBD
-        constexpr units::millimeter_t DEFAULT_DIST_TOF = 20_mm; //TBD
+        // intake
+        constexpr units::turns_per_second_t INTAKE_VELOCITY = 1_tps; // TBD
+        constexpr units::millimeter_t DEFAULT_DIST_TOF = 20_mm;      // TBD
 
-        //extake
-        constexpr units::turns_per_second_t EXTAKE_VELOCITY = 1_tps;//TBD
-        constexpr units::second_t EXTAKE_TIME = 1_s; //TBD
+        // extake
+        constexpr units::turns_per_second_t EXTAKE_VELOCITY = 1_tps; // TBD
+        constexpr units::second_t EXTAKE_TIME = 1_s;                 // TBD
     }
 
     namespace ELEVATOR
     {
         constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
 
-
-        constexpr units::angle::turn_t TOP_POS    = 1_tr;
-        constexpr int ELEVATOR_ID                 = 50; //CHANGEME
-        constexpr double DEADBAND_THRESHOLD       = 0.1;
-        static const PidCoeff PidValue            = {1};
+        constexpr units::angle::turn_t TOP_POS = 1_tr;
+        constexpr int ELEVATOR_ID = 50; // CHANGEME
+        constexpr double DEADBAND_THRESHOLD = 0.1;
+        static const PidCoeff PidValue = {1};
         constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
-        namespace PRESETS {
+        namespace PRESETS
+        {
             constexpr units::angle::turn_t BOTTOM = BOTTOM_POS;
             constexpr units::angle::turn_t TOP = TOP_POS;
         }
@@ -112,8 +112,8 @@ namespace CONSTANTS
         constexpr int CLIMBER_ID = 29;
 
         constexpr units::angle::turn_t DEFAULT_POS = 0_tr;
-        constexpr units::angle::turn_t EXTEND_POS  = 100_tr;
-        constexpr units::angle::turn_t CLIMB_POS   = 50_tr;
+        constexpr units::angle::turn_t EXTEND_POS = 100_tr;
+        constexpr units::angle::turn_t CLIMB_POS = 50_tr;
 
         static const PidCoeff PidValue = {1};
 
@@ -157,6 +157,7 @@ namespace CONSTANTS
 
     namespace DRIVE
     {
+        constexpr units::second_t BRAKE_TIME = 10_s;
         constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 23.533_fps;
         constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi *
                                                                       0.5};
