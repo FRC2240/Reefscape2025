@@ -1,7 +1,7 @@
 #pragma once
 
 /// Comment below out if you want to drive
-// #define CFG_NO_DRIVEBASE
+#define CFG_NO_DRIVEBASE
 
 #ifndef CFG_NO_DRIVEBASE
 #include <frc/kinematics/SwerveModuleState.h>

@@ -57,11 +57,11 @@ namespace CONSTANTS
     namespace ELEVATOR
     {
         constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
-        constexpr units::angle::turn_t TOP_POS    = 1_tr;
-        constexpr int ELEVATOR_ID                 = 50; //CHANGEME
+        constexpr units::angle::turn_t TOP_POS    = 100_tr;
+        constexpr int ELEVATOR_ID                 = 27; //CHANGEME
         constexpr double DEADBAND_THRESHOLD       = 0.1;
-        static const PidCoeff PidValue            = {0, 0, 0, 0};
-        constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
+        static const PidCoeff PidValue            = {0.5, 0, 0, 0};
+        constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 20_tps;
         namespace PRESETS {
             constexpr units::angle::turn_t BOTTOM = BOTTOM_POS;
             constexpr units::angle::turn_t TOP    = TOP_POS;
@@ -70,7 +70,7 @@ namespace CONSTANTS
 
     namespace WRIST
     {
-        constexpr int WRIST_ID = 1;
+        constexpr int WRIST_ID = 28;
         constexpr units::angle::turn_t DEFAULT_POSITION = 0_tr;
         // This is the default PID values for the wrist motor
         static const PidCoeff PidValue = {0, 0, 0, 0};
