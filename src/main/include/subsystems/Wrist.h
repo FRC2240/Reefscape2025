@@ -16,7 +16,6 @@ public:
     Wrist();
 
     void set_angle(units::angle::degree_t angle);
-    void set_angle(units::angle::turn_t angle);
 
     units::degree_t get_angle();
 

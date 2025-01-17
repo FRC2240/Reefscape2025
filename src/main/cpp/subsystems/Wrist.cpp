@@ -15,10 +15,6 @@ void Wrist::set_angle(units::angle::degree_t angle) {
     m_motor.SetControl(ctre::phoenix6::controls::PositionVoltage {angle});
 }
 
-void Wrist::set_angle(units::angle::turn_t angle) {
-    m_motor.SetControl(ctre::phoenix6::controls::PositionVoltage {angle});
-}
-
 units::degree_t Wrist::get_angle()
 {
   return m_motor.GetPosition().GetValue();
