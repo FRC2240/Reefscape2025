@@ -92,6 +92,8 @@ namespace CONSTANTS
         constexpr units::angle::turn_t DEFAULT_POSITION = 0_tr;
         // This is the default PID values for the wrist motor
         static const PidCoeff PidValue = {0, 0, 0, 0};
+
+        constexpr units::angle::degree_t POSITION_THRESHOLD = 5_deg;
     };
 
     namespace VISION

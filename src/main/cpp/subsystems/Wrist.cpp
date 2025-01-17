@@ -28,5 +28,7 @@ frc2::CommandPtr Wrist::set_angle_command(units::degree_t pos) {
     return frc2::RunCommand([this, pos] {
         set_angle(pos);
     },
-    {this}).WithName("Set Wrist Angle");
+    {this}).Until([this, pos] -> bool {
+        CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), pos, CONSTANTS::WRIST::POSITION_THRESHOLD);
+    }).WithName("Set Wrist Angle");
 }
