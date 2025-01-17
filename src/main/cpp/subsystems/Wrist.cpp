@@ -1,6 +1,6 @@
 #include "subsystems/Wrist.h"
 
-#include "frc2/command/FunctionalCommand.h"
+#include "frc2/command/RunCommand.h"
 
 Wrist::Wrist() {
     MotorUtils::Motor::LogValues logValues {true, true, true};
@@ -12,9 +12,7 @@ Wrist::Wrist() {
 }
 
 void Wrist::set_angle(units::angle::degree_t angle) {
-    // Not sure if this is how I'm supposed to do it but it can change
-    ctre::phoenix6::controls::PositionVoltage req{angle};
-    m_motor.SetControl(req);
+    m_motor.SetControl(ctre::phoenix6::controls::PositionVoltage {angle});
 }
 
 units::degree_t Wrist::get_angle()
@@ -22,34 +20,11 @@ units::degree_t Wrist::get_angle()
   return m_motor.GetPosition().GetValue();
 }
 
-frc2::CommandPtr Wrist::set_angle_cmd(units::degree_t angle) {
-    std::function<void()> init = [this] {};
-    std::function<void()> periodic = [this, &angle]()
-    {
-        try
-        {
-            set_angle(angle);
-        }
-        catch(const std::exception& e)
-        {
-            std::cerr << e.what() << '\n';
-        }
-    };
-
-    std::function<bool()> is_finished = [this, &angle]() -> bool 
-    {
-        try
-        {
-            return CONSTANTS::IN_THRESHOLD<units::turn_t>(get_angle(), angle, 1_deg);
-        }
-        catch(const std::exception& e)
-        {
-            std::cerr << e.what() << '\n';
-        }
-        return false;
-    };
-
-    std::function<void(bool IsInterrupted)> end = [this](bool IsInterrupted) {};
-
-    return frc2::FunctionalCommand(init, periodic, end, is_finished, {this}).WithName("wrist_angle");
+frc2::CommandPtr Wrist::set_angle_command(units::degree_t pos) {
+    return frc2::RunCommand([this, pos] {
+        set_angle(pos);
+    },
+    {this}).Until([this, pos] -> bool {
+        CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), pos, CONSTANTS::WRIST::POSITION_THRESHOLD);
+    }).WithName("Set Wrist Angle");
 }
