@@ -6,7 +6,7 @@
 
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/CommandXboxController.h>
-
+#include "subsystems/Grabber.h"
 #include "Constants.h"
 // #include "commands/Autos.h"
 #include "swerve/Drivetrain.h"
@@ -49,6 +49,7 @@ public:
   Odometry m_odometry{&m_drivetrain, &m_vision};
 
   Wrist m_wrist;
+  Grabber m_grabber;
 
   void ConfigureBindings();
 
