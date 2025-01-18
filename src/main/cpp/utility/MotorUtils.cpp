@@ -4,6 +4,7 @@ MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX *motor, CONSTANTS::Pi
     : motorPtr{motor}, pid{coeff}, logValues{values}
 {
   ctre::phoenix6::configs::TalonFXConfiguration base_config{};
+  motorPtr->GetConfigurator().Refresh(base_config);
   base_config.Audio.BeepOnBoot = true;
   base_config.Audio.BeepOnConfig = true;
 
@@ -11,7 +12,7 @@ MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX *motor, CONSTANTS::Pi
   base_config.CurrentLimits.StatorCurrentLimitEnable = true;
   base_config.CurrentLimits.SupplyCurrentLimit = pid.currentLimits.supply;
   base_config.CurrentLimits.StatorCurrentLimit = pid.currentLimits.stator;
-  
+
   name = motorPtr->GetDescription();
   motorPtr->GetConfigurator().Apply(base_config);
 }
@@ -34,7 +35,7 @@ CONSTANTS::PidCoeff MotorUtils::Motor::GetDashboard()
   config.kP = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kP", pid.kP);
   config.kI = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kI", pid.kI);
   config.kD = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kD", pid.kD);
-  config.kG = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kG", pid.kG); 
+  config.kG = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kG", pid.kG);
 
   config.currentLimits.supply = units::ampere_t{frc::SmartDashboard::GetNumber("motors/" + name + "LIMITS/supply", pid.currentLimits.supply.value())};
   config.currentLimits.stator = units::ampere_t{frc::SmartDashboard::GetNumber("motors/" + name + "LIMITS/stator", pid.currentLimits.stator.value())};

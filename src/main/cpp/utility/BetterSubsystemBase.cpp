@@ -27,6 +27,7 @@ void BetterSubsystemBase::SetPID()
   for (MotorUtils::Motor &motor : motors)
   {
     ctre::phoenix6::configs::TalonFXConfiguration configs{};
+    motor.motorPtr->GetConfigurator().Refresh(configs);
     CONSTANTS::PidCoeff PIDValue = motor.GetDashboard();
     configs.Slot0.kS = PIDValue.kS;
     configs.Slot0.kP = PIDValue.kP;
