@@ -16,6 +16,7 @@
 #include "subsystems/Wrist.h"
 #include "subsystems/Elevator.h"
 #include <frc/DataLogManager.h>
+#include "subsystems/Grabber.h"
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc2/command/button/Trigger.h>
 #include <pathplanner/lib/auto/NamedCommands.h>
@@ -38,6 +39,12 @@ public:
   frc2::CommandXboxController m_stick0{0};
   frc2::CommandXboxController m_stick1{1};
 
+  // Moves wrist and elevelator to position
+  frc2::CommandPtr score_prepare(CONSTANTS::SCORING_TARGETS::TargetProfile target);
+
+  // Brings elevator down and moves wrist
+  frc2::CommandPtr score_execute(CONSTANTS::SCORING_TARGETS::TargetProfile target);
+
   Drivetrain m_drivetrain;
 
   Vision m_vision{
@@ -50,11 +57,13 @@ public:
 
   Wrist m_wrist;
 
+  Grabber m_grabber;
+
+  Elevator m_elevator;
+
   void ConfigureBindings();
 
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 
   Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision};
-
-  
 };

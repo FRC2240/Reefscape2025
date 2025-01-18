@@ -33,13 +33,13 @@ frc2::CommandPtr Grabber::intake(units::turns_per_second_t speed)
                { return units::millimeter_t{Grabber_sensor.GetRange()} < CONSTANTS::GRABBER::DEFAULT_DIST_TOF; });
 };
 
-frc2::CommandPtr Grabber::extake(units::turns_per_second_t speed, units::second_t time)
+frc2::CommandPtr Grabber::extake()
 {
     return frc2::cmd::Run(
-               [this, speed]
+               [this]
                {
-                   spin(speed);
+                   spin(CONSTANTS::GRABBER::EXTAKE_VELOCITY);
                },
                {this})
-        .WithTimeout(time);
+        .WithTimeout(CONSTANTS::GRABBER::EXTAKE_TIME);
 };
