@@ -19,14 +19,17 @@ namespace MotorUtils {
       bool current = true;
     };
 
-
+    Motor();
     Motor(ctre::phoenix6::hardware::TalonFX* motor, CONSTANTS::PidCoeff coeff, LogValues values);
+    Motor(ctre::phoenix6::hardware::TalonFX* motor, MotorUtils::Motor *referenceMotor);
 
     ctre::phoenix6::hardware::TalonFX *motorPtr;
     CONSTANTS::PidCoeff pid;
     LogValues logValues;
 
     std::string name;
+
+    Motor* referencedMotor = nullptr;
     
     void PutDashboard();
     CONSTANTS::PidCoeff GetDashboard();

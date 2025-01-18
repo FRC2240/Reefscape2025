@@ -1,10 +1,14 @@
 #include "utility/MotorUtils.h"
 
-MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX *motor, CONSTANTS::PidCoeff coeff, MotorUtils::Motor::LogValues values)
-    : motorPtr{motor}, pid{coeff}, logValues{values}
-{
+MotorUtils::Motor::Motor() {
   ctre::phoenix6::configs::TalonFXConfiguration base_config{};
-  motorPtr->GetConfigurator().Refresh(base_config);
+
+  if (referencedMotor != nullptr) {
+    referencedMotor->motorPtr->GetConfigurator().Refresh(base_config);
+  } else {
+    motorPtr->GetConfigurator().Refresh(base_config);
+  }
+  
   base_config.Audio.BeepOnBoot = true;
   base_config.Audio.BeepOnConfig = true;
 
@@ -15,6 +19,19 @@ MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX *motor, CONSTANTS::Pi
 
   name = motorPtr->GetDescription();
   motorPtr->GetConfigurator().Apply(base_config);
+}
+
+MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX *motor, CONSTANTS::PidCoeff coeff, MotorUtils::Motor::LogValues values)
+{
+  motorPtr = motor;
+  pid = coeff;
+  logValues = values;
+  Motor();
+}
+
+MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX* motor, MotorUtils::Motor *referenceMotor) {
+  referencedMotor = referenceMotor;
+  Motor();
 }
 
 void MotorUtils::Motor::PutDashboard()
