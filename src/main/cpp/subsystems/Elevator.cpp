@@ -15,7 +15,13 @@ Elevator::Elevator() {
 
 frc2::CommandPtr Elevator::setPositionCommand(units::angle::turn_t pos) {
     return frc2::RunCommand([this, pos] {
-        setPosition(pos);
+        units::angle::turn_t position = pos;
+        if (position > CONSTANTS::ELEVATOR::TOP_POS) {
+            position = CONSTANTS::ELEVATOR::TOP_POS;
+        } else if (position < CONSTANTS::ELEVATOR::BOTTOM_POS) {
+            position = CONSTANTS::ELEVATOR::BOTTOM_POS;
+        }
+        setPosition(position);
     },
     {this}).ToPtr();
 }
@@ -30,8 +36,8 @@ frc2::CommandPtr Elevator::followJoystickCommand(frc2::CommandXboxController* st
     return frc2::RunCommand([this, stick] {
         double stickpos = stick->GetLeftY(); // CHANGEME
         if (
-            (stickpos < -CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && getPosition() < CONSTANTS::ELEVATOR::BOTTOM_POS)
-            || (stickpos > CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && getPosition() > CONSTANTS::ELEVATOR::TOP_POS)
+            (stickpos < -CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && getPosition() > CONSTANTS::ELEVATOR::BOTTOM_POS)
+            || (stickpos > CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && getPosition() < CONSTANTS::ELEVATOR::TOP_POS)
         ) {
             ctre::phoenix6::controls::VelocityTorqueCurrentFOC req{CONSTANTS::ELEVATOR::JOYSTICK_SPEED * stickpos};
             m_motor.SetControl(req);

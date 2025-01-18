@@ -56,15 +56,16 @@ namespace CONSTANTS
 
     namespace GRABBER
     {
-        constexpr int LEFT_ID = 32;  // changeme
-        constexpr int RIGHT_ID = 32; // changeme
+        constexpr int LEFT_ID = 29;  // changeme
+        constexpr int RIGHT_ID = 30; // changeme
+        // Configuration page: http://10.22.40.2:5812
         constexpr int TOF_ID = 32; // changeme
 
-        static CONSTANTS::PidCoeff PID;
+        static CONSTANTS::PidCoeff PID = {1};
 
         //intake
         constexpr units::turns_per_second_t INTAKE_VELOCITY = 1_tps;//TBD
-        constexpr units::millimeter_t DEFAULT_DIST_TOF = 1_mm; //TBD
+        constexpr units::millimeter_t DEFAULT_DIST_TOF = 20_mm; //TBD
 
         //extake
         constexpr units::turns_per_second_t EXTAKE_VELOCITY = 1_tps;//TBD
@@ -89,7 +90,7 @@ namespace CONSTANTS
 
     namespace WRIST
     {
-        constexpr int WRIST_ID = 1;
+        constexpr int WRIST_ID = 29;
         constexpr units::angle::turn_t DEFAULT_POSITION = 0_tr;
         // This is the default PID values for the wrist motor
         static const PidCoeff PidValue = {1};

@@ -30,7 +30,10 @@ frc2::CommandPtr Grabber::intake(units::turns_per_second_t speed)
                },
                {this})
         .Until([this] -> bool
-               { return units::millimeter_t{Grabber_sensor.GetRange()} < CONSTANTS::GRABBER::DEFAULT_DIST_TOF; });
+               { return units::millimeter_t{Grabber_sensor.GetRange()} < CONSTANTS::GRABBER::DEFAULT_DIST_TOF; })
+        .AndThen([this]
+                 { spin(0_tps); })
+        .WithName("Intake");
 };
 
 frc2::CommandPtr Grabber::extake(units::turns_per_second_t speed, units::second_t time)
@@ -41,5 +44,8 @@ frc2::CommandPtr Grabber::extake(units::turns_per_second_t speed, units::second_
                    spin(speed);
                },
                {this})
-        .WithTimeout(time);
+        .WithTimeout(time)
+        .AndThen([this]
+                 { spin(0_tps); })
+        .WithName("Extaxe");
 };

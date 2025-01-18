@@ -15,9 +15,11 @@ RobotContainer::RobotContainer() {
 
 void RobotContainer::SetPID() {
   m_wrist.SetPID();
+  m_grabber.SetPID();
 }
 void RobotContainer::LogDashboard() {
   m_wrist.LogDashboard();
+  m_grabber.LogDashboard();
 }
 
 void RobotContainer::ConfigureBindings() {
