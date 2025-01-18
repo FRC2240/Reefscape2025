@@ -73,6 +73,7 @@ namespace CONSTANTS
         constexpr TargetProfile L3{0_tr, 0_tr};
         constexpr TargetProfile L4{0_tr, 0_tr};
         constexpr TargetProfile IDLE{0_tr, 0_tr};
+        constexpr TargetProfile POST_SCORE{0_tr, 0_tr};
         constexpr TargetProfile ALGAE_L2{0_tr, 0_tr};
         constexpr TargetProfile ALGAE_L3{0_tr, 0_tr};
         constexpr TargetProfile PROCESSOR{0_tr, 0_tr};
