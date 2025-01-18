@@ -79,7 +79,7 @@ namespace CONSTANTS
         constexpr units::angle::turn_t TOP_POS    = 1_tr;
         constexpr int ELEVATOR_ID                 = 50; //CHANGEME
         constexpr double DEADBAND_THRESHOLD       = 0.1;
-        static const PidCoeff PidValue            = {0, 0, 0, 0};
+        static const PidCoeff PidValue            = {1};
         constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
         namespace PRESETS {
             constexpr units::angle::turn_t BOTTOM = BOTTOM_POS;
@@ -92,7 +92,7 @@ namespace CONSTANTS
         constexpr int WRIST_ID = 1;
         constexpr units::angle::turn_t DEFAULT_POSITION = 0_tr;
         // This is the default PID values for the wrist motor
-        static const PidCoeff PidValue = {0, 0, 0, 0};
+        static const PidCoeff PidValue = {1};
 
         constexpr units::angle::degree_t POSITION_THRESHOLD = 5_deg;
     };
@@ -108,8 +108,14 @@ namespace CONSTANTS
 
     namespace CLIMBER
     {
-        constexpr int LEFT_ID = 9;   // CHANGEME
-        constexpr int RIGHT_ID = 11; // CHANGEME
+        constexpr int CLIMBER_ID = 29;
+
+        constexpr units::angle::turn_t DEFAULT_POS = 0_tr;
+        constexpr units::angle::turn_t EXTEND_POS  = 100_tr;
+        constexpr units::angle::turn_t CLIMB_POS   = 50_tr;
+
+        static const PidCoeff PidValue = {1};
+
     } // namespace CLIMBER
 
     namespace CANDLE

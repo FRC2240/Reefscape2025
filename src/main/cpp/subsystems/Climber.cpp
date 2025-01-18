@@ -31,7 +31,7 @@ frc2::CommandPtr Climber::Climb(){
 };
 
 void Climber::SetPosition(units::angle::turn_t pos) {
-    m_motor.SetControl(ctre::phoenix6::controls::PositionVoltage{pos});
+    m_motor.SetControl(ctre::phoenix6::controls::PositionTorqueCurrentFOC{pos});
 };
 
 units::degree_t Climber::GetAngle()
