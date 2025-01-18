@@ -16,7 +16,6 @@ public:
     Wrist();
 
     void set_angle(units::angle::degree_t angle);
-
     units::degree_t get_angle();
 
     frc2::CommandPtr set_angle_command(units::degree_t pos);

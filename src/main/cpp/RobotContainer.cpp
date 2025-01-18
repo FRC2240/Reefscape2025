@@ -14,10 +14,14 @@ RobotContainer::RobotContainer() {
 }
 
 void RobotContainer::SetPID() {
+  m_climber.SetPID();
+  m_elevator.SetPID();
   m_wrist.SetPID();
   m_grabber.SetPID();
 }
 void RobotContainer::LogDashboard() {
+  m_climber.LogDashboard();
+  m_elevator.LogDashboard();
   m_wrist.LogDashboard();
   m_grabber.LogDashboard();
 }
