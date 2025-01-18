@@ -18,11 +18,13 @@ void RobotContainer::SetPID()
 {
   // m_wrist.SetPID();
   // m_grabber.SetPID();
+  m_drivetrain.SetPID();
 }
 void RobotContainer::LogDashboard()
 {
   // m_wrist.LogDashboard();
   // m_grabber.LogDashboard();
+  m_drivetrain.LogDashboard();
 }
 
 void RobotContainer::ConfigureBindings()

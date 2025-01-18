@@ -34,6 +34,9 @@ public:
     frc::BuiltInAccelerometer acc;
     Drivetrain();
 
+    void LogDashboard();
+    void SetPID();
+
     /// @brief  outputs acceleration to NT
     void log_accel();
 
@@ -146,7 +149,7 @@ public:
     // For theta, positive is CCW
     void faceDirection(units::meters_per_second_t const &dx,
                        units::meters_per_second_t const &dy,
-                       units::degree_t const &theta, 
+                       units::degree_t const &theta,
                        bool const &field_relative,
                        double const &rot_p = ROTATE_P,
                        units::degrees_per_second_t const &max_rot_speed =
@@ -166,7 +169,7 @@ public:
 
     bool face_direction(units::degree_t tgt, double feedback_device);
 
-    bool face_direction(units::degree_t tgt, units::meters_per_second_t dx=0_mps, units::meters_per_second_t dy=0_mps);
+    bool face_direction(units::degree_t tgt, units::meters_per_second_t dx = 0_mps, units::meters_per_second_t dy = 0_mps);
     // bool face_direction(units::degree_t tgt);
     ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "swervecan"};
 

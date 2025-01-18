@@ -36,6 +36,23 @@ Drivetrain::Drivetrain()
   back_right = std::make_unique<SwerveModule>(40, 41, 12, CONSTANTS::DRIVE::CONFIG::BR.offset);
 }
 
+void Drivetrain::LogDashboard()
+{
+  Module::back_left->LogDashboard();
+  Module::back_right->LogDashboard();
+  Module::front_right->LogDashboard();
+  Module::front_left->LogDashboard();
+  log_accel();
+}
+
+void Drivetrain::SetPID()
+{
+  Module::back_left->SetPID();
+  Module::back_right->SetPID();
+  Module::front_right->SetPID();
+  Module::front_left->SetPID();
+}
+
 double Drivetrain::get_pitch()
 {
   return gyro.GetPitch().GetValue().value();
@@ -56,7 +73,8 @@ void Drivetrain::zero_adjustment()
   // navx.SetAngleAdjustment(0);
 }
 
-void Drivetrain::log_accel(){
+void Drivetrain::log_accel()
+{
   frc::SmartDashboard::PutNumber("accel/X", gyro.GetAccelerationX().GetValue().convert<units::meters_per_second_squared>().value());
   frc::SmartDashboard::PutNumber("accel/Y", gyro.GetAccelerationY().GetValue().convert<units::meters_per_second_squared>().value());
   frc::SmartDashboard::PutNumber("accel/Z", gyro.GetAccelerationZ().GetValue().convert<units::meters_per_second_squared>().value());
@@ -362,8 +380,6 @@ void Drivetrain::faceClosest(units::meters_per_second_t const &dx,
   else
     faceDirection(dx, dy, 180_deg, field_relative, rot_p, max_rot_speed);
 }
-
-
 
 void Drivetrain::manualPercentOutput(double const &percent_output)
 {

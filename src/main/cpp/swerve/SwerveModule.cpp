@@ -138,8 +138,9 @@ void SwerveModule::setDesiredState(frc::SwerveModuleState &desired_state)
 
     desired_state.Optimize(current_rotation);
 
-    controls::PositionDutyCycle controlreq{desired_state.angle.Degrees()};
-    controlreq.EnableFOC = 1;
+    // controls::PositionTorqueCurrentFOC controlreq{desired_state.angle.Degrees()};
+    controls::PositionTorqueCurrentFOC controlreq{90_deg};
+
     // Convert change in angle to change in (cancoder) ticks
     // double const delta_ticks = delta_rotation.Degrees().value() * TICKS_PER_CANCODER_DEGREE;
     frc::SmartDashboard::SmartDashboard::PutNumber(driver.GetDescription() + "/desired speed", desired_state.angle.Degrees().value());
