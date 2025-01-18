@@ -26,6 +26,7 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
 
     // fmt::println("Driver version: {}", driver.GetVersionMajor().GetValue());
     std::cout << "Driver Pro: " << driver.GetIsProLicensed().GetValue() << "\n";
+    std::cout << "network name: " << driver.GetNetwork() << "\n";
     std::cout << "Turner Pro: " << turner.GetIsProLicensed().GetValue() << "\n";
     std::cout << "Cancoder Pro" << cancoder.GetIsProLicensed().GetValue() << "\n";
     std::cout << "Cancoder pro msg: " << cancoder.GetIsProLicensed().IsAllGood();
@@ -45,7 +46,7 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     driver_config.Audio.BeepOnBoot = true;
     driver_config.Audio.BeepOnConfig = true;
     //  driver_config.MotionMagic.MotionMagicAcceleration
-    driver_config.MotionMagic.MotionMagicAcceleration= units::turns_per_second_squared_t{575};
+    driver_config.MotionMagic.MotionMagicAcceleration = units::turns_per_second_squared_t{575};
     // driver_config.CurrentLimits.SupplyCurrentLimitEnable
     driver_config.MotorOutput.NeutralMode.value = driver_config.MotorOutput.NeutralMode.Brake;
     driver_config.Feedback.SensorToMechanismRatio = 4.722;
@@ -82,7 +83,7 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     turner.GetConfigurator().Apply(turner_config);
 
     CONSTANTS::PidCoeff turner_pid;
-    turner_pid.kP = -3.503;
+    turner_pid.kP = 3.503;
     MotorUtils::Motor::LogValues turner_logs = {true, true, true, true, true};
     MotorUtils::Motor turner_motor = {&turner, turner_pid, turner_logs};
     AddPID(turner_motor);
@@ -121,8 +122,9 @@ double SwerveModule::getDriverTemp() { return driver.GetDeviceTemp().Refresh().G
 double SwerveModule::getTurnerTemp() { return turner.GetDeviceTemp().Refresh().GetValue().value(); }
 
 // This a function that allows reverse compatability with pre-2025 code.
-// This just discards the const qualifier  
-void SwerveModule::setDesiredState(frc::SwerveModuleState const &desired_state){
+// This just discards the const qualifier
+void SwerveModule::setDesiredState(frc::SwerveModuleState const &desired_state)
+{
     frc::SwerveModuleState non_const_state = desired_state;
     setDesiredState(non_const_state);
 }
