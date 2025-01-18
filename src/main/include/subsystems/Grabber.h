@@ -1,3 +1,4 @@
+#pragma once
 #include <ctre/phoenix6/TalonFX.hpp>
 #include "Constants.h"
 #include <frc2/command/SubsystemBase.h>
@@ -10,8 +11,8 @@ class Grabber : public BetterSubsystemBase
 {
 public:
     Grabber();
-    frc2::CommandPtr intake_command(units::turns_per_second_t speed);
-    frc2::CommandPtr extake_command(units::turns_per_second_t speed, units::second_t time);
+    frc2::CommandPtr intake(units::turns_per_second_t speed);
+    frc2::CommandPtr extake();
 
 private:
     ctre::phoenix6::hardware::TalonFX m_right_motor{CONSTANTS::GRABBER::RIGHT_ID};
