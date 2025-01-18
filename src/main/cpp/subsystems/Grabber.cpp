@@ -21,7 +21,7 @@ void Grabber::spin(units::turns_per_second_t speed)
     m_left_motor.SetControl(velocity);
 };
 
-frc2::CommandPtr Grabber::intake(units::turns_per_second_t speed)
+frc2::CommandPtr Grabber::intake_command(units::turns_per_second_t speed)
 {
     return frc2::cmd::Run(
                [this, speed]
@@ -36,7 +36,7 @@ frc2::CommandPtr Grabber::intake(units::turns_per_second_t speed)
         .WithName("Intake");
 };
 
-frc2::CommandPtr Grabber::extake(units::turns_per_second_t speed, units::second_t time)
+frc2::CommandPtr Grabber::extake_command(units::turns_per_second_t speed, units::second_t time)
 {
     return frc2::cmd::Run(
                [this, speed]
