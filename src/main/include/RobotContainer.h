@@ -4,31 +4,34 @@
 
 #pragma once
 
+// FRC
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/CommandXboxController.h>
-#include "subsystems/Grabber.h"
+#include <frc2/command/button/Trigger.h>
+#include <frc/DataLogManager.h>
+#include <frc/smartdashboard/SendableChooser.h>
+
+// Misc
 #include "Constants.h"
-// #include "commands/Autos.h"
+#include <pathplanner/lib/auto/NamedCommands.h>
+
+// Subsystems
+#include "subsystems/Candle.h"
+#include "subsystems/Climber.h"
+#include "subsystems/Elevator.h"
+#include "subsystems/Grabber.h"
+#include "subsystems/Wrist.h"
+
+// Swerve
 #include "swerve/Drivetrain.h"
 #include "swerve/Odometry.h"
 #include "swerve/Trajectory.h"
 #include "swerve/Vision.h"
-#include "subsystems/Wrist.h"
-#include "subsystems/Elevator.h"
-#include <frc/DataLogManager.h>
-#include <frc/smartdashboard/SendableChooser.h>
-#include <frc2/command/button/Trigger.h>
-#include <pathplanner/lib/auto/NamedCommands.h>
-// #include <ForceLog.h>
-#include "subsystems/Candle.h"
-#include "subsystems/Climber.h"
-// TODO: Add w/ merge
+
 class RobotContainer
 {
 public:
   RobotContainer();
-  void SetPID();
-  void LogDashboard();
 
   void add_named_commands();
 
@@ -40,19 +43,21 @@ public:
   frc2::CommandXboxController m_stick1{1};
 
   Drivetrain m_drivetrain;
+  Odometry m_odometry{&m_drivetrain, &m_vision};
   Climber m_climber;
+  Elevator m_elevator;
+  Wrist m_wrist;
+  Grabber m_grabber;
 
   Vision m_vision{
       [this]() -> units::degree_t
       {
         return m_drivetrain.getAngle();
       }};
-
-  Odometry m_odometry{&m_drivetrain, &m_vision};
-
-  // Wrist m_wrist;
-
+  
   void ConfigureBindings();
+  void SetPID();
+  void LogDashboard();
 
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 
