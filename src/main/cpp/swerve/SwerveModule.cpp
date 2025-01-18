@@ -99,17 +99,23 @@ frc::SwerveModuleState SwerveModule::getState()
 
 void SwerveModule::set_brake_mode(bool on)
 {
-    ctre::phoenix6::configs::TalonFXConfiguration brake_cfg{};
+    ctre::phoenix6::configs::TalonFXConfiguration d_brake_cfg{};
+    ctre::phoenix6::configs::TalonFXConfiguration t_brake_cfg{};
+    driver.GetConfigurator().Refresh(d_brake_cfg);
+    turner.GetConfigurator().Refresh(t_brake_cfg);
+
     if (on)
     {
-        brake_cfg.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
+        d_brake_cfg.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
+        t_brake_cfg.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
     }
     else
     {
-        brake_cfg.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Coast;
+        d_brake_cfg.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Coast;
+        t_brake_cfg.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Coast;
     }
-    driver.GetConfigurator().Apply(brake_cfg);
-    turner.GetConfigurator().Apply(brake_cfg);
+    driver.GetConfigurator().Apply(d_brake_cfg);
+    turner.GetConfigurator().Apply(t_brake_cfg);
 }
 
 frc::SwerveModulePosition SwerveModule::getPosition()
