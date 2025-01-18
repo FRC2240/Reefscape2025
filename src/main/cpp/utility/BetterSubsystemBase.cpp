@@ -30,6 +30,7 @@ void BetterSubsystemBase::SetPID() {
     configs.Slot0.kG = PIDValue.kG;
     configs.CurrentLimits.SupplyCurrentLimit = PIDValue.currentLimits.supply;
     configs.CurrentLimits.StatorCurrentLimit = PIDValue.currentLimits.stator;
+    configs.Audio.BeepOnConfig = true;
 
     ctre::phoenix::StatusCode status = ctre::phoenix::StatusCode::StatusCodeNotInitialized;
     for (int j = 0; j < MAX_CONFIG_APPLY_ATTEMPTS; j++)

@@ -6,7 +6,7 @@
 
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/CommandXboxController.h>
-
+#include "subsystems/Grabber.h"
 #include "Constants.h"
 // #include "commands/Autos.h"
 #include "swerve/Drivetrain.h"
@@ -21,6 +21,7 @@
 #include <pathplanner/lib/auto/NamedCommands.h>
 // #include <ForceLog.h>
 #include "subsystems/Candle.h"
+#include "subsystems/Climber.h"
 // TODO: Add w/ merge
 class RobotContainer
 {
@@ -39,6 +40,7 @@ public:
   frc2::CommandXboxController m_stick1{1};
 
   Drivetrain m_drivetrain;
+  Climber m_climber;
 
   Vision m_vision{
       [this]() -> units::degree_t
@@ -49,6 +51,7 @@ public:
   Odometry m_odometry{&m_drivetrain, &m_vision};
 
   Wrist m_wrist;
+  Grabber m_grabber;
 
   void ConfigureBindings();
 
