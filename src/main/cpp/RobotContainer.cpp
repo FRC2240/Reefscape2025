@@ -12,7 +12,7 @@ RobotContainer::RobotContainer() {
   autoChooser = AutoBuilder::buildAutoChooser();
     frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
 }
-
+\
 void RobotContainer::SetPID() {
   m_wrist.SetPID();
 }
@@ -22,6 +22,10 @@ void RobotContainer::LogDashboard() {
 
 void RobotContainer::ConfigureBindings() {
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
+
+  m_stick0.A().OnTrue(m_wrist.set_angle_command(180_deg));
+  m_stick0.B().OnTrue(m_wrist.set_angle_command(  0_deg));
+
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

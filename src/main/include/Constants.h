@@ -88,7 +88,7 @@ namespace CONSTANTS
 
     namespace WRIST
     {
-        constexpr int WRIST_ID = 1;
+        constexpr int WRIST_ID = 29;
         constexpr units::angle::turn_t DEFAULT_POSITION = 0_tr;
         // This is the default PID values for the wrist motor
         static const PidCoeff PidValue = {0, 0, 0, 0};
