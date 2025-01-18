@@ -21,6 +21,7 @@
 #include <pathplanner/lib/auto/NamedCommands.h>
 // #include <ForceLog.h>
 #include "subsystems/Candle.h"
+#include "subsystems/Climber.h"
 // TODO: Add w/ merge
 class RobotContainer
 {
@@ -39,6 +40,7 @@ public:
   frc2::CommandXboxController m_stick1{1};
 
   Drivetrain m_drivetrain;
+  Climber m_climber;
 
   Vision m_vision{
       [this]() -> units::degree_t
