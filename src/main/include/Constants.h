@@ -23,7 +23,8 @@
 namespace CONSTANTS
 {
 
-    constexpr units::ampere_t DEFAULT_CURRENT_LIMIT = 60_A;
+    constexpr units::ampere_t DEFAULT_SUPPLY_LIMIT = 60_A;
+    constexpr units::ampere_t DEFAULT_STATOR_LIMIT = 60_A;
 
     // An additive threshold (+/- value) that checks if 2 values (target & source)
     // are within a range A template so it can be used with units. Call it by:
@@ -44,7 +45,17 @@ namespace CONSTANTS
 
         double min = -1; // Minimum output for control loop
         double max = 1;  // Maximum output for control loop
+
+        struct CurrentLimits
+        {
+            units::ampere_t supply = CONSTANTS::DEFAULT_SUPPLY_LIMIT;
+            units::ampere_t stator = CONSTANTS::DEFAULT_STATOR_LIMIT;
+        };
+
+        CurrentLimits currentLimits;
     };
+
+
 
     namespace CORAL
     {
@@ -83,6 +94,7 @@ namespace CONSTANTS
         static const PidCoeff PidValue            = {1};
         constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
         namespace PRESETS {
+
             constexpr units::angle::turn_t BOTTOM = BOTTOM_POS;
             constexpr units::angle::turn_t TOP = TOP_POS;
         }

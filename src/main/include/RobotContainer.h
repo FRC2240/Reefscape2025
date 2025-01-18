@@ -40,7 +40,7 @@ public:
   frc2::CommandXboxController m_stick1{1};
 
   Drivetrain m_drivetrain;
-  Climber m_climber;
+  // Climber m_climber;
 
   Vision m_vision{
       [this]() -> units::degree_t
@@ -50,14 +50,12 @@ public:
 
   Odometry m_odometry{&m_drivetrain, &m_vision};
 
-  Wrist m_wrist;
-  Grabber m_grabber;
+  // Wrist m_wrist;
+  // Grabber m_grabber;
 
   void ConfigureBindings();
 
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 
   Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision};
-
-  
 };
