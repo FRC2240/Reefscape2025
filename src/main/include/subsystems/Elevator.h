@@ -16,12 +16,12 @@ class Elevator: public BetterSubsystemBase {
     public:
         Elevator();
 
-        frc2::CommandPtr setPositionCommand(units::angle::turn_t pos);
-        frc2::CommandPtr idleCommand();    
-        frc2::CommandPtr followJoystickCommand(frc2::CommandXboxController* stick);
+        frc2::CommandPtr set_position_command(units::angle::turn_t pos);
+        frc2::CommandPtr idle_command();    
+        frc2::CommandPtr follow_joystick_command(frc2::CommandXboxController* stick);
 
-        units::angle::turn_t getPosition();
-        void setPosition(units::angle::turn_t pos);
+        units::angle::turn_t get_position();
+        void set_position(units::angle::turn_t pos);
 
     private:
         ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::ELEVATOR::ELEVATOR_ID};

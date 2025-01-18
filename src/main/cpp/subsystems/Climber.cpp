@@ -11,30 +11,30 @@ Climber::Climber() {
     m_motor.SetPosition(CONSTANTS::CLIMBER::DEFAULT_POS);
 }
 
-frc2::CommandPtr Climber::SetPositionCommand(units::angle::turn_t pos) {
+frc2::CommandPtr Climber::set_position_command(units::angle::turn_t pos) {
     return frc2::RunCommand([this, pos] {
-        SetPosition(pos);
+        set_position(pos);
     },
     {this}).ToPtr();
 }
 
-frc2::CommandPtr Climber::IdleCommand() {
-    return SetPositionCommand(CONSTANTS::CLIMBER::DEFAULT_POS);
+frc2::CommandPtr Climber::idle_command() {
+    return set_position_command(CONSTANTS::CLIMBER::DEFAULT_POS);
 };
 
-frc2::CommandPtr Climber::Extend(){
-    return SetPositionCommand(CONSTANTS::CLIMBER::EXTEND_POS);
+frc2::CommandPtr Climber::extend_command(){
+    return set_position_command(CONSTANTS::CLIMBER::EXTEND_POS);
 };
 
-frc2::CommandPtr Climber::Climb(){
-    return SetPositionCommand(CONSTANTS::CLIMBER::CLIMB_POS);
+frc2::CommandPtr Climber::climb_command(){
+    return set_position_command(CONSTANTS::CLIMBER::CLIMB_POS);
 };
 
-void Climber::SetPosition(units::angle::turn_t pos) {
+void Climber::set_position(units::angle::turn_t pos) {
     m_motor.SetControl(ctre::phoenix6::controls::PositionTorqueCurrentFOC{pos});
 };
 
-units::degree_t Climber::GetAngle()
+units::degree_t Climber::get_angle()
 {
   return m_motor.GetPosition().GetValue();
 };

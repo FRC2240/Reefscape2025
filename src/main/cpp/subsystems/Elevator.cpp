@@ -13,7 +13,7 @@ Elevator::Elevator() {
 }
 
 
-frc2::CommandPtr Elevator::setPositionCommand(units::angle::turn_t pos) {
+frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos) {
     return frc2::RunCommand([this, pos] {
         units::angle::turn_t position = pos;
         if (position > CONSTANTS::ELEVATOR::TOP_POS) {
@@ -21,23 +21,23 @@ frc2::CommandPtr Elevator::setPositionCommand(units::angle::turn_t pos) {
         } else if (position < CONSTANTS::ELEVATOR::BOTTOM_POS) {
             position = CONSTANTS::ELEVATOR::BOTTOM_POS;
         }
-        setPosition(position);
+        set_position(position);
     },
     {this}).ToPtr();
 }
 
 
-frc2::CommandPtr Elevator::idleCommand() {
-    return setPositionCommand(CONSTANTS::ELEVATOR::BOTTOM_POS);
+frc2::CommandPtr Elevator::idle_command() {
+    return set_position_command(CONSTANTS::ELEVATOR::BOTTOM_POS);
 };
 
 
-frc2::CommandPtr Elevator::followJoystickCommand(frc2::CommandXboxController* stick) {
+frc2::CommandPtr Elevator::follow_joystick_command(frc2::CommandXboxController* stick) {
     return frc2::RunCommand([this, stick] {
         double stickpos = stick->GetLeftY(); // CHANGEME
         if (
-            (stickpos < -CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && getPosition() > CONSTANTS::ELEVATOR::BOTTOM_POS)
-            || (stickpos > CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && getPosition() < CONSTANTS::ELEVATOR::TOP_POS)
+            (stickpos < -CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && get_position() > CONSTANTS::ELEVATOR::BOTTOM_POS)
+            || (stickpos > CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && get_position() < CONSTANTS::ELEVATOR::TOP_POS)
         ) {
             ctre::phoenix6::controls::VelocityTorqueCurrentFOC req{CONSTANTS::ELEVATOR::JOYSTICK_SPEED * stickpos};
             m_motor.SetControl(req);
@@ -49,11 +49,11 @@ frc2::CommandPtr Elevator::followJoystickCommand(frc2::CommandXboxController* st
 };
 
 
-units::angle::turn_t Elevator::getPosition() {
+units::angle::turn_t Elevator::get_position() {
     return m_motor.GetPosition().GetValue();
 };
 
 
-void Elevator::setPosition(units::angle::turn_t pos) {
+void Elevator::set_position(units::angle::turn_t pos) {
     m_motor.SetControl(ctre::phoenix6::controls::PositionVoltage{pos});
 };
