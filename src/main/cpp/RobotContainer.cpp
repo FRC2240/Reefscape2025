@@ -31,7 +31,14 @@ void RobotContainer::LogDashboard()
 
 void RobotContainer::ConfigureBindings()
 {
+  frc::SmartDashboard::PutData(&m_elevator);
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
+  frc2::Trigger{
+      [this] -> bool
+      {
+        return m_stick0.A().Get() && m_stick0.RightBumper().Get();
+      }}
+      .OnTrue(score_prepare(CONSTANTS::SCORING_TARGETS::L1).AndThen(score_execute(CONSTANTS::SCORING_TARGETS::L1)));
 }
 
 frc2::Command *RobotContainer::GetAutonomousCommand()
@@ -46,7 +53,7 @@ frc2::CommandPtr RobotContainer::score_prepare(CONSTANTS::SCORING_TARGETS::Targe
 
 frc2::CommandPtr RobotContainer::score_execute(CONSTANTS::SCORING_TARGETS::TargetProfile target)
 {
-  if (target == CONSTANTS::SCORING_TARGETS::L1)
+  if (target == CONSTANTS::SCORING_TARGETS::L1 || target == CONSTANTS::SCORING_TARGETS::PROCESSOR)
   {
     return m_grabber.extake();
   }
