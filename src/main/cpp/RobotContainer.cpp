@@ -16,17 +16,17 @@ RobotContainer::RobotContainer()
 
 void RobotContainer::SetPID()
 {
-  // m_climber.SetPID();
-  // m_elevator.SetPID();
-  // m_wrist.SetPID();
-  // m_grabber.SetPID();
+  m_climber.SetPID();
+  m_elevator.SetPID();
+  m_wrist.SetPID();
+  m_grabber.SetPID();
 }
 void RobotContainer::LogDashboard()
 {
-  // m_climber.LogDashboard();
-  // m_elevator.LogDashboard();
-  // m_wrist.LogDashboard();
-  // m_grabber.LogDashboard();
+  m_climber.LogDashboard();
+  m_elevator.LogDashboard();
+  m_wrist.LogDashboard();
+  m_grabber.LogDashboard();
 }
 
 void RobotContainer::ConfigureBindings()
@@ -37,4 +37,23 @@ void RobotContainer::ConfigureBindings()
 frc2::Command *RobotContainer::GetAutonomousCommand()
 {
   return autoChooser.GetSelected();
+}
+
+frc2::CommandPtr RobotContainer::score_prepare(CONSTANTS::SCORING_TARGETS::TargetProfile target)
+{
+  return m_elevator.set_position_command(target.elevtor_pos).AlongWith(m_wrist.set_angle_command(target.wrist_pos));
+}
+
+frc2::CommandPtr RobotContainer::score_execute(CONSTANTS::SCORING_TARGETS::TargetProfile target)
+{
+  if (target == CONSTANTS::SCORING_TARGETS::L1)
+  {
+    return m_grabber.extake();
+  }
+  else
+  {
+    // To score, you need to lower the elevator and hold the grabber at the current position
+    return score_prepare(
+        CONSTANTS::SCORING_TARGETS::TargetProfile{CONSTANTS::SCORING_TARGETS::IDLE.elevtor_pos, target.wrist_pos});
+  }
 }

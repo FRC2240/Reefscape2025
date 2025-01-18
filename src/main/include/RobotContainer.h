@@ -29,6 +29,17 @@
 #include "swerve/Vision.h"
 #include "utility/ForceLog.h"
 
+#include "subsystems/Wrist.h"
+#include "subsystems/Elevator.h"
+#include <frc/DataLogManager.h>
+#include "subsystems/Grabber.h"
+#include <frc/smartdashboard/SendableChooser.h>
+#include <frc2/command/button/Trigger.h>
+#include <pathplanner/lib/auto/NamedCommands.h>
+// #include <ForceLog.h>
+#include "subsystems/Candle.h"
+#include "subsystems/Climber.h"
+// TODO: Add w/ merge
 class RobotContainer
 {
 public:
@@ -42,6 +53,12 @@ public:
 
   frc2::CommandXboxController m_stick0{0};
   frc2::CommandXboxController m_stick1{1};
+
+  // Moves wrist and elevelator to position
+  frc2::CommandPtr score_prepare(CONSTANTS::SCORING_TARGETS::TargetProfile target);
+
+  // Brings elevator down and moves wrist
+  frc2::CommandPtr score_execute(CONSTANTS::SCORING_TARGETS::TargetProfile target);
 
   Drivetrain m_drivetrain;
   Odometry m_odometry{&m_drivetrain, &m_vision};
