@@ -38,6 +38,11 @@ Drivetrain::Drivetrain()
 
 void Drivetrain::set_brake_mode(bool on)
 {
+
+  Module::back_left->set_brake_mode(on);
+  Module::back_right->set_brake_mode(on);
+  Module::front_left->set_brake_mode(on);
+  Module::front_right->set_brake_mode(on);
 }
 
 double Drivetrain::get_pitch()

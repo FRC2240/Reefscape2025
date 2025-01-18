@@ -10,6 +10,7 @@
 Robot::Robot()
 {
   frc::DataLogManager::Start();
+  frc::DriverStation::SilenceJoystickConnectionWarning(1);
 }
 
 void Robot::RobotPeriodic()
@@ -39,6 +40,7 @@ void Robot::DisabledPeriodic()
   if (disabled_timer.Get() > CONSTANTS::DRIVE::BRAKE_TIME && !frc::DriverStation::IsEStopped())
   {
     m_container.m_drivetrain.set_brake_mode(0);
+    disabled_timer.Reset();
     disabled_timer.Stop();
   }
 }
