@@ -54,33 +54,59 @@ namespace CONSTANTS
 
     }
 
+    namespace SCORING_TARGETS
+    {
+        // Represents the arm and wrist position required to score somewhere
+        struct TargetProfile
+        {
+            units::turn_t elevtor_pos;
+            units::turn_t wrist_pos;
+
+            // I don't know why this needs to be overriden but it does.  ¯\_(-_-)_/¯
+            bool operator==(TargetProfile &other) const
+            {
+                return ((this->elevtor_pos == other.elevtor_pos) && (this->wrist_pos == other.wrist_pos));
+            }
+        };
+        constexpr TargetProfile L1{0_tr, 0_tr};
+        constexpr TargetProfile L2{0_tr, 0_tr};
+        constexpr TargetProfile L3{0_tr, 0_tr};
+        constexpr TargetProfile L4{0_tr, 0_tr};
+        constexpr TargetProfile IDLE{0_tr, 0_tr};
+        constexpr TargetProfile ALGAE_L2{0_tr, 0_tr};
+        constexpr TargetProfile ALGAE_L3{0_tr, 0_tr};
+        constexpr TargetProfile PROCESSOR{0_tr, 0_tr};
+
+    }
+
     namespace GRABBER
     {
         constexpr int LEFT_ID = 32;  // changeme
         constexpr int RIGHT_ID = 32; // changeme
-        constexpr int TOF_ID = 32; // changeme
+        constexpr int TOF_ID = 32;   // changeme
 
         static CONSTANTS::PidCoeff PID;
 
-        //intake
-        constexpr units::turns_per_second_t INTAKE_VELOCITY = 1_tps;//TBD
-        constexpr units::millimeter_t DEFAULT_DIST_TOF = 1_mm; //TBD
+        // intake
+        constexpr units::turns_per_second_t INTAKE_VELOCITY = 1_tps; // TBD
+        constexpr units::millimeter_t DEFAULT_DIST_TOF = 1_mm;       // TBD
 
-        //extake
-        constexpr units::turns_per_second_t EXTAKE_VELOCITY = 1_tps;//TBD
-        constexpr units::second_t EXTAKE_TIME = 1_s; //TBD
+        // extake
+        constexpr units::turns_per_second_t EXTAKE_VELOCITY = 1_tps; // TBD
+        constexpr units::second_t EXTAKE_TIME = 1_s;                 // TBD
     }
 
     namespace ELEVATOR
     {
         constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
 
-        constexpr units::angle::turn_t TOP_POS    = 1_tr;
-        constexpr int ELEVATOR_ID                 = 50; //CHANGEME
-        constexpr double DEADBAND_THRESHOLD       = 0.1;
-        static const PidCoeff PidValue            = {0, 0, 0, 0};
+        constexpr units::angle::turn_t TOP_POS = 1_tr;
+        constexpr int ELEVATOR_ID = 50; // CHANGEME
+        constexpr double DEADBAND_THRESHOLD = 0.1;
+        static const PidCoeff PidValue = {0, 0, 0, 0};
         constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
-        namespace PRESETS {
+        namespace PRESETS
+        {
             constexpr units::angle::turn_t BOTTOM = BOTTOM_POS;
             constexpr units::angle::turn_t TOP = TOP_POS;
         }
@@ -116,36 +142,6 @@ namespace CONSTANTS
         constexpr int CANDLE_ID = 10;
         constexpr int NUM_LEDS = 39;
     } // namespace CANDLE
-
-    namespace SHOOTER
-    {
-        constexpr int LEFT_ID = 2;
-        constexpr int RIGHT_ID = 5;
-        constexpr int ANGLE_ID = 6;
-        constexpr int ANGLE2_ID = 2;
-        constexpr int CANCODER_ID = 13; // CHANGEME
-        constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
-        constexpr double ANGLE_RATIO = 1; // CHANGEME
-
-#ifdef SABERTOOTH // Main robot config
-        constexpr units::turn_t FENDER_ANGLE = 11.5_tr;
-        constexpr units::turn_t AMP_ANGLE = 11_tr;
-        constexpr units::turns_per_second_t AMP_VELOCTITY = -6.5_tps;
-        constexpr units::turn_t REST_ANGLE = 0.242_tr;
-        constexpr units::turns_per_second_t SHOOTER_VELOCITY = 60_tps;
-#endif
-#ifndef SABERTOOTH
-        constexpr units::turn_t REST_ANGLE = -0.5_tr;
-        constexpr units::turn_t FENDER_ANGLE = -11_tr;
-        constexpr units::turn_t AMP_ANGLE = -10_tr;
-        constexpr units::turns_per_second_t SHOOTER_VELOCITY = 80_tps;
-#endif
-
-        constexpr int BELT_ID = 7;
-        constexpr units::turns_per_second_t LEFT_VELOCITY{10};  // CHANGEME;
-        constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
-
-    } // namespace SHOOTER
 
     namespace DRIVE
     {

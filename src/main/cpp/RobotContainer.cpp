@@ -6,24 +6,48 @@
 
 #include <frc2/command/Commands.h>
 
-RobotContainer::RobotContainer() {
+RobotContainer::RobotContainer()
+{
   ConfigureBindings();
   m_odometry.putField2d();
   autoChooser = AutoBuilder::buildAutoChooser();
-    frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
+  frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
 }
 
-void RobotContainer::SetPID() {
+void RobotContainer::SetPID()
+{
   m_wrist.SetPID();
 }
-void RobotContainer::LogDashboard() {
+void RobotContainer::LogDashboard()
+{
   m_wrist.LogDashboard();
 }
 
-void RobotContainer::ConfigureBindings() {
+void RobotContainer::ConfigureBindings()
+{
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
 }
 
-frc2::Command* RobotContainer::GetAutonomousCommand() {
+frc2::Command *RobotContainer::GetAutonomousCommand()
+{
   return autoChooser.GetSelected();
+}
+
+frc2::CommandPtr RobotContainer::score_prepare(CONSTANTS::SCORING_TARGETS::TargetProfile target)
+{
+  return m_elevator.setPositionCommand(target.elevtor_pos).AlongWith(m_wrist.set_angle_command(target.wrist_pos));
+}
+
+frc2::CommandPtr RobotContainer::score_execute(CONSTANTS::SCORING_TARGETS::TargetProfile target)
+{
+  if (target == CONSTANTS::SCORING_TARGETS::L1)
+  {
+    return m_grabber.extake();
+  }
+  else
+  {
+    // To score, you need to lower the elevator and hold the grabber at the current position
+    return score_prepare(
+        CONSTANTS::SCORING_TARGETS::TargetProfile{CONSTANTS::SCORING_TARGETS::IDLE.elevtor_pos, target.wrist_pos});
+  }
 }
