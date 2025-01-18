@@ -11,6 +11,7 @@ Robot::Robot()
 {
   frc::DataLogManager::Start();
   frc::DriverStation::SilenceJoystickConnectionWarning(1);
+  frc::SmartDashboard::PutData(&frc2::CommandScheduler::GetInstance());
 }
 
 void Robot::RobotPeriodic()
@@ -93,6 +94,14 @@ void Robot::TestInit()
 void Robot::TestPeriodic() {}
 
 void Robot::TestExit() {}
+
+void Robot::SimulationInit()
+{
+}
+
+void Robot::SimulationPeriodic()
+{
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main()
