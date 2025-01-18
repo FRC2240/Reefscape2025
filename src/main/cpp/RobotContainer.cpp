@@ -6,26 +6,29 @@
 
 #include <frc2/command/Commands.h>
 
-RobotContainer::RobotContainer() {
+RobotContainer::RobotContainer()
+{
   ConfigureBindings();
   m_odometry.putField2d();
   autoChooser = AutoBuilder::buildAutoChooser();
-    frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
+  frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
 }
 
-void RobotContainer::SetPID() {
-  m_wrist.SetPID();
-  m_grabber.SetPID();
+void RobotContainer::SetPID()
+{
+  // m_wrist.SetPID();
 }
-void RobotContainer::LogDashboard() {
-  m_wrist.LogDashboard();
-  m_grabber.LogDashboard();
+void RobotContainer::LogDashboard()
+{
+  // m_wrist.LogDashboard();
 }
 
-void RobotContainer::ConfigureBindings() {
+void RobotContainer::ConfigureBindings()
+{
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
 }
 
-frc2::Command* RobotContainer::GetAutonomousCommand() {
+frc2::Command *RobotContainer::GetAutonomousCommand()
+{
   return autoChooser.GetSelected();
 }

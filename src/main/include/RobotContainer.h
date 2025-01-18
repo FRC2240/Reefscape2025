@@ -50,14 +50,11 @@ public:
 
   Odometry m_odometry{&m_drivetrain, &m_vision};
 
-  Wrist m_wrist;
-  Grabber m_grabber;
+  // Wrist m_wrist;
 
   void ConfigureBindings();
 
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 
   Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision};
-
-  
 };

@@ -53,12 +53,14 @@ public:
 
     units::angle::degree_t get_angle_degrees();
 
+    void set_brake_mode(bool on);
+
     // No copies/moves should be occuring (Talons don't support this)
     SwerveModule(SwerveModule const &) = delete;
     SwerveModule(SwerveModule &&) = delete;
 
 private:
-    ctre::phoenix6::controls::MotionMagicVelocityTorqueCurrentFOC driver_velocity_req {0_tps};
+    ctre::phoenix6::controls::MotionMagicVelocityTorqueCurrentFOC driver_velocity_req{0_tps};
     inline units::meters_per_second_t wheel_speed_to_bot_speed(units::turns_per_second_t wheel_speed);
     inline units::turns_per_second_t bot_speed_to_wheel_speed(units::meters_per_second_t bot_speed);
 

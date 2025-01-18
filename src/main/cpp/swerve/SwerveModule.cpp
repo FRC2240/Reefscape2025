@@ -47,7 +47,7 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
 
     driver_config.Slot0.kP = 12;
     //  driver_config.MotionMagic.MotionMagicAcceleration
-    driver_config.MotionMagic.MotionMagicAcceleration= units::turns_per_second_squared_t{575};
+    driver_config.MotionMagic.MotionMagicAcceleration = units::turns_per_second_squared_t{575};
     // driver_config
     // driver_config.Slot0.kD = 0.002;
     // driver_config.Slot0.kI = 0.4;
@@ -97,6 +97,27 @@ frc::SwerveModuleState SwerveModule::getState()
     return ret;
 }
 
+void SwerveModule::set_brake_mode(bool on)
+{
+    ctre::phoenix6::configs::TalonFXConfiguration d_brake_cfg{};
+    ctre::phoenix6::configs::TalonFXConfiguration t_brake_cfg{};
+    driver.GetConfigurator().Refresh(d_brake_cfg);
+    turner.GetConfigurator().Refresh(t_brake_cfg);
+
+    if (on)
+    {
+        d_brake_cfg.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
+        t_brake_cfg.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
+    }
+    else
+    {
+        d_brake_cfg.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Coast;
+        t_brake_cfg.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Coast;
+    }
+    driver.GetConfigurator().Apply(d_brake_cfg);
+    turner.GetConfigurator().Apply(t_brake_cfg);
+}
+
 frc::SwerveModulePosition SwerveModule::getPosition()
 {
     frc::SwerveModulePosition ret;
@@ -119,8 +140,9 @@ double SwerveModule::getDriverTemp() { return driver.GetDeviceTemp().Refresh().G
 double SwerveModule::getTurnerTemp() { return turner.GetDeviceTemp().Refresh().GetValue().value(); }
 
 // This a function that allows reverse compatability with pre-2025 code.
-// This just discards the const qualifier  
-void SwerveModule::setDesiredState(frc::SwerveModuleState const &desired_state){
+// This just discards the const qualifier
+void SwerveModule::setDesiredState(frc::SwerveModuleState const &desired_state)
+{
     frc::SwerveModuleState non_const_state = desired_state;
     setDesiredState(non_const_state);
 }
