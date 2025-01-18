@@ -58,6 +58,7 @@ namespace CONSTANTS
     {
         constexpr int LEFT_ID = 29;  // changeme
         constexpr int RIGHT_ID = 30; // changeme
+        // Configuration page: http://10.22.40.2:5812
         constexpr int TOF_ID = 32; // changeme
 
         static CONSTANTS::PidCoeff PID = {1};
