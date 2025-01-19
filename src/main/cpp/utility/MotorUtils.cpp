@@ -4,7 +4,7 @@ MotorUtils::Motor::Motor() {
   ctre::phoenix6::configs::TalonFXConfiguration base_config{};
 
   if (referencedMotor != nullptr) {
-    referencedMotor->motorPtr->GetConfigurator().Refresh(base_config);
+    referencedMotor->GetConfigurator().Refresh(base_config);
   } else {
     motorPtr->GetConfigurator().Refresh(base_config);
   }
@@ -29,7 +29,8 @@ MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX *motor, CONSTANTS::Pi
   Motor();
 }
 
-MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX* motor, MotorUtils::Motor *referenceMotor) {
+MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX* motor, ctre::phoenix6::hardware::TalonFX *referenceMotor) {
+  motorPtr = motor;
   referencedMotor = referenceMotor;
   Motor();
 }

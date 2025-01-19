@@ -30,10 +30,15 @@ Drivetrain::Drivetrain()
   gyro_conf.MountPose.MountPoseYaw = 180_deg;
   gyro.GetConfigurator().Apply(gyro_conf);
   using namespace Module;
+  // Front left is leader motor
   front_left = std::make_unique<SwerveModule>(60, 61, 14, CONSTANTS::DRIVE::CONFIG::FL.offset);
-  front_right = std::make_unique<SwerveModule>(50, 51, 13, CONSTANTS::DRIVE::CONFIG::FR.offset);
-  back_left = std::make_unique<SwerveModule>(30, 31, 11, CONSTANTS::DRIVE::CONFIG::BL.offset);
-  back_right = std::make_unique<SwerveModule>(40, 41, 12, CONSTANTS::DRIVE::CONFIG::BR.offset);
+
+  ctre::phoenix6::hardware::TalonFX *driver_ref = front_left->get_driver_motor_ptr();
+  ctre::phoenix6::hardware::TalonFX *turner_ref = front_left->get_turner_motor_ptr();
+
+  front_right = std::make_unique<SwerveModule>(50, 51, 13, CONSTANTS::DRIVE::CONFIG::FR.offset, driver_ref, turner_ref);
+  back_left = std::make_unique<SwerveModule>(30, 31, 11, CONSTANTS::DRIVE::CONFIG::BL.offset, driver_ref, turner_ref);
+  back_right = std::make_unique<SwerveModule>(40, 41, 12, CONSTANTS::DRIVE::CONFIG::BR.offset, driver_ref, turner_ref);
 }
 
 void Drivetrain::LogDashboard()

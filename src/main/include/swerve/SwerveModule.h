@@ -23,7 +23,7 @@ public:
     /*                  Public Function Declarations                  */
     /******************************************************************/
 
-    SwerveModule(int const &driver_adr, int const &turner_adr, int const &cancoder_adr, units::angle::turn_t offset);
+    SwerveModule(int const &driver_adr, int const &turner_adr, int const &cancoder_adr, units::angle::turn_t offset, ctre::phoenix6::hardware::TalonFX *reference_driver = nullptr, ctre::phoenix6::hardware::TalonFX *reference_turner = nullptr);
 
     [[nodiscard]] frc::SwerveModuleState getState();
 
@@ -53,6 +53,9 @@ public:
     units::angle::turn_t get_angle_turns();
 
     units::angle::degree_t get_angle_degrees();
+
+    ctre::phoenix6::hardware::TalonFX *get_driver_motor_ptr();
+    ctre::phoenix6::hardware::TalonFX *get_turner_motor_ptr();
 
     // No copies/moves should be occuring (Talons don't support this)
     SwerveModule(SwerveModule const &) = delete;

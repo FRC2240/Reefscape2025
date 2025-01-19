@@ -21,7 +21,7 @@ namespace MotorUtils {
 
     Motor();
     Motor(ctre::phoenix6::hardware::TalonFX* motor, CONSTANTS::PidCoeff coeff, LogValues values);
-    Motor(ctre::phoenix6::hardware::TalonFX* motor, MotorUtils::Motor *referenceMotor);
+    Motor(ctre::phoenix6::hardware::TalonFX* motor, ctre::phoenix6::hardware::TalonFX *referenceMotor);
 
     ctre::phoenix6::hardware::TalonFX *motorPtr;
     CONSTANTS::PidCoeff pid;
@@ -29,7 +29,7 @@ namespace MotorUtils {
 
     std::string name;
 
-    Motor* referencedMotor = nullptr;
+    ctre::phoenix6::hardware::TalonFX* referencedMotor = nullptr;
     
     void PutDashboard();
     CONSTANTS::PidCoeff GetDashboard();
