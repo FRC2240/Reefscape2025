@@ -28,7 +28,7 @@ void BetterSubsystemBase::SetPID()
   {
     ctre::phoenix6::configs::TalonFXConfiguration configs{};
     if (motor.referencedMotor != nullptr) {
-      motor.referencedMotor->motorPtr->GetConfigurator().Refresh(configs);
+      motor.motorPtr->GetConfigurator().Refresh(configs);
     } else {
       motor.motorPtr->GetConfigurator().Refresh(configs);
     }

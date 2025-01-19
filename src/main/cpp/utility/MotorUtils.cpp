@@ -1,14 +1,18 @@
 #include "utility/MotorUtils.h"
 
-MotorUtils::Motor::Motor() {
+MotorUtils::Motor::Motor()
+{
   ctre::phoenix6::configs::TalonFXConfiguration base_config{};
 
-  if (referencedMotor != nullptr) {
+  if (referencedMotor != nullptr)
+  {
     referencedMotor->GetConfigurator().Refresh(base_config);
-  } else {
+  }
+  else
+  {
     motorPtr->GetConfigurator().Refresh(base_config);
   }
-  
+
   base_config.Audio.BeepOnBoot = true;
   base_config.Audio.BeepOnConfig = true;
 
@@ -29,7 +33,8 @@ MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX *motor, CONSTANTS::Pi
   Motor();
 }
 
-MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX* motor, ctre::phoenix6::hardware::TalonFX *referenceMotor) {
+MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX *motor, ctre::phoenix6::hardware::TalonFX *referenceMotor)
+{
   motorPtr = motor;
   referencedMotor = referenceMotor;
   Motor();
@@ -37,26 +42,32 @@ MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX* motor, ctre::phoenix
 
 void MotorUtils::Motor::PutDashboard()
 {
-  frc::SmartDashboard::PutNumber("motors/" + name + "/PID/kS", pid.kS);
-  frc::SmartDashboard::PutNumber("motors/" + name + "/PID/kP", pid.kP);
-  frc::SmartDashboard::PutNumber("motors/" + name + "/PID/kI", pid.kI);
-  frc::SmartDashboard::PutNumber("motors/" + name + "/PID/kD", pid.kD);
-  frc::SmartDashboard::PutNumber("motors/" + name + "/PID/kG", pid.kG);
-  frc::SmartDashboard::PutNumber("motors/" + name + "/LIMITS/supply", pid.currentLimits.supply.value());
-  frc::SmartDashboard::PutNumber("motors/" + name + "/LIMITS/stator", pid.currentLimits.stator.value());
+  if (referencedMotor != nullptr)
+  {
+    frc::SmartDashboard::PutNumber("motors/" + name + "/PID/kS", pid.kS);
+    frc::SmartDashboard::PutNumber("motors/" + name + "/PID/kP", pid.kP);
+    frc::SmartDashboard::PutNumber("motors/" + name + "/PID/kI", pid.kI);
+    frc::SmartDashboard::PutNumber("motors/" + name + "/PID/kD", pid.kD);
+    frc::SmartDashboard::PutNumber("motors/" + name + "/PID/kG", pid.kG);
+    frc::SmartDashboard::PutNumber("motors/" + name + "/LIMITS/supply", pid.currentLimits.supply.value());
+    frc::SmartDashboard::PutNumber("motors/" + name + "/LIMITS/stator", pid.currentLimits.stator.value());
+  }
 }
 
 CONSTANTS::PidCoeff MotorUtils::Motor::GetDashboard()
 {
   CONSTANTS::PidCoeff config;
-  config.kS = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kS", pid.kS);
-  config.kP = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kP", pid.kP);
-  config.kI = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kI", pid.kI);
-  config.kD = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kD", pid.kD);
-  config.kG = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kG", pid.kG);
+  if (referencedMotor != nullptr)
+  {
+    config.kS = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kS", pid.kS);
+    config.kP = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kP", pid.kP);
+    config.kI = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kI", pid.kI);
+    config.kD = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kD", pid.kD);
+    config.kG = frc::SmartDashboard::GetNumber("motors/" + name + "/PID/kG", pid.kG);
 
-  config.currentLimits.supply = units::ampere_t{frc::SmartDashboard::GetNumber("motors/" + name + "LIMITS/supply", pid.currentLimits.supply.value())};
-  config.currentLimits.stator = units::ampere_t{frc::SmartDashboard::GetNumber("motors/" + name + "LIMITS/stator", pid.currentLimits.stator.value())};
+    config.currentLimits.supply = units::ampere_t{frc::SmartDashboard::GetNumber("motors/" + name + "LIMITS/supply", pid.currentLimits.supply.value())};
+    config.currentLimits.stator = units::ampere_t{frc::SmartDashboard::GetNumber("motors/" + name + "LIMITS/stator", pid.currentLimits.stator.value())};
+  }
 
   return config;
 }
