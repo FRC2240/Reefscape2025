@@ -9,8 +9,8 @@
 #include <frc/estimator/SwerveDrivePoseEstimator.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <networktables/NetworkTableInstance.h>
-// #include <photon/PhotonCamera.h>
-// #include <photon/PhotonPoseEstimator.h>
+#include <photon/PhotonCamera.h>
+#include <photon/PhotonPoseEstimator.h>
 #include <stdlib.h>
 #include <units/angle.h>
 class Vision
@@ -45,62 +45,55 @@ public:
     std::optional<units::degree_t> get_apriltag_angle();
 
 private:
-    // struct PhotonGroup
-    // {
-    //     std::shared_ptr<photon::PhotonCamera> camera;
-    //     photon::PhotonPoseEstimator multitag_estimator;
-    //     photon::PhotonPoseEstimator singletag_estimator;
-    //     PhotonGroup(std::shared_ptr<photon::PhotonCamera> acamera,
-    //                 photon::PhotonPoseEstimator amultitag_estimator,
-    //                 photon::PhotonPoseEstimator asingletag_estimator)
-    //         : camera{acamera},
-    //           multitag_estimator{amultitag_estimator},
-    //           singletag_estimator{asingletag_estimator}
-    //     {
-    //     }
-    // };
+    struct PhotonGroup
+    {
+        std::shared_ptr<photon::PhotonCamera> camera;
+        photon::PhotonPoseEstimator multitag_estimator;
+        photon::PhotonPoseEstimator singletag_estimator;
+        PhotonGroup(std::shared_ptr<photon::PhotonCamera> acamera,
+                    photon::PhotonPoseEstimator amultitag_estimator,
+                    photon::PhotonPoseEstimator asingletag_estimator)
+            : camera{acamera},
+              multitag_estimator{amultitag_estimator},
+              singletag_estimator{asingletag_estimator}
+        {
+        }
+    };
 
     std::function<units::degree_t()> get_angle;
     bool is_hardware_zoomed = 0;
 
-    // std::shared_ptr<photon::PhotonCamera> m_left_camera_a =
-    //     std::make_shared<photon::PhotonCamera>("left_camera_a");
+    std::shared_ptr<photon::PhotonCamera> m_left_camera_a =
+        std::make_shared<photon::PhotonCamera>("left_camera_a");
 
+    std::shared_ptr<photon::PhotonCamera> m_right_camera_a =
+        std::make_shared<photon::PhotonCamera>("right_camera_a");
 
-    // std::shared_ptr<photon::PhotonCamera> m_right_camera_a =
-    //     std::make_shared<photon::PhotonCamera>("right_camera_a");
-
-
-
-    #pragma warn("change to k2025Reefscape")
     frc::AprilTagFieldLayout layout =
-        frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::k2024Crescendo);
+        frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::kDefaultField);
 
-    // photon::PhotonPoseEstimator m_left_estimator_a{
-    //     layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
-    //     CONSTANTS::VISION::LEFT_CAMERA_A_TF};
+    photon::PhotonPoseEstimator m_left_estimator_a{
+        layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
+        CONSTANTS::VISION::LEFT_CAMERA_A_TF};
 
-    // photon::PhotonPoseEstimator m_single_left_estimator{
-    //     layout, photon::PoseStrategy::LOWEST_AMBIGUITY,
-    //     CONSTANTS::VISION::LEFT_CAMERA_A_TF};
+    photon::PhotonPoseEstimator m_single_left_estimator{
+        layout, photon::PoseStrategy::LOWEST_AMBIGUITY,
+        CONSTANTS::VISION::LEFT_CAMERA_A_TF};
 
+    photon::PhotonPoseEstimator m_right_estimator_a{
+        layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
+        CONSTANTS::VISION::RIGHT_CAMERA_A_TF};
 
+    photon::PhotonPoseEstimator m_single_right_estimator{
+        layout, photon::PoseStrategy::LOWEST_AMBIGUITY,
+        CONSTANTS::VISION::RIGHT_CAMERA_A_TF};
 
-
-    // photon::PhotonPoseEstimator m_right_estimator_a{
-    //     layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
-    //     CONSTANTS::VISION::RIGHT_CAMERA_A_TF};
-
-    // photon::PhotonPoseEstimator m_single_right_estimator{
-    //     layout, photon::PoseStrategy::LOWEST_AMBIGUITY,
-    //     CONSTANTS::VISION::RIGHT_CAMERA_A_TF};
-
-    // std::vector<PhotonGroup>
-    //     m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a, m_single_left_estimator},
-    //                        {m_right_camera_a, m_right_estimator_a, m_single_right_estimator}};
+    std::vector<PhotonGroup>
+        m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a, m_single_left_estimator},
+                           {m_right_camera_a, m_right_estimator_a, m_single_right_estimator}};
 
     std::shared_ptr<nt::NetworkTable> m_aft_limelight =
-        nt::NetworkTableInstance::GetDefault().GetTable("limelight-fore");
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight-aft");
 
     std::shared_ptr<nt::NetworkTable> m_fore_limelight =
         nt::NetworkTableInstance::GetDefault().GetTable("limelight-fore");
