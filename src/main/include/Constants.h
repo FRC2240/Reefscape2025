@@ -160,10 +160,10 @@ namespace CONSTANTS
         constexpr units::second_t BRAKE_TIME = 10_s;
         constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 23.533_fps;
         constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi *
-                                                                      0.5};
+                                                                      3};
         constexpr units::meters_per_second_t TELEOP_MAX_SPEED = ROBOT_MAX_SPEED;
         constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{
-            std::numbers::pi * 0.5};
+            std::numbers::pi * 3};
         constexpr units::meters_per_second_t TRAJ_MAX_SPEED = ROBOT_MAX_SPEED;
         constexpr units::acceleration::meters_per_second_squared_t
             TRAJ_MAX_ACCELERATION = TRAJ_MAX_SPEED / 0.5_s;
