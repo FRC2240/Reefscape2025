@@ -21,6 +21,14 @@ void Grabber::spin(units::turns_per_second_t speed)
     m_left_motor.SetControl(velocity);
 };
 
+frc2::CommandPtr Grabber::idle()
+{
+    return frc2::cmd::Run([this]
+                          { spin(0_tps); },
+                          {this})
+        .WithName("Idle");
+};
+
 frc2::CommandPtr Grabber::extake()
 {
     return frc2::cmd::Run(

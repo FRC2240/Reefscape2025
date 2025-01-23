@@ -13,6 +13,7 @@ public:
     Grabber();
     frc2::CommandPtr intake(units::turns_per_second_t speed);
     frc2::CommandPtr extake();
+    frc2::CommandPtr idle();
 
 private:
     ctre::phoenix6::hardware::TalonFX m_right_motor{CONSTANTS::GRABBER::RIGHT_ID};
