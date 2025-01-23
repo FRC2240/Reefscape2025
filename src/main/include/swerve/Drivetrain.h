@@ -3,7 +3,6 @@
 #ifndef CFG_NO_DRIVEBASE
 
 #include "swerve/SwerveModule.h"
-#include "swerve/ngr.h"
 #include "utility/MotorUtils.h"
 
 #include <ctre/phoenix6/Pigeon2.hpp>

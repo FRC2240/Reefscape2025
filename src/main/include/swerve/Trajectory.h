@@ -14,7 +14,6 @@
 #include "Constants.h"
 #include <functional>
 #include <cmath>
-#include "swerve/ngr.h"
 #include "swerve/Odometry.h"
 #include "swerve/Vision.h"
 #include <frc/DriverStation.h>
