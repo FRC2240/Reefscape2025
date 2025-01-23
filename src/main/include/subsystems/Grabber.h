@@ -10,8 +10,8 @@ class Grabber : public BetterSubsystemBase
 {
 public:
     Grabber();
-    frc2::CommandPtr intake(units::turns_per_second_t speed);
-    frc2::CommandPtr extake(units::turns_per_second_t speed, units::second_t time);
+    frc2::CommandPtr intake_command(units::turns_per_second_t speed);
+    frc2::CommandPtr extake_command(units::turns_per_second_t speed, units::second_t time);
 
 private:
     ctre::phoenix6::hardware::TalonFX m_right_motor{CONSTANTS::GRABBER::RIGHT_ID};
