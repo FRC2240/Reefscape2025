@@ -12,47 +12,38 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
 
   frc::SmartDashboard::PutNumber("vision step", 1);
   std::vector<std::optional<frc::Pose2d>> ret;
-  // for (auto &i : m_photoncam_vec)
-  // {
-  //   frc::SmartDashboard::PutNumber("vision step", 2);
-  //   auto result = i.camera->GetLatestResult();
-  //   frc::SmartDashboard::PutNumber("vision step", 2.5);
-  //   frc::SmartDashboard::PutNumber("vision is present", result.HasTargets());
-  //   if (result.MultiTagResult().result.isPresent)
-  //   {
-
-  //     frc::SmartDashboard::PutNumber("vision step", 3);
-  //     auto pose = i.multitag_estimator.Update(result);
-  //     if (pose)
-  //     {
-
-  //       frc::SmartDashboard::PutNumber("vision step", 4);
-  //       frc::SmartDashboard::PutNumber("pv/x", pose.value().estimatedPose.X().value());
-  //       frc::SmartDashboard::PutNumber("pv/y", pose.value().estimatedPose.Y().value());
-  //       frc::SmartDashboard::PutNumber("pv/get_angle()", get_angle().value());
-  //       // if (CONSTANTS::IN_THRESHOLD<units::degree_t>(
-  //       //         pose.value().estimatedPose.Rotation().ToRotation2d().Degrees(),
-  //       //         get_angle(), 3_deg))
-  //       // {
-  //       ret.push_back(pose.value().estimatedPose.ToPose2d());
-  //       // }
-  //     }
-  //   }
-  //   else if (result.HasTargets())
-  //   {
-  //     auto pose = i.singletag_estimator.Update(result);
-  //     ret.push_back(pose.value().estimatedPose.ToPose2d());
-  //   }
-  // }
-
-  if (!is_hardware_zoomed && m_aft_limelight->GetNumber("tv", 0) >= 0.5)
+  for (auto &i : m_photoncam_vec)
   {
-    frc::SmartDashboard::PutBoolean("ll functional", 1);
-    ret.push_back(frc::Pose2d(units::meter_t{aft_results[0]},
-                              units::meter_t{aft_results[1]},
-                              frc::Rotation2d(units::degree_t{aft_results[5]})));
-  }
+    frc::SmartDashboard::PutNumber("vision step", 2);
+    auto result = i.camera->GetLatestResult();
+    frc::SmartDashboard::PutNumber("vision step", 2.5);
+    frc::SmartDashboard::PutNumber("vision is present", result.HasTargets());
+    if (result.MultiTagResult())
+    {
 
+      frc::SmartDashboard::PutNumber("vision step", 3);
+      auto pose = i.multitag_estimator.Update(result);
+      if (pose)
+      {
+
+        frc::SmartDashboard::PutNumber("vision step", 4);
+        frc::SmartDashboard::PutNumber("pv/x", pose.value().estimatedPose.X().value());
+        frc::SmartDashboard::PutNumber("pv/y", pose.value().estimatedPose.Y().value());
+        frc::SmartDashboard::PutNumber("pv/get_angle()", get_angle().value());
+        // if (CONSTANTS::IN_THRESHOLD<units::degree_t>(
+        //         pose.value().estimatedPose.Rotation().ToRotation2d().Degrees(),
+        //         get_angle(), 3_deg))
+        // {
+        ret.push_back(pose.value().estimatedPose.ToPose2d());
+        // }
+      }
+    }
+    else if (result.HasTargets())
+    {
+      auto pose = i.singletag_estimator.Update(result);
+      ret.push_back(pose.value().estimatedPose.ToPose2d());
+    }
+  }
   std::vector<double> printvec_x;
   std::vector<double> printvec_y;
   for (auto &i : ret)
@@ -61,8 +52,10 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
     {
       printvec_x.push_back(i.value().X().value());
       printvec_y.push_back(i.value().Y().value());
+      frc::SmartDashboard::PutNumberArray("pv/pos", std::vector<double>{i.value().X().value(), i.value().Y().value(), 0.0});
     }
   }
+  // frc::SmartDashboard::PutNumberArray("pv/pos", std::vector<double>{0.0, 0.0, 0.0});
   frc::SmartDashboard::PutNumberArray("pv/x arr", printvec_x);
   frc::SmartDashboard::PutNumberArray("pv/y arr", printvec_y);
   return ret;

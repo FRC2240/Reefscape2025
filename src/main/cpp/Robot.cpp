@@ -15,6 +15,7 @@ Robot::Robot()
 
 void Robot::RobotPeriodic()
 {
+  m_container.m_odometry.update_from_vision();
   m_container.m_odometry.update();
   m_container.m_drivetrain.log_accel();
   try

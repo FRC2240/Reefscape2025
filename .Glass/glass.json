@@ -2,13 +2,13 @@
   "NetworkTables": {
     "transitory": {
       "SmartDashboard": {
-        "Talon FX (v6) 30": {
-          "open": true
-        },
         "cspeed": {
           "open": true
         },
         "fl": {
+          "open": true
+        },
+        "odometry": {
           "open": true
         },
         "open": true
@@ -24,10 +24,31 @@
         "window": {
           "visible": true
         }
+      },
+      "/SmartDashboard/Odometry Field": {
+        "bottom": 400,
+        "builtin": "2021 Galactic Search B",
+        "height": 4.572000026702881,
+        "left": 20,
+        "right": 780,
+        "top": 20,
+        "width": 9.144000053405762
       }
     }
   },
   "NetworkTables Info": {
+    "Clients": {
+      "open": true
+    },
+    "Server": {
+      "Publishers": {
+        "open": true
+      },
+      "Subscribers": {
+        "open": true
+      },
+      "open": true
+    },
     "visible": true
   },
   "NetworkTables Settings": {
