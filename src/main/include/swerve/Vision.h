@@ -70,7 +70,7 @@ private:
         std::make_shared<photon::PhotonCamera>("right_camera_a");
 
     frc::AprilTagFieldLayout layout =
-        frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::kDefaultField);
+        frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::k2025Reefscape);
 
     photon::PhotonPoseEstimator m_left_estimator_a{
         layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
