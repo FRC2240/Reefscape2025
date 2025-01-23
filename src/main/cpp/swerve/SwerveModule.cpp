@@ -45,9 +45,9 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     driver_config.Audio.BeepOnBoot = true;
     driver_config.Audio.BeepOnConfig = true;
 
-    driver_config.Slot0.kP = 12;
+    driver_config.Slot0.kP = 25;
     //  driver_config.MotionMagic.MotionMagicAcceleration
-    driver_config.MotionMagic.MotionMagicAcceleration = units::turns_per_second_squared_t{575};
+    driver_config.MotionMagic.MotionMagicAcceleration = units::turns_per_second_squared_t{9999};
     // driver_config
     // driver_config.Slot0.kD = 0.002;
     // driver_config.Slot0.kI = 0.4;
