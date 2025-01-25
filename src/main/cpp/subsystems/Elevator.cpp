@@ -10,7 +10,7 @@ Elevator::Elevator()
     AddPID(ElevatorMotor);
     SetPID();
 
-    m_motor_follow.SetControl(ctre::phoenix6::controls::Follower{m_motor.GetDeviceID(), false});
+    m_motor_follow.SetControl(ctre::phoenix6::controls::Follower{m_motor.GetDeviceID(), 1});
 
     // ctre::phoenix6::configs::TalonFXConfiguration Elevator_config{};
     // m_motor.GetConfigurator().Apply(Elevator_config)
@@ -29,7 +29,7 @@ frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos)
         set_position(position); },
                             {this})
         .Until([this, pos] -> bool
-               { CONSTANTS::IN_THRESHOLD(get_position(), pos, CONSTANTS::ELEVATOR::POSTITION_THRESHOLD); })
+               { return CONSTANTS::IN_THRESHOLD(get_position(), pos, CONSTANTS::ELEVATOR::POSTITION_THRESHOLD); })
         .WithName("Elevator Set Pos");
 }
 
@@ -63,13 +63,17 @@ units::angle::turn_t Elevator::get_position()
 
 void Elevator::set_position(units::angle::turn_t pos)
 {
+    ForceLog::debug("1");
     // Soft limits on top & bottom
     try
     {
+        ForceLog::debug("2");
         std::clamp(pos, CONSTANTS::ELEVATOR::LIMITS::TOP, CONSTANTS::ELEVATOR::LIMITS::BOTTOM);
-        m_motor.SetControl(ctre::phoenix6::controls::PositionTorqueCurrentFOC{pos});
+        ForceLog::debug("3");
+        ForceLog::debug(m_motor.SetControl(ctre::phoenix6::controls::PositionTorqueCurrentFOC{pos}).GetName());
+        ForceLog::debug("4");
     }
-    catch(const std::exception& e)
+    catch (const std::exception &e)
     {
         ForceLog::fatal(e.what());
     }
