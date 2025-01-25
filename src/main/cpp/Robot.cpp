@@ -38,6 +38,7 @@ void Robot::DisabledInit()
 
 void Robot::DisabledPeriodic()
 {
+  my_alert.Set(true);
 
   if (disabled_timer.Get() > CONSTANTS::DRIVE::BRAKE_TIME && !frc::DriverStation::IsEStopped())
   {
@@ -76,6 +77,12 @@ void Robot::TeleopInit()
   {
     m_autonomousCommand.value()->Cancel();
   }
+
+  ForceLog::info("Info Test");
+  ForceLog::warn("Warn Test");
+  ForceLog::error("Error Test");
+  ForceLog::fatal("Fatal Test");
+  ForceLog::debug("Debug Test");
 }
 
 void Robot::TeleopPeriodic()

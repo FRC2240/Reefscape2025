@@ -27,6 +27,7 @@
 #include "swerve/Odometry.h"
 #include "swerve/Trajectory.h"
 #include "swerve/Vision.h"
+#include "utility/ForceLog.h"
 
 class RobotContainer
 {
@@ -54,7 +55,7 @@ public:
       {
         return m_drivetrain.getAngle();
       }};
-  
+
   void ConfigureBindings();
   void SetPID();
   void LogDashboard();
