@@ -38,7 +38,7 @@ void RobotContainer::ConfigureBindings()
       {
         return m_stick0.A().Get() && m_stick0.RightBumper().Get();
       }}
-      .OnTrue(score_prepare(CONSTANTS::SCORING_TARGETS::L1).AndThen(score_execute(CONSTANTS::SCORING_TARGETS::L1)));
+      .OnTrue(score_prepare(CONSTANTS::SCORING_TARGETS::L1));
 }
 
 frc2::Command *RobotContainer::GetAutonomousCommand()
