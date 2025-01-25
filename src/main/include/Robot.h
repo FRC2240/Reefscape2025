@@ -32,6 +32,7 @@ public:
 private:
   std::optional<frc2::Command *> m_autonomousCommand;
   frc::Timer disabled_timer;
+  frc::Alert my_alert{"thingy", frc::Alert::AlertType::kInfo};
 
   RobotContainer m_container;
 };
