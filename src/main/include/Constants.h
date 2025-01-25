@@ -63,9 +63,9 @@ namespace CONSTANTS
             units::turn_t wrist_pos;
 
             // I don't know why this needs to be overriden but it does.  ¯\_(-_-)_/¯
-            bool operator==(TargetProfile &other) const
+            bool operator==(TargetProfile &other)
             {
-                return ((this->elevtor_pos == other.elevtor_pos) && (this->wrist_pos == other.wrist_pos));
+                return ((IN_THRESHOLD<TargetProfile>(this->elevtor_pos, other.elevtor_pos, 0.5_tr) && (IN_THRESHOLD<TargetProfile>(this->wrist_pos, other.wrist_pos, 0.5_tr)));
             }
         };
         constexpr TargetProfile L1{0_tr, 0_tr};
