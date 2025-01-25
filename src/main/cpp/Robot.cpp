@@ -15,9 +15,9 @@ Robot::Robot()
 
 void Robot::RobotPeriodic()
 {
-  m_container.m_odometry.update_from_vision();
-  m_container.m_odometry.update();
-  m_container.m_drivetrain.log_accel();
+  //m_container.m_odometry.update_from_vision();
+  //m_container.m_odometry.update();
+  //m_container.m_drivetrain.log_accel();
   try
   {
     frc2::CommandScheduler::GetInstance().Run();
@@ -32,7 +32,7 @@ void Robot::RobotPeriodic()
 void Robot::DisabledInit()
 {
 
-  m_container.m_drivetrain.set_brake_mode(1);
+  //m_container.m_drivetrain.set_brake_mode(1);
   disabled_timer.Restart();
 }
 
@@ -42,7 +42,7 @@ void Robot::DisabledPeriodic()
 
   if (disabled_timer.Get() > CONSTANTS::DRIVE::BRAKE_TIME && !frc::DriverStation::IsEStopped())
   {
-    m_container.m_drivetrain.set_brake_mode(0);
+    //m_container.m_drivetrain.set_brake_mode(0);
     disabled_timer.Reset();
     disabled_timer.Stop();
   }

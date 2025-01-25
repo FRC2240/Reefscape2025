@@ -43,24 +43,26 @@ public:
   frc2::CommandXboxController m_stick0{0};
   frc2::CommandXboxController m_stick1{1};
 
-  Drivetrain m_drivetrain;
-  Odometry m_odometry{&m_drivetrain, &m_vision};
-  Climber m_climber;
+  //Drivetrain m_drivetrain;
+  // Odometry m_odometry{&m_drivetrain, &m_vision};
+  //Climber m_climber;
   Elevator m_elevator;
-  Wrist m_wrist;
-  Grabber m_grabber;
+  //Wrist m_wrist;
+  //Grabber m_grabber;
 
+/*
   Vision m_vision{
       [this]() -> units::degree_t
       {
         return m_drivetrain.getAngle();
       }};
+      */
 
   void ConfigureBindings();
   void SetPID();
   void LogDashboard();
 
-  std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
+  //std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 
-  Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision};
+  // Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision};
 };

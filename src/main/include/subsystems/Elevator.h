@@ -16,6 +16,9 @@ class Elevator: public BetterSubsystemBase {
     public:
         Elevator();
 
+        frc2::CommandPtr stress_test_up();
+        frc2::CommandPtr stress_test_down();
+
         frc2::CommandPtr set_position_command(units::angle::turn_t pos);
         frc2::CommandPtr idle_command();    
         frc2::CommandPtr follow_joystick_command(frc2::CommandXboxController* stick);
@@ -24,5 +27,6 @@ class Elevator: public BetterSubsystemBase {
         void set_position(units::angle::turn_t pos);
 
     private:
-        ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::ELEVATOR::ELEVATOR_ID};
+        ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::ELEVATOR::LEADER_ID};
+        ctre::phoenix6::hardware::TalonFX m_motor_follow{CONSTANTS::ELEVATOR::FOLLOWER_ID};
 };
