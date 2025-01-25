@@ -97,4 +97,6 @@ private:
 
     std::shared_ptr<nt::NetworkTable> m_fore_limelight =
         nt::NetworkTableInstance::GetDefault().GetTable("limelight-fore");
+
+    std::vector<std::shared_ptr<nt::NetworkTable>> m_limelight_vec = {m_aft_limelight};
 };

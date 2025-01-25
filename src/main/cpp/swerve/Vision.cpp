@@ -7,16 +7,23 @@ Vision::Vision(std::function<units::degree_t()> get_angle_fn)
 
 std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
 {
-  auto aft_results = m_aft_limelight->GetNumberArray("botpose_wpiblue",
-                                                     std::vector<double>(6));
 
-  frc::SmartDashboard::PutNumber("vision step", 1);
   std::vector<std::optional<frc::Pose2d>> ret;
+  for (auto &i : m_limelight_vec)
+  {
+    if (i->GetNumber("tv", 0.0) > 0.5)
+    {
+      auto posevec = i->GetNumberArray("botpose_wpiblue", std::vector<double>(6));
+      ret.push_back(frc::Pose2d{
+          units::meter_t{posevec[0]},
+          units::meter_t{posevec[1]},
+          frc::Rotation2d{get_angle()}});
+    }
+  }
+
   for (auto &i : m_photoncam_vec)
   {
-    frc::SmartDashboard::PutNumber("vision step", 2);
     auto result = i.camera->GetLatestResult();
-    frc::SmartDashboard::PutNumber("vision step", 2.5);
     frc::SmartDashboard::PutNumber("vision is present", result.HasTargets());
     if (result.MultiTagResult())
     {
