@@ -44,6 +44,27 @@ namespace CONSTANTS
 
         double min = -1; // Minimum output for control loop
         double max = 1;  // Maximum output for control loop
+
+        double GetP() { return kP; }
+        void SetP(double val) { kP = val; } 
+
+        double GetI() { return kI; }
+        void SetI(double val) { kI = val; }    
+
+        double GetD() { return kD; }
+        void SetD(double val) { kD = val; }  
+
+        double GetS() { return kS; }
+        void SetS(double val) { kS = val; }
+
+        void SetG(double val) { kG = val; }
+        double GetG() { return kG; }
+
+        void SetMin(double val) { min = val; }
+        double GetMin() { return min; }
+
+        void SetMax(double val) { max = val; }
+        double GetMax() { return max; }
     };
 
     namespace CORAL
@@ -93,7 +114,7 @@ namespace CONSTANTS
         constexpr int WRIST_ID = 29;
         constexpr units::angle::turn_t DEFAULT_POSITION = 0_tr;
         // This is the default PID values for the wrist motor
-        static const PidCoeff PidValue = {1};
+        static const PidCoeff PidValue = {0.0};
 
         constexpr units::angle::degree_t POSITION_THRESHOLD = 5_deg;
     };

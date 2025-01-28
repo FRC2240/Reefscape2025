@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Constants.h"
-#include "utility/BetterSubsystemBase.h"
 #include "utility/MotorUtils.h"
 
 #include <units/angle.h>
@@ -9,7 +8,7 @@
 #include "frc2/command/CommandPtr.h"
 #include <frc2/command/RunCommand.h>
 
-class Climber : public BetterSubsystemBase
+class Climber : public frc2::SubsystemBase
 {
 public:
     Climber();

@@ -26,7 +26,6 @@ void Robot::RobotPeriodic()
   {
     frc::DataLogManager::Log(e.what());
   }
-  m_container.LogDashboard();
 }
 
 void Robot::DisabledInit()

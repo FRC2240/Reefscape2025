@@ -58,7 +58,6 @@ public:
 
   void ConfigureBindings();
   void SetPID();
-  void LogDashboard();
 
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 

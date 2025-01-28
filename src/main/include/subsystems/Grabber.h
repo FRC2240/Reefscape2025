@@ -2,11 +2,10 @@
 #include "Constants.h"
 #include <frc2/command/SubsystemBase.h>
 #include <utility/MotorUtils.h>
-#include "utility/BetterSubsystemBase.h"
 #include <TimeOfFlight.h>
 #include <frc2/command/Commands.h>
 
-class Grabber : public BetterSubsystemBase
+class Grabber : public frc2::SubsystemBase
 {
 public:
     Grabber();

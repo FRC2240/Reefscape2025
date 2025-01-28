@@ -3,11 +3,6 @@
 
 
 Climber::Climber() {
-    MotorUtils::Motor::LogValues logValues {true, true, true};
-    MotorUtils::Motor climberMotor{&m_motor, CONSTANTS::CLIMBER::PidValue, logValues};
-    AddPID(climberMotor);
-    SetPID();
-
     m_motor.SetPosition(CONSTANTS::CLIMBER::DEFAULT_POS);
 }
 
