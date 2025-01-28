@@ -1,7 +1,21 @@
 {
   "NetworkTables": {
+    "Transitory Values": {
+      "open": false
+    },
+    "retained": {
+      "SmartDashboard": {
+        "open": true
+      }
+    },
     "transitory": {
       "SmartDashboard": {
+        "Log": {
+          "open": true,
+          "string[]##v_/SmartDashboard/Log/debug": {
+            "open": true
+          }
+        },
         "cspeed": {
           "open": true
         },
@@ -105,6 +119,15 @@
                 1.0
               ],
               "id": "NT:/SmartDashboard/motors/Talon FX (v6) 20/LOG/stator_current"
+            },
+            {
+              "color": [
+                0.3333333432674408,
+                0.658823549747467,
+                0.4078431725502014,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/motors/Talon FX (v6) 20/LOG/position"
             }
           ]
         }

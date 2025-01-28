@@ -74,7 +74,7 @@ namespace CONSTANTS
 
     namespace ELEVATOR
     {
-        constexpr units::angle::turn_t TOP_POS = 45_tr;
+        constexpr units::angle::turn_t TOP_POS = 47_tr;
         constexpr units::angle::turn_t BOTTOM_POS = 0.5_tr;
         constexpr int LEADER_ID = 20;
         constexpr int FOLLOWER_ID = 21;
@@ -90,7 +90,7 @@ namespace CONSTANTS
         }
         namespace LIMITS
         {
-            constexpr units::angle::turn_t TOP = 46_tr;
+            constexpr units::angle::turn_t TOP = 48_tr;
             constexpr units::angle::turn_t BOTTOM = 0.25_tr;
         }
     }

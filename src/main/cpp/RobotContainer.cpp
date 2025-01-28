@@ -9,30 +9,33 @@
 RobotContainer::RobotContainer()
 {
   ConfigureBindings();
-  //m_odometry.putField2d();
-  //autoChooser = AutoBuilder::buildAutoChooser();
-  //frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
+  // m_odometry.putField2d();
+  // autoChooser = AutoBuilder::buildAutoChooser();
+  // frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
 }
 
-void RobotContainer::SetPID() {
-  //m_climber.SetPID();
+void RobotContainer::SetPID()
+{
+  // m_climber.SetPID();
   m_elevator.SetPID();
-  //m_wrist.SetPID();
-  //m_grabber.SetPID();
+  // m_wrist.SetPID();
+  // m_grabber.SetPID();
 }
-void RobotContainer::LogDashboard() {
-  //m_climber.LogDashboard();
+void RobotContainer::LogDashboard()
+{
+  // m_climber.LogDashboard();
   m_elevator.LogDashboard();
-  //m_wrist.LogDashboard();
-  //m_grabber.LogDashboard();
+  // m_wrist.LogDashboard();
+  // m_grabber.LogDashboard();
 }
 
 void RobotContainer::ConfigureBindings()
 {
-  //m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
+  // m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
   m_stick0.A().OnTrue(m_elevator.set_position_command(CONSTANTS::ELEVATOR::TOP_POS));
   m_stick0.B().OnTrue(m_elevator.set_position_command(CONSTANTS::ELEVATOR::BOTTOM_POS));
-  //m_elevator.stress_test_up();
+  m_stick0.X().OnTrue(m_elevator.stress_test_up());
+  // m_elevator.stress_test_up();
 }
 
 frc2::Command *RobotContainer::GetAutonomousCommand()

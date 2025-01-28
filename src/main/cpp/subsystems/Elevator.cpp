@@ -63,15 +63,11 @@ units::angle::turn_t Elevator::get_position()
 
 void Elevator::set_position(units::angle::turn_t pos)
 {
-    ForceLog::debug("1");
     // Soft limits on top & bottom
     try
     {
-        ForceLog::debug("2");
         std::clamp(pos, CONSTANTS::ELEVATOR::LIMITS::TOP, CONSTANTS::ELEVATOR::LIMITS::BOTTOM);
-        ForceLog::debug("3");
-        ForceLog::debug(m_motor.SetControl(ctre::phoenix6::controls::PositionTorqueCurrentFOC{pos}).GetName());
-        ForceLog::debug("4");
+        ForceLog::debug(m_motor.SetControl(m_position_control.WithPosition(pos)).GetName());
     }
     catch (const std::exception &e)
     {
@@ -81,10 +77,31 @@ void Elevator::set_position(units::angle::turn_t pos)
 
 frc2::CommandPtr Elevator::stress_test_up()
 {
-    return set_position_command(CONSTANTS::ELEVATOR::LIMITS::TOP).AndThen(stress_test_down());
+    bool going_up = 1;
+
+    return frc2::cmd::Run([this, &going_up]
+                          {
+        if (going_up)
+        {
+            set_position(CONSTANTS::ELEVATOR::LIMITS::TOP);
+            ForceLog::debug(std::to_string(counter));
+        }
+        else
+        {
+            set_position(CONSTANTS::ELEVATOR::LIMITS::BOTTOM);
+        }
+        if (get_position() >= CONSTANTS::ELEVATOR::LIMITS::TOP - 2_tr)
+        {
+            going_up = 0;
+            counter++;
+        }
+        else if (get_position() <= CONSTANTS::ELEVATOR::LIMITS::BOTTOM + 2_tr)
+        {
+            going_up = 1;
+        } }, {this});
 }
 
 frc2::CommandPtr Elevator::stress_test_down()
 {
-    return set_position_command(CONSTANTS::ELEVATOR::LIMITS::BOTTOM).AndThen(stress_test_up());
+    return set_position_command(CONSTANTS::ELEVATOR::LIMITS::BOTTOM);
 }
