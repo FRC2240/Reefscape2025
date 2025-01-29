@@ -45,10 +45,10 @@ public:
 
   Drivetrain m_drivetrain;
   Odometry m_odometry{&m_drivetrain, &m_vision};
-  Climber m_climber;
-  Elevator m_elevator;
-  Wrist m_wrist;
-  Grabber m_grabber;
+  // Climber m_climber;
+  // Elevator m_elevator;
+  // Wrist m_wrist;
+  // Grabber m_grabber;
 
   Vision m_vision{
       [this]() -> units::degree_t
