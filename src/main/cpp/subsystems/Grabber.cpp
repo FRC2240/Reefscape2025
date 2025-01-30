@@ -15,6 +15,16 @@ Grabber::Grabber()
     m_right_motor.SetControl(ctre::phoenix6::controls::Follower{m_left_motor.GetDeviceID(), 1});
 };
 
+void Grabber::SetPID() {
+    MotorUtils::SetPID(m_left_motor, coeff);
+}
+
+void Grabber::InitSendable(wpi::SendableBuilder& builder) {
+    builder.SetSmartDashboardType("Grabber");
+    MotorUtils::BuildSender(builder, &coeff);
+    MotorUtils::BuildSender(builder, &m_left_motor);
+}
+
 void Grabber::spin(units::turns_per_second_t speed)
 {
     ctre::phoenix6::controls::VelocityTorqueCurrentFOC velocity{speed};

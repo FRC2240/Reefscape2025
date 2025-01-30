@@ -12,8 +12,7 @@ void Wrist::SetPID() {
      MotorUtils::SetPID(m_motor, coeff);
 }
 
-void Wrist::InitSendable(wpi::SendableBuilder &builder)
-{
+void Wrist::InitSendable(wpi::SendableBuilder &builder) {
     builder.SetSmartDashboardType("Wrist");
     MotorUtils::BuildSender(builder, &coeff);
     MotorUtils::BuildSender(builder, &m_motor);
@@ -35,6 +34,6 @@ frc2::CommandPtr Wrist::set_angle_command(units::degree_t pos)
                             { set_angle(pos); },
                             {this})
         .Until([this, pos] -> bool
-               { CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), pos, CONSTANTS::WRIST::POSITION_THRESHOLD); })
+               { return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), pos, CONSTANTS::WRIST::POSITION_THRESHOLD); })
         .WithName("Set Wrist Angle");
 }

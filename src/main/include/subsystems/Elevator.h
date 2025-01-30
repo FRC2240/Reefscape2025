@@ -14,6 +14,9 @@ class Elevator: public frc2::SubsystemBase {
 
     public:
         Elevator();
+        void SetPID();
+
+        void InitSendable(wpi::SendableBuilder &builder) override;
 
         frc2::CommandPtr set_position_command(units::angle::turn_t pos);
         frc2::CommandPtr idle_command();    
@@ -24,4 +27,5 @@ class Elevator: public frc2::SubsystemBase {
 
     private:
         ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::ELEVATOR::ELEVATOR_ID};
+        CONSTANTS::PidCoeff coeff {CONSTANTS::ELEVATOR::PidValue};
 };

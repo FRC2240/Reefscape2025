@@ -12,7 +12,9 @@ class Climber : public frc2::SubsystemBase
 {
 public:
     Climber();
+    void SetPID();
 
+    void InitSendable(wpi::SendableBuilder &builder) override;
     frc2::CommandPtr set_position_command(units::angle::turn_t pos);
     frc2::CommandPtr idle_command();
     frc2::CommandPtr climb_command();
@@ -23,4 +25,5 @@ public:
 
 private:
     ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::CLIMBER::CLIMBER_ID};
+    CONSTANTS::PidCoeff coeff {CONSTANTS::CLIMBER::PidValue};
 };

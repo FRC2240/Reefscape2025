@@ -9,6 +9,15 @@ Elevator::Elevator() {
     //m_motor.GetConfigurator().Apply(Elevator_config)
 }
 
+void Elevator::SetPID() {
+     MotorUtils::SetPID(m_motor, coeff);
+}
+
+void Elevator::InitSendable(wpi::SendableBuilder &builder) {
+    builder.SetSmartDashboardType("Elevator");
+    MotorUtils::BuildSender(builder, &coeff);
+    MotorUtils::BuildSender(builder, &m_motor);
+}
 
 frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos) {
     return frc2::RunCommand([this, pos] {
