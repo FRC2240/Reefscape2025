@@ -5,18 +5,58 @@
 Vision::Vision(std::function<units::degree_t()> get_angle_fn)
     : get_angle{get_angle_fn} {};
 
+void Vision::log_metrics()
+{
+  // fps, cpu temp, ram usage, temp]
+  std::vector<double> fps;
+  std::vector<double> cpu_temp;
+  std::vector<double> ram_usage;
+  std::vector<double> temp;
+  for (auto &i : m_limelight_vec)
+  {
+    // Get info here
+    std::vector<double> hw = i->GetNumberArray("hw", std::vector<double>{0.0});
+    if (hw[0] > 0.0)
+    {
+      if (hw[1] > 3.0)
+      {
+        overheat.Set(1);
+      }
+      else
+      {
+        overheat.Set(false);
+      }
+      fps.push_back(hw[0]);
+      cpu_temp.push_back(hw[1]);
+      ram_usage.push_back(hw[2]);
+      temp.push_back(hw[3]);
+    }
+  }
+  frc::SmartDashboard::PutNumberArray("vision/fps", fps);
+  frc::SmartDashboard::PutNumberArray("vision/cpu_temp", cpu_temp);
+  frc::SmartDashboard::PutNumberArray("vision/ram_usage", ram_usage);
+  frc::SmartDashboard::PutNumberArray("vision/temp", temp);
+}
+
 std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
 {
-  auto aft_results = m_aft_limelight->GetNumberArray("botpose_wpiblue",
-                                                     std::vector<double>(6));
 
-  frc::SmartDashboard::PutNumber("vision step", 1);
   std::vector<std::optional<frc::Pose2d>> ret;
+  for (auto &i : m_limelight_vec)
+  {
+    if (i->GetNumber("tv", 0.0) > 0.5)
+    {
+      auto posevec = i->GetNumberArray("botpose", std::vector<double>(6));
+      ret.push_back(frc::Pose2d{
+          units::meter_t{posevec[0]},
+          units::meter_t{posevec[1]},
+          frc::Rotation2d{get_angle()}});
+    }
+  }
+
   for (auto &i : m_photoncam_vec)
   {
-    frc::SmartDashboard::PutNumber("vision step", 2);
     auto result = i.camera->GetLatestResult();
-    frc::SmartDashboard::PutNumber("vision step", 2.5);
     frc::SmartDashboard::PutNumber("vision is present", result.HasTargets());
     if (result.MultiTagResult())
     {

@@ -13,6 +13,7 @@
 #include <photon/PhotonPoseEstimator.h>
 #include <stdlib.h>
 #include <units/angle.h>
+#include <frc/Alert.h>
 class Vision
 {
 public:
@@ -43,6 +44,8 @@ public:
     // Returns angle to apriltag 4 or 7, depending on alliance color.
     // Could be modified to work with 3 and 8 as well
     std::optional<units::degree_t> get_apriltag_angle();
+
+    void log_metrics();
 
 private:
     struct PhotonGroup
@@ -97,4 +100,8 @@ private:
 
     std::shared_ptr<nt::NetworkTable> m_fore_limelight =
         nt::NetworkTableInstance::GetDefault().GetTable("limelight-fore");
+
+    std::vector<std::shared_ptr<nt::NetworkTable>> m_limelight_vec = {m_aft_limelight};
+
+    frc::Alert overheat{"Limelight overheating", frc::Alert::AlertType::kWarning};
 };
