@@ -56,6 +56,7 @@ namespace CONSTANTS
 
     namespace SCORING_TARGETS
     {
+        constexpr units::turn_t POST_SCORE_DELTA = 0.5_tr;
         // Represents the arm and wrist position required to score somewhere
         struct TargetProfile
         {
