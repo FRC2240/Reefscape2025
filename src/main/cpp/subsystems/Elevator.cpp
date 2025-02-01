@@ -1,39 +1,42 @@
 #pragma once
 #include "subsystems/Elevator.h"
 
-
-Elevator::Elevator() {
-    MotorUtils::Motor::LogValues logValues {true, true, true};
+Elevator::Elevator()
+{
+    MotorUtils::Motor::LogValues logValues{true, true, true};
     MotorUtils::Motor ElevatorMotor{&m_motor, CONSTANTS::ELEVATOR::PidValue, logValues};
     AddPID(ElevatorMotor);
     SetPID();
-    
-    //ctre::phoenix6::configs::TalonFXConfiguration Elevator_config{};
-    //m_motor.GetConfigurator().Apply(Elevator_config)
+
+    // ctre::phoenix6::configs::TalonFXConfiguration Elevator_config{};
+    // m_motor.GetConfigurator().Apply(Elevator_config)
 }
 
-
-frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos) {
-    return frc2::RunCommand([this, pos] {
+frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos)
+{
+    return frc2::RunCommand([this, pos]
+                            {
         units::angle::turn_t position = pos;
         if (position > CONSTANTS::ELEVATOR::TOP_POS) {
             position = CONSTANTS::ELEVATOR::TOP_POS;
         } else if (position < CONSTANTS::ELEVATOR::BOTTOM_POS) {
             position = CONSTANTS::ELEVATOR::BOTTOM_POS;
         }
-        set_position(position);
-    },
-    {this}).ToPtr();
+        set_position(position); },
+                            {this})
+        .Until([this, pos]
+               { return CONSTANTS::IN_THRESHOLD<units::angle::turn_t>(get_position(), pos, CONSTANTS::ELEVATOR::POSITION_THRESHOLD); });
 }
 
-
-frc2::CommandPtr Elevator::idle_command() {
+frc2::CommandPtr Elevator::idle_command()
+{
     return set_position_command(CONSTANTS::ELEVATOR::BOTTOM_POS);
 };
 
-
-frc2::CommandPtr Elevator::follow_joystick_command(frc2::CommandXboxController* stick) {
-    return frc2::RunCommand([this, stick] {
+frc2::CommandPtr Elevator::follow_joystick_command(frc2::CommandXboxController *stick)
+{
+    return frc2::RunCommand([this, stick]
+                            {
         double stickpos = stick->GetLeftY(); // CHANGEME
         if (
             (stickpos < -CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && get_position() > CONSTANTS::ELEVATOR::BOTTOM_POS)
@@ -43,17 +46,17 @@ frc2::CommandPtr Elevator::follow_joystick_command(frc2::CommandXboxController* 
             m_motor.SetControl(req);
         } else {
             m_motor.SetControl(ctre::phoenix6::controls::VelocityTorqueCurrentFOC{0_tps});
-        };
-    },
-    {this}).ToPtr();
+        }; },
+                            {this})
+        .ToPtr();
 };
 
-
-units::angle::turn_t Elevator::get_position() {
+units::angle::turn_t Elevator::get_position()
+{
     return m_motor.GetPosition().GetValue();
 };
 
-
-void Elevator::set_position(units::angle::turn_t pos) {
+void Elevator::set_position(units::angle::turn_t pos)
+{
     m_motor.SetControl(ctre::phoenix6::controls::PositionVoltage{pos});
 };

@@ -54,31 +54,33 @@ namespace CONSTANTS
 
     }
 
-    namespace SCORING_TARGETS
+    namespace MANIPULATOR_STATES
     {
-        constexpr units::turn_t POST_SCORE_DELTA = 0.5_tr;
+        constexpr units::turn_t POST_SCORE_DELTA = 5_tr;
         // Represents the arm and wrist position required to score somewhere
-        struct TargetProfile
+        struct ManipulatorState
         {
             units::turn_t elevtor_pos;
             units::turn_t wrist_pos;
 
             // I don't know why this needs to be overriden but it does.  ¯\_(-_-)_/¯
-            bool operator==(TargetProfile other)
+            bool operator==(ManipulatorState other)
             {
                 return (
-                    IN_THRESHOLD<units::turn_t>(this->elevtor_pos, other.elevtor_pos, 0.5_tr) && IN_THRESHOLD<units::turn_t>(this->wrist_pos, other.wrist_pos, 0.5_tr));
+                    IN_THRESHOLD<units::turn_t>(this->elevtor_pos, other.elevtor_pos, 0.00005_tr) && IN_THRESHOLD<units::turn_t>(this->wrist_pos, other.wrist_pos, 0.00005_tr));
             }
         };
-        constexpr TargetProfile L1{0_tr, 0_tr};
-        constexpr TargetProfile L2{0_tr, 0_tr};
-        constexpr TargetProfile L3{0_tr, 0_tr};
-        constexpr TargetProfile L4{0_tr, 0_tr};
-        constexpr TargetProfile IDLE{0_tr, 0_tr};
-        constexpr TargetProfile POST_SCORE{0_tr, 0_tr};
-        constexpr TargetProfile ALGAE_L2{0_tr, 0_tr};
-        constexpr TargetProfile ALGAE_L3{0_tr, 0_tr};
-        constexpr TargetProfile PROCESSOR{0_tr, 0_tr};
+        constexpr ManipulatorState L1{10_tr, 10_tr};
+        constexpr ManipulatorState L2{400_tr, 0_tr};
+        constexpr ManipulatorState L3{0_tr, 0_tr};
+        constexpr ManipulatorState L4{0_tr, 0_tr};
+        constexpr ManipulatorState IDLE{0_tr, 0_tr};
+        constexpr ManipulatorState IDLE_W_GP{0_tr, 0_tr};
+        constexpr ManipulatorState INTAKE{0_tr, 0_tr};
+        constexpr ManipulatorState POST_SCORE{0_tr, 0_tr};
+        constexpr ManipulatorState ALGAE_L2{0_tr, 0_tr};
+        constexpr ManipulatorState ALGAE_L3{0_tr, 0_tr};
+        constexpr ManipulatorState PROCESSOR{0_tr, 0_tr};
 
     }
 
@@ -102,10 +104,11 @@ namespace CONSTANTS
 
     namespace ELEVATOR
     {
+        constexpr units::angle::turn_t POSITION_THRESHOLD = 5_tr;
         constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
 
         constexpr units::angle::turn_t TOP_POS = 1_tr;
-        constexpr int ELEVATOR_ID = 50; // CHANGEME
+        constexpr int ELEVATOR_ID = 30; // CHANGEME
         constexpr double DEADBAND_THRESHOLD = 0.1;
         static const PidCoeff PidValue = {1};
         constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;

@@ -33,12 +33,10 @@ void RobotContainer::ConfigureBindings()
 {
   frc::SmartDashboard::PutData(&m_elevator);
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
-  frc2::Trigger{
-      [this] -> bool
-      {
-        return m_stick0.A().Get() && m_stick0.RightBumper().Get();
-      }}
-      .OnTrue(score_prepare(CONSTANTS::SCORING_TARGETS::L1));
+  m_stick0.A().OnTrue(intake());
+  m_stick0.B().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L2));
+  m_stick0.Y().OnTrue(score(CONSTANTS::MANIPULATOR_STATES::L2));
+  m_stick0.X().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
 }
 
 frc2::Command *RobotContainer::GetAutonomousCommand()
@@ -46,21 +44,39 @@ frc2::Command *RobotContainer::GetAutonomousCommand()
   return autoChooser.GetSelected();
 }
 
-frc2::CommandPtr RobotContainer::score_prepare(CONSTANTS::SCORING_TARGETS::TargetProfile target)
+frc2::CommandPtr RobotContainer::set_state(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target)
 {
   return m_elevator.set_position_command(target.elevtor_pos).AlongWith(m_wrist.set_angle_command(target.wrist_pos));
 }
 
-frc2::CommandPtr RobotContainer::score_execute(CONSTANTS::SCORING_TARGETS::TargetProfile target)
+frc2::CommandPtr RobotContainer::score(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target)
 {
-  if (target == CONSTANTS::SCORING_TARGETS::L1 || target == CONSTANTS::SCORING_TARGETS::PROCESSOR)
+  // Verify that the manipulator is in the correct position, if it isn't fall back to last state
+  if (CONSTANTS::IN_THRESHOLD<units::turn_t>(m_wrist.get_angle(), target.wrist_pos, CONSTANTS::WRIST::POSITION_THRESHOLD) &&
+      CONSTANTS::IN_THRESHOLD<units::turn_t>(m_elevator.get_position(), target.elevtor_pos, CONSTANTS::ELEVATOR::POSITION_THRESHOLD))
   {
-    return m_grabber.extake();
+    {
+      if (target == CONSTANTS::MANIPULATOR_STATES::L1 || target == CONSTANTS::MANIPULATOR_STATES::PROCESSOR)
+      {
+        return m_grabber.extake();
+      }
+      else
+      {
+        // To score, you need to lower the elevator and hold the grabber at the current position
+        return set_state(
+            CONSTANTS::MANIPULATOR_STATES::ManipulatorState{target.elevtor_pos - CONSTANTS::MANIPULATOR_STATES::POST_SCORE_DELTA, target.wrist_pos});
+      }
+    }
   }
   else
   {
-    // To score, you need to lower the elevator and hold the grabber at the current position
-    return score_prepare(
-        CONSTANTS::SCORING_TARGETS::TargetProfile{target.elevtor_pos - CONSTANTS::SCORING_TARGETS::POST_SCORE_DELTA, target.wrist_pos});
+    return set_state(target);
   }
+}
+
+frc2::CommandPtr RobotContainer::intake()
+{
+  return set_state(CONSTANTS::MANIPULATOR_STATES::INTAKE).Until([this] -> bool
+                                                                { return m_grabber.has_gp(); })
+      .AndThen(m_elevator.set_position_command(CONSTANTS::MANIPULATOR_STATES::IDLE_W_GP.elevtor_pos).AndThen(m_wrist.set_angle_command(CONSTANTS::MANIPULATOR_STATES::IDLE_W_GP.wrist_pos)));
 }

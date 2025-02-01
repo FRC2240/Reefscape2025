@@ -55,10 +55,12 @@ public:
   frc2::CommandXboxController m_stick1{1};
 
   // Moves wrist and elevelator to position
-  frc2::CommandPtr score_prepare(CONSTANTS::SCORING_TARGETS::TargetProfile target);
+  frc2::CommandPtr set_state(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target);
 
   // Brings elevator down and moves wrist
-  frc2::CommandPtr score_execute(CONSTANTS::SCORING_TARGETS::TargetProfile target);
+  frc2::CommandPtr score(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target);
+
+  frc2::CommandPtr intake();
 
   Drivetrain m_drivetrain;
   Odometry m_odometry{&m_drivetrain, &m_vision};
@@ -76,6 +78,8 @@ public:
   void ConfigureBindings();
   void SetPID();
   void LogDashboard();
+
+  CONSTANTS::MANIPULATOR_STATES::ManipulatorState prev_state = CONSTANTS::MANIPULATOR_STATES::IDLE;
 
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 

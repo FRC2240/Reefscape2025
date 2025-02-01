@@ -1,0 +1,26 @@
+HAL Extensions: No extensions found
+
+********** Robot program starting **********
+Not loading CameraServerShared
+[phoenix] CANbus Connected: sim
+[phoenix] CANbus Network Up: sim
+Driver Pro: 0
+Turner Pro: 0
+Cancoder Pro0
+Cancoder pro msg: 1Swerve constuctor start for Talon FX (v6) 60
+Driver Pro: 0
+Turner Pro: 0
+Cancoder Pro0
+Cancoder pro msg: 1Swerve constuctor start for Talon FX (v6) 50
+Driver Pro: 0
+Turner Pro: 0
+Cancoder Pro0
+Cancoder pro msg: 1Swerve constuctor start for Talon FX (v6) 30
+Driver Pro: 0
+Turner Pro: 0
+Cancoder Pro0
+Cancoder pro msg: 1Swerve constuctor start for Talon FX (v6) 40
+DataLog: Logging to '/home/laptop-main/robo/2025/Reefscape2025/logs/FRC_TBD_8ae69645b8a45bfc.wpilog' (102.9 GiB free space)
+
+********** Robot program startup complete **********
+Default SimulationPeriodic() method... Override me!

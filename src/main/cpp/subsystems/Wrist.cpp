@@ -14,7 +14,7 @@ Wrist::Wrist()
 
 void Wrist::set_angle(units::angle::degree_t angle)
 {
-    m_motor.SetControl(ctre::phoenix6::controls::PositionVoltage{angle});
+    m_motor.SetControl(m_control_req.WithPosition(angle));
 }
 
 units::degree_t Wrist::get_angle()
@@ -27,6 +27,7 @@ frc2::CommandPtr Wrist::set_angle_command(units::degree_t pos)
     return frc2::RunCommand([this, pos]
                             { set_angle(pos); },
                             {this})
-        .WithName("Set Wrist Angle");
-    // Removed .Untill() due to incompatability with score_prepare()
+        .WithName("Set Wrist Angle")
+        .Until([this, pos]
+               { return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(), pos, CONSTANTS::WRIST::POSITION_THRESHOLD); });
 }
