@@ -17,6 +17,8 @@ Grabber::Grabber()
     ctre::phoenix6::configs::CANrangeConfiguration can_range_conf{};
     can_range_conf.ProximityParams.MinSignalStrengthForValidMeasurement = 2500;
     can_range_conf.ProximityParams.ProximityThreshold = 4_in;
+    can_range_conf.ProximityParams.ProximityHysteresis = 1_in;
+    m_can_range.GetConfigurator().Apply(can_range_conf);
 };
 
 bool Grabber::has_gp()
