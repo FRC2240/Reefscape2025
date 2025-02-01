@@ -39,7 +39,7 @@ public:
     std::vector<std::optional<frc::Pose2d>> get_bot_position();
 
     // Returns the angle to a gp
-    std::optional<units::degree_t> get_coral_angle();
+    std::optional<units::degree_t> get_neural_net_angle();
 
     // Returns angle to apriltag 4 or 7, depending on alliance color.
     // Could be modified to work with 3 and 8 as well

@@ -29,6 +29,17 @@
 #include "swerve/Vision.h"
 #include "utility/ForceLog.h"
 
+#include "subsystems/Wrist.h"
+#include "subsystems/Elevator.h"
+#include <frc/DataLogManager.h>
+#include "subsystems/Grabber.h"
+#include <frc/smartdashboard/SendableChooser.h>
+#include <frc2/command/button/Trigger.h>
+#include <pathplanner/lib/auto/NamedCommands.h>
+// #include <ForceLog.h>
+#include "subsystems/Candle.h"
+#include "subsystems/Climber.h"
+// TODO: Add w/ merge
 class RobotContainer
 {
 public:
@@ -43,12 +54,20 @@ public:
   frc2::CommandXboxController m_stick0{0};
   frc2::CommandXboxController m_stick1{1};
 
+  // Moves wrist and elevelator to position
+  frc2::CommandPtr set_state(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target);
+
+  // Brings elevator down and moves wrist
+  frc2::CommandPtr score(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target);
+
+  frc2::CommandPtr intake();
+
   Drivetrain m_drivetrain;
   Odometry m_odometry{&m_drivetrain, &m_vision};
-  // Climber m_climber;
-  // Elevator m_elevator;
-  // Wrist m_wrist;
-  // Grabber m_grabber;
+  Climber m_climber;
+  Elevator m_elevator;
+  Wrist m_wrist;
+  Grabber m_grabber;
 
   Vision m_vision{
       [this]() -> units::degree_t
@@ -59,6 +78,8 @@ public:
   void ConfigureBindings();
   void SetPID();
   void LogDashboard();
+
+  CONSTANTS::MANIPULATOR_STATES::ManipulatorState prev_state = CONSTANTS::MANIPULATOR_STATES::IDLE;
 
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 

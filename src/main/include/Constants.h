@@ -54,6 +54,36 @@ namespace CONSTANTS
 
     }
 
+    namespace MANIPULATOR_STATES
+    {
+        constexpr units::turn_t POST_SCORE_DELTA = 5_tr;
+        // Represents the arm and wrist position required to score somewhere
+        struct ManipulatorState
+        {
+            units::turn_t elevtor_pos;
+            units::turn_t wrist_pos;
+
+            // I don't know why this needs to be overriden but it does.  ¯\_(-_-)_/¯
+            bool operator==(ManipulatorState other)
+            {
+                return (
+                    IN_THRESHOLD<units::turn_t>(this->elevtor_pos, other.elevtor_pos, 0.00005_tr) && IN_THRESHOLD<units::turn_t>(this->wrist_pos, other.wrist_pos, 0.00005_tr));
+            }
+        };
+        constexpr ManipulatorState L1{10_tr, 10_tr};
+        constexpr ManipulatorState L2{400_tr, 0_tr};
+        constexpr ManipulatorState L3{0_tr, 0_tr};
+        constexpr ManipulatorState L4{0_tr, 0_tr};
+        constexpr ManipulatorState IDLE{0_tr, 0_tr};
+        constexpr ManipulatorState IDLE_W_GP{0_tr, 0_tr};
+        constexpr ManipulatorState INTAKE{0_tr, 0_tr};
+        constexpr ManipulatorState POST_SCORE{0_tr, 0_tr};
+        constexpr ManipulatorState ALGAE_L2{0_tr, 0_tr};
+        constexpr ManipulatorState ALGAE_L3{0_tr, 0_tr};
+        constexpr ManipulatorState PROCESSOR{0_tr, 0_tr};
+
+    }
+
     namespace GRABBER
     {
         constexpr int LEFT_ID = 29;  // changeme
@@ -74,10 +104,11 @@ namespace CONSTANTS
 
     namespace ELEVATOR
     {
+        constexpr units::angle::turn_t POSITION_THRESHOLD = 5_tr;
         constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
 
         constexpr units::angle::turn_t TOP_POS = 1_tr;
-        constexpr int ELEVATOR_ID = 50; // CHANGEME
+        constexpr int ELEVATOR_ID = 30; // CHANGEME
         constexpr double DEADBAND_THRESHOLD = 0.1;
         static const PidCoeff PidValue = {1};
         constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
@@ -124,36 +155,6 @@ namespace CONSTANTS
         constexpr int CANDLE_ID = 10;
         constexpr int NUM_LEDS = 39;
     } // namespace CANDLE
-
-    namespace SHOOTER
-    {
-        constexpr int LEFT_ID = 2;
-        constexpr int RIGHT_ID = 5;
-        constexpr int ANGLE_ID = 6;
-        constexpr int ANGLE2_ID = 2;
-        constexpr int CANCODER_ID = 13; // CHANGEME
-        constexpr std::pair<units::turn_t, units::turn_t> FENDER_RANGE = {0_tr, 1_tr};
-        constexpr double ANGLE_RATIO = 1; // CHANGEME
-
-#ifdef SABERTOOTH // Main robot config
-        constexpr units::turn_t FENDER_ANGLE = 11.5_tr;
-        constexpr units::turn_t AMP_ANGLE = 11_tr;
-        constexpr units::turns_per_second_t AMP_VELOCTITY = -6.5_tps;
-        constexpr units::turn_t REST_ANGLE = 0.242_tr;
-        constexpr units::turns_per_second_t SHOOTER_VELOCITY = 60_tps;
-#endif
-#ifndef SABERTOOTH
-        constexpr units::turn_t REST_ANGLE = -0.5_tr;
-        constexpr units::turn_t FENDER_ANGLE = -11_tr;
-        constexpr units::turn_t AMP_ANGLE = -10_tr;
-        constexpr units::turns_per_second_t SHOOTER_VELOCITY = 80_tps;
-#endif
-
-        constexpr int BELT_ID = 7;
-        constexpr units::turns_per_second_t LEFT_VELOCITY{10};  // CHANGEME;
-        constexpr units::turns_per_second_t RIGHT_VELOCITY{10}; // CHANGEME;
-
-    } // namespace SHOOTER
 
     namespace DRIVE
     {

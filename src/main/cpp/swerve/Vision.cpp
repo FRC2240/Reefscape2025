@@ -101,7 +101,7 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
   return ret;
 }
 
-std::optional<units::degree_t> Vision::get_coral_angle()
+std::optional<units::degree_t> Vision::get_neural_net_angle()
 {
   std::string_view tclass = "tclass: " + m_fore_limelight->GetString("tclass", "NULL");
   frc::DataLogManager::Log(tclass);
@@ -118,49 +118,6 @@ std::optional<units::degree_t> Vision::get_coral_angle()
   {
     // fmt::println("there!!!");
     return {};
-  }
-}
-
-std::optional<units::degree_t> Vision::get_apriltag_angle()
-{
-  is_hardware_zoomed = 1;
-  m_aft_limelight->PutNumber("pipeline", 1);
-  if (frc::DriverStation::GetAlliance())
-  {
-    if (frc::DriverStation::GetAlliance().value() ==
-        frc::DriverStation::Alliance::kRed)
-    {
-      // Casted to int to strip off decimals and get rid of errors with equality
-      if ((int)m_aft_limelight->GetNumber("tid", 0.0) == 4)
-      {
-        return units::degree_t{m_aft_limelight->GetNumber("tx", 0.0)};
-      }
-      else
-      {
-        return std::nullopt;
-      }
-    }
-    else if (frc::DriverStation::GetAlliance().value() ==
-             frc::DriverStation::Alliance::kBlue)
-    {
-      // Casted to int to strip off decimals and get rid of errors with equality
-      if ((int)m_aft_limelight->GetNumber("tid", 0.0) == 7)
-      {
-        return units::degree_t{m_aft_limelight->GetNumber("tx", 0.0)};
-      }
-      else
-      {
-        return std::nullopt;
-      }
-    }
-  }
-  else
-  {
-    return std::nullopt;
-  }
-  {
-    is_hardware_zoomed = 0;
-    m_aft_limelight->PutNumber("pipeline", 0);
   }
 }
 
