@@ -24,5 +24,7 @@ class Elevator: public BetterSubsystemBase {
         void set_position(units::angle::turn_t pos);
 
     private:
-        ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::ELEVATOR::ELEVATOR_ID};
+        ctre::phoenix6::controls::DynamicMotionMagicTorqueCurrentFOC m_position_control{0_tr, 0_tps, 0_tr/(1_s*1_s), 0_tr/(1_s*1_s*1_s)};
+        ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::ELEVATOR::LEADER_ID};
+        ctre::phoenix6::hardware::TalonFX m_motor_follow{CONSTANTS::ELEVATOR::FOLLOWER_ID};
 };

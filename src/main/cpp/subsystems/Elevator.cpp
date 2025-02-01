@@ -8,6 +8,7 @@ Elevator::Elevator() {
     AddPID(ElevatorMotor);
     SetPID();
     
+    m_motor_follow.SetControl(ctre::phoenix6::controls::Follower{m_motor.GetDeviceID(), 1});
     //ctre::phoenix6::configs::TalonFXConfiguration Elevator_config{};
     //m_motor.GetConfigurator().Apply(Elevator_config)
 }
