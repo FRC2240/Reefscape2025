@@ -10,6 +10,7 @@ Elevator::Elevator()
 
     // ctre::phoenix6::configs::TalonFXConfiguration Elevator_config{};
     // m_motor.GetConfigurator().Apply(Elevator_config)
+    m_follower_motor.SetControl(ctre::phoenix6::controls::Follower(m_motor.GetDeviceID(), true));
 }
 
 frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos)
@@ -42,10 +43,9 @@ frc2::CommandPtr Elevator::follow_joystick_command(frc2::CommandXboxController *
             (stickpos < -CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && get_position() > CONSTANTS::ELEVATOR::BOTTOM_POS)
             || (stickpos > CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && get_position() < CONSTANTS::ELEVATOR::TOP_POS)
         ) {
-            ctre::phoenix6::controls::VelocityTorqueCurrentFOC req{CONSTANTS::ELEVATOR::JOYSTICK_SPEED * stickpos};
-            m_motor.SetControl(req);
+            m_motor.SetControl(control_req.WithVelocity(CONSTANTS::ELEVATOR::JOYSTICK_SPEED * stickpos));
         } else {
-            m_motor.SetControl(ctre::phoenix6::controls::VelocityTorqueCurrentFOC{0_tps});
+            m_motor.SetControl(control_req.WithVelocity(0_tps));
         }; },
                             {this})
         .ToPtr();
@@ -58,5 +58,5 @@ units::angle::turn_t Elevator::get_position()
 
 void Elevator::set_position(units::angle::turn_t pos)
 {
-    m_motor.SetControl(ctre::phoenix6::controls::PositionVoltage{pos});
+    m_motor.SetControl(control_req.WithPosition(pos));
 };
