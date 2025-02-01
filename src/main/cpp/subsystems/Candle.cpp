@@ -60,14 +60,13 @@ void Candle::Periodic()
     {
         state = WANTGP;
     }
-    else if (frc::DriverStation::IsEnabled()) // Must be last because WantGP and HasGP conflict
-    {
-        state = ENABLED;
-    }
-    // The BROWN state is declared(.h) and can be switched to(here), but doesn't have any functionality in the switch case, defaulting sets rgb to 255 
     else if (frc::DriverStation::GetBatteryVoltage() < 9.0) // Turn LEDs off to conserve voltage under brown
     {
         state = BROWN;
+    }
+    else if (frc::DriverStation::IsEnabled()) // Must be last because WantGP and HasGP conflict
+    {
+        state = ENABLED;
     }
     else
     {
@@ -137,7 +136,6 @@ void Candle::Periodic()
     //Added fuctionality to turn off LEDs on brown
     case BROWN:
         m_candle.SetLEDs(0,0,0);
-        //Redirect to other state or break
         break;
 
     default:
