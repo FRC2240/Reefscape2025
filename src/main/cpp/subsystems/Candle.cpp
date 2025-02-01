@@ -60,13 +60,13 @@ void Candle::Periodic()
     {
         state = WANTGP;
     }
-    else if (frc::DriverStation::IsEnabled()) // Must be last because WantGP and HasGP conflict
-    {
-        state = ENABLED;
-    }
     else if (frc::DriverStation::GetBatteryVoltage() < 9.0) // Turn LEDs off to conserve voltage under brown
     {
         state = BROWN;
+    }
+    else if (frc::DriverStation::IsEnabled()) // Must be last because WantGP and HasGP conflict
+    {
+        state = ENABLED;
     }
     else
     {
@@ -132,6 +132,11 @@ void Candle::Periodic()
 
     case ERROR:
         // Fallthrough intented
+
+    //Added fuctionality to turn off LEDs on brown
+    case BROWN:
+        m_candle.SetLEDs(0,0,0);
+        break;
 
     default:
         m_candle.SetLEDs(255, 255, 255);
