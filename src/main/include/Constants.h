@@ -108,7 +108,8 @@ namespace CONSTANTS
         constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
 
         constexpr units::angle::turn_t TOP_POS = 1_tr;
-        constexpr int ELEVATOR_ID = 30; // CHANGEME
+        constexpr int LEFT_ID = 20; // CHANGEME
+        constexpr int RIGHT_ID = 21;
         constexpr double DEADBAND_THRESHOLD = 0.1;
         static const PidCoeff PidValue = {1};
         constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
@@ -121,7 +122,7 @@ namespace CONSTANTS
 
     namespace WRIST
     {
-        constexpr int WRIST_ID = 29;
+        constexpr int WRIST_ID = 40;
         constexpr units::angle::turn_t DEFAULT_POSITION = 0_tr;
         // This is the default PID values for the wrist motor
         static const PidCoeff PidValue = {1};
