@@ -64,7 +64,7 @@ frc2::CommandPtr RobotContainer::score(CONSTANTS::MANIPULATOR_STATES::Manipulato
       {
         // To score, you need to lower the elevator and hold the grabber at the current position
         return set_state(
-            CONSTANTS::MANIPULATOR_STATES::ManipulatorState{target.elevtor_pos - CONSTANTS::MANIPULATOR_STATES::POST_SCORE_DELTA, target.wrist_pos});
+            CONSTANTS::MANIPULATOR_STATES::ManipulatorState{target.elevtor_pos, target.wrist_pos - CONSTANTS::MANIPULATOR_STATES::POST_SCORE_DELTA});
       }
     }
   }

@@ -56,7 +56,7 @@ namespace CONSTANTS
 
     namespace MANIPULATOR_STATES
     {
-        constexpr units::turn_t POST_SCORE_DELTA = 5_tr;
+        constexpr units::turn_t POST_SCORE_DELTA = 5.4_tr - 18.4_tr;
         // Represents the arm and wrist position required to score somewhere
         struct ManipulatorState
         {
@@ -70,13 +70,13 @@ namespace CONSTANTS
                     IN_THRESHOLD<units::turn_t>(this->elevtor_pos, other.elevtor_pos, 0.00005_tr) && IN_THRESHOLD<units::turn_t>(this->wrist_pos, other.wrist_pos, 0.00005_tr));
             }
         };
-        constexpr ManipulatorState L1{10_tr, 10_tr};
-        constexpr ManipulatorState L2{400_tr, 0_tr};
+        constexpr ManipulatorState L1{0_tr, 0_tr};
+        constexpr ManipulatorState L2{9.5_tr, 5.4_tr}; // 18.4 follow-through
         constexpr ManipulatorState L3{0_tr, 0_tr};
         constexpr ManipulatorState L4{0_tr, 0_tr};
-        constexpr ManipulatorState IDLE{0_tr, 0_tr};
-        constexpr ManipulatorState IDLE_W_GP{0_tr, 0_tr};
-        constexpr ManipulatorState INTAKE{0_tr, 0_tr};
+        constexpr ManipulatorState IDLE{13.3_tr, 32.2_tr};
+        constexpr ManipulatorState IDLE_W_GP{11.2_tr, 28.2_tr};
+        constexpr ManipulatorState INTAKE{8.5_tr, 31.5_tr};
         constexpr ManipulatorState POST_SCORE{0_tr, 0_tr};
         constexpr ManipulatorState ALGAE_L2{0_tr, 0_tr};
         constexpr ManipulatorState ALGAE_L3{0_tr, 0_tr};
@@ -104,14 +104,18 @@ namespace CONSTANTS
 
     namespace ELEVATOR
     {
-        constexpr units::angle::turn_t POSITION_THRESHOLD = 5_tr;
+        constexpr units::angle::turn_t POSITION_THRESHOLD = 0.5_tr;
         constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
 
-        constexpr units::angle::turn_t TOP_POS = 1_tr;
+        constexpr units::angle::turn_t TOP_POS = 45_tr;
         constexpr int LEFT_ID = 20; // CHANGEME
         constexpr int RIGHT_ID = 21;
         constexpr double DEADBAND_THRESHOLD = 0.1;
-        static const PidCoeff PidValue = {1};
+        static const PidCoeff PidValue = {
+            4,
+            0,
+            0,
+        };
         constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
         namespace PRESETS
         {
@@ -122,7 +126,7 @@ namespace CONSTANTS
 
     namespace WRIST
     {
-        constexpr int WRIST_ID = 40;
+        constexpr int WRIST_ID = 5;
         constexpr units::angle::turn_t DEFAULT_POSITION = 0_tr;
         // This is the default PID values for the wrist motor
         static const PidCoeff PidValue = {1};
@@ -141,7 +145,7 @@ namespace CONSTANTS
 
     namespace CLIMBER
     {
-        constexpr int CLIMBER_ID = 29;
+        constexpr int CLIMBER_ID = 7;
 
         constexpr units::angle::turn_t DEFAULT_POS = 0_tr;
         constexpr units::angle::turn_t EXTEND_POS = 100_tr;

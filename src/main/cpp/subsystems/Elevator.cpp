@@ -8,8 +8,8 @@ Elevator::Elevator()
     AddPID(ElevatorMotor);
     SetPID();
 
-    // ctre::phoenix6::configs::TalonFXConfiguration Elevator_config{};
-    // m_motor.GetConfigurator().Apply(Elevator_config)
+    ctre::phoenix6::configs::TalonFXConfiguration elevator_config{};
+
     m_follower_motor.SetControl(ctre::phoenix6::controls::Follower(m_motor.GetDeviceID(), true));
 }
 
@@ -23,6 +23,7 @@ frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos)
         } else if (position < CONSTANTS::ELEVATOR::BOTTOM_POS) {
             position = CONSTANTS::ELEVATOR::BOTTOM_POS;
         }
+        frc::SmartDashboard::PutNumber("elv/desired", position.value());
         set_position(position); },
                             {this})
         .Until([this, pos]
