@@ -71,10 +71,10 @@ namespace CONSTANTS
             }
         };
         constexpr ManipulatorState L1{0_tr, 0_tr};
-        constexpr ManipulatorState L2{9.5_tr, 5.4_tr}; // 18.4 follow-through
+        constexpr ManipulatorState L2{17.5_tr, 1.4_tr}; // 18.4 follow-through
         constexpr ManipulatorState L3{0_tr, 0_tr};
         constexpr ManipulatorState L4{0_tr, 0_tr};
-        constexpr ManipulatorState IDLE{13.3_tr, 32.2_tr};
+        constexpr ManipulatorState IDLE{21.3_tr, 32.2_tr};
         constexpr ManipulatorState IDLE_W_GP{11.2_tr, 28.2_tr};
         constexpr ManipulatorState INTAKE{8.5_tr, 31.5_tr};
         constexpr ManipulatorState POST_SCORE{0_tr, 0_tr};

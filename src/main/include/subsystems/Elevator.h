@@ -25,8 +25,8 @@ public:
     void set_position(units::angle::turn_t pos);
 
 private:
-    ctre::phoenix6::controls::DynamicMotionMagicTorqueCurrentFOC control_req{5_tr, 5_tr / 1_s, 5_tr / (1_s * 1_s), 5_tr / (1_s * 1_s * 1_s)};
-    // ctre::phoenix6::controls::PositionTorqueCurrentFOC;
+    // ctre::phoenix6::controls::DynamicMotionMagicTorqueCurrentFOC control_req{5_tr, 5_tr / 1_s, 5_tr / (1_s * 1_s), 5_tr / (1_s * 1_s * 1_s)};
+    ctre::phoenix6::controls::PositionTorqueCurrentFOC control_req{0_tr};
     ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::ELEVATOR::LEFT_ID};
     ctre::phoenix6::hardware::TalonFX m_follower_motor{CONSTANTS::ELEVATOR::RIGHT_ID};
 };

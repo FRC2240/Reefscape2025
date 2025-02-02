@@ -22,8 +22,11 @@
     },
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Alerts": "Alerts",
       "/SmartDashboard/Auto Chooser": "String Chooser",
-      "/SmartDashboard/Odometry Field": "Field2d"
+      "/SmartDashboard/Odometry Field": "Field2d",
+      "/SmartDashboard/Scheduler": "Scheduler",
+      "/SmartDashboard/frc2::SubsystemBase": "Subsystem"
     },
     "windows": {
       "/SmartDashboard/Auto Chooser": {
@@ -32,13 +35,12 @@
         }
       },
       "/SmartDashboard/Odometry Field": {
-        "bottom": 400,
-        "builtin": "2021 Galactic Search B",
-        "height": 4.572000026702881,
-        "left": 20,
-        "right": 780,
-        "top": 20,
-        "width": 9.144000053405762,
+        "bottom": 1476,
+        "height": 8.210550308227539,
+        "left": 150,
+        "right": 2961,
+        "top": 79,
+        "width": 16.541748046875,
         "window": {
           "visible": true
         }
