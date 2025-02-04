@@ -12,19 +12,20 @@ RobotContainer::RobotContainer()
   m_odometry.putField2d();
   autoChooser = AutoBuilder::buildAutoChooser();
   frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
+
+  frc::SmartDashboard::PutData("Elevator", &m_elevator);
 }
 
 void RobotContainer::SetPID()
 {
   m_climber.SetPID();
-  m_elevator.SetPID();
   m_wrist.SetPID();
   m_grabber.SetPID();
+  m_elevator.SetPID();
 }
 void RobotContainer::LogDashboard()
 {
   m_climber.LogDashboard();
-  m_elevator.LogDashboard();
   m_wrist.LogDashboard();
   m_grabber.LogDashboard();
 }
