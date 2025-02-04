@@ -44,6 +44,27 @@ namespace CONSTANTS
 
         double min = -1; // Minimum output for control loop
         double max = 1;  // Maximum output for control loop
+
+        double GetP() { return kP; }
+        void SetP(double val) { kP = val; } 
+
+        double GetI() { return kI; }
+        void SetI(double val) { kI = val; }    
+
+        double GetD() { return kD; }
+        void SetD(double val) { kD = val; }  
+
+        double GetS() { return kS; }
+        void SetS(double val) { kS = val; }
+
+        void SetG(double val) { kG = val; }
+        double GetG() { return kG; }
+
+        void SetMin(double val) { min = val; }
+        double GetMin() { return min; }
+
+        void SetMax(double val) { max = val; }
+        double GetMax() { return max; }
     };
 
     namespace CORAL

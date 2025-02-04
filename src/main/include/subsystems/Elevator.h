@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Constants.h"
-#include "utility/BetterSubsystemBase.h"
+#include <frc2/command/SubsystemBase.h>
 #include "utility/MotorUtils.h"
 
 #include <units/angle.h>
@@ -11,7 +11,7 @@
 #include <frc2/command/button/CommandXboxController.h>
 #include <frc2/command/RunCommand.h>
 
-class Elevator : public BetterSubsystemBase
+class Elevator : public frc2::SubsystemBase
 {
 
 public:
@@ -23,6 +23,10 @@ public:
 
     units::angle::turn_t get_position();
     void set_position(units::angle::turn_t pos);
+
+    void InitSendable(wpi::SendableBuilder& builder) override;
+    void BuildSender(wpi::SendableBuilder &builder, CONSTANTS::PidCoeff *coeff)
+    void SetPID(ctre::phoenix6::hardware::TalonFX &motor, CONSTANTS::PidCoeff coeff)
 
 private:
     // ctre::phoenix6::controls::DynamicMotionMagicTorqueCurrentFOC control_req{5_tr, 5_tr / 1_s, 5_tr / (1_s * 1_s), 5_tr / (1_s * 1_s * 1_s)};

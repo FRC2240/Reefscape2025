@@ -13,6 +13,12 @@ Elevator::Elevator()
     m_follower_motor.SetControl(ctre::phoenix6::controls::Follower(m_motor.GetDeviceID(), true));
 }
 
+void Elevator::InitSendable(wpi::SendableBuilder &builder) {
+    builder.SetSmartDashboardType("Elevator");
+    BuildSender(builder, &coeff);
+    BuildSender(builder, &m_motor);
+}
+
 frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos)
 {
     return frc2::RunCommand([this, pos]
@@ -61,3 +67,60 @@ void Elevator::set_position(units::angle::turn_t pos)
 {
     m_motor.SetControl(control_req.WithPosition(pos));
 };
+
+void Elevator::SetPID(ctre::phoenix6::hardware::TalonFX &motor, CONSTANTS::PidCoeff coeff)
+{
+  ctre::phoenix6::configs::TalonFXConfiguration config{};
+  config.Slot0.kS = coeff.kS;
+  config.Slot0.kP = coeff.kP;
+  config.Slot0.kI = coeff.kI;
+  config.Slot0.kD = coeff.kD;
+  config.CurrentLimits.StatorCurrentLimit = CONSTANTS::DEFAULT_CURRENT_LIMIT;
+  config.Audio.BeepOnConfig = true;
+  config.Audio.BeepOnBoot = true;
+
+  ctre::phoenix::StatusCode status = ctre::phoenix::StatusCode::StatusCodeNotInitialized;
+  for (int j = 0; j < MAX_CONFIG_APPLY_ATTEMPTS; j++)
+  {
+    status = motor.GetConfigurator().Apply(config);
+    if (status.IsOK())
+      break;
+  }
+  if (!status.IsOK())
+  {
+    std::string errString = status.GetName();
+    frc::DataLogManager::Log("Could not apply configs, error code: " + errString);
+  }
+}
+
+void Elevator::BuildSender(wpi::SendableBuilder &builder, CONSTANTS::PidCoeff *coeff)
+{
+  builder.AddDoubleProperty(
+      "PID/P",
+      [coeff] { return coeff->GetP(); },
+      [coeff](double val) { coeff->SetP(val); });
+  builder.AddDoubleProperty(
+      "PID/I",
+      [coeff] { return coeff->GetI(); },
+      [coeff](double val) { coeff->SetI(val); });
+  builder.AddDoubleProperty(
+      "PID/D",
+      [coeff] { return coeff->GetD(); },
+      [coeff](double val) { coeff->SetD(val); });
+  builder.AddDoubleProperty(
+      "PID/S",
+      [coeff] { return coeff->GetS(); },
+      [coeff](double val) { coeff->SetS(val); });
+  builder.AddDoubleProperty(
+      "PID/G",
+      [coeff] { return coeff->GetG(); },
+      [coeff](double val) { coeff->SetG(val); });
+  builder.AddDoubleProperty(
+      "PID/Min",
+      [coeff] { return coeff->GetMin(); },
+      [coeff](double val) { coeff->SetMin(val); });
+  builder.AddDoubleProperty(
+      "PID/Max",
+      [coeff] { return coeff->GetMax(); },
+      [coeff](double val) { coeff->SetMax(val); });
+}
