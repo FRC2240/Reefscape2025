@@ -3,12 +3,7 @@
 
 Elevator::Elevator()
 {
-    MotorUtils::Motor::LogValues logValues{true, true, true};
-    MotorUtils::Motor ElevatorMotor{&m_motor, CONSTANTS::ELEVATOR::PidValue, logValues};
-    SetPID(m_motor, coeff);
-
-    ctre::phoenix6::configs::TalonFXConfiguration elevator_config{};
-
+    SetPID();
     m_follower_motor.SetControl(ctre::phoenix6::controls::Follower(m_motor.GetDeviceID(), true));
 }
 
