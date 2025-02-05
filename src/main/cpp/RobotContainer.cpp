@@ -14,6 +14,7 @@ RobotContainer::RobotContainer()
   frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
 
   frc::SmartDashboard::PutData("Elevator", &m_elevator);
+  frc::SmartDashboard::PutData("Wrist", &m_wrist);
 }
 
 void RobotContainer::SetPID()
@@ -25,9 +26,6 @@ void RobotContainer::SetPID()
 }
 void RobotContainer::LogDashboard()
 {
-  m_climber.LogDashboard();
-  m_wrist.LogDashboard();
-  m_grabber.LogDashboard();
 }
 
 void RobotContainer::ConfigureBindings()
@@ -37,7 +35,7 @@ void RobotContainer::ConfigureBindings()
   m_stick0.A().OnTrue(intake());
   m_stick0.B().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L2));
   m_stick0.Y().OnTrue(score(CONSTANTS::MANIPULATOR_STATES::L2));
-  m_stick0.X().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
+  m_stick0.X().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
 }
 
 frc2::Command *RobotContainer::GetAutonomousCommand()

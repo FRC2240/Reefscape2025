@@ -46,13 +46,13 @@ namespace CONSTANTS
         double max = 1;  // Maximum output for control loop
 
         double GetP() { return kP; }
-        void SetP(double val) { kP = val; } 
+        void SetP(double val) { kP = val; }
 
         double GetI() { return kI; }
-        void SetI(double val) { kI = val; }    
+        void SetI(double val) { kI = val; }
 
         double GetD() { return kD; }
-        void SetD(double val) { kD = val; }  
+        void SetD(double val) { kD = val; }
 
         double GetS() { return kS; }
         void SetS(double val) { kS = val; }
@@ -92,9 +92,9 @@ namespace CONSTANTS
             }
         };
         constexpr ManipulatorState L1{0_tr, 0_tr};
-        constexpr ManipulatorState L2{17.5_tr, 1.4_tr}; // 18.4 follow-through
+        constexpr ManipulatorState L2{17.5_tr, 8_tr}; // 18.4 follow-through
         constexpr ManipulatorState L3{0_tr, 0_tr};
-        constexpr ManipulatorState L4{0_tr, 0_tr};
+        constexpr ManipulatorState L4{43_tr, 0_tr};
         constexpr ManipulatorState IDLE{21.3_tr, 32.2_tr};
         constexpr ManipulatorState IDLE_W_GP{11.2_tr, 28.2_tr};
         constexpr ManipulatorState INTAKE{8.5_tr, 31.5_tr};
@@ -134,8 +134,10 @@ namespace CONSTANTS
         constexpr double DEADBAND_THRESHOLD = 0.1;
         static const PidCoeff PidValue = {
             4,
-            0,
-            0,
+            2,
+            1,
+            4,
+            2,
         };
         constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
         namespace PRESETS

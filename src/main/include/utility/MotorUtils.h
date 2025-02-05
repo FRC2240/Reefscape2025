@@ -8,10 +8,14 @@
 #include <vector>
 #include <string>
 
-namespace MotorUtils {
-  struct Motor {
+namespace MotorUtils
+{
+  void BuildSender(wpi::SendableBuilder &builder, CONSTANTS::PidCoeff *coeff);
+  struct Motor
+  {
 
-    struct LogValues {
+    struct LogValues
+    {
       bool position = false;
       bool velocity = false;
       bool acceleration = false;
@@ -19,13 +23,13 @@ namespace MotorUtils {
       bool current = true;
     };
 
-    Motor(ctre::phoenix6::hardware::TalonFX* motor, CONSTANTS::PidCoeff coeff, MotorUtils::Motor::LogValues values);
+    Motor(ctre::phoenix6::hardware::TalonFX *motor, CONSTANTS::PidCoeff coeff, MotorUtils::Motor::LogValues values);
 
     ctre::phoenix6::hardware::TalonFX *motorPtr;
     CONSTANTS::PidCoeff pid;
     LogValues logValues;
     std::string name;
-    
+
     void PutDashboard();
     CONSTANTS::PidCoeff GetDashboard();
 
