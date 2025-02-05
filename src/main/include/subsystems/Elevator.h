@@ -25,12 +25,15 @@ public:
     void set_position(units::angle::turn_t pos);
 
     void InitSendable(wpi::SendableBuilder& builder) override;
-    void BuildSender(wpi::SendableBuilder &builder, CONSTANTS::PidCoeff *coeff)
-    void SetPID(ctre::phoenix6::hardware::TalonFX &motor, CONSTANTS::PidCoeff coeff)
+    void BuildSender(wpi::SendableBuilder &builder, CONSTANTS::PidCoeff *coeff);
+    void SetPID(ctre::phoenix6::hardware::TalonFX &motor, CONSTANTS::PidCoeff coeff);
+    void SetPID();
 
 private:
     // ctre::phoenix6::controls::DynamicMotionMagicTorqueCurrentFOC control_req{5_tr, 5_tr / 1_s, 5_tr / (1_s * 1_s), 5_tr / (1_s * 1_s * 1_s)};
     ctre::phoenix6::controls::PositionTorqueCurrentFOC control_req{0_tr};
     ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::ELEVATOR::LEFT_ID};
     ctre::phoenix6::hardware::TalonFX m_follower_motor{CONSTANTS::ELEVATOR::RIGHT_ID};
+
+    CONSTANTS::PidCoeff coeff {CONSTANTS::ELEVATOR::PidValue};
 };
