@@ -9,6 +9,7 @@
 #include "frc2/command/CommandPtr.h"
 #include <frc/DataLogManager.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <frc2/command/Commands.h>
 
 class Wrist : public frc2::SubsystemBase
 {
@@ -19,7 +20,7 @@ public:
     units::degree_t get_angle();
     void SetPID();
     void SetPID(ctre::phoenix6::hardware::TalonFX &motor, CONSTANTS::PidCoeff coeff);
-
+    frc2::CommandPtr rezero();
     frc2::CommandPtr set_angle_command(units::degree_t pos);
 
 private:

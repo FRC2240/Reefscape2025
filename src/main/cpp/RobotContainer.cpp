@@ -36,6 +36,7 @@ void RobotContainer::ConfigureBindings()
   m_stick0.B().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
   m_stick0.Y().OnTrue(score(CONSTANTS::MANIPULATOR_STATES::L4));
   m_stick0.X().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
+  m_stick0.RightBumper().OnTrue(m_wrist.rezero());
   // m_stick0.X().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
 }
 

@@ -57,6 +57,20 @@ units::degree_t Wrist::get_angle()
     return m_motor.GetPosition().GetValue();
 }
 
+frc2::CommandPtr Wrist::rezero()
+{
+    return frc2::RunCommand([this]
+                            { m_motor.SetControl(ctre::phoenix6::controls::VoltageOut{-3_V}); },
+                            {this})
+        .Until([this]
+               { return m_motor.GetVelocity().GetValue() < 1.5_tps; })
+        .WithName("Rezero Wrist")
+        .AndThen(frc2::cmd::RunOnce([this]
+                                    { m_motor.SetPosition(0_tr);
+                                          m_motor.SetControl(ctre::phoenix6::controls::VoltageOut{0_V}); },
+                                    {this}));
+}
+
 frc2::CommandPtr Wrist::set_angle_command(units::degree_t pos)
 {
     return frc2::RunCommand([this, pos]
