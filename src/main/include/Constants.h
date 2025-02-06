@@ -109,7 +109,7 @@ namespace CONSTANTS
 
     namespace CLIMBER
     {
-        constexpr int CLIMBER_ID = 29;
+        constexpr int CLIMBER_ID = 34;
 
         constexpr units::angle::turn_t DEFAULT_POS = 0_tr;
         constexpr units::angle::turn_t EXTEND_POS  = 100_tr;

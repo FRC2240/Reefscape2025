@@ -24,6 +24,10 @@ void RobotContainer::LogDashboard() {
 
 void RobotContainer::ConfigureBindings() {
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
+  m_climber.SetDefaultCommand(m_climber.IdleCommand());
+  m_stick0.A().OnTrue(m_climber.Extend());
+  m_stick0.B().OnTrue(m_climber.Climb());
+  m_stick0.X().OnTrue(m_climber.IdleCommand());
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
