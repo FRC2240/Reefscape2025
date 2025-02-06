@@ -60,7 +60,10 @@ units::degree_t Wrist::get_angle()
 frc2::CommandPtr Wrist::set_angle_command(units::degree_t pos)
 {
     return frc2::RunCommand([this, pos]
-                            { set_angle(pos); },
+                            {
+            frc::SmartDashboard::PutNumber("Wrist Setpoint", pos.value());
+            frc::SmartDashboard::PutNumber("Wrist position", m_motor.GetPosition().GetValueAsDouble());
+            set_angle(pos); },
                             {this})
         .WithName("Set Wrist Angle")
         .Until([this, pos]

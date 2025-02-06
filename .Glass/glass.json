@@ -8,6 +8,15 @@
           },
           "open": true
         },
+        "Scheduler": {
+          "open": true
+        },
+        "Wrist": {
+          "PID": {
+            "open": true
+          },
+          "open": true
+        },
         "cspeed": {
           "open": true
         },

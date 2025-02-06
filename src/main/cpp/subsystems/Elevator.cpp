@@ -38,7 +38,7 @@ frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos)
         set_position(position); },
                             {this})
         .Until([this, pos]
-               { return CONSTANTS::IN_THRESHOLD<units::angle::turn_t>(get_position(), pos, CONSTANTS::ELEVATOR::POSITION_THRESHOLD); });
+               { return CONSTANTS::IN_THRESHOLD<units::angle::turn_t>(get_position(), pos, CONSTANTS::ELEVATOR::POSITION_THRESHOLD * 3); });
 }
 
 frc2::CommandPtr Elevator::idle_command()

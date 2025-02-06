@@ -8,6 +8,7 @@
 #include "ctre/phoenix6/TalonFX.hpp"
 #include "frc2/command/CommandPtr.h"
 #include <frc/DataLogManager.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 class Wrist : public frc2::SubsystemBase
 {

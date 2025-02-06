@@ -92,13 +92,15 @@ namespace CONSTANTS
             }
         };
         constexpr ManipulatorState L1{0_tr, 0_tr};
-        constexpr ManipulatorState L2{17.5_tr, 8_tr}; // 18.4 follow-through
-        constexpr ManipulatorState L3{0_tr, 0_tr};
-        constexpr ManipulatorState L4{43_tr, 0_tr};
-        constexpr ManipulatorState IDLE{21.3_tr, 32.2_tr};
-        constexpr ManipulatorState IDLE_W_GP{11.2_tr, 28.2_tr};
-        constexpr ManipulatorState INTAKE{8.5_tr, 31.5_tr};
-        constexpr ManipulatorState POST_SCORE{0_tr, 0_tr};
+        constexpr ManipulatorState L2{10.46_tr, 7.79_tr}; // 18.4 follow-through
+        constexpr ManipulatorState L3{22.82_tr, 7.64_tr};
+        constexpr ManipulatorState L4{45.59_tr, 7.8_tr};
+        constexpr ManipulatorState IDLE{13.68_tr, 32.22_tr};
+        constexpr ManipulatorState IDLE_W_GP{12.329_tr, 29.43_tr};
+        constexpr ManipulatorState INTAKE{7.79_tr, 33.5_tr};
+        constexpr ManipulatorState POST_SCORE{
+            0_tr,
+            19_tr};
         constexpr ManipulatorState ALGAE_L2{0_tr, 0_tr};
         constexpr ManipulatorState ALGAE_L3{0_tr, 0_tr};
         constexpr ManipulatorState PROCESSOR{0_tr, 0_tr};
@@ -133,11 +135,11 @@ namespace CONSTANTS
         constexpr int RIGHT_ID = 21;
         constexpr double DEADBAND_THRESHOLD = 0.1;
         static const PidCoeff PidValue = {
-            4,
-            2,
-            1,
-            4,
-            2,
+            6,
+            7,
+            0.5,
+            4.5,
+            4.5,
         };
         constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
         namespace PRESETS
@@ -152,7 +154,7 @@ namespace CONSTANTS
         constexpr int WRIST_ID = 5;
         constexpr units::angle::turn_t DEFAULT_POSITION = 0_tr;
         // This is the default PID values for the wrist motor
-        static const PidCoeff PidValue = {1};
+        static const PidCoeff PidValue = {8, 0, 1};
 
         constexpr units::angle::degree_t POSITION_THRESHOLD = 5_deg;
     };
