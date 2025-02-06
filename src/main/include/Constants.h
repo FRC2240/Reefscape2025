@@ -44,6 +44,27 @@ namespace CONSTANTS
 
         double min = -1; // Minimum output for control loop
         double max = 1;  // Maximum output for control loop
+
+        double GetP() { return kP; }
+        void SetP(double val) { kP = val; }
+
+        double GetI() { return kI; }
+        void SetI(double val) { kI = val; }
+
+        double GetD() { return kD; }
+        void SetD(double val) { kD = val; }
+
+        double GetS() { return kS; }
+        void SetS(double val) { kS = val; }
+
+        void SetG(double val) { kG = val; }
+        double GetG() { return kG; }
+
+        void SetMin(double val) { min = val; }
+        double GetMin() { return min; }
+
+        void SetMax(double val) { max = val; }
+        double GetMax() { return max; }
     };
 
     namespace CORAL
@@ -56,7 +77,7 @@ namespace CONSTANTS
 
     namespace MANIPULATOR_STATES
     {
-        constexpr units::turn_t POST_SCORE_DELTA = 5_tr;
+        constexpr units::turn_t POST_SCORE_DELTA = 5.4_tr - 18.4_tr;
         // Represents the arm and wrist position required to score somewhere
         struct ManipulatorState
         {
@@ -70,14 +91,16 @@ namespace CONSTANTS
                     IN_THRESHOLD<units::turn_t>(this->elevtor_pos, other.elevtor_pos, 0.00005_tr) && IN_THRESHOLD<units::turn_t>(this->wrist_pos, other.wrist_pos, 0.00005_tr));
             }
         };
-        constexpr ManipulatorState L1{10_tr, 10_tr};
-        constexpr ManipulatorState L2{400_tr, 0_tr};
-        constexpr ManipulatorState L3{0_tr, 0_tr};
-        constexpr ManipulatorState L4{0_tr, 0_tr};
-        constexpr ManipulatorState IDLE{0_tr, 0_tr};
-        constexpr ManipulatorState IDLE_W_GP{0_tr, 0_tr};
-        constexpr ManipulatorState INTAKE{0_tr, 0_tr};
-        constexpr ManipulatorState POST_SCORE{0_tr, 0_tr};
+        constexpr ManipulatorState L1{0_tr, 0_tr};
+        constexpr ManipulatorState L2{10.46_tr, 7.79_tr}; // 18.4 follow-through
+        constexpr ManipulatorState L3{22.82_tr, 7.64_tr};
+        constexpr ManipulatorState L4{45.59_tr, 7.8_tr};
+        constexpr ManipulatorState IDLE{13.68_tr, 32.22_tr};
+        constexpr ManipulatorState IDLE_W_GP{12.329_tr, 29.43_tr};
+        constexpr ManipulatorState INTAKE{7.79_tr, 33.5_tr};
+        constexpr ManipulatorState POST_SCORE{
+            0_tr,
+            19_tr};
         constexpr ManipulatorState ALGAE_L2{0_tr, 0_tr};
         constexpr ManipulatorState ALGAE_L3{0_tr, 0_tr};
         constexpr ManipulatorState PROCESSOR{0_tr, 0_tr};
@@ -104,14 +127,20 @@ namespace CONSTANTS
 
     namespace ELEVATOR
     {
-        constexpr units::angle::turn_t POSITION_THRESHOLD = 5_tr;
+        constexpr units::angle::turn_t POSITION_THRESHOLD = 0.5_tr;
         constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
 
-        constexpr units::angle::turn_t TOP_POS = 1_tr;
+        constexpr units::angle::turn_t TOP_POS = 45_tr;
         constexpr int LEFT_ID = 20; // CHANGEME
         constexpr int RIGHT_ID = 21;
         constexpr double DEADBAND_THRESHOLD = 0.1;
-        static const PidCoeff PidValue = {1};
+        static const PidCoeff PidValue = {
+            6,
+            7,
+            0.5,
+            4.5,
+            4.5,
+        };
         constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
         namespace PRESETS
         {
@@ -122,10 +151,10 @@ namespace CONSTANTS
 
     namespace WRIST
     {
-        constexpr int WRIST_ID = 40;
+        constexpr int WRIST_ID = 5;
         constexpr units::angle::turn_t DEFAULT_POSITION = 0_tr;
         // This is the default PID values for the wrist motor
-        static const PidCoeff PidValue = {1};
+        static const PidCoeff PidValue = {8, 0, 1};
 
         constexpr units::angle::degree_t POSITION_THRESHOLD = 5_deg;
     };
@@ -141,7 +170,7 @@ namespace CONSTANTS
 
     namespace CLIMBER
     {
-        constexpr int CLIMBER_ID = 29;
+        constexpr int CLIMBER_ID = 7;
 
         constexpr units::angle::turn_t DEFAULT_POS = 0_tr;
         constexpr units::angle::turn_t EXTEND_POS = 100_tr;

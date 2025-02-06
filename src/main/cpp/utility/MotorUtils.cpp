@@ -1,7 +1,54 @@
 #include "utility/MotorUtils.h"
 
-MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX* motor, CONSTANTS::PidCoeff coeff, MotorUtils::Motor::LogValues values)
-: motorPtr{motor}, pid{coeff}, logValues{values}
+void MotorUtils::BuildSender(wpi::SendableBuilder &builder, CONSTANTS::PidCoeff *coeff)
+{
+
+  builder.AddDoubleProperty(
+      "PID/P",
+      [coeff]
+      { return coeff->GetP(); },
+      [coeff](double val)
+      { coeff->SetP(val); });
+  builder.AddDoubleProperty(
+      "PID/I",
+      [coeff]
+      { return coeff->GetI(); },
+      [coeff](double val)
+      { coeff->SetI(val); });
+  builder.AddDoubleProperty(
+      "PID/D",
+      [coeff]
+      { return coeff->GetD(); },
+      [coeff](double val)
+      { coeff->SetD(val); });
+  builder.AddDoubleProperty(
+      "PID/S",
+      [coeff]
+      { return coeff->GetS(); },
+      [coeff](double val)
+      { coeff->SetS(val); });
+  builder.AddDoubleProperty(
+      "PID/G",
+      [coeff]
+      { return coeff->GetG(); },
+      [coeff](double val)
+      { coeff->SetG(val); });
+  builder.AddDoubleProperty(
+      "PID/Min",
+      [coeff]
+      { return coeff->GetMin(); },
+      [coeff](double val)
+      { coeff->SetMin(val); });
+  builder.AddDoubleProperty(
+      "PID/Max",
+      [coeff]
+      { return coeff->GetMax(); },
+      [coeff](double val)
+      { coeff->SetMax(val); });
+}
+
+MotorUtils::Motor::Motor(ctre::phoenix6::hardware::TalonFX *motor, CONSTANTS::PidCoeff coeff, MotorUtils::Motor::LogValues values)
+    : motorPtr{motor}, pid{coeff}, logValues{values}
 {
   ctre::phoenix6::configs::TalonFXConfiguration base_config{};
   base_config.Audio.BeepOnBoot = true;

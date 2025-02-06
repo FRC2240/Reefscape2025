@@ -2,6 +2,21 @@
   "NetworkTables": {
     "transitory": {
       "SmartDashboard": {
+        "Elevator": {
+          "PID": {
+            "open": true
+          },
+          "open": true
+        },
+        "Scheduler": {
+          "open": true
+        },
+        "Wrist": {
+          "PID": {
+            "open": true
+          },
+          "open": true
+        },
         "cspeed": {
           "open": true
         },
@@ -22,8 +37,11 @@
     },
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Alerts": "Alerts",
       "/SmartDashboard/Auto Chooser": "String Chooser",
-      "/SmartDashboard/Odometry Field": "Field2d"
+      "/SmartDashboard/Odometry Field": "Field2d",
+      "/SmartDashboard/Scheduler": "Scheduler",
+      "/SmartDashboard/frc2::SubsystemBase": "Subsystem"
     },
     "windows": {
       "/SmartDashboard/Auto Chooser": {
@@ -32,13 +50,12 @@
         }
       },
       "/SmartDashboard/Odometry Field": {
-        "bottom": 400,
-        "builtin": "2021 Galactic Search B",
-        "height": 4.572000026702881,
-        "left": 20,
-        "right": 780,
-        "top": 20,
-        "width": 9.144000053405762,
+        "bottom": 1476,
+        "height": 8.210550308227539,
+        "left": 150,
+        "right": 2961,
+        "top": 79,
+        "width": 16.541748046875,
         "window": {
           "visible": true
         }
@@ -63,5 +80,31 @@
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
     "serverTeam": "2240"
+  },
+  "Plots": {
+    "Plot <0>": {
+      "plots": [
+        {
+          "backgroundColor": [
+            0.0,
+            0.0,
+            0.0,
+            0.8500000238418579
+          ],
+          "height": 338,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/Elevator/pos"
+            }
+          ]
+        }
+      ]
+    }
   }
 }

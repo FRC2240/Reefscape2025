@@ -14,15 +14,16 @@ Grabber::Grabber()
     SetPID();
     m_right_motor.SetControl(ctre::phoenix6::controls::Follower{m_left_motor.GetDeviceID(), 1});
 
-    ctre::phoenix6::configs::CANrangeConfiguration can_range_conf{};
-    can_range_conf.ProximityParams.MinSignalStrengthForValidMeasurement = 2500;
-    can_range_conf.ProximityParams.ProximityThreshold = 4_in;
-    m_can_range.GetConfigurator().Apply(can_range_conf);
+    //ctre::phoenix6::configs::CANrangeConfiguration can_range_conf{};
+    //can_range_conf.ProximityParams.MinSignalStrengthForValidMeasurement = 2500;
+    //can_range_conf.ProximityParams.ProximityThreshold = 4_in;
+    //m_can_range.GetConfigurator().Apply(can_range_conf);
+    // can sensor using fusion
 };
 
 bool Grabber::has_gp()
 {
-    return m_can_range.GetIsDetected().GetValue();
+    return units::millimeter_t{Grabber_sensor.GetRange()} < CONSTANTS::GRABBER::DEFAULT_DIST_TOF;
 };
 
 void Grabber::spin(units::turns_per_second_t speed)
