@@ -135,11 +135,11 @@ namespace CONSTANTS
         constexpr int RIGHT_ID = 21;
         constexpr double DEADBAND_THRESHOLD = 0.1;
         static const PidCoeff PidValue = {
-            6,
-            7,
-            0.5,
+            0, //6
+            0, //7
+            0, //.5
             4.5,
-            4.5,
+            15, //4.5
         };
         constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
         namespace PRESETS
@@ -231,7 +231,7 @@ namespace CONSTANTS
             /* -------------------------------------------------------------------------- */
             constexpr ModuleConfig FL{60, 61, 14, 0.3_tr};
             constexpr ModuleConfig FR{50, 51, 13, 0.184_tr}; // old value 0.32_tr - 0.5_tr
-            constexpr ModuleConfig BL{30, 31, 11, 0.17_tr};
+            constexpr ModuleConfig BL{30, 31, 11, -0.3186  _tr};
             constexpr ModuleConfig BR{40, 41, 12, 0.43_tr}; // old vaule -0.253_tr
 
 /* -------------------------------------------------------------------------- */

@@ -42,6 +42,8 @@ void Robot::DisabledPeriodic()
 {
   my_alert.Set(true);
 
+  
+
   if (disabled_timer.Get() > CONSTANTS::DRIVE::BRAKE_TIME && !frc::DriverStation::IsEStopped())
   {
     m_container.m_drivetrain.set_brake_mode(0);
@@ -86,7 +88,11 @@ void Robot::TeleopPeriodic()
   DriverUtils::DriverTeleopPeriodic();
 }
 
-void Robot::TeleopExit() {}
+void Robot::TeleopExit() 
+{
+  frc2::CommandScheduler::GetInstance().CancelAll();
+
+}
 
 void Robot::TestInit()
 {

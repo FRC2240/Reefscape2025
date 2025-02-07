@@ -4,9 +4,8 @@
 Elevator::Elevator()
 {
     ctre::phoenix6::configs::TalonFXConfiguration conf{};
-    conf.MotionMagic.MotionMagicAcceleration = 250_tr_per_s_sq;
-    conf.MotionMagic.MotionMagicCruiseVelocity = 35_tps;
-
+    conf.MotionMagic.MotionMagicAcceleration = 250_tr_per_s_sq; //250 | 15-50
+    conf.MotionMagic.MotionMagicCruiseVelocity = 50_tps; //35
     m_motor.GetConfigurator().Apply(conf);
     SetPID();
     m_follower_motor.SetControl(ctre::phoenix6::controls::Follower(m_motor.GetDeviceID(), true));
