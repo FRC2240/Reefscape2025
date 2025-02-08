@@ -7,6 +7,7 @@ Elevator::Elevator()
     ctre::phoenix6::configs::TalonFXConfiguration conf{};
     conf.MotionMagic.MotionMagicAcceleration = 250_tr_per_s_sq;
     conf.MotionMagic.MotionMagicCruiseVelocity = 35_tps;
+    conf.Slot0.GravityType = ctre::phoenix6::signals::GravityTypeValue::Elevator_Static;
     m_motor.GetConfigurator().Apply(conf);
 
     SetPID();
@@ -37,6 +38,7 @@ frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos)
             position = CONSTANTS::ELEVATOR::BOTTOM_POS;
         }
         frc::SmartDashboard::PutNumber("elv/desired", position.value());
+        frc::SmartDashboard::PutNumber("elv/delta", m_motor.GetPosition().GetValueAsDouble() - position.value());
         set_position(position); },
                             {this})
         .Until([this, pos]

@@ -41,19 +41,21 @@ void RobotContainer::ConfigureBindings()
   */
 
   frc2::Trigger([this] () -> bool {
-    return this->m_stick0.LeftBumper().Get() && this->m_stick0.LeftTrigger().Get();
+    return this->m_stick0.LeftBumper().Get() && !this->m_stick0.LeftTrigger().Get();
   }).OnTrue(intake());
 
   frc2::Trigger([this] () -> bool {
     return this->m_stick0.LeftBumper().Get() && ! this->m_stick0.LeftTrigger().Get();
   }); // coral pickup
-
+  
+  /*
   frc2::Trigger([this] () -> bool {
     return this->m_stick0.RightBumper().Get() && this->m_stick0.LeftTrigger().Get();
   }).OnTrue(m_grabber.extake());
+  */
 
   frc2::Trigger([this] () -> bool {
-    return this->m_stick0.RightBumper().Get() && ! this->m_stick0.LeftTrigger().Get();
+    return this->m_stick0.RightBumper().Get();
   }).OnTrue(score());
 
   m_stick0.Y().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
@@ -84,7 +86,7 @@ void RobotContainer::ConfigureBindings()
 
   m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
 
-  m_stick0.Start().OnTrue(m_wrist.rezero());
+  m_stick0.Start().WhileTrue(m_wrist.rezero());
 
 }
 

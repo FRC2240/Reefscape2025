@@ -17,7 +17,7 @@
 
 // #define COLFAX_BOT
 
-#define SABERTOOTH
+// #define SABERTOOTH
 //  When using the second robot, uncomment the above line
 
 namespace CONSTANTS {
@@ -125,7 +125,7 @@ constexpr int LEFT_ID = 20;
 constexpr int RIGHT_ID = 21;
 constexpr double DEADBAND_THRESHOLD = 0.1;
 static const PidCoeff PidValue = {
-    6, 7, 0.5, 4.5, 4.5,
+    6, 7, 0.5, 4.5, 14,
 };
 constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
 namespace PRESETS {
@@ -137,6 +137,10 @@ constexpr units::angle::turn_t TOP = TOP_POS;
 namespace WRIST {
 constexpr int WRIST_ID = 5;
 constexpr units::angle::turn_t DEFAULT_POSITION = 0_tr;
+
+constexpr units::current::ampere_t PEAK_TORQUE_CURRENT = 12_A;
+constexpr units::current::ampere_t PEAK_STATOR_CURRENT = 20_A;
+constexpr units::angular_velocity::turns_per_second_t PEAK_VELOCITY= 10_tps;
 // This is the default PID values for the wrist motor
 static const PidCoeff PidValue = {8, 0, 1};
 
