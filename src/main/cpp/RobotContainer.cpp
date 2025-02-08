@@ -90,3 +90,7 @@ frc2::CommandPtr RobotContainer::intake()
   // { return m_grabber.has_gp(); })
   // .AndThen(m_elevator.set_position_command(CONSTANTS::MANIPULATOR_STATES::IDLE_W_GP.elevtor_pos).AndThen(m_wrist.set_angle_command(CONSTANTS::MANIPULATOR_STATES::IDLE_W_GP.wrist_pos)));
 }
+
+void RobotContainer::Periodic() {
+  
+}

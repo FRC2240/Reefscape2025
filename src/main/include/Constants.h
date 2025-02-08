@@ -127,7 +127,7 @@ namespace CONSTANTS
 
     namespace ELEVATOR
     {
-        constexpr units::angle::turn_t POSITION_THRESHOLD = 0.5_tr;
+        constexpr units::angle::turn_t POSITION_THRESHOLD = 1.5_tr;
         constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
 
         constexpr units::angle::turn_t TOP_POS = 45_tr;

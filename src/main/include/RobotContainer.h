@@ -78,6 +78,7 @@ public:
   void ConfigureBindings();
   void SetPID();
   void LogDashboard();
+  void Periodic();
 
   CONSTANTS::MANIPULATOR_STATES::ManipulatorState prev_state = CONSTANTS::MANIPULATOR_STATES::IDLE;
 

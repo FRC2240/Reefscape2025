@@ -26,42 +26,47 @@ void Elevator::InitSendable(wpi::SendableBuilder &builder)
 
 frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos)
 {
-    return frc2::RunCommand([this, pos]
-                            {
-        units::angle::turn_t position = pos;
-        if (position > CONSTANTS::ELEVATOR::TOP_POS) {
-            position = CONSTANTS::ELEVATOR::TOP_POS;
-        } else if (position < CONSTANTS::ELEVATOR::BOTTOM_POS) {
-            position = CONSTANTS::ELEVATOR::BOTTOM_POS;
+    return frc2::RunCommand(
+        [this, pos] {
+            units::angle::turn_t position = pos;
+            if (position > CONSTANTS::ELEVATOR::TOP_POS) {
+                position = CONSTANTS::ELEVATOR::TOP_POS;
+            } else if (position < CONSTANTS::ELEVATOR::BOTTOM_POS) {
+                position = CONSTANTS::ELEVATOR::BOTTOM_POS;
+            }
+            frc::SmartDashboard::PutNumber("elv/desired", position.value());
+            set_position(position);
+        },
+        {this}
+    ).Until(
+        [this, pos] {
+            return CONSTANTS::IN_THRESHOLD<units::angle::turn_t>(get_position(), pos, CONSTANTS::ELEVATOR::POSITION_THRESHOLD);
         }
-        frc::SmartDashboard::PutNumber("elv/desired", position.value());
-        set_position(position); },
-                            {this})
-        .Until([this, pos]
-               { return CONSTANTS::IN_THRESHOLD<units::angle::turn_t>(get_position(), pos, CONSTANTS::ELEVATOR::POSITION_THRESHOLD * 3); });
+    ).WithName("Set Position");
 }
 
 frc2::CommandPtr Elevator::idle_command()
 {
-    return set_position_command(CONSTANTS::ELEVATOR::BOTTOM_POS);
+    return set_position_command(CONSTANTS::ELEVATOR::BOTTOM_POS).WithName("Idle");
 };
 
-frc2::CommandPtr Elevator::follow_joystick_command(frc2::CommandXboxController *stick)
-{
-    return frc2::RunCommand([this, stick]
-                            {
-        double stickpos = stick->GetLeftY(); // CHANGEME
-        if (
-            (stickpos < -CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && get_position() > CONSTANTS::ELEVATOR::BOTTOM_POS)
-            || (stickpos > CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && get_position() < CONSTANTS::ELEVATOR::TOP_POS)
-        ) {
-            // m_motor.SetControl(control_req.WithVelocity(CONSTANTS::ELEVATOR::JOYSTICK_SPEED * stickpos));
-        } else {
-            // m_motor.SetControl(control_req.WithVelocity(0_tps));
-        }; },
-                            {this})
-        .ToPtr();
-};
+
+// frc2::CommandPtr Elevator::follow_joystick_command(frc2::CommandXboxController *stick)
+// {
+//     return frc2::RunCommand([this, stick]
+//                             {
+//         double stickpos = stick->GetLeftY(); // CHANGEME
+//         if (
+//             (stickpos < -CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && get_position() > CONSTANTS::ELEVATOR::BOTTOM_POS)
+//             || (stickpos > CONSTANTS::ELEVATOR::DEADBAND_THRESHOLD && get_position() < CONSTANTS::ELEVATOR::TOP_POS)
+//         ) {
+//             // m_motor.SetControl(control_req.WithVelocity(CONSTANTS::ELEVATOR::JOYSTICK_SPEED * stickpos));
+//         } else {
+//             // m_motor.SetControl(control_req.WithVelocity(0_tps));
+//         }; },
+//                             {this})
+//         .ToPtr();
+// };
 
 units::angle::turn_t Elevator::get_position()
 {
@@ -160,4 +165,13 @@ void Elevator::BuildSender(wpi::SendableBuilder &builder, CONSTANTS::PidCoeff *c
         { return coeff->GetMax(); },
         [coeff](double val)
         { coeff->SetMax(val); });
+}
+
+void Elevator::Periodic() {
+    frc2::Command* currentCommand = this->GetCurrentCommand();
+    std::string_view commandName = "Null";
+    if (currentCommand) {
+        commandName = currentCommand->GetName();
+    }
+    frc::SmartDashboard::PutString("ElevatorCommand", commandName);
 }
