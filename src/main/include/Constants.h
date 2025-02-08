@@ -17,7 +17,7 @@
 
 // #define COLFAX_BOT
 
-// #define SABERTOOTH
+#define SABERTOOTH
 //  When using the second robot, uncomment the above line
 
 namespace CONSTANTS

@@ -44,9 +44,9 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
   std::vector<std::optional<frc::Pose2d>> ret;
   for (auto &i : m_limelight_vec)
   {
-    if (i->GetNumber("tv", 0.0) > 0.5)
+    auto posevec = i->GetNumberArray("botpose_wpiblue", std::vector<double>(6));
+    if (i->GetNumber("tv", 0.0) > 0.5 && posevec[0] > 0.01)
     {
-      auto posevec = i->GetNumberArray("botpose", std::vector<double>(6));
       ret.push_back(frc::Pose2d{
           units::meter_t{posevec[0]},
           units::meter_t{posevec[1]},
@@ -70,7 +70,7 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
         frc::SmartDashboard::PutNumber("pv/x", pose.value().estimatedPose.X().value());
         frc::SmartDashboard::PutNumber("pv/y", pose.value().estimatedPose.Y().value());
         frc::SmartDashboard::PutNumber("pv/get_angle()", get_angle().value());
-        // if (CONSTANTS::IN_THRESHOLD<units::degree_t>(
+        // if (CONSTANTS::IN_THRESHOLD<units::degree_t>()
         //         pose.value().estimatedPose.Rotation().ToRotation2d().Degrees(),
         //         get_angle(), 3_deg))
         // {
