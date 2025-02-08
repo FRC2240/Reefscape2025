@@ -20,7 +20,7 @@ public:
 
     frc2::CommandPtr set_position_command(units::angle::turn_t pos);
     frc2::CommandPtr idle_command();
-    //frc2::CommandPtr follow_joystick_command(frc2::CommandXboxController *stick);
+    // frc2::CommandPtr follow_joystick_command(frc2::CommandXboxController *stick);
 
     units::angle::turn_t get_position();
     void set_position(units::angle::turn_t pos);
@@ -30,6 +30,8 @@ public:
     void SetPID(ctre::phoenix6::hardware::TalonFX &motor, CONSTANTS::PidCoeff coeff);
     void SetPID();
     void Periodic();
+
+    std::string_view status = "Null";
 
 private:
     int MAX_CONFIG_APPLY_ATTEMPTS = 5;
