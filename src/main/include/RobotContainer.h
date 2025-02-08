@@ -58,6 +58,7 @@ public:
   frc2::CommandPtr set_state(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target);
 
   // Brings elevator down and moves wrist
+  frc2::CommandPtr score();
   frc2::CommandPtr score(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target);
 
   frc2::CommandPtr intake();
@@ -80,6 +81,7 @@ public:
   void LogDashboard();
 
   CONSTANTS::MANIPULATOR_STATES::ManipulatorState prev_state = CONSTANTS::MANIPULATOR_STATES::IDLE;
+  CONSTANTS::MANIPULATOR_STATES::ManipulatorState current_state = CONSTANTS::MANIPULATOR_STATES::IDLE;
 
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 

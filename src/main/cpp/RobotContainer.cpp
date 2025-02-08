@@ -31,12 +31,61 @@ void RobotContainer::ConfigureBindings()
 {
   frc::SmartDashboard::PutData(&m_elevator);
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
+  /*
   m_stick0.A().OnTrue(intake());
   m_stick0.B().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
   m_stick0.Y().OnTrue(score(CONSTANTS::MANIPULATOR_STATES::L4));
   m_stick0.X().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
   m_stick0.RightBumper().OnTrue(m_wrist.rezero());
   // m_stick0.X().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
+  */
+
+  frc2::Trigger([this] () -> bool {
+    return this->m_stick0.LeftBumper().Get() && this->m_stick0.LeftTrigger().Get();
+  }).OnTrue(intake());
+
+  frc2::Trigger([this] () -> bool {
+    return this->m_stick0.LeftBumper().Get() && ! this->m_stick0.LeftTrigger().Get();
+  }); // coral pickup
+
+  frc2::Trigger([this] () -> bool {
+    return this->m_stick0.RightBumper().Get() && this->m_stick0.LeftTrigger().Get();
+  }).OnTrue(m_grabber.extake());
+
+  frc2::Trigger([this] () -> bool {
+    return this->m_stick0.RightBumper().Get() && ! this->m_stick0.LeftTrigger().Get();
+  }).OnTrue(score());
+
+  m_stick0.Y().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
+
+  frc2::Trigger([this] () -> bool {
+    return this->m_stick0.B().Get() && this->m_stick0.LeftTrigger().Get();
+  }); // proc
+
+  frc2::Trigger([this] () -> bool {
+    return this->m_stick0.B().Get() && ! this->m_stick0.LeftTrigger().Get();
+  }).OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L1));
+
+  frc2::Trigger([this] () -> bool {
+    return this->m_stick0.X().Get() && this->m_stick0.LeftTrigger().Get();
+  }); // L2 algae
+
+  frc2::Trigger([this] () -> bool {
+    return this->m_stick0.X().Get() && ! this->m_stick0.LeftTrigger().Get();
+  }).OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L3));
+
+  frc2::Trigger([this] () -> bool {
+    return this->m_stick0.A().Get() && this->m_stick0.LeftTrigger().Get();
+  }); // L1 algae
+
+  frc2::Trigger([this] () -> bool {
+    return this->m_stick0.A().Get() && ! this->m_stick0.LeftTrigger().Get();
+  }).OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L2));
+
+  m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
+
+  m_stick0.Start().OnTrue(m_wrist.rezero());
+
 }
 
 frc2::Command *RobotContainer::GetAutonomousCommand()
@@ -46,12 +95,26 @@ frc2::Command *RobotContainer::GetAutonomousCommand()
 
 frc2::CommandPtr RobotContainer::set_state(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target)
 {
+  current_state = target;
   if (target == CONSTANTS::MANIPULATOR_STATES::IDLE)
   {
 
     return m_elevator.set_position_command(target.elevtor_pos).AndThen(m_wrist.set_angle_command(target.wrist_pos));
   }
   return m_elevator.set_position_command(target.elevtor_pos).AlongWith(m_wrist.set_angle_command(target.wrist_pos));
+}
+
+frc2::CommandPtr RobotContainer::score() {
+  if (
+      current_state == CONSTANTS::MANIPULATOR_STATES::L1 ||
+      current_state == CONSTANTS::MANIPULATOR_STATES::L2 ||
+      current_state == CONSTANTS::MANIPULATOR_STATES::L3 ||
+      current_state == CONSTANTS::MANIPULATOR_STATES::L4
+    ) {
+      return score(current_state);
+    } else {
+      return frc2::InstantCommand([] () {return;}, {}).ToPtr();
+    }
 }
 
 frc2::CommandPtr RobotContainer::score(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target)
