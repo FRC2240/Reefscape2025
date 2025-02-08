@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Constants.h"
-#include "utility/BetterSubsystemBase.h"
 #include "utility/MotorUtils.h"
 
 #include <units/angle.h>
@@ -9,7 +8,7 @@
 #include "frc2/command/CommandPtr.h"
 #include <frc2/command/RunCommand.h>
 
-class Climber : public BetterSubsystemBase
+class Climber : public frc2::SubsystemBase
 {
 public:
     Climber();
@@ -19,9 +18,14 @@ public:
     frc2::CommandPtr climb_command();
     frc2::CommandPtr extend_command();
 
+    void InitSendable(wpi::SendableBuilder &builder) override;
+    void SetPID();
+
     units::degree_t get_angle();
     void set_position(units::angle::turn_t pos);
 
 private:
     ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::CLIMBER::CLIMBER_ID};
+
+    CONSTANTS::PidCoeff coeff{CONSTANTS::CLIMBER::PidValue};
 };

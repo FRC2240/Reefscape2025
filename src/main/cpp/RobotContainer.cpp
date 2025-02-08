@@ -21,7 +21,6 @@ void RobotContainer::SetPID()
 {
   m_climber.SetPID();
   m_wrist.SetPID();
-  m_grabber.SetPID();
   m_elevator.SetPID();
 }
 void RobotContainer::LogDashboard()
@@ -67,7 +66,7 @@ frc2::CommandPtr RobotContainer::score(CONSTANTS::MANIPULATOR_STATES::Manipulato
     {
       if (target == CONSTANTS::MANIPULATOR_STATES::L1 || target == CONSTANTS::MANIPULATOR_STATES::PROCESSOR)
       {
-        return m_grabber.extake();
+        //return m_grabber.extake();
       }
       else
       {

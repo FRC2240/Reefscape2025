@@ -3,12 +3,20 @@
 
 
 Climber::Climber() {
-    MotorUtils::Motor::LogValues logValues {true, true, true};
-    MotorUtils::Motor climberMotor{&m_motor, CONSTANTS::CLIMBER::PidValue, logValues};
-    AddPID(climberMotor);
     SetPID();
-
     m_motor.SetPosition(CONSTANTS::CLIMBER::DEFAULT_POS);
+}
+
+void Climber::SetPID()
+{
+    MotorUtils::SetPID(m_motor, coeff);
+}
+
+void Climber::InitSendable(wpi::SendableBuilder &builder)
+{
+    builder.SetSmartDashboardType("Climber");
+    MotorUtils::BuildSender(builder, &coeff);
+    MotorUtils::BuildSender(builder, &m_motor);
 }
 
 frc2::CommandPtr Climber::set_position_command(units::angle::turn_t pos) {
