@@ -40,51 +40,88 @@ void RobotContainer::ConfigureBindings()
   // m_stick0.X().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
   */
 
+  /*
+    ALGAE Mode:
+      Left Bumper   => Intake Algae
+      Right Bumper  => Extake Algae
+      B Button      => Processor
+      X Button      => L2 Algae
+      A Button      => L1 Algae
+  
+    CORAL Mode:
+      Y Button      => L4 
+      X Button      => L3
+      A Button      => L2
+      B Button      => L1
+      Left Bumper   => Intake Coral
+      Right Bumper  => Score
+
+    General:
+      Right Trigger => Idle
+      Start Button  => Zero Drivetrain
+  */
+
+
+  // Left Bumper + ALGAE Mode => Intake Algae
   frc2::Trigger([this] () -> bool {
     return this->m_stick0.LeftBumper().Get() && this->m_stick0.LeftTrigger().Get();
-  }).OnTrue(intake());
+  }); // Algae pickup
 
+  // Left Bumper + CORAL Mode => Intake Coral
   frc2::Trigger([this] () -> bool {
     return this->m_stick0.LeftBumper().Get() && ! this->m_stick0.LeftTrigger().Get();
-  }); // coral pickup
+  }).OnTrue(intake());
 
+  // Right Bumper + ALGAE Mode => Extake Algae
   frc2::Trigger([this] () -> bool {
     return this->m_stick0.RightBumper().Get() && this->m_stick0.LeftTrigger().Get();
-  }).OnTrue(m_grabber.extake());
+  }); //algae extake
 
+  // Right Bumper + CORAL Mode => Score
   frc2::Trigger([this] () -> bool {
     return this->m_stick0.RightBumper().Get() && ! this->m_stick0.LeftTrigger().Get();
   }).OnTrue(score());
 
+  // Y => L4
   m_stick0.Y().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
 
+  // B + ALGAE Mode => Processor
   frc2::Trigger([this] () -> bool {
     return this->m_stick0.B().Get() && this->m_stick0.LeftTrigger().Get();
   }); // proc
 
+  // B + CORAL Mode => L1
   frc2::Trigger([this] () -> bool {
     return this->m_stick0.B().Get() && ! this->m_stick0.LeftTrigger().Get();
   }).OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L1));
 
+  // X + ALGAE Mode => L2 Algae
   frc2::Trigger([this] () -> bool {
     return this->m_stick0.X().Get() && this->m_stick0.LeftTrigger().Get();
   }); // L2 algae
 
+  // X + CORAL Mode => L3
   frc2::Trigger([this] () -> bool {
     return this->m_stick0.X().Get() && ! this->m_stick0.LeftTrigger().Get();
   }).OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L3));
 
+  // A + ALGAE Mode => L1 Algae
   frc2::Trigger([this] () -> bool {
     return this->m_stick0.A().Get() && this->m_stick0.LeftTrigger().Get();
   }); // L1 algae
 
+  // A + CORAL Mode => L2
   frc2::Trigger([this] () -> bool {
     return this->m_stick0.A().Get() && ! this->m_stick0.LeftTrigger().Get();
   }).OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L2));
 
+  // Right Trigger => Idle
   m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
 
-  m_stick0.Start().OnTrue(m_wrist.rezero());
+  // Start => Zero Drivetrain
+  m_stick0.Start().OnTrue(frc2::cmd::RunOnce([this] () {
+    m_drivetrain.zero_yaw();
+  }));
 
 }
 
