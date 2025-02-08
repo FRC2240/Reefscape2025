@@ -131,7 +131,7 @@ namespace CONSTANTS
         constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
 
         constexpr units::angle::turn_t TOP_POS = 45_tr;
-        constexpr int LEFT_ID = 20; // CHANGEME
+        constexpr int LEFT_ID = 6; // CHANGEME
         constexpr int RIGHT_ID = 21;
         constexpr double DEADBAND_THRESHOLD = 0.1;
         static const PidCoeff PidValue = {

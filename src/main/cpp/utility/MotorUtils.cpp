@@ -1,9 +1,11 @@
 #include "utility/MotorUtils.h"
 #include "frc/DataLogManager.h"
+#include "frc/smartdashboard/SmartDashboard.h"
 
 void MotorUtils::SetPID(ctre::phoenix6::hardware::TalonFX &motor, CONSTANTS::PidCoeff coeff)
 {
   ctre::phoenix6::configs::TalonFXConfiguration config{};
+  motor.GetConfigurator().Refresh(config);
   config.Slot0.kS = coeff.kS;
   config.Slot0.kP = coeff.kP;
   config.Slot0.kI = coeff.kI;
@@ -24,6 +26,11 @@ void MotorUtils::SetPID(ctre::phoenix6::hardware::TalonFX &motor, CONSTANTS::Pid
     std::string errString = status.GetName();
     frc::DataLogManager::Log("Could not apply configs, error code: " + errString);
   }
+
+  frc::SmartDashboard::PutNumber("S-PID", config.Slot0.kS);
+  frc::SmartDashboard::PutNumber("P-PID", config.Slot0.kP);
+  frc::SmartDashboard::PutNumber("I-PID", config.Slot0.kI);
+  frc::SmartDashboard::PutNumber("D-PID", config.Slot0.kD);
 }
 
 void MotorUtils::BuildSender(wpi::SendableBuilder &builder, CONSTANTS::PidCoeff *coeff)
@@ -89,5 +96,6 @@ void MotorUtils::BuildSender(wpi::SendableBuilder &builder, ctre::phoenix6::hard
       "LOG/StatorCurrent",
       [motor]
       { return motor->GetStatorCurrent().GetValueAsDouble(); },
-      nullptr);
+      nullptr
+      );
 }
