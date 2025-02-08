@@ -37,7 +37,7 @@ frc2::CommandPtr Wrist::rezero()
 {
     return frc2::RunCommand([this]
                             { m_motor.SetPosition(0_tr); },
-                            {this}).WithName("RE-zero💀");
+                            {this}).WithName("RE-zero");
 }
 
 frc2::CommandPtr Wrist::set_angle_command(units::degree_t pos)
