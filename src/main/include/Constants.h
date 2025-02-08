@@ -162,9 +162,9 @@ namespace CONSTANTS
     namespace VISION
     {
         static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
-            0.151_m, 0.319_m, 0.578_m, frc::Rotation3d(180_deg, -10_deg, 90_deg)};
+            10.66_in, -1.3_in, -39.2_in, frc::Rotation3d(180_deg, -10_deg, 13.3_deg)};
         static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{
-            0.151_m, -0.319_m, 0.578_m, frc::Rotation3d(180_deg, -10_deg, -90_deg)};
+            -10.66_in, -1.3_in, -39.2_in, frc::Rotation3d(180_deg, -10_deg, -13.3_deg)};
 
     } // namespace VISION
 
