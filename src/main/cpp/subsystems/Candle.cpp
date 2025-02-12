@@ -89,8 +89,7 @@ void Candle::Periodic()
     {
     case AUTO:
 
-        //m_candle.Animate(m_larson_auto);
-        m_candle.SetLEDs(0,0,255);
+        m_candle.Animate(m_larson_auto);
         break;
 
     case WANTGP:
