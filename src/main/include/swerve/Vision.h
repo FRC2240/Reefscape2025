@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <units/angle.h>
 #include <frc/Alert.h>
+#include <swerve/LimelightHelpers.h>
 class Vision
 {
 public:
@@ -37,9 +38,6 @@ public:
     // Returns a vector of optionals of camera outputs.
     // The caller is expected to handle absent data, not the function.
     std::vector<std::optional<frc::Pose2d>> get_bot_position();
-
-    // Returns the angle to a gp
-    std::optional<units::degree_t> get_neural_net_angle();
 
     // Returns angle to apriltag 4 or 7, depending on alliance color.
     // Could be modified to work with 3 and 8 as well
@@ -95,13 +93,13 @@ private:
     // m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a, m_single_left_estimator},
     //    {m_right_camera_a, m_right_estimator_a, m_single_right_estimator}};
 
-    std::shared_ptr<nt::NetworkTable> m_aft_limelight =
-        nt::NetworkTableInstance::GetDefault().GetTable("limelight-aft");
+    std::pair<std::shared_ptr<nt::NetworkTable>, std::string> m_left_limelight =
+        {nt::NetworkTableInstance::GetDefault().GetTable("limelight-left"), "limelight-left"};
 
-    std::shared_ptr<nt::NetworkTable> m_fore_limelight =
-        nt::NetworkTableInstance::GetDefault().GetTable("limelight-fore");
+    std::pair<std::shared_ptr<nt::NetworkTable>, std::string> m_right_limelight = {
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight-right"), "limelight-right"};
 
-    std::vector<std::shared_ptr<nt::NetworkTable>> m_limelight_vec = {m_aft_limelight};
+    std::vector<std::pair<std::shared_ptr<nt::NetworkTable>, std::string>> m_limelight_vec = {m_left_limelight, m_right_limelight};
 
     frc::Alert overheat{"Limelight overheating", frc::Alert::AlertType::kWarning};
 };

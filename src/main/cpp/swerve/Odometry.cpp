@@ -133,7 +133,6 @@ void Odometry::update_from_vision()
   {
     if (i)
     {
-      fmt::println("here");
       estimator.AddVisionMeasurement(frc::Pose2d(i.value().Translation(), m_drivetrain->getCCWHeading()), frc::Timer::GetFPGATimestamp());
     }
   }
