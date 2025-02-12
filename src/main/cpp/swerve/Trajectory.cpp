@@ -20,9 +20,10 @@
 frc::Timer m_trajTimer;
 
 Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc2::CommandXboxController *stick, Vision *vision)
-    : m_drivetrain{drivetrain}, m_odometry{odometry}, m_stick{stick}, m_vision{vision}{
-          RobotConfig config = RobotConfig::fromGUISettings();
-  
+    : m_drivetrain{drivetrain}, m_odometry{odometry}, m_stick{stick}, m_vision{vision}
+{
+  RobotConfig config = RobotConfig::fromGUISettings();
+
   AutoBuilder::configure(
       [this]() -> frc::Pose2d // Pose supplier
       {
@@ -50,22 +51,24 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc2::Command
         return m_drivetrain->drive(-speeds);
       },
       std::make_shared<pathplanner::PPHolonomicDriveController>(
-                                 pathplanner::PIDConstants(8, 0.0, 0),   // Translation PID constants
-                                pathplanner::PIDConstants(2.5, 0.0, 0) // Rotation PID constants
-                         
-                                  ),
-config, // The robot configuration
-        []() {
-            // Boolean supplier that controls when the path will be mirrored for the red alliance
-            // This will flip the path being followed to the red side of the field.
-            // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+          pathplanner::PIDConstants(8, 0.0, 0),  // Translation PID constants
+          pathplanner::PIDConstants(2.5, 0.0, 0) // Rotation PID constants
 
-            auto alliance = frc::DriverStation::GetAlliance();
-            if (alliance) {
-                return alliance.value() == frc::DriverStation::Alliance::kRed;
-            }
-            return false;
-        },
+          ),
+      config, // The robot configuration
+      []()
+      {
+        // Boolean supplier that controls when the path will be mirrored for the red alliance
+        // This will flip the path being followed to the red side of the field.
+        // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+        auto alliance = frc::DriverStation::GetAlliance();
+        if (alliance)
+        {
+          return alliance.value() == frc::DriverStation::Alliance::kRed;
+        }
+        return false;
+      },
       this);
 }
 
@@ -78,21 +81,32 @@ frc2::CommandPtr Trajectory::manual_drive(bool field_relative)
         {
           m_drivetrain->zero_yaw();
         }
+        units::meters_per_second_t left_right;
+        units::meters_per_second_t front_back;
+        units::angular_velocity::radians_per_second_t rot;
 
-        const units::meters_per_second_t left_right{frc::ApplyDeadband(m_stick->GetLeftX(), 0.1) * CONSTANTS::DRIVE::TELEOP_MAX_SPEED};
-        const units::meters_per_second_t front_back{frc::ApplyDeadband(m_stick->GetLeftY(), 0.1) * CONSTANTS::DRIVE::TELEOP_MAX_SPEED};
-        auto const rot = frc::ApplyDeadband(m_stick->GetRightX(), .1) * m_drivetrain->TELEOP_MAX_ANGULAR_SPEED;
+        double modifier = m_stick->RightStick().Get() ? 0.5 : 1.0;
+        if (m_stick->RightStick().Get())
+        {
+          left_right = (frc::ApplyDeadband(m_stick->GetLeftX(), 0.1) * 0.25) * (CONSTANTS::DRIVE::TELEOP_MAX_SPEED);
+          front_back = (frc::ApplyDeadband(m_stick->GetLeftY(), 0.1) * 0.25) * (CONSTANTS::DRIVE::TELEOP_MAX_SPEED);
+          rot = frc::ApplyDeadband(m_stick->GetRightX(), .25) * (m_drivetrain->TELEOP_MAX_ANGULAR_SPEED);
+        }
+        else
+        {
+          left_right = frc::ApplyDeadband(m_stick->GetLeftX(), 0.1) * (CONSTANTS::DRIVE::TELEOP_MAX_SPEED);
+          front_back = frc::ApplyDeadband(m_stick->GetLeftY(), 0.1) * (CONSTANTS::DRIVE::TELEOP_MAX_SPEED);
+          rot = frc::ApplyDeadband(m_stick->GetRightX(), .1) * (m_drivetrain->TELEOP_MAX_ANGULAR_SPEED);
+        }
         m_drivetrain->drive(front_back, left_right, rot, field_relative);
       },
       {this});
 }
-
 
 frc2::CommandPtr Trajectory::extract(std::string auton)
 {
   // fmt::println("{}", auton);
   return PathPlannerAuto(auton).ToPtr();
 }
-
 
 #endif
