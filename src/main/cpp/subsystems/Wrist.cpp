@@ -7,20 +7,22 @@ Wrist::Wrist()
   // MotorUtils::Motor::LogValues logValues{true, true, true};
   // MotorUtils::Motor wristMotor{&m_motor, CONSTANTS::WRIST::PidValue,
   // logValues};
-  ctre::phoenix6::configs::TalonFXConfiguration config{};
+  ctre::phoenix6::configs::TalonFXConfiguration conf{};
+  conf.MotionMagic.MotionMagicAcceleration = 350_tr_per_s_sq;
+  conf.MotionMagic.MotionMagicCruiseVelocity = 35_tps;
+  conf.Slot0.GravityType = ctre::phoenix6::signals::GravityTypeValue::Arm_Cosine;
+  // config.MotionMagic.MotionMagicCruiseVelocity = CONSTANTS::WRIST::PEAK_VELOCITY;
+  // config.CurrentLimits.StatorCurrentLimitEnable = true;
+  // config.CurrentLimits.StatorCurrentLimit = CONSTANTS::WRIST::PEAK_STATOR_CURRENT;
 
-  //config.MotionMagic.MotionMagicCruiseVelocity = CONSTANTS::WRIST::PEAK_VELOCITY;
-  //config.CurrentLimits.StatorCurrentLimitEnable = true;
-  //config.CurrentLimits.StatorCurrentLimit = CONSTANTS::WRIST::PEAK_STATOR_CURRENT;
+  // config.TorqueCurrent.PeakForwardTorqueCurrent = CONSTANTS::WRIST::PEAK_TORQUE_CURRENT;
+  // config.TorqueCurrent.PeakReverseTorqueCurrent = CONSTANTS::WRIST::PEAK_TORQUE_CURRENT;
 
-  //config.TorqueCurrent.PeakForwardTorqueCurrent = CONSTANTS::WRIST::PEAK_TORQUE_CURRENT;
-  //config.TorqueCurrent.PeakReverseTorqueCurrent = CONSTANTS::WRIST::PEAK_TORQUE_CURRENT;
-
-  m_motor.GetConfigurator().Apply(config);
+  m_motor.GetConfigurator().Apply(conf);
 
   SetPID();
 
-  //m_motor.SetPosition(CONSTANTS::WRIST::DEFAULT_POSITION);
+  // m_motor.SetPosition(CONSTANTS::WRIST::DEFAULT_POSITION);
 }
 
 void Wrist::InitSendable(wpi::SendableBuilder &builder)
@@ -43,15 +45,15 @@ frc2::CommandPtr Wrist::rezero()
 {
   // MAKE SO YOU JUST HOLD THE BUTTON
   return frc2::RunCommand([this]
-                            { m_motor.SetControl(ctre::phoenix6::controls::VoltageOut{-3_V}); },
-                            {this})
-        .Until([this]
-               { return m_motor.GetVelocity().GetValue() < 1_tps; })
-        .WithName("Rezero Wrist")
-        .AndThen(frc2::cmd::RunOnce([this]
-                                    { m_motor.SetPosition(0_tr);
+                          { m_motor.SetControl(ctre::phoenix6::controls::VoltageOut{-3_V}); },
+                          {this})
+      .Until([this]
+             { return m_motor.GetVelocity().GetValue() < 1_tps; })
+      .WithName("Rezero Wrist")
+      .AndThen(frc2::cmd::RunOnce([this]
+                                  { m_motor.SetPosition(0_tr);
                                           m_motor.SetControl(ctre::phoenix6::controls::VoltageOut{0_V}); },
-                                    {this}));
+                                  {this}));
 }
 
 frc2::CommandPtr Wrist::set_angle_command(units::degree_t pos)
