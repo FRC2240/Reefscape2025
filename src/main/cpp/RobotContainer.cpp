@@ -10,11 +10,18 @@ RobotContainer::RobotContainer()
 {
   ConfigureBindings();
   m_odometry.putField2d();
+  add_named_commands();
   autoChooser = AutoBuilder::buildAutoChooser();
   frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
 
   frc::SmartDashboard::PutData("Elevator", &m_elevator);
   frc::SmartDashboard::PutData("Wrist", &m_wrist);
+}
+
+void RobotContainer::add_named_commands()
+{
+  pathplanner::NamedCommands::registerCommand("l4", set_state(CONSTANTS::MANIPULATOR_STATES::L4));
+  pathplanner::NamedCommands::registerCommand("score_l4", score(CONSTANTS::MANIPULATOR_STATES::L4));
 }
 
 void RobotContainer::SetPID()
