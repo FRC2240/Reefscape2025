@@ -12,10 +12,10 @@ class Grabber : public frc2::SubsystemBase
 public:
     Grabber();
 
-    /* NO MOTORS, NO FUNCTIONS
     frc2::CommandPtr intake(units::turns_per_second_t speed);
     frc2::CommandPtr extake();
     frc2::CommandPtr idle();
+    /* NO MOTORS, NO FUNCTIONS
 
     void InitSendable(wpi::SendableBuilder &builder) override;
     void SetPID();

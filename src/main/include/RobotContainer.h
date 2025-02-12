@@ -69,6 +69,8 @@ public:
   Elevator m_elevator;
   Wrist m_wrist;
   Grabber m_grabber;
+  Candle m_candle{[this]() -> bool
+                  { return m_grabber.has_gp(); }};
 
   Vision m_vision{
       [this]() -> units::degree_t

@@ -1,18 +1,11 @@
 {
   "NetworkTables": {
-    "Transitory Values": {
-      "open": false
-    },
     "transitory": {
       "SmartDashboard": {
         "Elevator": {
           "PID": {
             "open": true
-          },
-          "open": true
-        },
-        "Scheduler": {
-          "open": true
+          }
         },
         "Wrist": {
           "PID": {
@@ -70,15 +63,11 @@
       "open": true
     },
     "Server": {
-      "Publishers": {
-        "open": true
-      },
       "Subscribers": {
         "open": true
       },
       "open": true
-    },
-    "visible": true
+    }
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
@@ -94,7 +83,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 0,
+          "height": 338,
           "series": [
             {
               "color": [
