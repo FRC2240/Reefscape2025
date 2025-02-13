@@ -22,6 +22,8 @@ void RobotContainer::add_named_commands()
 {
   pathplanner::NamedCommands::registerCommand("l4", set_state(CONSTANTS::MANIPULATOR_STATES::L4));
   pathplanner::NamedCommands::registerCommand("score_l4", score(CONSTANTS::MANIPULATOR_STATES::L4));
+  pathplanner::NamedCommands::registerCommand("intake", score(CONSTANTS::MANIPULATOR_STATES::INTAKE));
+  pathplanner::NamedCommands::registerCommand("idle", score(CONSTANTS::MANIPULATOR_STATES::IDLE));
 }
 
 void RobotContainer::SetPID()
@@ -38,14 +40,8 @@ void RobotContainer::ConfigureBindings()
 {
   frc::SmartDashboard::PutData(&m_elevator);
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
-  /*
-  m_stick0.A().OnTrue(intake());
-  m_stick0.B().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
-  m_stick0.Y().OnTrue(score(CONSTANTS::MANIPULATOR_STATES::L4));
-  m_stick0.X().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
-  m_stick0.RightBumper().OnTrue(m_wrist.rezero());
-  // m_stick0.X().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
-  */
+
+  // https://files.slack.com/files-pri/T0CS7MN06-F08BXRSU770/image.png
 
   frc2::Trigger([this]() -> bool
                 { return this->m_stick0.LeftBumper().Get() && !this->m_stick0.LeftTrigger().Get(); })

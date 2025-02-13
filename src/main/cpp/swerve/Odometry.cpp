@@ -21,7 +21,7 @@ Odometry::Odometry(Drivetrain *drivetrain, Vision *vision)
     : m_drivetrain{drivetrain}, m_vision{vision}
 {
   // Bjarne Sjourstup, why have you forsaken me?
-  estimator.SetVisionMeasurementStdDevs(wpi::array<double, 3>(std::move(std::array{(double)5.0, (double)5.0, (double)5.0})));
+  // estimator.SetVisionMeasurementStdDevs(wpi::array<double, 3>(std::move(std::array{(double)5.0, (double)5.0, (double)5.0})));
 }
 
 frc2::CommandPtr Odometry::set_pose_cmd(frc::Pose2d pose)
