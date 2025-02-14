@@ -68,7 +68,9 @@ private:
     // static constexpr auto WHEEL_CIRCUMFERENCE = 12.56_in / 1.0_tr;
     static constexpr auto WHEEL_CIRCUMFERENCE = CONSTANTS::DRIVE::WHEEL_CIRCUMFERENCE;
 
-    static constexpr auto DRIVER_GEAR_RATIO = 4.72;
+    // Sourced from https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=39598777172081
+    // L2s, I belive
+    static constexpr auto DRIVER_GEAR_RATIO = 6.75;
     static constexpr auto TURNER_GEAR_RATIO = 150 / 7;
 
     static constexpr auto HUNDREDMILLISECONDS_TO_1SECOND = 10; // Ticks / 100 milliseconds * 10 = Ticks / 1 second
