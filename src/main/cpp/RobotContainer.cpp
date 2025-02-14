@@ -20,10 +20,10 @@ RobotContainer::RobotContainer()
 
 void RobotContainer::add_named_commands()
 {
-  pathplanner::NamedCommands::registerCommand("l4", set_state(CONSTANTS::MANIPULATOR_STATES::L4));
-  pathplanner::NamedCommands::registerCommand("score_l4", score(CONSTANTS::MANIPULATOR_STATES::L4));
-  pathplanner::NamedCommands::registerCommand("intake", score(CONSTANTS::MANIPULATOR_STATES::INTAKE));
-  pathplanner::NamedCommands::registerCommand("idle", score(CONSTANTS::MANIPULATOR_STATES::IDLE));
+  pathplanner::NamedCommands::registerCommand("l4", frc2::cmd::Print("start l4").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::L4)).AndThen(frc2::cmd::Print("end l4")));
+  pathplanner::NamedCommands::registerCommand("score_l4", frc2::cmd::Print("start score l4").AndThen(score(CONSTANTS::MANIPULATOR_STATES::L4)).AndThen(frc2::cmd::Print("end score l4")));
+  pathplanner::NamedCommands::registerCommand("intake", frc2::cmd::Print("start intake").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::INTAKE)).AndThen(frc2::cmd::Print("end intake")));
+  pathplanner::NamedCommands::registerCommand("idle", frc2::cmd::Print("start idle").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE)).AndThen(frc2::cmd::Print("end idle")));
 }
 
 void RobotContainer::SetPID()
