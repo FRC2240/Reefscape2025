@@ -21,6 +21,9 @@ public:
     frc2::CommandPtr set_position_command(units::angle::turn_t pos);
     frc2::CommandPtr idle_command();
 
+    // Adds or subtracts turns from the elevator position
+    frc2::CommandPtr elevator_offset_command(units::angle::turn_t amount);
+
     units::angle::turn_t get_position();
     void set_position(units::angle::turn_t pos);
 
@@ -34,4 +37,6 @@ private:
     ctre::phoenix6::hardware::TalonFX m_follower_motor{CONSTANTS::ELEVATOR::RIGHT_ID};
 
     CONSTANTS::PidCoeff coeff{CONSTANTS::ELEVATOR::PidValue};
+
+    units::angle::turn_t desiredPosition;
 };
