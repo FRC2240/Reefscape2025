@@ -96,7 +96,7 @@ namespace CONSTANTS
     constexpr ManipulatorState L1{0_tr, 0_tr};
     constexpr ManipulatorState L2{12.61_tr, 5.38_tr}; // 18.4 follow-through
     constexpr ManipulatorState L3{25.75_tr, 4.88_tr};
-    constexpr ManipulatorState L4{45_tr, 4.58_tr};
+    constexpr ManipulatorState L4{46_tr, 4.58_tr};
     constexpr ManipulatorState IDLE{13.68_tr, 19.7_tr};
     constexpr ManipulatorState IDLE_W_GP{12.329_tr, 19.7_tr};
     constexpr ManipulatorState INTAKE{7.79_tr, 19.7_tr};
@@ -114,7 +114,7 @@ namespace CONSTANTS
     // Configuration page: http://10.22.40.2:5812
     constexpr int TOF_ID = 32; // changeme
 
-    //static CONSTANTS::PidCoeff PID = {1}; Use was commented out in Grabber.cpp
+    // static CONSTANTS::PidCoeff PID = {1}; Use was commented out in Grabber.cpp
 
     // intake
     constexpr units::turns_per_second_t INTAKE_VELOCITY = 1_tps; // TBD
@@ -206,7 +206,7 @@ namespace CONSTANTS
         CONSTANTS::DRIVE::ROBOT_MAX_ANGULAR_SPEED;
     constexpr units::radians_per_second_squared_t TRAJ_MAX_ANGULAR_ACCELERATION{
         std::numbers::pi};
-    static constexpr auto WHEEL_CIRCUMFERENCE = 12.11_in / 1.0_tr;
+    static constexpr auto WHEEL_CIRCUMFERENCE = 8.277511961722488_in / 1.0_tr;
     // static constexpr auto WHEEL_CIRCUMFERENCE = 11.992_in / 1.0_tr;
     constexpr int GYRO_ID = 48; // CHANGEME
 

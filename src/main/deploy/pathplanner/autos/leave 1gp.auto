@@ -28,6 +28,18 @@
           "data": {
             "name": "score_l4"
           }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "(B)reef_(M)start"
+          }
         }
       ]
     }
