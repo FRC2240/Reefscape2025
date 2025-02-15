@@ -36,9 +36,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "(B)reef_(M)start"
+            "name": "l2"
           }
         }
       ]
