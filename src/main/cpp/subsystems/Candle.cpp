@@ -49,7 +49,6 @@ void Candle::Periodic()
         state = DISABLED; // Not always blinking. Assume normal disabled then check for time in state
         }
     }
-    
     else if (HasGP())
     {
         wants_r = 0;
@@ -78,13 +77,14 @@ void Candle::Periodic()
         cycles_in_state = 0;
         m_candle.ClearAnimation(0);
     }
-    cycles_in_state++;
-    prev_state = state;
 
     if (cycles_in_state == 0)
     {
         m_candle.ClearAnimation(0);
     }
+    cycles_in_state++;
+    prev_state = state;
+
     switch (state)
     {
     case AUTO:
