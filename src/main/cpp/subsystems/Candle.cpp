@@ -11,6 +11,7 @@ Candle::Candle(std::function<bool()> HasGP)
     m_candle.ClearAnimation(0);
     m_candle.SetLEDs(0, 0, 0);
     m_candle.ConfigLOSBehavior(1, 1000);
+    m_candle.ConfigLOSBehavior(1, 1000);
 };
 
 void Candle::Periodic()
@@ -20,7 +21,14 @@ void Candle::Periodic()
         teamcolor.r = 255;
         teamcolor.g = 0;
         teamcolor.b = 0;
+    if (frc::DriverStation::GetAlliance() && frc::DriverStation::GetAlliance() == frc::DriverStation::Alliance::kRed)
+    {
+        teamcolor.r = 255;
+        teamcolor.g = 0;
+        teamcolor.b = 0;
     }
+    else if (frc::DriverStation::GetAlliance() && frc::DriverStation::GetAlliance() == frc::DriverStation::Alliance::kBlue)
+    {
     else if (frc::DriverStation::GetAlliance() && frc::DriverStation::GetAlliance() == frc::DriverStation::Alliance::kBlue)
     {
         teamcolor.r = 0;
@@ -29,6 +37,7 @@ void Candle::Periodic()
     }
     m_larson_auto.SetR(teamcolor.r);
     m_larson_auto.SetB(teamcolor.b);
+
 
     /*
     Step 1: Determine desired state
@@ -54,6 +63,8 @@ void Candle::Periodic()
         state = HASGP;
     }
     else if (wants_r + wants_g + wants_b > 0 && !HasGP()) // Rationale is that getting a GP resets all these to 0
+    }
+    else if (wants_r + wants_g + wants_b > 0 && !HasGP()) // Rationale is that getting a GP resets all these to 0
     {
         state = WANTGP;
     }
@@ -70,6 +81,7 @@ void Candle::Periodic()
         state = ERROR;
     }
 
+    if (prev_state != state && prev_state != DISABLE_BLINK)
     if (prev_state != state && prev_state != DISABLE_BLINK)
     {
         cycles_in_state = 0;
@@ -109,6 +121,8 @@ void Candle::Periodic()
     case DISABLED:
 
         m_candle.SetLEDs(teamcolor.r, teamcolor.g, teamcolor.b);
+
+        m_candle.SetLEDs(teamcolor.r, teamcolor.g, teamcolor.b);
         break;
 
     case DISABLE_BLINK:
@@ -130,7 +144,9 @@ void Candle::Periodic()
         // Fallthrough intented
 
     // Added fuctionality to turn off LEDs on brown
+    // Added fuctionality to turn off LEDs on brown
     case BROWN:
+        m_candle.SetLEDs(0, 0, 0);
         m_candle.SetLEDs(0, 0, 0);
         break;
 
