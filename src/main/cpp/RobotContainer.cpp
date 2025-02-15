@@ -10,11 +10,20 @@ RobotContainer::RobotContainer()
 {
   ConfigureBindings();
   m_odometry.putField2d();
+  add_named_commands();
   autoChooser = AutoBuilder::buildAutoChooser();
   frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
 
   frc::SmartDashboard::PutData("Elevator", &m_elevator);
   frc::SmartDashboard::PutData("Wrist", &m_wrist);
+}
+
+void RobotContainer::add_named_commands()
+{
+  pathplanner::NamedCommands::registerCommand("l4", frc2::cmd::Print("start l4").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::L4)).AndThen(frc2::cmd::Print("end l4")));
+  pathplanner::NamedCommands::registerCommand("score_l4", frc2::cmd::Print("start score l4").AndThen(score(CONSTANTS::MANIPULATOR_STATES::L4)).AndThen(frc2::cmd::Print("end score l4")));
+  pathplanner::NamedCommands::registerCommand("intake", frc2::cmd::Print("start intake").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::INTAKE)).AndThen(frc2::cmd::Print("end intake")));
+  pathplanner::NamedCommands::registerCommand("idle", frc2::cmd::Print("start idle").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE)).AndThen(frc2::cmd::Print("end idle")));
 }
 
 void RobotContainer::SetPID()
@@ -31,14 +40,8 @@ void RobotContainer::ConfigureBindings()
 {
   frc::SmartDashboard::PutData(&m_elevator);
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
-  /*
-  m_stick0.A().OnTrue(intake());
-  m_stick0.B().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
-  m_stick0.Y().OnTrue(score(CONSTANTS::MANIPULATOR_STATES::L4));
-  m_stick0.X().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
-  m_stick0.RightBumper().OnTrue(m_wrist.rezero());
-  // m_stick0.X().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
-  */
+
+  // https://files.slack.com/files-pri/T0CS7MN06-F08BXRSU770/image.png
 
   frc2::Trigger([this]() -> bool
                 { return this->m_stick0.LeftBumper().Get() && !this->m_stick0.LeftTrigger().Get(); })

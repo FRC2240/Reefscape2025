@@ -15,7 +15,7 @@ void Vision::log_metrics()
   for (auto &i : m_limelight_vec)
   {
     // Get info here
-    std::vector<double> hw = i->GetNumberArray("hw", std::vector<double>{0.0});
+    std::vector<double> hw = i.first->GetNumberArray("hw", std::vector<double>{0.0});
     if (hw[0] > 0.0)
     {
       if (hw[1] > 3.0)
@@ -44,8 +44,11 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
   std::vector<std::optional<frc::Pose2d>> ret;
   for (auto &i : m_limelight_vec)
   {
-    auto posevec = i->GetNumberArray("botpose_wpiblue", std::vector<double>(6));
-    if (i->GetNumber("tv", 0.0) > 0.5 && posevec[0] > 0.01)
+
+    LimelightHelpers::SetRobotOrientation(i.second, get_angle().value(), 0, 0, 0, 0, 0);
+    auto posevec = i.first->GetNumberArray("botpose_wpiblue", std::vector<double>(6));
+    frc::SmartDashboard::PutNumberArray("mcPosevec", posevec);
+    if (i.first->GetNumber("tv", 0.0) > 0.5 && posevec[0] > 0.01)
     {
       ret.push_back(frc::Pose2d{
           units::meter_t{posevec[0]},
@@ -99,26 +102,6 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
   frc::SmartDashboard::PutNumberArray("pv/x arr", printvec_x);
   frc::SmartDashboard::PutNumberArray("pv/y arr", printvec_y);
   return ret;
-}
-
-std::optional<units::degree_t> Vision::get_neural_net_angle()
-{
-  std::string_view tclass = "tclass: " + m_fore_limelight->GetString("tclass", "NULL");
-  frc::DataLogManager::Log(tclass);
-  if (m_fore_limelight->GetString("tclass", "ERROR") ==
-      "note") // Assuming "note" is the correct key
-  {
-    // fmt::println("here!!!");
-    units::degree_t tx{m_fore_limelight->GetNumber("tx", 0.0)};
-    // Target is valid, return info
-
-    return std::optional<units::degree_t>{tx};
-  }
-  else
-  {
-    // fmt::println("there!!!");
-    return {};
-  }
 }
 
 Vision::~Vision() = default;

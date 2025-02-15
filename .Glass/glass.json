@@ -1,5 +1,8 @@
 {
   "NetworkTables": {
+    "Transitory Values": {
+      "open": false
+    },
     "transitory": {
       "SmartDashboard": {
         "Elevator": {
@@ -7,11 +10,13 @@
             "open": true
           }
         },
+        "Talon FX (v6) 50": {
+          "open": true
+        },
         "Wrist": {
           "PID": {
             "open": true
-          },
-          "open": true
+          }
         },
         "cspeed": {
           "open": true
@@ -67,7 +72,8 @@
         "open": true
       },
       "open": true
-    }
+    },
+    "visible": true
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
