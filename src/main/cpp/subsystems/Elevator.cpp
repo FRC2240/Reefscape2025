@@ -13,9 +13,6 @@ Elevator::Elevator()
     SetPID();
 
     m_follower_motor.SetControl(ctre::phoenix6::controls::Follower(m_motor.GetDeviceID(), true));
-
-    // Initialize the desired position to the current to ensure no movement
-    desiredPosition = m_motor.GetPosition().GetValue();
 }
 
 void Elevator::SetPID()
@@ -30,32 +27,22 @@ void Elevator::InitSendable(wpi::SendableBuilder &builder)
     MotorUtils::BuildSender(builder, &m_motor);
 }
 
-frc2::CommandPtr Elevator::elevator_offset_command(units::angle::turn_t amount) {
-    return frc2::RunCommand([this, amount] {
-        desiredPosition += amount;
-    }).ToPtr();
-}
-
 frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos)
 {
-    // Sets the desired position to the value requested, resetting any offsets
-    desiredPosition = pos;
-
-    return frc2::RunCommand([this, pos] {
-        // Clamps desiredPosition to the min and max elevator positions
-        if (desiredPosition > CONSTANTS::ELEVATOR::TOP_POS) {
-            desiredPosition = CONSTANTS::ELEVATOR::TOP_POS;
-        } else if (desiredPosition < CONSTANTS::ELEVATOR::BOTTOM_POS) {
-            desiredPosition = CONSTANTS::ELEVATOR::BOTTOM_POS;
+    return frc2::RunCommand([this, pos]
+                            {
+        units::angle::turn_t position = pos;
+        if (position > CONSTANTS::ELEVATOR::TOP_POS) {
+            position = CONSTANTS::ELEVATOR::TOP_POS;
+        } else if (position < CONSTANTS::ELEVATOR::BOTTOM_POS) {
+            position = CONSTANTS::ELEVATOR::BOTTOM_POS;
         }
-        // Dashboard logging
-        frc::SmartDashboard::PutNumber("elv/desired", desiredPosition.value());
-        frc::SmartDashboard::PutNumber("elv/delta", m_motor.GetPosition().GetValueAsDouble() - desiredPosition.value());
-
-        // Sets the position on the motor
-        set_position(desiredPosition); 
-        
-        }, {this}).ToPtr();
+        frc::SmartDashboard::PutNumber("elv/desired", position.value());
+        frc::SmartDashboard::PutNumber("elv/delta", m_motor.GetPosition().GetValueAsDouble() - position.value());
+        set_position(position); },
+                            {this})
+        .Until([this, pos]
+               { return CONSTANTS::IN_THRESHOLD<units::angle::turn_t>(get_position(), pos, CONSTANTS::ELEVATOR::POSITION_THRESHOLD * 3); });
 }
 
 frc2::CommandPtr Elevator::idle_command()
