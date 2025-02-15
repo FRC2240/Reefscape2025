@@ -42,7 +42,6 @@ class Candle : public frc2::SubsystemBase {
         Color teamcolor{255,255,255};
         int blink_counter = 0;
         CANDLE_STATE state = ERROR;
-        CANDLE_STATE prev_state = ERROR;
         int wants_r = 0;
         int wants_g = 0;
         int wants_b = 0;

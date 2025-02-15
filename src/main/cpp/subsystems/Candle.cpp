@@ -37,10 +37,14 @@ void Candle::Periodic()
     if (IsAuto()) // Auto should take priority state
     {
         state = AUTO;
+        cycles_in_state = 0;
     }
     else if (frc::DriverStation::IsDisabled())
     {
-        if ((cycles_in_state / 50.0) < 0.5) // Cycles/50 = seconds
+        if (state != DISABLE_BLINK && state != DISABLED) {
+            cycles_in_state = 0;
+        }
+        if ((cycles_in_state / 50.0) < 1.0) // Cycles/50 = seconds
         {
             state = DISABLE_BLINK;
             fmt::println("state is disabled blink");
@@ -55,27 +59,26 @@ void Candle::Periodic()
         wants_g = 0;
         wants_b = 0;
         state = HASGP;
+        cycles_in_state = 0;
     }else if (wants_r + wants_g + wants_b > 0 && !HasGP())  // Rationale is that getting a GP resets all these to 0
     {
         state = WANTGP;
+        cycles_in_state = 0;
     }
     else if (frc::DriverStation::GetBatteryVoltage() < 9.0) // Turn LEDs off to conserve voltage under brown
     {
         state = BROWN;
+        cycles_in_state = 0;
     }
     else if (frc::DriverStation::IsEnabled()) // Must be last because WantGP and HasGP conflict
     {
         state = ENABLED;
+        cycles_in_state = 0;
     }
     else
     {
         state = ERROR;
-    }
-
-    if (prev_state != state && prev_state!= DISABLE_BLINK)
-    {
         cycles_in_state = 0;
-        m_candle.ClearAnimation(0);
     }
 
     if (cycles_in_state == 0)
@@ -83,7 +86,6 @@ void Candle::Periodic()
         m_candle.ClearAnimation(0);
     }
     cycles_in_state++;
-    prev_state = state;
 
     switch (state)
     {
