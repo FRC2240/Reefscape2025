@@ -51,8 +51,8 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc2::Command
         return m_drivetrain->drive(-speeds);
       },
       std::make_shared<pathplanner::PPHolonomicDriveController>(
-          pathplanner::PIDConstants(2.5, 0.0, 0.0), // Translation PID constants. Originally 1P
-          pathplanner::PIDConstants(1.2, 0.0, 0)    // Rotation PID constants
+          pathplanner::PIDConstants(2.75, 0.1, 0.0), // Translation PID constants. Originally 1P
+          pathplanner::PIDConstants(1.2, 0.0, 0)     // Rotation PID constants
 
           ),
       config, // The robot configuration
