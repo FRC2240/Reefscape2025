@@ -86,6 +86,10 @@ void RobotContainer::ConfigureBindings()
   m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
 
   m_stick0.Start().WhileTrue(m_wrist.rezero());
+
+  // STICK 1 BINDINGS
+  frc2::Trigger([this]() -> bool 
+    {return this->m_stick1.X().Get(); });
 }
 
 frc2::Command *RobotContainer::GetAutonomousCommand()
