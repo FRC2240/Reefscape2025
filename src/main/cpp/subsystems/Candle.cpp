@@ -1,7 +1,6 @@
 #pragma once
 #include "subsystems/Candle.h"
 
-
 Candle::Candle(std::function<bool()> HasGP)
 {
     this->HasGP = HasGP;
@@ -11,24 +10,28 @@ Candle::Candle(std::function<bool()> HasGP)
     m_candle.ConfigAllSettings(config);
     m_candle.ClearAnimation(0);
     m_candle.SetLEDs(0, 0, 0);
-    m_candle.ConfigLOSBehavior(1,1000);
+    m_candle.ConfigLOSBehavior(1, 1000);
 };
 
 void Candle::Periodic()
 {
-    if (frc::DriverStation::GetAlliance() && frc::DriverStation::GetAlliance()==frc::DriverStation::Alliance::kRed){
-        teamcolor.r=255;
-        teamcolor.g =0;
-        teamcolor.b =0;
+
+    if (frc::DriverStation::GetAlliance() && frc::DriverStation::GetAlliance() == frc::DriverStation::Alliance::kRed)
+    {
+        teamcolor.r = 255;
+        teamcolor.g = 0;
+        teamcolor.b = 0;
     }
-    else if (frc::DriverStation::GetAlliance() && frc::DriverStation::GetAlliance()==frc::DriverStation::Alliance::kBlue){
+    else if (frc::DriverStation::GetAlliance() && frc::DriverStation::GetAlliance() == frc::DriverStation::Alliance::kBlue)
+    {
         teamcolor.r = 0;
         teamcolor.g = 0;
         teamcolor.b = 255;
     }
     m_larson_auto.SetR(teamcolor.r);
     m_larson_auto.SetB(teamcolor.b);
- 
+    m_larson_auto.SetG(teamcolor.g);
+
     /*
     Step 1: Determine desired state
     Step 1a: Determine if a state change occurs
@@ -45,8 +48,9 @@ void Candle::Periodic()
             state = DISABLE_BLINK;
             fmt::println("state is disabled blink");
         }
-        else {
-        state = DISABLED; // Not always blinking. Assume normal disabled then check for time in state
+        else
+        {
+            state = DISABLED; // Not always blinking. Assume normal disabled then check for time in state
         }
     }
     else if (HasGP())
@@ -55,7 +59,8 @@ void Candle::Periodic()
         wants_g = 0;
         wants_b = 0;
         state = HASGP;
-    }else if (wants_r + wants_g + wants_b > 0 && !HasGP())  // Rationale is that getting a GP resets all these to 0
+    }
+    else if (wants_r + wants_g + wants_b > 0 && !HasGP()) // Rationale is that getting a GP resets all these to 0
     {
         state = WANTGP;
     }
@@ -72,7 +77,7 @@ void Candle::Periodic()
         state = ERROR;
     }
 
-    if (prev_state != state && prev_state!= DISABLE_BLINK)
+    if (prev_state != state && prev_state != DISABLE_BLINK)
     {
         cycles_in_state = 0;
         m_candle.ClearAnimation(0);
@@ -88,7 +93,7 @@ void Candle::Periodic()
     switch (state)
     {
     case AUTO:
-
+        frc::SmartDashboard::PutString("candlesim", "#8ACE00");
         m_candle.Animate(m_larson_auto);
         break;
 
@@ -96,53 +101,59 @@ void Candle::Periodic()
         if (cycles_in_state % 2 == 0) // Blink every other frame, consider rasing modulo operand to reduce seizure risk
         {
             m_candle.SetLEDs(wants_r, wants_g, wants_b);
+            frc::SmartDashboard::PutString("candlesim", frc::Color(wants_r, wants_b, wants_g).HexString());
         }
         else
         {
+            frc::SmartDashboard::PutString("candlesim", "#000000");
             m_candle.SetLEDs(0, 0, 0);
         }
 
         break;
 
     case HASGP:
+        frc::SmartDashboard::PutString("candlesim", "#00FF00");
         m_candle.SetLEDs(0, 255, 0);
         break;
 
     case DISABLED:
-        
-            m_candle.SetLEDs(teamcolor.r, teamcolor.g, teamcolor.b);
+
+        frc::SmartDashboard::PutString("candlesim", frc::Color(teamcolor.r, teamcolor.g, teamcolor.b).HexString());
+        m_candle.SetLEDs(teamcolor.r, teamcolor.g, teamcolor.b);
         break;
 
     case DISABLE_BLINK:
         if (cycles_in_state % 10 > 5)
         {
+            frc::SmartDashboard::PutString("candlesim", "#FFFF00");
             m_candle.SetLEDs(255, 255, 0);
-            fmt::println("db on");
         }
         else
         {
+            frc::SmartDashboard::PutString("candlesim", "#000000");
             m_candle.SetLEDs(0, 0, 0);
-            fmt::println("db off");
         }
         break;
 
     case ENABLED:
+        frc::SmartDashboard::PutString("candlesim", "#FF00FF");
         m_candle.Animate(m_rainbow);
         break;
 
     case ERROR:
         // Fallthrough intented
 
-    //Added fuctionality to turn off LEDs on brown
+    // Added fuctionality to turn off LEDs on brown
     case BROWN:
-        m_candle.SetLEDs(0,0,0);
+        frc::SmartDashboard::PutString("candlesim", "#000000");
+        m_candle.SetLEDs(0, 0, 0);
         break;
 
     default:
+        frc::SmartDashboard::PutString("candlesim", "#FFFFFF");
         m_candle.SetLEDs(255, 255, 255);
         break;
     }
-
 };
 
 void Candle::WantGP(int r, int g, int b)
