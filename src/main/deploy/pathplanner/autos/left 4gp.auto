@@ -32,7 +32,7 @@
         {
           "type": "named",
           "data": {
-            "name": "idle"
+            "name": "l2"
           }
         },
         {
@@ -55,9 +55,9 @@
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "intake"
+            "waitTime": 1.0
           }
         },
         {
@@ -67,7 +67,39 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "(L)coral_(LF)reef"
+                  "pathName": "(L)coral_(LF)reef1"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "intake"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "(L)coral_(LF)reef2"
                 }
               },
               {
@@ -94,38 +126,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "(LF)reef_(L)coral"
+            "pathName": "(LF)reef_(L)coral1"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "intake"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "(L)coral_(F)reef"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "l4"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "score_l4"
           }
         }
       ]
