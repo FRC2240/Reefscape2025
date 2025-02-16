@@ -51,8 +51,8 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry, frc2::Command
         return m_drivetrain->drive(-speeds);
       },
       std::make_shared<pathplanner::PPHolonomicDriveController>(
-          pathplanner::PIDConstants(1.175, 0.0, 0.0), // Translation PID constants. Originally 1P
-          pathplanner::PIDConstants(1.2, 0.0, 0)      // Rotation PID constants
+          pathplanner::PIDConstants(2.6, 0.2, 0.0), // Translation PID constants. Originally 1P
+          pathplanner::PIDConstants(1.2, 0.0, 0)    // Rotation PID constants
 
           ),
       config, // The robot configuration
@@ -85,12 +85,11 @@ frc2::CommandPtr Trajectory::manual_drive(bool field_relative)
         units::meters_per_second_t front_back;
         units::angular_velocity::radians_per_second_t rot;
 
-        double modifier = m_stick->RightStick().Get() ? 0.5 : 1.0;
-        if (m_stick->RightStick().Get())
+        if (m_stick->B().Get())
         {
           left_right = (frc::ApplyDeadband(m_stick->GetLeftX(), 0.1) * 0.25) * (CONSTANTS::DRIVE::TELEOP_MAX_SPEED);
           front_back = (frc::ApplyDeadband(m_stick->GetLeftY(), 0.1) * 0.25) * (CONSTANTS::DRIVE::TELEOP_MAX_SPEED);
-          rot = frc::ApplyDeadband(m_stick->GetRightX(), .25) * (m_drivetrain->TELEOP_MAX_ANGULAR_SPEED);
+          rot = (frc::ApplyDeadband(m_stick->GetRightX(), .1) * 0.25) * (m_drivetrain->TELEOP_MAX_ANGULAR_SPEED);
         }
         else
         {
@@ -98,7 +97,17 @@ frc2::CommandPtr Trajectory::manual_drive(bool field_relative)
           front_back = frc::ApplyDeadband(m_stick->GetLeftY(), 0.1) * (CONSTANTS::DRIVE::TELEOP_MAX_SPEED);
           rot = frc::ApplyDeadband(m_stick->GetRightX(), .1) * (m_drivetrain->TELEOP_MAX_ANGULAR_SPEED);
         }
-        m_drivetrain->drive(front_back, left_right, rot, field_relative);
+
+        // Since heading 0 is always facing the red alliance wall and we flip the gyro to compensate, invert the controls to compensate for the compensation.
+        if (frc::DriverStation::GetAlliance() && frc::DriverStation::GetAlliance() == frc::DriverStation::Alliance::kRed)
+        {
+
+          m_drivetrain->drive(-front_back, -left_right, rot, field_relative);
+        }
+        else
+        {
+          m_drivetrain->drive(front_back, left_right, rot, field_relative);
+        }
       },
       {this});
 }

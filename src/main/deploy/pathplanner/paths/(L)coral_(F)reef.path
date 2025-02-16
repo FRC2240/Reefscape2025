@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 3.344834543639868,
-        "y": 4.008503084560848
+        "x": 3.2076001619037826,
+        "y": 3.854327392578125
       },
       "prevControl": {
-        "x": 3.1531485549482396,
-        "y": 3.848014824120052
+        "x": 3.0159141732121544,
+        "y": 3.6938391321373287
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
+    "maxVelocity": 0.5,
     "maxAcceleration": 0.75,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -48,7 +48,7 @@
   "folder": "left_4gp",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 66.20194387842903
+    "rotation": 66.20194387842905
   },
   "useDefaultConstraints": true
 }

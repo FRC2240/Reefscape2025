@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.255080607786017,
-        "y": 3.962866391782407
+        "x": 6.33515153760111,
+        "y": 3.9572206076863505
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.6460031704562725,
-        "y": 3.838315121914789
+        "x": 6.980653468971503,
+        "y": 3.9049103707509194
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.737924518791385,
-        "y": 3.847206932458637
+        "x": 6.792511212740553,
+        "y": 3.9127790892214755
       },
       "prevControl": {
-        "x": 7.1505294947637905,
-        "y": 3.912544538661961
+        "x": 6.244100768807841,
+        "y": 3.9553706354658495
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.75,
+    "maxVelocity": 0.5,
     "maxAcceleration": 0.75,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.94674407899493
+    "rotation": 177.37746639034674
   },
   "reversed": false,
   "folder": "leave_1gp",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 178.4687905613419
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

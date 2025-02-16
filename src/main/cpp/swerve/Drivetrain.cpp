@@ -52,6 +52,7 @@ double Drivetrain::get_pitch()
 
 void Drivetrain::flip()
 {
+  gyro.SetYaw(gyro.GetYaw().GetValue() + 180_deg);
 }
 
 double Drivetrain::get_offset()
@@ -256,7 +257,6 @@ void Drivetrain::drive(wpi::array<frc::SwerveModuleState, 4> states)
             << "BL: " << back_left->getAngle().value()
             << "BR: " << back_right->getAngle().value()
             << "\n";*/
-
 }
 
 void Drivetrain::stop()
