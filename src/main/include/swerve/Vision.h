@@ -65,13 +65,13 @@ private:
     bool is_hardware_zoomed = 0;
 
     std::shared_ptr<photon::PhotonCamera> m_left_camera_a =
-        std::make_shared<photon::PhotonCamera>("left_camera_a");
+        std::make_shared<photon::PhotonCamera>("left_camera");
 
     std::shared_ptr<photon::PhotonCamera> m_right_camera_a =
-        std::make_shared<photon::PhotonCamera>("right_camera_a");
+        std::make_shared<photon::PhotonCamera>("right_camera");
 
     frc::AprilTagFieldLayout layout =
-        frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::k2025ReefscapeWelded); //Potentially switch to kDefaultField which is an alias to the current game
+        frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::k2025ReefscapeWelded); // Potentially switch to kDefaultField which is an alias to the current game
 
     photon::PhotonPoseEstimator m_left_estimator_a{
         layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
@@ -90,8 +90,8 @@ private:
         CONSTANTS::VISION::RIGHT_CAMERA_A_TF};
 
     std::vector<PhotonGroup> m_photoncam_vec{};
-    // m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a, m_single_left_estimator},
-    //    {m_right_camera_a, m_right_estimator_a, m_single_right_estimator}};
+    // std::vector<PhotonGroup> m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a, m_single_left_estimator},
+    // {m_right_camera_a, m_right_estimator_a, m_single_right_estimator}};
 
     std::pair<std::shared_ptr<nt::NetworkTable>, std::string> m_left_limelight =
         {nt::NetworkTableInstance::GetDefault().GetTable("limelight-left"), "limelight-left"};

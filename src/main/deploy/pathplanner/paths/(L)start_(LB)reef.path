@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.246462857519463,
-        "y": 2.823598467293432
+        "x": 6.979686536287006,
+        "y": 1.8961965460526313
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.078150704673733,
-        "y": 2.560360811880506
+        "x": 5.712251683285362,
+        "y": 2.2512226305509864
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.220235601080671,
-        "y": 3.1407728825371692
+        "x": 5.294834819592927,
+        "y": 3.0006636770148027
       },
       "prevControl": {
-        "x": 5.8460236267896475,
-        "y": 2.5747814564977967
+        "x": 5.625092516447368,
+        "y": 2.6330090974506586
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,14 +31,14 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": 115.51905035233358
+      "rotationDegrees": 122.04671569231414
     }
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
+    "maxVelocity": 1.5,
     "maxAcceleration": 0.75,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -53,7 +53,7 @@
   "folder": "left_4gp",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -179.47360830291808
+    "rotation": 127.93006308241206
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

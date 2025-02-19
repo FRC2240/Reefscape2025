@@ -56,10 +56,10 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     // driver_config.Slot0.kI = 0.400;
     // driver_config.Slot0.kV = 0.0097; // FIXME could be kG, kA or Kv
     driver_config.CurrentLimits.StatorCurrentLimitEnable = true;
-    driver_config.CurrentLimits.StatorCurrentLimit = 65_A;
+    driver_config.CurrentLimits.StatorCurrentLimit = 74_A;
     // driver_config.CurrentLimits.SupplyCurrentLimitEnable
     driver_config.MotorOutput.NeutralMode.value = driver_config.MotorOutput.NeutralMode.Brake;
-    driver_config.Feedback.SensorToMechanismRatio = 4.722;
+    driver_config.Feedback.SensorToMechanismRatio = DRIVER_GEAR_RATIO;
     driver_config.Feedback.RotorToSensorRatio = 1.0;
     driver_config.MotorOutput.Inverted = false;
     driver.GetConfigurator().Apply(driver_config);

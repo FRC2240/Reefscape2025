@@ -21,6 +21,7 @@ RobotContainer::RobotContainer()
 void RobotContainer::add_named_commands()
 {
   pathplanner::NamedCommands::registerCommand("l4", frc2::cmd::Print("start l4").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::L4)).AndThen(frc2::cmd::Print("end l4")));
+  pathplanner::NamedCommands::registerCommand("l2", frc2::cmd::Print("start l2").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::L2)).AndThen(frc2::cmd::Print("end l2")));
   pathplanner::NamedCommands::registerCommand("score_l4", frc2::cmd::Print("start score l4").AndThen(score(CONSTANTS::MANIPULATOR_STATES::L4)).AndThen(frc2::cmd::Print("end score l4")));
   pathplanner::NamedCommands::registerCommand("intake", frc2::cmd::Print("start intake").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::INTAKE)).AndThen(frc2::cmd::Print("end intake")));
   pathplanner::NamedCommands::registerCommand("idle", frc2::cmd::Print("start idle").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE)).AndThen(frc2::cmd::Print("end idle")));
@@ -62,12 +63,12 @@ void RobotContainer::ConfigureBindings()
 
   m_stick0.Y().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
 
-  frc2::Trigger([this]() -> bool
-                { return this->m_stick0.B().Get() && this->m_stick0.LeftTrigger().Get(); }); // proc
+  // frc2::Trigger([this]() -> bool
+  //               { return this->m_stick0.B().Get() && this->m_stick0.LeftTrigger().Get(); }); // proc
 
-  frc2::Trigger([this]() -> bool
-                { return this->m_stick0.B().Get() && !this->m_stick0.LeftTrigger().Get(); })
-      .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L1));
+  // frc2::Trigger([this]() -> bool
+  //               { return this->m_stick0.B().Get() && !this->m_stick0.LeftTrigger().Get(); })
+  //     .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L1));
 
   frc2::Trigger([this]() -> bool
                 { return this->m_stick0.X().Get() && this->m_stick0.LeftTrigger().Get(); }); // L2 algae
@@ -84,8 +85,6 @@ void RobotContainer::ConfigureBindings()
       .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L2));
 
   m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
-
-  m_stick0.Start().WhileTrue(m_wrist.rezero());
 }
 
 frc2::Command *RobotContainer::GetAutonomousCommand()

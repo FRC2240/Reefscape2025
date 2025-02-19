@@ -40,6 +40,11 @@ void Robot::DisabledInit()
 
 void Robot::DisabledPeriodic()
 {
+  if (frc::DriverStation::GetAlliance() && frc::DriverStation::GetAlliance().value() == frc::DriverStation::Alliance::kRed && !m_container.has_flipped)
+  {
+    m_container.m_drivetrain.flip();
+    m_container.has_flipped = true;
+  }
   my_alert.Set(true);
 
   if (disabled_timer.Get() > CONSTANTS::DRIVE::BRAKE_TIME && !frc::DriverStation::IsEStopped())
@@ -60,6 +65,7 @@ void Robot::DisabledExit()
 
 void Robot::AutonomousInit()
 {
+
   m_autonomousCommand = m_container.GetAutonomousCommand();
 
   if (m_autonomousCommand)

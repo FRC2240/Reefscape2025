@@ -43,6 +43,7 @@
 class RobotContainer
 {
 public:
+  bool has_flipped = false;
   RobotContainer();
 
   void add_named_commands();
