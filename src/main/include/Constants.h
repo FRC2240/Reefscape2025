@@ -163,7 +163,7 @@ namespace CONSTANTS
     // This is the default PID values for the wrist motor
     static const PidCoeff PidValue = {8, 0, 1};
 
-    constexpr units::angle::degree_t OFFSET_AMOUNT = 20_deg;
+    constexpr units::angle::degree_t OFFSET_AMOUNT = 5_tr;
 
     constexpr units::angle::degree_t POSITION_THRESHOLD = 5_deg;
   }; // namespace WRIST
