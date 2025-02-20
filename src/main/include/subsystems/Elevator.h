@@ -23,6 +23,7 @@ public:
 
     units::angle::turn_t get_position();
     void set_position(units::angle::turn_t pos);
+    frc2::CommandPtr offset_command(units::angle::turn_t amount);
 
     void InitSendable(wpi::SendableBuilder &builder) override;
     void SetPID();

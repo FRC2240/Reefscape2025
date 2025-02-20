@@ -39,7 +39,15 @@ void Wrist::set_angle(units::angle::degree_t angle)
   m_motor.SetControl(m_control_req.WithPosition(angle));
 }
 
-units::degree_t Wrist::get_angle() { return m_motor.GetPosition().GetValue(); }
+units::degree_t Wrist::get_angle() { 
+  return m_motor.GetPosition().GetValue();
+}
+
+frc2::CommandPtr Wrist::offset_command(units::degree_t amount) {
+  return frc2::cmd::RunOnce([this, amount] {
+    return set_angle(get_angle() + amount);
+  });
+}
 
 frc2::CommandPtr Wrist::rezero()
 {
@@ -64,6 +72,7 @@ frc2::CommandPtr Wrist::set_angle_command(units::degree_t pos)
                frc::SmartDashboard::PutNumber("Wrist Setpoint", pos.value());
                frc::SmartDashboard::PutNumber(
                    "Wrist position", m_motor.GetPosition().GetValueAsDouble());
+
                set_angle(pos);
              },
              {this})

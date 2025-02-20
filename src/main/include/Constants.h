@@ -120,19 +120,27 @@ namespace ELEVATOR {
 constexpr units::angle::turn_t POSITION_THRESHOLD = 0.5_tr;
 constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
 
-constexpr units::angle::turn_t TOP_POS = 47_tr;
-constexpr int LEFT_ID = 20;
-constexpr int RIGHT_ID = 21;
-constexpr double DEADBAND_THRESHOLD = 0.1;
-static const PidCoeff PidValue = {
-    40, 0, 10, 4.5, 0,
-};
-constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
-namespace PRESETS {
-constexpr units::angle::turn_t BOTTOM = BOTTOM_POS;
-constexpr units::angle::turn_t TOP = TOP_POS;
-} // namespace PRESETS
-} // namespace ELEVATOR
+    constexpr units::angle::turn_t TOP_POS = 45_tr;
+    constexpr int LEFT_ID = 20;
+    constexpr int RIGHT_ID = 21;
+    constexpr double DEADBAND_THRESHOLD = 0.1;
+    static const PidCoeff PidValue = {
+        40,
+        0,
+        10,
+        4.5,
+        0,
+    };
+
+    constexpr units::angle::turn_t OFFSET_AMOUNT = 3_tr;
+
+    constexpr units::angular_velocity::turns_per_second_t JOYSTICK_SPEED = 1_tps;
+    namespace PRESETS
+    {
+      constexpr units::angle::turn_t BOTTOM = BOTTOM_POS;
+      constexpr units::angle::turn_t TOP = TOP_POS;
+    } // namespace PRESETS
+  } // namespace ELEVATOR
 
 namespace WRIST {
 constexpr int WRIST_ID = 5;
@@ -144,8 +152,10 @@ constexpr units::angular_velocity::turns_per_second_t PEAK_VELOCITY = 10_tps;
 // This is the default PID values for the wrist motor
 static const PidCoeff PidValue = {8, 0, 1};
 
-constexpr units::angle::degree_t POSITION_THRESHOLD = 5_deg;
-}; // namespace WRIST
+    constexpr units::angle::degree_t OFFSET_AMOUNT = 1_tr;
+
+    constexpr units::angle::degree_t POSITION_THRESHOLD = 5_deg;
+  }; // namespace WRIST
 
 namespace VISION {
 static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
