@@ -39,8 +39,6 @@ frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos)
             position = CONSTANTS::ELEVATOR::BOTTOM_POS;
         }
 
-        std::cout << "Elevator set pos to " << position.value() << std::endl;
-
         frc::SmartDashboard::PutNumber("elv/desired", position.value());
         frc::SmartDashboard::PutNumber("elv/delta", m_motor.GetPosition().GetValueAsDouble() - position.value());
         set_position(position); },

@@ -73,8 +73,6 @@ frc2::CommandPtr Wrist::set_angle_command(units::degree_t pos)
                frc::SmartDashboard::PutNumber(
                    "Wrist position", m_motor.GetPosition().GetValueAsDouble());
 
-                    std::cout << "Wrist set pos to " << pos.value() << std::endl;
-
                set_angle(pos);
              },
              {this})

@@ -86,10 +86,9 @@ void RobotContainer::ConfigureBindings()
 
   m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
 
-  m_stick0.Start().WhileTrue(m_wrist.rezero());
-
-
   // Driver 2 overrides
+  m_stick1.Start().WhileTrue(m_wrist.rezero());
+
   m_stick1.Y().OnTrue(m_wrist.offset_command(CONSTANTS::WRIST::OFFSET_AMOUNT));
   m_stick1.B().OnTrue(m_wrist.offset_command(-CONSTANTS::WRIST::OFFSET_AMOUNT));
 
