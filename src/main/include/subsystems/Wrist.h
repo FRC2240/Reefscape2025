@@ -22,6 +22,7 @@ public:
 
     frc2::CommandPtr rezero();
     frc2::CommandPtr set_angle_command(units::degree_t pos);
+    frc2::CommandPtr offset_command(units::degree_t amount);
 
 private:
     ctre::phoenix6::controls::MotionMagicTorqueCurrentFOC m_control_req{0_tr};
