@@ -1,6 +1,7 @@
 #pragma once
 #include "subsystems/Elevator.h"
 #include "frc/smartdashboard/SmartDashboard.h"
+#include "frc2/command/Commands.h"
 
 Elevator::Elevator()
 {
@@ -30,13 +31,16 @@ void Elevator::InitSendable(wpi::SendableBuilder &builder)
 frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos)
 {
     return frc2::RunCommand([this, pos]
-                            {
+                            {         
         units::angle::turn_t position = pos;
         if (position > CONSTANTS::ELEVATOR::TOP_POS) {
             position = CONSTANTS::ELEVATOR::TOP_POS;
         } else if (position < CONSTANTS::ELEVATOR::BOTTOM_POS) {
             position = CONSTANTS::ELEVATOR::BOTTOM_POS;
         }
+
+        std::cout << "Elevator set pos to " << position.value() << std::endl;
+
         frc::SmartDashboard::PutNumber("elv/desired", position.value());
         frc::SmartDashboard::PutNumber("elv/delta", m_motor.GetPosition().GetValueAsDouble() - position.value());
         set_position(position); },
@@ -49,6 +53,12 @@ frc2::CommandPtr Elevator::idle_command()
 {
     return set_position_command(CONSTANTS::ELEVATOR::BOTTOM_POS);
 };
+
+frc2::CommandPtr Elevator::offset_command(units::angle::turn_t amount) {
+  return frc2::cmd::RunOnce([this, amount] {
+    return set_position(get_position() + amount);
+  });
+}
 
 units::angle::turn_t Elevator::get_position()
 {
