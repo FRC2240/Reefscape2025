@@ -158,10 +158,17 @@ static const PidCoeff PidValue = {8, 0, 1};
   }; // namespace WRIST
 
 namespace VISION {
+/*
 static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
     0.151_m, 0.319_m, 0.578_m, frc::Rotation3d(180_deg, -10_deg, 90_deg)};
 static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{
     0.151_m, -0.319_m, 0.578_m, frc::Rotation3d(180_deg, -10_deg, -90_deg)};
+*/
+
+static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
+    -1.25_in, 10.75_in, 39.488_in, frc::Rotation3d(0_deg, 0_deg, 10_deg)};
+static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{
+    -1.25_in, -10.75_in, 39.488_m, frc::Rotation3d(0_deg, 0_deg, -10_deg)};
 
 } // namespace VISION
 
