@@ -89,9 +89,8 @@ private:
         layout, photon::PoseStrategy::LOWEST_AMBIGUITY,
         CONSTANTS::VISION::RIGHT_CAMERA_A_TF};
 
-    std::vector<PhotonGroup> m_photoncam_vec{};
-    // std::vector<PhotonGroup> m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a, m_single_left_estimator},
-    // {m_right_camera_a, m_right_estimator_a, m_single_right_estimator}};
+    std::vector<PhotonGroup> m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a, m_single_left_estimator},
+    {m_right_camera_a, m_right_estimator_a, m_single_right_estimator}};
 
     std::pair<std::shared_ptr<nt::NetworkTable>, std::string> m_left_limelight =
         {nt::NetworkTableInstance::GetDefault().GetTable("limelight-left"), "limelight-left"};
