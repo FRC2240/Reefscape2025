@@ -43,10 +43,15 @@ void Candle::Periodic()
     }
     else if (frc::DriverStation::IsDisabled())
     {
+
         if ((cycles_in_state / 50.0) < 0.5) // Cycles/50 = seconds
         {
             state = DISABLE_BLINK;
             fmt::println("state is disabled blink");
+        }
+        else if (frc::DriverStation::IsEStopped())
+        {
+            state = ERROR;
         }
         else
         {
@@ -141,7 +146,17 @@ void Candle::Periodic()
         break;
 
     case ERROR:
-        // Fallthrough intented
+        if (cycles_in_state % 10 > 5)
+        {
+            frc::SmartDashboard::PutString("candlesim", "#FF0000");
+            m_candle.SetLEDs(255, 0, 0);
+        }
+        else
+        {
+            frc::SmartDashboard::PutString("candlesim", "#FFFF00");
+            m_candle.SetLEDs(255, 255, 0);
+        }
+        break;
 
     // Added fuctionality to turn off LEDs on brown
     case BROWN:
