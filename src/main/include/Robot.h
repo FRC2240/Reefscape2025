@@ -45,6 +45,7 @@ public:
 private:
   std::optional<frc2::Command *> m_autonomousCommand;
   frc::Timer disabled_timer;
+  // Idk what this does but I'm scared to remove it in case it's a coconut
   frc::Alert my_alert{"thingy", frc::Alert::AlertType::kInfo};
 
   RobotContainer m_container;
