@@ -55,7 +55,7 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry,
       },
       std::make_shared<pathplanner::PPHolonomicDriveController>(
           pathplanner::PIDConstants(
-              1.75, 0, 0.0),                       // Translation PID constants. Originally 1P
+              1.75, 0, 0.1),                       // Translation PID constants. Originally 1P
           pathplanner::PIDConstants(0.625, 0.0, 0) // Rotation PID constants
                                                    // T: 1.75, 0, 0.0
                                                    // R: 0.625, 0.0, 0
