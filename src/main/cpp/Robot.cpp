@@ -45,6 +45,7 @@ void Robot::DisabledPeriodic()
     m_container.m_drivetrain.flip();
     m_container.has_flipped = true;
   }
+  // Idk what this does but I'm scared to remove it in case it's a coconut
   my_alert.Set(true);
 
   if (disabled_timer.Get() > CONSTANTS::DRIVE::BRAKE_TIME && !frc::DriverStation::IsEStopped())
