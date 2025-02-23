@@ -3,8 +3,9 @@
   "robotLength": 0.9398,
   "holonomicMode": true,
   "pathFolders": [
-    "left_4gp",
+    "em_test",
     "leave_1gp",
+    "left_4gp",
     "push_start",
     "right_4gp"
   ],

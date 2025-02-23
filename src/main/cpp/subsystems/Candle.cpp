@@ -47,7 +47,6 @@ void Candle::Periodic()
         if ((cycles_in_state / 50.0) < 0.5) // Cycles/50 = seconds
         {
             state = DISABLE_BLINK;
-            fmt::println("state is disabled blink");
         }
         else if (frc::DriverStation::IsEStopped())
         {

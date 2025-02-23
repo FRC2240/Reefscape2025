@@ -15,9 +15,22 @@
                 }
               },
               {
-                "type": "named",
+                "type": "race",
                 "data": {
-                  "name": "l4"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "l4"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 6.0
+                      }
+                    }
+                  ]
                 }
               }
             ]

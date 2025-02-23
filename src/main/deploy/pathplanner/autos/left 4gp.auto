@@ -69,31 +69,6 @@
                 "data": {
                   "pathName": "(L)coral_(LF)reef1"
                 }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "intake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "l4"
-                      }
-                    }
-                  ]
-                }
               }
             ]
           }

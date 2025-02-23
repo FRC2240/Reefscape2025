@@ -96,8 +96,6 @@ void RobotContainer::ConfigureBindings()
   m_stick1.A().OnTrue(m_elevator.offset_command(-CONSTANTS::ELEVATOR::OFFSET_AMOUNT));
 }
 
-
-
 frc2::Command *RobotContainer::GetAutonomousCommand()
 {
   return autoChooser.GetSelected();
