@@ -1,0 +1,8 @@
+0LB + NOT 0LT => intake
+0RB => score
+0Y => L4
+0B + NOT 0LT => L1
+0X + NOT 0LT => L3
+0A + NOT 0LT => L2
+0RT => Idle
+0Start => Rezero Wrist
