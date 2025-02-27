@@ -15,6 +15,7 @@ RobotContainer::RobotContainer()
 
   frc::SmartDashboard::PutData("Elevator", &m_elevator);
   frc::SmartDashboard::PutData("Wrist", &m_wrist);
+  frc::SmartDashboard::PutBoolean("Run Auto in Teleop", false);
 }
 
 void RobotContainer::SetPID()
@@ -83,6 +84,12 @@ void RobotContainer::ConfigureBindings()
   m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
 
   m_stick0.Start().WhileTrue(m_wrist.rezero());
+
+
+  frc2::Trigger([this] -> bool {
+    return frc::SmartDashboard::GetBoolean("Run Auto in Teleop", false);
+  }).OnTrue(frc2::CommandPtr{std::make_unique<frc2::Command>(GetAutonomousCommand())});
+
 }
 
 frc2::Command *RobotContainer::GetAutonomousCommand()
