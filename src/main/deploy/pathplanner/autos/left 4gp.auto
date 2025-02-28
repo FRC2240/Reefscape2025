@@ -78,24 +78,6 @@
           "data": {
             "name": "score_l4"
           }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": []
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "(LF)reef_(L)coral1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intake"
-          }
         }
       ]
     }
