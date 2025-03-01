@@ -8,6 +8,7 @@
 #include <pathplanner/lib/path/PathPoint.h>
 #include <pathplanner/lib/auto/AutoBuilder.h>
 #include <pathplanner/lib/commands/PathPlannerAuto.h>
+#include <pathplanner/lib/commands/PathfindingCommand.h>
 
 #include <frc/geometry/Pose2d.h>
 #include <frc/kinematics/ChassisSpeeds.h>
@@ -28,6 +29,7 @@
 #include <frc/XboxController.h>
 #include <pathplanner/lib/config/PIDConstants.h>
 #include <pathplanner/lib/controllers/PPHolonomicDriveController.h>
+#include <frc2/command/RunCommand.h>
 
 #include <frc2/command/button/CommandXboxController.h>
 #include "frc2/command/DeferredCommand.h"
@@ -55,6 +57,12 @@ public:
 
 
     frc2::CommandPtr extract(std::string auton);
+
+
+    frc2::CommandPtr auto_align_base(bool isleft);
+
+    std::optional<units::meter_t> get_apriltag_offset();
+    std::optional<int> find_best_apriltag();
 
 private:
     int cyclecounter = 0;

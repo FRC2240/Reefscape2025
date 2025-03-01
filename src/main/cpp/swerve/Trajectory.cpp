@@ -146,4 +146,41 @@ frc2::CommandPtr Trajectory::extract(std::string auton)
   return PathPlannerAuto(auton).ToPtr();
 }
 
+frc2::CommandPtr Trajectory::auto_align_base(bool isleft) {
+  // while not in threshold
+    // if left of target
+      // drive right
+    // else
+      // drive left
+  units::meter_t target = CONSTANTS::AUTOS::RIGHT_BRANCH;
+  if (isleft) {
+    target = CONSTANTS::AUTOS::LEFT_BRANCH;
+  }
+  return frc2::RunCommand(
+    [this, target] () {
+
+      std::optional<units::meter_t> tag_offset = get_apriltag_offset();
+      if (tag_offset) {
+        if (!CONSTANTS::IN_THRESHOLD<units::meter_t>(-*tag_offset, target, CONSTANTS::AUTOS::AUTO_ALIGN_THRESHOLD)) {
+          units::meters_per_second_t dx = CONSTANTS::AUTOS::ALIGN_SPEED;
+          if ((*tag_offset - target) < 0_m) {
+            dx = -dx;
+          }
+          // drive
+        }
+      }
+
+    },
+    {this}
+  ).ToPtr();
+}
+
+std::optional<units::meter_t> Trajectory::get_apriltag_offset() {
+  // for each apriltag visible:
+    // get tx from limelights
+    // add offset to each
+    // average positions together if 2, otherwise only use 1
+  // chose one closer to middle
+}
+
 #endif

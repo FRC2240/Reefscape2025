@@ -264,4 +264,13 @@ namespace CONSTANTS
 #endif // SABERTOOTH
     } // namespace CONFIG
   } // namespace DRIVE
+
+  namespace AUTOS {
+    // Offsets of reef branches from AprilTag center
+    units::meter_t LEFT_BRANCH  = -1_m; // TODO CHANGE
+    units::meter_t RIGHT_BRANCH =  1_m; // TODO CHANGE 
+    // threshold for auto align
+    units::meter_t AUTO_ALIGN_THRESHOLD = 0.1_m;
+    units::meters_per_second_t ALIGN_SPEED = 0.1_mps; 
+  }
 } // namespace CONSTANTS
