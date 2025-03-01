@@ -36,7 +36,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
@@ -44,30 +44,37 @@
                 "data": {
                   "pathName": "(LB)reef_(L)coral"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "idle"
-                }
               }
             ]
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0.0
+            "name": "idle"
           }
         },
         {
-          "type": "sequential",
+          "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
                   "pathName": "(L)coral_(LF)reef1"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "l4"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -77,6 +84,12 @@
           "type": "named",
           "data": {
             "name": "score_l4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "l2"
           }
         }
       ]
