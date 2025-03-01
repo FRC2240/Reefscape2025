@@ -89,7 +89,7 @@ frc2::CommandPtr Trajectory::manual_drive(bool field_relative)
         if (m_stick->GetLeftTriggerAxis() > 0.5)
         {
           field_relative = false;
-          fmt::println("here");
+          //fmt::println("here");
         }
         else
         {
