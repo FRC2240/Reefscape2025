@@ -3,6 +3,8 @@
 #include <frc/DriverStation.h>
 #include <frc/geometry/Rotation3d.h>
 #include <frc/geometry/Transform3d.h>
+#include <frc/geometry/Pose2d.h>
+#include <frc/geometry/Translation2d.h>
 #include <iostream>
 #include <numbers>
 #include <units/acceleration.h>
@@ -264,4 +266,23 @@ namespace CONSTANTS
 #endif // SABERTOOTH
     } // namespace CONFIG
   } // namespace DRIVE
+
+  namespace AUTOS {
+
+    namespace ALIGN_POSES {
+
+      // I|O (inner|outer) _ P|C|O (processor|center|other)
+
+      frc::Pose2d I_P{0_m, 0_m, frc::Rotation2d{0_deg}};
+      frc::Pose2d I_C{0_m, 0_m, frc::Rotation2d{0_deg}};
+      frc::Pose2d I_O{0_m, 0_m, frc::Rotation2d{0_deg}};
+      frc::Pose2d O_P{0_m, 0_m, frc::Rotation2d{0_deg}};
+      frc::Pose2d O_C{0_m, 0_m, frc::Rotation2d{0_deg}};
+      frc::Pose2d O_O{0_m, 0_m, frc::Rotation2d{0_deg}};
+
+      units::meter_t offset = 0.25_m;
+    }
+
+  }
+
 } // namespace CONSTANTS

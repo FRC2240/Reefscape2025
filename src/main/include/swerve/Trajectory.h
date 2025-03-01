@@ -56,6 +56,9 @@ public:
 
     frc2::CommandPtr extract(std::string auton);
 
+
+    frc2::CommandPtr auto_align(bool isleft);
+
 private:
     int cyclecounter = 0;
     Drivetrain *m_drivetrain;

@@ -146,4 +146,10 @@ frc2::CommandPtr Trajectory::extract(std::string auton)
   return PathPlannerAuto(auton).ToPtr();
 }
 
+
+frc2::CommandPtr Trajectory::auto_align(bool isleft) {
+  // find nearest center pose
+
+}
+
 #endif
