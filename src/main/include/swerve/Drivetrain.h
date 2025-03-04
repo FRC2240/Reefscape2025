@@ -171,7 +171,13 @@ public:
     // bool face_direction(units::degree_t tgt);
     ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "swervecan"};
 
+    void update_module_coast();
+
 private:
+    bool fl_last_brake = false;
+    bool fr_last_brake = false;
+    bool bl_last_brake = false;
+    bool br_last_brake = false;
     // ctre::phoenix6::hardware::Pigeon2 gyro{CONSTANTS::DRIVE::GYRO_ID, "rio"};
     //  AHRS navx{frc::SPI::Port::kMXP};
     CONSTANTS::PidCoeff pid_coef{2.75, 0.0, 0.6, 0.0, 0.0, -1, 1};
