@@ -36,7 +36,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
@@ -44,24 +44,18 @@
                 "data": {
                   "pathName": "(LB)reef_(L)coral"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "idle"
-                }
               }
             ]
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 1.0
+            "name": "idle"
           }
         },
         {
-          "type": "sequential",
+          "type": "parallel",
           "data": {
             "commands": [
               {
@@ -74,18 +68,6 @@
                 "type": "sequential",
                 "data": {
                   "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "intake"
-                      }
-                    },
                     {
                       "type": "named",
                       "data": {
@@ -105,21 +87,9 @@
           }
         },
         {
-          "type": "parallel",
-          "data": {
-            "commands": []
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "(LF)reef_(L)coral1"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "intake"
+            "name": "l2"
           }
         }
       ]

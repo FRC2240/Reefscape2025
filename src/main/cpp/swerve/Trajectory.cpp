@@ -89,6 +89,11 @@ frc2::CommandPtr Trajectory::manual_drive(bool field_relative)
         if (m_stick->GetLeftTriggerAxis() > 0.5)
         {
           field_relative = false;
+          //fmt::println("here");
+        }
+        else
+        {
+          field_relative = true;
         }
         units::meters_per_second_t left_right;
         units::meters_per_second_t front_back;
@@ -130,6 +135,7 @@ frc2::CommandPtr Trajectory::manual_drive(bool field_relative)
         {
           m_drivetrain->drive(front_back, left_right, rot, field_relative);
         }
+        frc::SmartDashboard::PutBoolean("fldrel", field_relative);
       },
       {this});
 }

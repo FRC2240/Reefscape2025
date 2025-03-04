@@ -44,7 +44,7 @@ frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos)
         set_position(position); },
                             {this})
         .Until([this, pos]
-               { return CONSTANTS::IN_THRESHOLD<units::angle::turn_t>(get_position(), pos, CONSTANTS::ELEVATOR::POSITION_THRESHOLD * 3); });
+               { return CONSTANTS::IN_THRESHOLD<units::angle::turn_t>(get_position(), pos, CONSTANTS::ELEVATOR::POSITION_THRESHOLD); });
 }
 
 frc2::CommandPtr Elevator::idle_command()
@@ -52,10 +52,10 @@ frc2::CommandPtr Elevator::idle_command()
     return set_position_command(CONSTANTS::ELEVATOR::BOTTOM_POS);
 };
 
-frc2::CommandPtr Elevator::offset_command(units::angle::turn_t amount) {
-  return frc2::cmd::RunOnce([this, amount] {
-    return set_position(get_position() + amount);
-  });
+frc2::CommandPtr Elevator::offset_command(units::angle::turn_t amount)
+{
+    return frc2::cmd::RunOnce([this, amount]
+                              { return set_position(get_position() + amount); });
 }
 
 units::angle::turn_t Elevator::get_position()

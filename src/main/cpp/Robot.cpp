@@ -26,7 +26,7 @@ void Robot::RobotPeriodic()
   }
   catch (const std::exception &e)
   {
-    frc::DataLogManager::Log(e.what());
+    ForceLog::fatal(e.what());
   }
   m_container.LogDashboard();
 }
