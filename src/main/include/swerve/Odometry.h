@@ -18,6 +18,7 @@
 #include "swerve/Vision.h"
 #include <frc2/command/Commands.h>
 #include <numeric>
+#include "utility/ForceLog.h"
 
 #ifndef CFG_NO_DRIVEBASE
 class Odometry

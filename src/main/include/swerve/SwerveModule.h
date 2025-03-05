@@ -60,6 +60,9 @@ public:
     SwerveModule(SwerveModule &&) = delete;
 
 private:
+    // This is the magic number used to convert rotor turns to distance traveled.
+    // The type may be units::unit_t<units::compound<units::meter, units::inverse<units::turn>>>
+    static constexpr auto ratio = 2.7_m / 58.3_tr;
     ctre::phoenix6::controls::MotionMagicVelocityTorqueCurrentFOC driver_velocity_req{0_tps};
     inline units::meters_per_second_t wheel_speed_to_bot_speed(units::turns_per_second_t wheel_speed);
     inline units::turns_per_second_t bot_speed_to_wheel_speed(units::meters_per_second_t bot_speed);

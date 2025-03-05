@@ -37,15 +37,33 @@ void Odometry::putField2d()
 
 void Odometry::update()
 {
+  // Outer vector: limelights, inner vector: x, y, z
   std::vector<std::vector<double>> raw_stdevs = m_vision->get_stdevs();
   std::vector<double> processed_stdevs;
 
-  for (std::vector<double> &i : raw_stdevs)
+  for (size_t i = 0; i < raw_stdevs.size(); i++)
   {
-    processed_stdevs.push_back(std::accumulate(i.begin(), i.end(), 0.0) / i.size());
+    for (size_t j = 0; i < raw_stdevs[i].size(); j++)
+    {
+      // compound xyzs
+      processed_stdevs[j] += raw_stdevs[i][j];
+    }
   }
 
-  estimator.SetVisionMeasurementStdDevs(wpi::array<double, 3>(processed_stdevs[0], processed_stdevs[1], processed_stdevs[2]));
+  for (auto &i : processed_stdevs)
+  {
+    // mean
+    i /= raw_stdevs.size();
+  }
+  try
+  {
+    estimator.SetVisionMeasurementStdDevs(wpi::array<double, 3>(processed_stdevs[0], processed_stdevs[1], processed_stdevs[2]));
+  }
+  catch (const std::exception &e)
+  {
+    std::string msg = "Odomentry::update() failed to set vision measurement standard deviations: ";
+    ForceLog::error(msg + e.what());
+  }
 
   frc::Pose2d const pose = estimator.Update(m_drivetrain->getCCWHeading(),
                                             m_drivetrain->getModulePositions());

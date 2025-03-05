@@ -59,7 +59,7 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     driver_config.CurrentLimits.StatorCurrentLimit = 74_A;
     // driver_config.CurrentLimits.SupplyCurrentLimitEnable
     driver_config.MotorOutput.NeutralMode.value = driver_config.MotorOutput.NeutralMode.Brake;
-    driver_config.Feedback.SensorToMechanismRatio = CONSTANTS::DRIVE::MOTOR_TURNS_PER_WHEEL_TURN;
+    driver_config.Feedback.SensorToMechanismRatio = 1.0;
     driver_config.Feedback.RotorToSensorRatio = 1.0;
     driver_config.MotorOutput.Inverted = false;
     driver.GetConfigurator().Apply(driver_config);
@@ -120,7 +120,7 @@ void SwerveModule::set_brake_mode(bool on)
 frc::SwerveModulePosition SwerveModule::getPosition()
 {
     frc::SwerveModulePosition ret;
-    ret.distance = -driver.GetPosition().Refresh().GetValue() * WHEEL_CIRCUMFERENCE;
+    ret.distance = -driver.GetPosition().Refresh().GetValue() * ratio;
     ret.angle = frc::Rotation2d(getAngle());
     return ret;
 }
