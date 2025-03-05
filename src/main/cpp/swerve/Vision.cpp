@@ -44,10 +44,10 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
   std::vector<std::optional<frc::Pose2d>> ret;
   for (auto &i : m_limelight_vec)
   {
-
     LimelightHelpers::SetRobotOrientation(i.second, get_angle().value(), 0, 0, 0, 0, 0);
-    auto posevec = i.first->GetNumberArray("botpose_wpiblue", std::vector<double>(6));
+    auto posevec = i.first->GetNumberArray("botpose_orb_wpiblue", std::vector<double>(6));
     frc::SmartDashboard::PutNumberArray("vision/" + i.second + "/pose", posevec);
+
     if (i.first->GetNumber("tv", 0.0) > 0.5 && posevec[0] > 0.01)
     {
       ret.push_back(frc::Pose2d{
