@@ -5,6 +5,23 @@
 Vision::Vision(std::function<units::degree_t()> get_angle_fn)
     : get_angle{get_angle_fn} {};
 
+std::vector<std::vector<double>> Vision::get_stdevs()
+{
+  std::vector<std::vector<double>> ret;
+  for (auto &i : m_limelight_vec)
+  {
+    std::vector<double> result = i.first->GetNumberArray("stdevs", std::vector<double>(12, 0.0));
+    if (result != std::vector<double>(12, 0.0))
+    {
+      // 0...6 are mt1 stdevs
+      ret.push_back(std::vector<double>{
+          result.begin() + 6, result.begin() + 11});
+    }
+  }
+
+  return ret;
+}
+
 void Vision::log_metrics()
 {
   // fps, cpu temp, ram usage, temp]
@@ -46,7 +63,7 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
   {
 
     LimelightHelpers::SetRobotOrientation(i.second, get_angle().value(), 0, 0, 0, 0, 0);
-    auto posevec = i.first->GetNumberArray("botpose_wpiblue", std::vector<double>(6));
+    auto posevec = i.first->GetNumberArray("botpose_orb_wpiblue", std::vector<double>(6));
     frc::SmartDashboard::PutNumberArray("vision/" + i.second + "/pose", posevec);
     if (i.first->GetNumber("tv", 0.0) > 0.5 && posevec[0] > 0.01)
     {

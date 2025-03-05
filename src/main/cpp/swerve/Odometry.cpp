@@ -20,8 +20,6 @@ frc::Field2d field2d;
 Odometry::Odometry(Drivetrain *drivetrain, Vision *vision)
     : m_drivetrain{drivetrain}, m_vision{vision}
 {
-  // Bjarne Sjourstup, why have you forsaken me?
-  // estimator.SetVisionMeasurementStdDevs(wpi::array<double, 3>(std::move(std::array{(double)5.0, (double)5.0, (double)5.0})));
 }
 
 frc2::CommandPtr Odometry::set_pose_cmd(frc::Pose2d pose)
@@ -39,19 +37,45 @@ void Odometry::putField2d()
 
 void Odometry::update()
 {
+  std::vector<std::vector<double>> raw_stdevs = m_vision->get_stdevs();
+  std::vector<double> processed_stdevs;
+
+  for (std::vector<double> &i : raw_stdevs)
+  {
+    processed_stdevs.push_back(std::accumulate(i.begin(), i.end(), 0.0) / i.size());
+  }
+
+  estimator.SetVisionMeasurementStdDevs(wpi::array<double, 3>(processed_stdevs[0], processed_stdevs[1], processed_stdevs[2]));
+
   frc::Pose2d const pose = estimator.Update(m_drivetrain->getCCWHeading(),
                                             m_drivetrain->getModulePositions());
   // if constexpr (CONSTANTS::DEBUGGING)
+  auto modposes = m_drivetrain->getModulePositions();
   field2d.SetRobotPose(pose.X(), pose.Y(), pose.Rotation());
   frc::SmartDashboard::PutNumber("odometry/X", pose.X().value());
   frc::SmartDashboard::PutNumber("odometry/Y", pose.Y().value());
+  frc::SmartDashboard::PutNumberArray("odometry/wheelbase/dist", std::vector<double>{
+                                                                     modposes[0].distance.value(),
+                                                                     modposes[1].distance.value(),
+                                                                     modposes[2].distance.value(),
+                                                                     modposes[3].distance.value(),
+                                                                 });
+  frc::SmartDashboard::PutNumberArray("odometry/wheelbase/theta", std::vector<double>{
+                                                                      modposes[0].angle.Degrees().value(),
+                                                                      modposes[1].angle.Degrees().value(),
+                                                                      modposes[2].angle.Degrees().value(),
+                                                                      modposes[3].angle.Degrees().value(),
+                                                                  });
   frc::SmartDashboard::PutNumber("odometry/rot", pose.Rotation().Degrees().value());
   frc::SmartDashboard::PutNumber("odometry/CCW", m_drivetrain->getCCWHeading().Degrees().value());
   frc::SmartDashboard::PutString("Odometry: ", fmt::format("Pose X: {}, Y: {}, Z (Degrees): {}\n", pose.X().value(), pose.Y().value(), pose.Rotation().Degrees().value()));
 }
 
-frc::Pose2d Odometry::getPose() { return estimator.Update(m_drivetrain->getCCWHeading(),
-                                                          m_drivetrain->getModulePositions()); }
+frc::Pose2d Odometry::getPose()
+{
+  return estimator.Update(m_drivetrain->getCCWHeading(),
+                          m_drivetrain->getModulePositions());
+}
 
 frc::ChassisSpeeds const Odometry::getFieldRelativeSpeeds()
 {

@@ -17,6 +17,7 @@
 #include <frc/DriverStation.h>
 #include "swerve/Vision.h"
 #include <frc2/command/Commands.h>
+#include <numeric>
 
 #ifndef CFG_NO_DRIVEBASE
 class Odometry
@@ -39,12 +40,19 @@ public:
     frc::SwerveDrivePoseEstimator<4> estimator{
         m_drivetrain->kinematics,
         frc::Rotation2d(m_drivetrain->getAngle()),
+        // Module positions
         wpi::array<frc::SwerveModulePosition, 4>{
             frc::SwerveModulePosition{},
             frc::SwerveModulePosition{},
             frc::SwerveModulePosition{},
             frc::SwerveModulePosition{}},
-        frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_rad))};
+        // Inital pose
+        frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_rad)),
+        // Module standard deviations (x,y,theta). These should be high to ingore wheelbase odometry.
+        wpi::array<double, 3>{100, 100, 100},
+        // Vision standard deviations.
+        wpi::array<double, 3>{0.1, 0.1, 0.1},
+    };
 
     [[nodiscard]] frc::Pose2d getPose();
 

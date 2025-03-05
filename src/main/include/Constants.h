@@ -197,6 +197,7 @@ namespace CONSTANTS
 
   namespace DRIVE
   {
+    constexpr double MOTOR_TURNS_PER_WHEEL_TURNS = 1.0;
     constexpr units::second_t BRAKE_TIME = 10_s;
     constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 8_fps;
     constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi *

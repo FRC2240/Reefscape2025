@@ -43,6 +43,8 @@ public:
     // Could be modified to work with 3 and 8 as well
     std::optional<units::degree_t> get_apriltag_angle();
 
+    std::vector<std::vector<double>> get_stdevs();
+
     void log_metrics();
 
 private:
