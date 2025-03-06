@@ -39,7 +39,7 @@ void Odometry::update()
 {
   // Outer vector: limelights, inner vector: x, y, z
   std::vector<std::vector<double>> raw_stdevs = m_vision->get_stdevs();
-  std::vector<double> processed_stdevs;
+  std::vector<double> processed_stdevs{-1, -1, -1};
 
   for (size_t i = 0; i < raw_stdevs.size(); i++)
   {
@@ -57,7 +57,10 @@ void Odometry::update()
   }
   try
   {
-    estimator.SetVisionMeasurementStdDevs(wpi::array<double, 3>(processed_stdevs[0], processed_stdevs[1], processed_stdevs[2]));
+    if (processed_stdevs.size() == 3 && processed_stdevs[0] != -1 && processed_stdevs[1] != -1 && processed_stdevs[2] != -1)
+    {
+      estimator.SetVisionMeasurementStdDevs(wpi::array<double, 3>(processed_stdevs[0], processed_stdevs[1], processed_stdevs[2]));
+    }
   }
   catch (const std::exception &e)
   {
