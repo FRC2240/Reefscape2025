@@ -1,4 +1,7 @@
 #include "swerve/Trajectory.h"
+#include "utility/MathUtils.h"
+#include <vector>
+
 #ifndef CFG_NO_DRIVEBASE
 /******************************************************************/
 /*                        Private Variables                       */
@@ -144,6 +147,32 @@ frc2::CommandPtr Trajectory::extract(std::string auton)
 {
   // fmt::println("{}", auton);
   return PathPlannerAuto(auton).ToPtr();
+}
+
+frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose){
+  // Makes a vector of waypoints. Waypoint 1 is the current pos, 2 is the goal
+  std::vector<Waypoint> waypoints = PathPlannerPath::waypointsFromPoses({
+    m_odometry->getPose(),
+    goal_pose
+  });
+
+  // The constraints for the path. TODO CHANGE IT
+  PathConstraints constraints(0.5_mps, 0.5_mps_sq, 90_deg_per_s, 90_deg_per_s_sq); 
+
+  frc::ChassisSpeeds speeds = m_odometry->getFieldRelativeSpeeds();
+  units::meters_per_second_t vel = static_cast<units::meters_per_second_t>(MathUtils::pythag(speeds.vx(), speeds.vy()));
+
+  auto path = std::make_shared<PathPlannerPath>(
+    waypoints,
+    constraints,
+    IdealStartingState(vel, m_odometry->getPose().Rotation()), // The ideal starting state, might need to be changed
+    GoalEndState(0.0_mps, goal_pose.Rotation()) // Goal end state. You can set a holonomic rotation here. 
+  );
+
+
+  path->preventFlipping = true;
+
+  return AutoBuilder::pathfindThenFollowPath(path, constraints);
 }
 
 #endif

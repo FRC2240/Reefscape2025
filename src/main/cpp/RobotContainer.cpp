@@ -5,6 +5,7 @@
 #include "RobotContainer.h"
 
 #include <frc2/command/Commands.h>
+#include <frc/geometry/Pose2d.h>
 
 RobotContainer::RobotContainer()
 {
@@ -86,6 +87,8 @@ void RobotContainer::ConfigureBindings()
 
   m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
 
+  m_stick0.B().OnTrue(offsetPos());
+
   // Driver 2 overrides
   m_stick1.Start().WhileTrue(m_wrist.rezero());
 
@@ -94,6 +97,13 @@ void RobotContainer::ConfigureBindings()
 
   m_stick1.X().OnTrue(m_elevator.offset_command(CONSTANTS::ELEVATOR::OFFSET_AMOUNT));
   m_stick1.A().OnTrue(m_elevator.offset_command(-CONSTANTS::ELEVATOR::OFFSET_AMOUNT));
+}
+
+frc2::CommandPtr RobotContainer::offsetPos() {
+  frc::Pose2d currentPose = m_odometry.getPose();
+  frc::Pose2d offsetPose = {currentPose + frc::Transform2d(frc::Translation2d(1_m,1_m), frc::Rotation2d(90_deg))};
+
+  return m_trajectory.follow_live_path(offsetPose);
 }
 
 frc2::Command *RobotContainer::GetAutonomousCommand()

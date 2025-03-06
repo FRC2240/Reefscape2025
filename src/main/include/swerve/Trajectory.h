@@ -52,7 +52,7 @@ public:
     // constexpr PathConstraints DEFAULT_CONSTRAINTS = PathConstraints(CONSTANTS:)
 
     frc2::CommandPtr manual_drive(bool field_relative = true);
-
+    frc2::CommandPtr follow_live_path(frc::Pose2d goal_pose);
 
     frc2::CommandPtr extract(std::string auton);
 

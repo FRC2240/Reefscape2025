@@ -62,6 +62,8 @@ public:
   frc2::CommandPtr score();
   frc2::CommandPtr score(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target);
 
+  frc2::CommandPtr offsetPos();
+
   frc2::CommandPtr intake();
 
   Drivetrain m_drivetrain;
