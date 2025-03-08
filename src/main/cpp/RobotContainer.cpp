@@ -101,9 +101,12 @@ void RobotContainer::ConfigureBindings()
 
 frc2::CommandPtr RobotContainer::offsetPos() {
   return frc2::cmd::DeferredProxy([this] {
+    /*
     frc::Pose2d currentPose = m_odometry.getPose();
     frc::Pose2d offsetPose = {currentPose + frc::Transform2d(frc::Translation2d(1_m,1_m), frc::Rotation2d(m_odometry.getPose().Rotation()))};
-    return m_trajectory.follow_live_path(offsetPose);
+    */
+    return m_trajectory.follow_live_path(frc::Pose2d(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg)));
+    //return m_trajectory.follow_live_path(offsetPose);
   });
 }
 
