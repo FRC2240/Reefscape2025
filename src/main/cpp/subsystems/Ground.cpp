@@ -76,11 +76,55 @@ void Ground::eject()
     set_angle(m_intake,-CONSTANTS::GROUND::INTAKE_SPEED);
 }
 
+bool Ground::inThresholdExtended() 
+{
+    CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(m_ground), CONSTANTS::GROUND::EXTENDED, CONSTANTS::GROUND::POSITION_THRESHOLD + 0_tr);
+}
+
+bool Ground::inThresholdIdle() 
+{
+    CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(m_ground), CONSTANTS::GROUND::IDLE, CONSTANTS::GROUND::POSITION_THRESHOLD + 0_tr);
+}
+
 bool hasGP() 
 {
-    if(CONSTANTS::GROUND::test_sensor = true) //if has gp
+    if(CONSTANTS::GROUND::test_sensor = true)
     {
         return true;
+    }
+}
+
+bool Ground::IsAuto()
+{
+    return frc::DriverStation::IsAutonomousEnabled();
+};
+
+void Ground::Periodic() 
+{
+    if(IsAuto() && setup && !HASGP) { state = IDLE; } //Checks if the arm position is at its idle position
+    else if(setup && !HASGP) { state = IDLE; }
+
+    switch (state)
+    {
+    case INIT:
+        if(true)
+            bool setup = true;
+        break;
+
+    case IDLE:
+        if(press == "A") 
+        {
+            intake_command();
+            state = HASGP;
+        }
+        break;
+    case HASGP:
+        if(press == "A") 
+        {
+            eject();
+            state = IDLE;
+        }
+        break;
     }
 }
 
@@ -95,6 +139,7 @@ frc2::CommandPtr Ground::intake_command()
       .AndThen(
              [this]
              {
+               m_ground.SetControl(ctre::phoenix6::controls::VoltageOut{0_V});
                intake();
              },
              {this})
@@ -122,6 +167,7 @@ frc2::CommandPtr Ground::eject_command()
       .AndThen(
              [this]
              {
+               m_ground.SetControl(ctre::phoenix6::controls::VoltageOut{0_V});
                eject();
              },
              {this})
@@ -140,3 +186,4 @@ frc2::CommandPtr Ground::eject_command()
 // Indexer who knows lol may not even be necessary
 // Add controller inputs
 // Add code to feed from Intake/Indexer to Indexer/Elevator
+// Add manual overrides(up/down) for Javi
