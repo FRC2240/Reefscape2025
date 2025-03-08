@@ -50,7 +50,7 @@ public:
         // Inital pose
         frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_rad)),
         // Module standard deviations (x,y,theta). These should be high to ingore wheelbase odometry.
-        wpi::array<double, 3>{3, 3, 3},
+        wpi::array<double, 3>{1, 1, 1},
         // Vision standard deviations.
         wpi::array<double, 3>{0.1, 0.1, 0.1},
     };

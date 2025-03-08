@@ -99,7 +99,14 @@ void Robot::TestInit()
   frc2::CommandScheduler::GetInstance().CancelAll();
 }
 
-void Robot::TestPeriodic() {}
+void Robot::TestPeriodic()
+{
+  frc::ChassisSpeeds speeds;
+  speeds.vx = 1_mps;
+  speeds.vy = 0_mps;
+  speeds.omega = 0_rad_per_s;
+  m_container.m_drivetrain.drive(speeds);
+}
 
 void Robot::TestExit() {}
 

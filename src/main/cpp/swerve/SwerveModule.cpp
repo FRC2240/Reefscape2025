@@ -120,7 +120,7 @@ void SwerveModule::set_brake_mode(bool on)
 frc::SwerveModulePosition SwerveModule::getPosition()
 {
     frc::SwerveModulePosition ret;
-    ret.distance = -driver.GetPosition().Refresh().GetValue() * ratio;
+    ret.distance = -driver.GetPosition().Refresh().GetValue() * WHEEL_CIRCUMFERENCE * 0.5;
     ret.angle = frc::Rotation2d(getAngle());
     return ret;
 }
@@ -159,17 +159,18 @@ void SwerveModule::setDesiredState(frc::SwerveModuleState &desired_state)
     controlreq.EnableFOC = 1;
     // Convert change in angle to change in (cancoder) ticks
     // double const delta_ticks = delta_rotation.Degrees().value() * TICKS_PER_CANCODER_DEGREE;
-    frc::SmartDashboard::SmartDashboard::PutNumber(driver.GetDescription() + "/desired speed", desired_state.angle.Degrees().value());
+    frc::SmartDashboard::SmartDashboard::PutNumber(driver.GetDescription() + "/desired speed", desired_state.speed.value());
     frc::SmartDashboard::SmartDashboard::PutNumber(driver.GetDescription() + "/desired angle", units::turn_t{desired_state.angle.Degrees()}.value());
     driver.SetControl(driver_velocity_req.WithVelocity(bot_speed_to_wheel_speed(desired_state.speed)));
     turner.SetControl(controlreq);
-    frc::SmartDashboard::PutNumber(driver.GetDescription() + "/vout", driver.GetMotorVoltage().GetValueAsDouble());
+    frc::SmartDashboard::PutNumber(driver.GetDescription() + "/vout", (driver.GetMotorVoltage().GetValue() * ratio).value());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/tvout", turner.GetMotorVoltage().GetValueAsDouble());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/percent out", driver.GetMotorVoltage().GetValueAsDouble() / frc::DriverStation::GetBatteryVoltage());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/cyclemarker", (double)std::rand() / RAND_MAX);
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/turner.get()", turner.GetPosition().Refresh().GetValueAsDouble());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/driver rotations", driver.GetPosition().GetValueAsDouble());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/getAngle().value()", getAngle().value());
+    frc::SmartDashboard::PutNumber(driver.GetDescription() + "/vel", driver.GetVelocity().Refresh().GetValueAsDouble());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/cancoder.value().value()", cancoder.GetAbsolutePosition().GetValueAsDouble());
     frc::SmartDashboard::PutNumber(driver.GetDescription() + "/latency", cancoder.GetAbsolutePosition().GetTimestamp().GetLatency().convert<units::time::millisecond>().value());
     // turner.SetControl(controls::PositionVoltage(units::angle::turn_t{0.4}));
