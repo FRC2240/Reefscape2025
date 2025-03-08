@@ -181,14 +181,20 @@ namespace CONSTANTS
     constexpr int GROUND_ID = 0;
     constexpr int INTAKE_ID = 0;
     constexpr int INDEX_ID = 0;
+    constexpr int GPSENSOR = 0;
     // More may be needed
 
     static const PidCoeff groundPID = {0, 0, 0}; // Change Me!
     static const PidCoeff intakePID = {0, 0, 0}; // Change Me!
     static const PidCoeff indexPID = {0, 0, 0}; // Change Me!
 
-    constexpr units::angle::turn_t IDLE = 0_tr; // Change Me! // Uses Ground(Wrist for the intaker)
-    constexpr units::angle::turn_t EXTENDED = 0_tr; // Change Me! // Uses Ground
+    constexpr units::angle::turn_t IDLE = 0_tr; // Change Me! // Uses Ground(Wrist for the intaker) and sets position to IDLE
+    constexpr units::angle::turn_t EXTENDED = 0_tr; // Change Me! // Uses Ground and sets position to EXTENDED
+    constexpr units::angle::turn_t EJECT_POS = 0_tr; // Change Me! // May not be used
+    constexpr units::angle::turn_t INTAKE_SPEED = 0_tr; // Change Me!
+    constexpr units::angle::degree_t POSITION_THRESHOLD = 0_deg;
+
+    static bool test_sensor = true;
 
 
 

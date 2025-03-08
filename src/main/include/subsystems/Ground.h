@@ -15,12 +15,21 @@ class Ground : public frc2::SubsystemBase
     public:
         Ground();
 
-        void set_angle(ctre::phoenix6::hardware::TalonFX& motor, units::angle::degree_t angle);
-        units::degree_t get_angle(ctre::phoenix6::hardware::TalonFX& motor);
-
-        void SetPID(ctre::phoenix6::hardware::TalonFX& motor, CONSTANTS::PidCoeff coeff);
+        void SetPID(ctre::phoenix6::hardware::TalonFX& m_motor, CONSTANTS::PidCoeff coeff);
 
         void InitSendable(wpi::SendableBuilder &builder) override;
+
+        void set_angle(ctre::phoenix6::hardware::TalonFX& m_motor, units::angle::degree_t angle);
+        units::degree_t get_angle(ctre::phoenix6::hardware::TalonFX& m_motor);
+
+        void intake();
+        void eject();
+
+        bool hasGP(); // Needs a sensor input to work currently pulling from CONSTANTS::GROUND::test_sensor
+
+        frc2::CommandPtr intake_command();
+        frc2::CommandPtr eject_command();
+
     private:
         ctre::phoenix6::controls::MotionMagicTorqueCurrentFOC m_control_req{0_tr};
 

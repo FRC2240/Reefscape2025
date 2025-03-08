@@ -54,20 +54,89 @@ void Ground::InitSendable(wpi::SendableBuilder &builder)
   MotorUtils::BuildSender(builder, &m_index);
 }
 
-void Ground::SetPID(ctre::phoenix6::hardware::TalonFX& motor, CONSTANTS::PidCoeff coeff) { MotorUtils::SetPID(motor, coeff);}
+void Ground::SetPID(ctre::phoenix6::hardware::TalonFX& m_motor, CONSTANTS::PidCoeff coeff) { MotorUtils::SetPID(m_motor, coeff);}
 
-void Ground::set_angle(ctre::phoenix6::hardware::TalonFX& motor, units::angle::degree_t angle) 
+void Ground::set_angle(ctre::phoenix6::hardware::TalonFX& m_motor, units::angle::degree_t angle) 
 {
-    motor.SetControl(m_control_req.WithPosition(angle));
+    m_motor.SetControl(m_control_req.WithPosition(angle));
 }
 
-units::degree_t Ground::get_angle(ctre::phoenix6::hardware::TalonFX& motor) 
+units::degree_t Ground::get_angle(ctre::phoenix6::hardware::TalonFX& m_motor) 
 {
-    return motor.GetPosition().GetValue();
+    return m_motor.GetPosition().GetValue();
 }
 
-// Add command stuff
+void Ground::intake() 
+{
+    set_angle(m_intake, CONSTANTS::GROUND::INTAKE_SPEED);
+}
 
-// Ground swaps states on click
-// Intake for onToggleTrue
-// Indexer whop knows lol
+void Ground::eject() 
+{
+    set_angle(m_intake,-CONSTANTS::GROUND::INTAKE_SPEED);
+}
+
+bool hasGP() 
+{
+    if(CONSTANTS::GROUND::test_sensor = true) //if has gp
+    {
+        return true;
+    }
+}
+
+frc2::CommandPtr Ground::intake_command()
+{
+  return frc2::RunCommand(
+             [this]
+             {
+               set_angle(m_ground, CONSTANTS::GROUND::EXTENDED);
+             },
+             {this})
+      .AndThen(
+             [this]
+             {
+               intake();
+             },
+             {this})
+      .Until([this]
+             { return hasGP(); }) //add manual stop
+      .AndThen(
+             [this]
+             {
+               set_angle(m_ground, CONSTANTS::GROUND::IDLE);
+             },
+             {this})
+       .Until([this] //potentially add stop here for faster time on mistakes
+             { return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(
+                   get_angle(m_ground), CONSTANTS::GROUND::IDLE, CONSTANTS::GROUND::POSITION_THRESHOLD + 0_tr); });
+}
+
+frc2::CommandPtr Ground::eject_command()
+{
+  return frc2::RunCommand(
+             [this]
+             {
+               set_angle(m_ground, CONSTANTS::GROUND::EXTENDED);
+             },
+             {this})
+      .AndThen(
+             [this]
+             {
+               eject();
+             },
+             {this})
+      .WithTimeout(1_s) //add manual stop and change time
+      .AndThen(
+             [this]
+             {
+               set_angle(m_ground, CONSTANTS::GROUND::IDLE);
+             },
+             {this})
+       .Until([this] //potentially continues the manual stop option here
+             { return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(
+                   get_angle(m_ground), CONSTANTS::GROUND::IDLE, CONSTANTS::GROUND::POSITION_THRESHOLD + 0_tr); });
+}
+
+// Indexer who knows lol may not even be necessary
+// Add controller inputs
+// Add code to feed from Intake/Indexer to Indexer/Elevator
