@@ -176,6 +176,23 @@ namespace CONSTANTS
         0.151_m, -0.319_m, 0.578_m, frc::Rotation3d(180_deg, -10_deg, -90_deg)};
 
   } // namespace VISION
+  namespace GROUND
+  {
+    constexpr int GROUND_ID = 0;
+    constexpr int INTAKE_ID = 0;
+    constexpr int INDEX_ID = 0;
+    // More may be needed
+
+    static const PidCoeff groundPID = {0, 0, 0}; // Change Me!
+    static const PidCoeff intakePID = {0, 0, 0}; // Change Me!
+    static const PidCoeff indexPID = {0, 0, 0}; // Change Me!
+
+    constexpr units::angle::turn_t IDLE = 0_tr; // Change Me! // Uses Ground(Wrist for the intaker)
+    constexpr units::angle::turn_t EXTENDED = 0_tr; // Change Me! // Uses Ground
+
+
+
+  }
 
   namespace CLIMBER
   {
