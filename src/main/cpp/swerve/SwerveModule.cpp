@@ -59,7 +59,7 @@ SwerveModule::SwerveModule(int const &driver_adr, int const &turner_adr, int con
     driver_config.CurrentLimits.StatorCurrentLimit = 74_A;
     // driver_config.CurrentLimits.SupplyCurrentLimitEnable
     driver_config.MotorOutput.NeutralMode.value = driver_config.MotorOutput.NeutralMode.Brake;
-    driver_config.Feedback.SensorToMechanismRatio = 1.0;
+    driver_config.Feedback.SensorToMechanismRatio = DRIVER_GEAR_RATIO;
     driver_config.Feedback.RotorToSensorRatio = 1.0;
     driver_config.MotorOutput.Inverted = false;
     driver.GetConfigurator().Apply(driver_config);

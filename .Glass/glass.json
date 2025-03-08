@@ -1,8 +1,5 @@
 {
   "NetworkTables": {
-    "Transitory Values": {
-      "open": false
-    },
     "transitory": {
       "SmartDashboard": {
         "Elevator": {
@@ -27,13 +24,21 @@
         "odometry": {
           "open": true
         },
-        "open": true,
         "vision": {
           "double[]##v_/SmartDashboard/vision/cpu_temp": {
             "open": true
           },
           "open": true
         }
+      },
+      "limelight-left": {
+        "double[]##v_/limelight-left/botpose_orb_wpiblue": {
+          "open": true
+        },
+        "double[]##v_/limelight-left/stddevs": {
+          "open": true
+        },
+        "open": true
       }
     },
     "types": {
@@ -72,12 +77,14 @@
         "open": true
       },
       "open": true
-    },
-    "visible": true
+    }
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
     "serverTeam": "2240"
+  },
+  "NetworkTables View": {
+    "visible": false
   },
   "Plots": {
     "Plot <0>": {

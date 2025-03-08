@@ -15,7 +15,7 @@ std::vector<std::vector<double>> Vision::get_stdevs()
     {
       // 0...6 are mt1 stdevs
       ret.push_back(std::vector<double>{
-          result.begin() + 6, result.begin() + 11});
+          result.begin() + 6, result.begin() + 7});
     }
   }
 
