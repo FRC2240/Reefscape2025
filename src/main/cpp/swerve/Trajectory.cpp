@@ -92,7 +92,7 @@ frc2::CommandPtr Trajectory::manual_drive(bool field_relative)
         if (m_stick->GetLeftTriggerAxis() > 0.5)
         {
           field_relative = false;
-          //fmt::println("here");
+          // fmt::println("here");
         }
         else
         {
@@ -149,8 +149,11 @@ frc2::CommandPtr Trajectory::extract(std::string auton)
   return PathPlannerAuto(auton).ToPtr();
 }
 
-frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose){
-  // Makes a vector of waypoints. Waypoint 1 is the current pos, 2 is the goal
+frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose)
+{
+  return frc2::cmd::DeferredProxy([this, goal_pose]
+                                  {
+    // Makes a vector of waypoints. Waypoint 1 is the current pos, 2 is the goal
   std::vector<Waypoint> waypoints = PathPlannerPath::waypointsFromPoses({
     m_odometry->getPose(),
     goal_pose
@@ -169,10 +172,11 @@ frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose){
     GoalEndState(0.0_mps, goal_pose.Rotation()) // Goal end state. You can set a holonomic rotation here. 
   );
 
-
   path->preventFlipping = true;
 
-  return AutoBuilder::pathfindThenFollowPath(path, constraints);
+  return AutoBuilder::followPath(path); 
+    
+    });
 }
 
 #endif
