@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "l2"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -49,12 +55,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "idle"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -65,16 +65,53 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "l4"
-                      }
-                    }
-                  ]
+                  "name": "l4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score_l4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "l2"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "(LF)reef_(L)coral1"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "(L)coral_(F)reef"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "l4"
                 }
               }
             ]

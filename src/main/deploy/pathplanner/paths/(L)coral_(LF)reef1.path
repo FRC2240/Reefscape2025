@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 1.446,
-        "y": 1.09
+        "y": 1.009
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0790996394063246,
-        "y": 1.6419193099028462
+        "x": 2.926577869464482,
+        "y": 1.990788391655906
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.963,
-        "y": 2.7899977095390636
+        "x": 3.936729452054794,
+        "y": 2.7628424657534243
       },
       "prevControl": {
-        "x": 3.194607479700043,
-        "y": 2.130602683525222
+        "x": 3.065239726027397,
+        "y": 1.365453767123287
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,10 +33,10 @@
     {
       "name": "eepy time",
       "minWaypointRelativePos": 0.7576953433307025,
-      "maxWaypointRelativePos": 0.9707971586424626,
+      "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
-        "maxAcceleration": 0.75,
+        "maxAcceleration": 2.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -45,10 +45,17 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.0,
+      "endWaypointRelativePos": 0.7,
+      "command": null
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 4.0,
-    "maxAcceleration": 1.5,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -62,7 +69,7 @@
   "folder": "left_4gp",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 53.430404214080646
+    "rotation": 50.0
   },
   "useDefaultConstraints": false
 }
