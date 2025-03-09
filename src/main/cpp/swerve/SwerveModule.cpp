@@ -180,12 +180,12 @@ void SwerveModule::setDesiredState(frc::SwerveModuleState &desired_state)
 
 inline units::turns_per_second_t SwerveModule::bot_speed_to_wheel_speed(units::meters_per_second_t bot_speed)
 {
-    return bot_speed / (1_in / 1_tr);
+    return bot_speed / WHEEL_CIRCUMFERENCE;
 }
 
 inline units::meters_per_second_t SwerveModule::wheel_speed_to_bot_speed(units::turns_per_second_t wheel_speed)
 {
-    return wheel_speed * (1_in / 1_tr);
+    return wheel_speed * WHEEL_CIRCUMFERENCE;
 }
 
 void SwerveModule::percentOutputControl(double const &percent_output)
