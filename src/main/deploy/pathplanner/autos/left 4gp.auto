@@ -50,6 +50,12 @@
                 "data": {
                   "pathName": "(LB)reef_(L)coral"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "idle"
+                }
               }
             ]
           }
@@ -62,12 +68,6 @@
                 "type": "path",
                 "data": {
                   "pathName": "(L)coral_(LF)reef1"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "l4"
                 }
               }
             ]
