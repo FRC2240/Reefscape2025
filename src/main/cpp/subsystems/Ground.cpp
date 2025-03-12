@@ -76,16 +76,6 @@ void Ground::eject()
     set_angle(m_intake,-CONSTANTS::GROUND::INTAKE_SPEED);
 }
 
-bool Ground::inThresholdExtended() 
-{
-    CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(m_ground), CONSTANTS::GROUND::EXTENDED, CONSTANTS::GROUND::POSITION_THRESHOLD + 0_tr);
-}
-
-bool Ground::inThresholdIdle() 
-{
-    CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(get_angle(m_ground), CONSTANTS::GROUND::IDLE, CONSTANTS::GROUND::POSITION_THRESHOLD + 0_tr);
-}
-
 bool hasGP() 
 {
     if(CONSTANTS::GROUND::test_sensor = true)
@@ -94,39 +84,7 @@ bool hasGP()
     }
 }
 
-bool Ground::IsAuto()
-{
-    return frc::DriverStation::IsAutonomousEnabled();
-};
-
-void Ground::Periodic() 
-{
-    if(IsAuto() && setup && !HASGP) { state = IDLE; } //Checks if the arm position is at its idle position
-    else if(setup && !HASGP) { state = IDLE; }
-
-    switch (state)
-    {
-    case INIT:
-        if(true)
-            bool setup = true;
-        break;
-
-    case IDLE:
-        if(press == "A") 
-        {
-            intake_command();
-            state = HASGP;
-        }
-        break;
-    case HASGP:
-        if(press == "A") 
-        {
-            eject();
-            state = IDLE;
-        }
-        break;
-    }
-}
+void Ground::Periodic() {}
 
 frc2::CommandPtr Ground::intake_command()
 {
@@ -161,7 +119,7 @@ frc2::CommandPtr Ground::eject_command()
   return frc2::RunCommand(
              [this]
              {
-               set_angle(m_ground, CONSTANTS::GROUND::EXTENDED);
+               set_angle(m_ground, CONSTANTS::GROUND::EJECT_POS);
              },
              {this})
       .AndThen(
@@ -184,6 +142,6 @@ frc2::CommandPtr Ground::eject_command()
 }
 
 // Indexer who knows lol may not even be necessary
-// Add controller inputs
+// Add maual overrides?
 // Add code to feed from Intake/Indexer to Indexer/Elevator
 // Add manual overrides(up/down) for Javi

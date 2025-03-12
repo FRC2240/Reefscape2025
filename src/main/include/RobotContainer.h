@@ -21,6 +21,7 @@
 #include "subsystems/Elevator.h"
 #include "subsystems/Grabber.h"
 #include "subsystems/Wrist.h"
+#include "subsystems/Ground.h"
 
 // Swerve
 #include "swerve/Drivetrain.h"
@@ -57,6 +58,9 @@ public:
 
   // Moves wrist and elevelator to position
   frc2::CommandPtr set_state(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target);
+
+  frc2::CommandPtr ground_intake() {Ground::intake_command;}
+  frc2::CommandPtr ground_eject() {Ground::eject_command;}
 
   // Brings elevator down and moves wrist
   frc2::CommandPtr score();

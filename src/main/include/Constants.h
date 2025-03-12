@@ -194,7 +194,6 @@ namespace CONSTANTS
     constexpr units::angle::turn_t EJECT_POS = 0_tr; // Change Me! // May not be used
     constexpr units::angle::turn_t INTAKE_SPEED = 0_tr; // Change Me!
     constexpr units::angle::degree_t POSITION_THRESHOLD = 0_deg;
-    constexpr units::angle::degree_t JAVI_THRESHOLD = 0_deg;
 
     static bool test_sensor = true;
 
