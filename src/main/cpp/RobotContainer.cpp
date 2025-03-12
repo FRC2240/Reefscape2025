@@ -86,11 +86,11 @@ void RobotContainer::ConfigureBindings()
 
   frc2::Trigger([this]() -> bool
                 { return this->m_stick0.A().Get() && this->m_stick0.RightTrigger().Get(); })
-      .OnTrue(Climber::climb_command);
+      .OnTrue(Climber::climb_command());
   
    frc2::Trigger([this]() -> bool
                 { return this->m_stick0.A().Get() && !this->m_stick0.RightTrigger().Get(); })
-    .OnTrue(Climber::idle_command);
+    .OnTrue(Climber::idle_command());
   
 
   m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
