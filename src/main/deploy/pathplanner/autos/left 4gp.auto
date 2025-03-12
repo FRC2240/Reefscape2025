@@ -7,7 +7,7 @@
         {
           "type": "named",
           "data": {
-            "name": "l2"
+            "name": "idle"
           }
         },
         {
@@ -106,12 +106,6 @@
                 "type": "path",
                 "data": {
                   "pathName": "(L)coral_(F)reef"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "l4"
                 }
               }
             ]

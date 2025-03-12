@@ -48,9 +48,25 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.29295299899193544,
+      "endWaypointRelativePos": 0.513152091733871,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "intake"
+        }
+      }
+    },
+    {
+      "name": "l4",
+      "waypointRelativePos": 0.5652826780913979,
       "endWaypointRelativePos": 1.0,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "l4"
+        }
+      }
     }
   ],
   "globalConstraints": {
