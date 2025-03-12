@@ -84,6 +84,15 @@ void RobotContainer::ConfigureBindings()
                 { return this->m_stick0.A().Get() && !this->m_stick0.LeftTrigger().Get(); })
       .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L2));
 
+  frc2::Trigger([this]() -> bool
+                { return this->m_stick0.A().Get() && this->m_stick0.RightTrigger().Get(); })
+      .OnTrue(Climber::climb_command);
+  
+   frc2::Trigger([this]() -> bool
+                { return this->m_stick0.A().Get() && !this->m_stick0.RightTrigger().Get(); })
+    .OnTrue(Climber::idle_command);
+  
+
   m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
 
   // Driver 2 overrides
