@@ -37,7 +37,7 @@ class Ground : public frc2::SubsystemBase
 
     private:
 
-        ctre::phoenix6::controls::MotionMagicTorqueCurrentFOC m_control_req{0_tr};
+        ctre::phoenix6::controls::PositionTorqueCurrentFOC m_control_req{0_tr};
 
         ctre::phoenix6::hardware::TalonFX m_ground{CONSTANTS::GROUND::GROUND_ID};
         ctre::phoenix6::hardware::TalonFX m_intake{CONSTANTS::GROUND::INTAKE_ID};

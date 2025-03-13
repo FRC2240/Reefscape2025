@@ -16,24 +16,12 @@
 Ground::Ground() 
 {
     ctre::phoenix6::configs::TalonFXConfiguration conf{};
-
-    conf.MotionMagic.MotionMagicAcceleration = 0_tr_per_s_sq; // Change Me!
-    conf.MotionMagic.MotionMagicCruiseVelocity = 0_tps; // Change Me!
-    conf.Slot0.GravityType = ctre::phoenix6::signals::GravityTypeValue::Arm_Cosine; // Change Me!
-
+    
     m_ground.GetConfigurator().Apply(conf);
     SetPID(m_ground, ground_coeff);
 
-    conf.MotionMagic.MotionMagicAcceleration = 0_tr_per_s_sq; // Change Me!
-    conf.MotionMagic.MotionMagicCruiseVelocity = 0_tps; // Change Me!
-    conf.Slot0.GravityType = ctre::phoenix6::signals::GravityTypeValue::Arm_Cosine; // Change Me!
-
     m_intake.GetConfigurator().Apply(conf);
     SetPID(m_intake, intake_coeff);
-
-    conf.MotionMagic.MotionMagicAcceleration = 0_tr_per_s_sq; // Change Me!
-    conf.MotionMagic.MotionMagicCruiseVelocity = 0_tps; // Change Me!
-    conf.Slot0.GravityType = ctre::phoenix6::signals::GravityTypeValue::Arm_Cosine; // Change Me!
 
     m_index.GetConfigurator().Apply(conf);
     SetPID(m_index, index_coeff);
@@ -76,7 +64,7 @@ void Ground::eject()
     set_angle(m_intake,-CONSTANTS::GROUND::INTAKE_SPEED);
 }
 
-bool hasGP() 
+bool Ground::hasGP() 
 {
     if(CONSTANTS::GROUND::test_sensor = true)
     {
@@ -97,7 +85,7 @@ frc2::CommandPtr Ground::intake_command()
       .AndThen(
              [this]
              {
-               m_ground.SetControl(ctre::phoenix6::controls::VoltageOut{0_V});
+               m_ground.SetControl(ctre::phoenix6::controls::VoltageOut{-3_V});
                intake();
              },
              {this})
@@ -111,7 +99,7 @@ frc2::CommandPtr Ground::intake_command()
              {this})
        .Until([this] //potentially add stop here for faster time on mistakes
              { return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(
-                   get_angle(m_ground), CONSTANTS::GROUND::IDLE, CONSTANTS::GROUND::POSITION_THRESHOLD + 0_tr); });
+                   get_angle(m_ground), CONSTANTS::GROUND::IDLE, CONSTANTS::GROUND::POSITION_THRESHOLD + 1_tr); });
 }
 
 frc2::CommandPtr Ground::eject_command()
@@ -125,7 +113,7 @@ frc2::CommandPtr Ground::eject_command()
       .AndThen(
              [this]
              {
-               m_ground.SetControl(ctre::phoenix6::controls::VoltageOut{0_V});
+               m_ground.SetControl(ctre::phoenix6::controls::VoltageOut{-3_V});
                eject();
              },
              {this})
@@ -138,7 +126,7 @@ frc2::CommandPtr Ground::eject_command()
              {this})
        .Until([this] //potentially continues the manual stop option here
              { return CONSTANTS::IN_THRESHOLD<units::angle::degree_t>(
-                   get_angle(m_ground), CONSTANTS::GROUND::IDLE, CONSTANTS::GROUND::POSITION_THRESHOLD + 0_tr); });
+                   get_angle(m_ground), CONSTANTS::GROUND::IDLE, CONSTANTS::GROUND::POSITION_THRESHOLD + 1_tr); });
 }
 
 // Indexer who knows lol may not even be necessary

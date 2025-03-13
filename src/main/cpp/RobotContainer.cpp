@@ -84,8 +84,9 @@ void RobotContainer::ConfigureBindings()
                 { return this->m_stick0.A().Get() && !this->m_stick0.LeftTrigger().Get(); })
       .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L2));
 
-  m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
+  //m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
 
+  // Can be changed later just for testing purposes 
   m_stick0.RightTrigger().OnTrue(ground_intake());
   m_stick0.LeftTrigger().OnTrue(ground_eject());
 

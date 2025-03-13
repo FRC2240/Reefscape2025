@@ -59,8 +59,8 @@ public:
   // Moves wrist and elevelator to position
   frc2::CommandPtr set_state(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target);
 
-  frc2::CommandPtr ground_intake() {Ground::intake_command;}
-  frc2::CommandPtr ground_eject() {Ground::eject_command;}
+  frc2::CommandPtr ground_intake() {return m_ground.intake_command();}
+  frc2::CommandPtr ground_eject() {return m_ground.eject_command();}
 
   // Brings elevator down and moves wrist
   frc2::CommandPtr score();
@@ -73,6 +73,7 @@ public:
   Climber m_climber;
   Elevator m_elevator;
   Wrist m_wrist;
+  Ground m_ground;
   Grabber m_grabber;
   Candle m_candle{[this]() -> bool
                   { return m_grabber.has_gp(); }};
