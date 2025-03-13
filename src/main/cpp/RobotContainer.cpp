@@ -84,21 +84,19 @@ void RobotContainer::ConfigureBindings()
                 { return this->m_stick0.A().Get() && !this->m_stick0.LeftTrigger().Get(); })
       .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L2));
 
-
-  //Climber Commands on Driver #2
+  // Climber Commands on Driver #2
 
   frc2::Trigger([this]() -> bool
                 { return this->m_stick1.RightTrigger().Get(); })
-      .OnTrue(Climber::climb_command());
-  
-   frc2::Trigger([this]() -> bool
-                { return this->m_stick1.LeftTrigger().Get(); })
-    .OnTrue(Climber::idle_command());
+      .OnTrue(m_climber.climb_command());
 
-     frc2::Trigger([this]() -> bool
+  frc2::Trigger([this]() -> bool
+                { return this->m_stick1.LeftTrigger().Get(); })
+      .OnTrue(m_climber.idle_command());
+
+  frc2::Trigger([this]() -> bool
                 { return this->m_stick1.LeftBumper().Get(); })
-    .OnTrue(Climber::extend_command());
-  
+      .OnTrue(m_climber.extend_command());
 
   m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
 
