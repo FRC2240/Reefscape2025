@@ -109,8 +109,8 @@ namespace CONSTANTS
 
   namespace GRABBER
   {
-    constexpr int LEFT_ID = 29;  // changeme
-    constexpr int RIGHT_ID = 30; // changeme
+    constexpr int LEFT_ID = 20;  // changeme
+    constexpr int RIGHT_ID = 21; // changeme
     // Configuration page: http://10.22.40.2:5812
     constexpr int TOF_ID = 32; // changeme
 
