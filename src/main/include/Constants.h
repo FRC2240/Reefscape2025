@@ -114,7 +114,7 @@ namespace CONSTANTS
     // Configuration page: http://10.22.40.2:5812
     constexpr int TOF_ID = 32; // changeme
 
-    static CONSTANTS::PidCoeff PID = {1, 0, 0}; //values are TBD
+    static CONSTANTS::PidCoeff PID = {1, 0, 0}; // values are TBD
 
     // intake
     constexpr units::turns_per_second_t INTAKE_VELOCITY = 1_tps; // TBD
@@ -168,18 +168,19 @@ namespace CONSTANTS
     constexpr units::angle::degree_t POSITION_THRESHOLD = 5_deg;
   }; // namespace WRIST
 
-namespace VISION {
-  /* Transforms from 2024:
-  static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
-    0.151_m, 0.319_m, 0.578_m, frc::Rotation3d(180_deg, -10_deg, 90_deg)};
-  static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{
-    0.151_m, -0.319_m, 0.578_m, frc::Rotation3d(180_deg, -10_deg, -90_deg)};
-  */
+  namespace VISION
+  {
+    /* Transforms from 2024:
+    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
+      0.151_m, 0.319_m, 0.578_m, frc::Rotation3d(180_deg, -10_deg, 90_deg)};
+    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{
+      0.151_m, -0.319_m, 0.578_m, frc::Rotation3d(180_deg, -10_deg, -90_deg)};
+    */
 
-  static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
-    -1.25_in, 10.75_in, 39.488_in, frc::Rotation3d(0_deg, 0_deg, 10_deg)};
-  static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{
-    -1.25_in, -10.75_in, 39.488_m, frc::Rotation3d(0_deg, 0_deg, -10_deg)};
+    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
+        -1.25_in, 10.75_in, 39.488_in, frc::Rotation3d(0_deg, 0_deg, 10_deg)};
+    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{
+        -1.25_in, -10.75_in, 39.488_m, frc::Rotation3d(0_deg, 0_deg, -10_deg)};
 
   } // namespace VISION
 
@@ -187,11 +188,12 @@ namespace VISION {
   {
     constexpr int CLIMBER_ID = 7;
 
+    constexpr units::angle::turn_t POSITION_THRESHOLD = 2_tr;
     constexpr units::angle::turn_t DEFAULT_POS = 0_tr;
-    constexpr units::angle::turn_t EXTEND_POS = 100_tr;
-    constexpr units::angle::turn_t CLIMB_POS = 50_tr;
+    constexpr units::angle::turn_t EXTEND_POS = 30_tr;
+    constexpr units::angle::turn_t CLIMB_POS = 15_tr;
 
-    static const PidCoeff PidValue = {1};
+    static const PidCoeff PidValue = {4, 0, 0};
 
   } // namespace CLIMBER
 
