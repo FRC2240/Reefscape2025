@@ -1,38 +1,25 @@
 {
   "NetworkTables": {
-    "Transitory Values": {
-      "open": false
-    },
     "transitory": {
+      "Shuffleboard": {
+        "open": true
+      },
       "SmartDashboard": {
         "Elevator": {
           "PID": {
             "open": true
           }
         },
-        "Talon FX (v6) 50": {
-          "open": true
-        },
         "Wrist": {
           "PID": {
             "open": true
           }
         },
-        "cspeed": {
-          "open": true
-        },
-        "fl": {
-          "open": true
-        },
-        "odometry": {
-          "open": true
-        },
         "open": true,
         "vision": {
           "double[]##v_/SmartDashboard/vision/cpu_temp": {
             "open": true
-          },
-          "open": true
+          }
         }
       }
     },
@@ -72,8 +59,7 @@
         "open": true
       },
       "open": true
-    },
-    "visible": true
+    }
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
