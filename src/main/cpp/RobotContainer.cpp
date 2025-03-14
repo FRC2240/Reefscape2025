@@ -46,10 +46,12 @@ void RobotContainer::ConfigureBindings()
 
   frc2::Trigger([this]() -> bool
                 { return this->m_stick0.LeftBumper().Get() && !this->m_stick0.LeftTrigger().Get(); })
-      .OnTrue(intake());
+      .OnTrue(coral_intake());
 
-  frc2::Trigger([this]() -> bool
-                { return this->m_stick0.LeftBumper().Get() && !this->m_stick0.LeftTrigger().Get(); }); // coral pickup
+    frc2::Trigger([this]() -> bool
+                { return this->m_stick0.LeftBumper().Get() && this->m_stick0.LeftTrigger().Get(); })
+      .OnTrue(algae_intake());
+
 
   /*
   frc2::Trigger([this] () -> bool {
@@ -89,15 +91,15 @@ void RobotContainer::ConfigureBindings()
 
   frc2::Trigger([this]() -> bool
                 { return this->m_stick1.RightTrigger().Get(); })
-      .OnTrue(Climber::climb_command());
+      .OnTrue(m_climber.climb_command());
   
    frc2::Trigger([this]() -> bool
                 { return this->m_stick1.LeftTrigger().Get(); })
-    .OnTrue(Climber::idle_command());
+    .OnTrue(m_climber.idle_command());
 
      frc2::Trigger([this]() -> bool
                 { return this->m_stick1.LeftBumper().Get(); })
-    .OnTrue(Climber::extend_command());
+    .OnTrue(m_climber.extend_command());
   
 
   m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
@@ -157,10 +159,16 @@ frc2::CommandPtr RobotContainer::score(CONSTANTS::MANIPULATOR_STATES::Manipulato
   // }
 }
 
-frc2::CommandPtr RobotContainer::intake()
+frc2::CommandPtr RobotContainer::coral_intake()
 {
-  return set_state(CONSTANTS::MANIPULATOR_STATES::INTAKE);
-  // .Until([this] -> bool
-  // { return m_grabber.has_gp(); })
-  // .AndThen(m_elevator.set_position_command(CONSTANTS::MANIPULATOR_STATES::IDLE_W_GP.elevtor_pos).AndThen(m_wrist.set_angle_command(CONSTANTS::MANIPULATOR_STATES::IDLE_W_GP.wrist_pos)));
+  return set_state(CONSTANTS::MANIPULATOR_STATES::INTAKE).AlongWith(
+    m_grabber.intake(CONSTANTS::GRABBER::INTAKE_CORAL_VELOCITY));
+  
+}
+
+frc2::CommandPtr RobotContainer::algae_intake()
+{
+  return set_state(CONSTANTS::MANIPULATOR_STATES::INTAKE).AlongWith(
+    m_grabber.intake(CONSTANTS::GRABBER::INTAKE_ALGAE_VELOCITY));
+  
 }
