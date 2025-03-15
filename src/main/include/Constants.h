@@ -104,26 +104,26 @@ namespace CONSTANTS
     constexpr ManipulatorState ALGAE_L2{0_tr, 0_tr};
     constexpr ManipulatorState ALGAE_L3{0_tr, 0_tr};
     constexpr ManipulatorState PROCESSOR{0_tr, 0_tr};
+    constexpr ManipulatorState NET{0_tr, 0_tr};
 
   } // namespace MANIPULATOR_STATES
 
   namespace GRABBER
   {
-    constexpr int LEFT_ID = 20;  // changeme
-    constexpr int RIGHT_ID = 21; // changeme
+    constexpr int MOTOR_ID = 20; // changeme
     // Configuration page: http://10.22.40.2:5812
     constexpr int TOF_ID = 32; // changeme
 
-    static CONSTANTS::PidCoeff PID = {1, 0, 0}; //values are TBD
+    static CONSTANTS::PidCoeff PID = {1, 0, 0}; // values are TBD
 
     // intake
-    constexpr units::turns_per_second_t INTAKE_ALGAE_VELOCITY = 1_tps; // TBD
-    constexpr units::turns_per_second_t INTAKE_CORAL_VELOCITY = 1_tps; // TBD
-    constexpr units::millimeter_t DEFAULT_DIST_TOF = 20_mm;      // TBD
+    constexpr units::turns_per_second_t INTAKE_ALGAE_VELOCITY = 10_tps; // TBD
+    constexpr units::turns_per_second_t INTAKE_CORAL_VELOCITY = 10_tps; // TBD
+    constexpr units::millimeter_t DEFAULT_DIST_TOF = 20_mm;             // TBD
 
     // extake
-    constexpr units::turns_per_second_t EXTAKE_VELOCITY = 1_tps; // TBD
-    constexpr units::second_t EXTAKE_TIME = 1_s;                 // TBD
+    constexpr units::turns_per_second_t EXTAKE_VELOCITY = 10_tps; // TBD
+    constexpr units::second_t EXTAKE_TIME = 1_s;                  // TBD
   } // namespace GRABBER
 
   namespace ELEVATOR
@@ -169,18 +169,19 @@ namespace CONSTANTS
     constexpr units::angle::degree_t POSITION_THRESHOLD = 5_deg;
   }; // namespace WRIST
 
-namespace VISION {
-  /* Transforms from 2024:
-  static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
-    0.151_m, 0.319_m, 0.578_m, frc::Rotation3d(180_deg, -10_deg, 90_deg)};
-  static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{
-    0.151_m, -0.319_m, 0.578_m, frc::Rotation3d(180_deg, -10_deg, -90_deg)};
-  */
+  namespace VISION
+  {
+    /* Transforms from 2024:
+    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
+      0.151_m, 0.319_m, 0.578_m, frc::Rotation3d(180_deg, -10_deg, 90_deg)};
+    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{
+      0.151_m, -0.319_m, 0.578_m, frc::Rotation3d(180_deg, -10_deg, -90_deg)};
+    */
 
-  static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
-    -1.25_in, 10.75_in, 39.488_in, frc::Rotation3d(0_deg, 0_deg, 10_deg)};
-  static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{
-    -1.25_in, -10.75_in, 39.488_m, frc::Rotation3d(0_deg, 0_deg, -10_deg)};
+    static const auto LEFT_CAMERA_A_TF = frc::Transform3d{
+        -1.25_in, 10.75_in, 39.488_in, frc::Rotation3d(0_deg, 0_deg, 10_deg)};
+    static const auto RIGHT_CAMERA_A_TF = frc::Transform3d{
+        -1.25_in, -10.75_in, 39.488_m, frc::Rotation3d(0_deg, 0_deg, -10_deg)};
 
   } // namespace VISION
 
