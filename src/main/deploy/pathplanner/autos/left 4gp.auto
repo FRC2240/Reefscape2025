@@ -7,7 +7,7 @@
         {
           "type": "named",
           "data": {
-            "name": "l2"
+            "name": "idle"
           }
         },
         {
@@ -36,12 +36,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "l2"
-          }
-        },
-        {
           "type": "sequential",
           "data": {
             "commands": [
@@ -49,6 +43,12 @@
                 "type": "path",
                 "data": {
                   "pathName": "(LB)reef_(L)coral"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "idle"
                 }
               }
             ]
