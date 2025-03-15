@@ -41,6 +41,7 @@ void RobotContainer::ConfigureBindings()
 {
   frc::SmartDashboard::PutData(&m_elevator);
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
+  m_grabber.SetDefaultCommand(m_grabber.idle());
 
   // https://files.slack.com/files-pri/T0CS7MN06-F08BXRSU770/image.png
 
@@ -52,6 +53,14 @@ void RobotContainer::ConfigureBindings()
                 { return this->m_stick0.LeftBumper().Get() && this->m_stick0.LeftTrigger().Get(); })
       .OnTrue(algae_intake());
 
+  frc2::Trigger([this]() -> bool
+                { return this->m_stick0.A().Get() && this->m_stick0.LeftTrigger().Get(); })
+      .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::ALGAE_L2).AlongWith(m_grabber.idle()));
+
+  frc2::Trigger([this]() -> bool
+                { return this->m_stick0.X().Get() && this->m_stick0.LeftTrigger().Get(); })
+      .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::ALGAE_L3).AlongWith(m_grabber.idle()));
+
   /*
   frc2::Trigger([this] () -> bool {
     return this->m_stick0.RightBumper().Get() && this->m_stick0.LeftTrigger().Get();
@@ -59,7 +68,7 @@ void RobotContainer::ConfigureBindings()
   */
 
   frc2::Trigger([this]() -> bool
-                { return this->m_stick0.RightBumper().Get(); })
+                { return this->m_stick0.RightBumper().Get() && !this->m_stick0.LeftTrigger().Get(); })
       .OnTrue(score(current_state));
 
   m_stick0.Y().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
@@ -72,12 +81,8 @@ void RobotContainer::ConfigureBindings()
   //     .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L1));
 
   frc2::Trigger([this]() -> bool
-                { return this->m_stick0.B().Get() && this->m_stick0.LeftTrigger().Get(); }) // L2 algae
-      .OnTrue(score_proc());
-
-  frc2::Trigger([this]() -> bool
-                { return this->m_stick0.X().Get() && this->m_stick0.LeftTrigger().Get(); }) // L2 algae
-      .OnTrue(score_net());
+                { return this->m_stick0.RightBumper().Get() && this->m_stick0.LeftTrigger().Get(); }) // L2 algae
+      .OnTrue(score_algae());
 
   frc2::Trigger([this]() -> bool
                 { return this->m_stick0.X().Get() && !this->m_stick0.LeftTrigger().Get(); })
@@ -104,10 +109,7 @@ void RobotContainer::ConfigureBindings()
                 { return this->m_stick1.LeftTrigger().Get(); })
       .OnTrue(m_climber.idle_command());
 
-  frc2::Trigger([this]() -> bool
-                { return this->m_stick1.LeftBumper().Get(); });
-
-  m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
+  m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE).AlongWith(m_grabber.idle()));
 
   // Driver 2 overrides
   m_stick1.Start().WhileTrue(m_wrist.rezero());
@@ -169,16 +171,12 @@ frc2::CommandPtr RobotContainer::coral_intake()
   return set_state(CONSTANTS::MANIPULATOR_STATES::INTAKE).AlongWith(m_grabber.intake(CONSTANTS::GRABBER::INTAKE_CORAL_VELOCITY));
 }
 
-frc2::CommandPtr RobotContainer::algae_intake()
+frc2::CommandPtr RobotContainer::score_algae()
 {
-  return set_state(CONSTANTS::MANIPULATOR_STATES::INTAKE).AlongWith(m_grabber.intake(CONSTANTS::GRABBER::INTAKE_ALGAE_VELOCITY));
+  return m_grabber.extake(CONSTANTS::GRABBER::ALGAE_SCORE_VELOCITY);
 }
 
-frc2::CommandPtr RobotContainer::score_proc()
+frc2::CommandPtr RobotContainer::algae_intake()
 {
-  return set_state(CONSTANTS::MANIPULATOR_STATES::PROCESSOR).AndThen(m_grabber.extake());
-}
-frc2::CommandPtr RobotContainer::score_net()
-{
-  return set_state(CONSTANTS::MANIPULATOR_STATES::NET).AndThen(m_grabber.extake());
+  return m_grabber.intake(CONSTANTS::GRABBER::INTAKE_ALGAE_VELOCITY);
 }

@@ -4,25 +4,14 @@
 
 Wrist::Wrist()
 {
-  // MotorUtils::Motor::LogValues logValues{true, true, true};
-  // MotorUtils::Motor wristMotor{&m_motor, CONSTANTS::WRIST::PidValue,
-  // logValues};
+
   ctre::phoenix6::configs::TalonFXConfiguration conf{};
   conf.MotionMagic.MotionMagicAcceleration = 350_tr_per_s_sq;
   conf.MotionMagic.MotionMagicCruiseVelocity = 35_tps;
   conf.Slot0.GravityType = ctre::phoenix6::signals::GravityTypeValue::Arm_Cosine;
-  // config.MotionMagic.MotionMagicCruiseVelocity = CONSTANTS::WRIST::PEAK_VELOCITY;
-  // config.CurrentLimits.StatorCurrentLimitEnable = true;
-  // config.CurrentLimits.StatorCurrentLimit = CONSTANTS::WRIST::PEAK_STATOR_CURRENT;
-
-  // config.TorqueCurrent.PeakForwardTorqueCurrent = CONSTANTS::WRIST::PEAK_TORQUE_CURRENT;
-  // config.TorqueCurrent.PeakReverseTorqueCurrent = CONSTANTS::WRIST::PEAK_TORQUE_CURRENT;
-
   m_motor.GetConfigurator().Apply(conf);
 
   SetPID();
-
-  // m_motor.SetPosition(CONSTANTS::WRIST::DEFAULT_POSITION);
 }
 
 void Wrist::InitSendable(wpi::SendableBuilder &builder)
@@ -39,14 +28,15 @@ void Wrist::set_angle(units::angle::degree_t angle)
   m_motor.SetControl(m_control_req.WithPosition(angle));
 }
 
-units::degree_t Wrist::get_angle() { 
+units::degree_t Wrist::get_angle()
+{
   return m_motor.GetPosition().GetValue();
 }
 
-frc2::CommandPtr Wrist::offset_command(units::degree_t amount) {
-  return frc2::cmd::RunOnce([this, amount] {
-    return set_angle(get_angle() + amount);
-  });
+frc2::CommandPtr Wrist::offset_command(units::degree_t amount)
+{
+  return frc2::cmd::RunOnce([this, amount]
+                            { return set_angle(get_angle() + amount); });
 }
 
 frc2::CommandPtr Wrist::rezero()

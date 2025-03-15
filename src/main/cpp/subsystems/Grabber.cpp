@@ -33,39 +33,38 @@ void Grabber::SetPID()
 
 bool Grabber::has_gp()
 {
-    return false;
-    // return units::millimeter_t{Grabber_sensor.GetRange()} < CONSTANTS::GRABBER::DEFAULT_DIST_TOF;
+    return (units::millimeter_t{Grabber_sensor.GetRange()} < CONSTANTS::GRABBER::DEFAULT_DIST_TOF && Grabber_sensor.GetStatus() == pwf::TimeOfFlight::Status::kValid);
 };
 
-void Grabber::spin(units::turns_per_second_t speed)
+void Grabber::spin(units::ampere_t current)
 {
-    ctre::phoenix6::controls::VelocityTorqueCurrentFOC velocity{speed};
-    m_motor.SetControl(velocity);
+    ctre::phoenix6::controls::TorqueCurrentFOC req{current};
+    m_motor.SetControl(req);
 };
 
 frc2::CommandPtr Grabber::idle()
 {
     return frc2::cmd::Run([this]
-                          { spin(0_tps); },
+                          { spin(0_A); },
                           {this})
         .WithName("Idle");
 };
 
-frc2::CommandPtr Grabber::extake()
+frc2::CommandPtr Grabber::extake(units::ampere_t speed)
 {
     return frc2::cmd::Run(
-               [this]
+               [this, speed]
                {
-                   spin(CONSTANTS::GRABBER::EXTAKE_VELOCITY);
+                   spin(speed);
                },
                {this})
         .WithTimeout(CONSTANTS::GRABBER::EXTAKE_TIME)
         .AndThen([this]
-                 { spin(0_tps); })
+                 { spin(0_A); })
         .WithName("Extake");
 };
 
-frc2::CommandPtr Grabber::intake(units::turns_per_second_t speed)
+frc2::CommandPtr Grabber::intake(units::ampere_t speed)
 {
     return frc2::cmd::Run(
                [this, speed]

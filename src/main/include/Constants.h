@@ -94,15 +94,15 @@ namespace CONSTANTS
       }
     };
     constexpr ManipulatorState L1{0_tr, 0_tr};
-    constexpr ManipulatorState L2{12.61_tr, 5.38_tr}; // 18.4 follow-through
-    constexpr ManipulatorState L3{25.75_tr, 4.88_tr};
-    constexpr ManipulatorState L4{46.75_tr, 4.58_tr};
-    constexpr ManipulatorState IDLE{13.68_tr, 19.7_tr};
+    constexpr ManipulatorState L2{4.79_tr, 2.95_tr}; // 18.4 follow-through
+    constexpr ManipulatorState L3{15.3_tr, 2.31_tr};
+    constexpr ManipulatorState L4{32.29_tr, 2.53_tr};
+    constexpr ManipulatorState IDLE{3.52_tr, 18.02_tr};
     constexpr ManipulatorState IDLE_W_GP{12.329_tr, 19.7_tr};
-    constexpr ManipulatorState INTAKE{7.79_tr, 20.3_tr};
-    constexpr ManipulatorState POST_SCORE{0_tr, 11.3_tr};
-    constexpr ManipulatorState ALGAE_L2{0_tr, 0_tr};
-    constexpr ManipulatorState ALGAE_L3{0_tr, 0_tr};
+    constexpr ManipulatorState INTAKE{0.17_tr, 17.95_tr};
+    constexpr ManipulatorState POST_SCORE{0_tr, 9.38_tr};
+    constexpr ManipulatorState ALGAE_L2{15.95_tr, 10.57_tr};
+    constexpr ManipulatorState ALGAE_L3{22.71_tr, 9.74_tr};
     constexpr ManipulatorState PROCESSOR{0_tr, 0_tr};
     constexpr ManipulatorState NET{0_tr, 0_tr};
 
@@ -110,20 +110,22 @@ namespace CONSTANTS
 
   namespace GRABBER
   {
-    constexpr int MOTOR_ID = 20; // changeme
+    constexpr int MOTOR_ID = 42; // changeme
     // Configuration page: http://10.22.40.2:5812
     constexpr int TOF_ID = 32; // changeme
 
-    static CONSTANTS::PidCoeff PID = {1, 0, 0}; // values are TBD
+    static CONSTANTS::PidCoeff PID = {10, 0, 0}; // values are TBD
 
     // intake
-    constexpr units::turns_per_second_t INTAKE_ALGAE_VELOCITY = 10_tps; // TBD
-    constexpr units::turns_per_second_t INTAKE_CORAL_VELOCITY = 10_tps; // TBD
-    constexpr units::millimeter_t DEFAULT_DIST_TOF = 20_mm;             // TBD
+    constexpr units::ampere_t INTAKE_ALGAE_VELOCITY = -50_A; // TBD
+    constexpr units::ampere_t INTAKE_CORAL_VELOCITY = -50_A; // TBD
+    constexpr units::millimeter_t DEFAULT_DIST_TOF = 35_mm;  // TBD
 
     // extake
-    constexpr units::turns_per_second_t EXTAKE_VELOCITY = 10_tps; // TBD
-    constexpr units::second_t EXTAKE_TIME = 1_s;                  // TBD
+    constexpr units::ampere_t EXTAKE_VELOCITY = 10_A;       // TBD
+    constexpr units::ampere_t ALGAE_SCORE_VELOCITY = 360_A; // TBD
+    constexpr units::second_t EXTAKE_TIME = 1_s;            // TBD
+
   } // namespace GRABBER
 
   namespace ELEVATOR

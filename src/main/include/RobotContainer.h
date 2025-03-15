@@ -65,8 +65,7 @@ public:
   frc2::CommandPtr coral_intake();
   frc2::CommandPtr algae_intake();
 
-  frc2::CommandPtr score_proc();
-  frc2::CommandPtr score_net();
+  frc2::CommandPtr score_algae();
 
   Drivetrain m_drivetrain;
   Odometry m_odometry{&m_drivetrain, &m_vision};

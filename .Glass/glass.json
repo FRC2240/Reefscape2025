@@ -59,7 +59,8 @@
         "open": true
       },
       "open": true
-    }
+    },
+    "visible": true
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
@@ -85,6 +86,15 @@
                 1.0
               ],
               "id": "NT:/SmartDashboard/Elevator/pos"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/tof"
             }
           ]
         }

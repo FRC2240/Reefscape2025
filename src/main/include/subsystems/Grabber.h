@@ -6,14 +6,15 @@
 #include <TimeOfFlight.h>
 #include <frc2/command/Commands.h>
 #include <ctre/phoenix6/CANrange.hpp>
+#include <units/current.h>
 
 class Grabber : public frc2::SubsystemBase
 {
 public:
     Grabber();
 
-    frc2::CommandPtr intake(units::turns_per_second_t speed);
-    frc2::CommandPtr extake();
+    frc2::CommandPtr intake(units::ampere_t current);
+    frc2::CommandPtr extake(units::ampere_t current);
     frc2::CommandPtr idle();
 
     void InitSendable(wpi::SendableBuilder &builder) override;
@@ -21,14 +22,14 @@ public:
 
     bool has_gp();
 
+    pwf::TimeOfFlight Grabber_sensor{CONSTANTS::GRABBER::TOF_ID};
+
 private:
     ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::GRABBER::MOTOR_ID};
-
-    pwf::TimeOfFlight Grabber_sensor{CONSTANTS::GRABBER::TOF_ID};
 
     CONSTANTS::PidCoeff coeff{CONSTANTS::GRABBER::PID};
 
     // ctre::phoenix6::hardware::CANrange m_can_range{CONSTANTS::GRABBER::TOF_ID};
 
-    void spin(units::turns_per_second_t speed);
+    void spin(units::ampere_t current);
 };
