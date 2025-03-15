@@ -46,10 +46,11 @@ void RobotContainer::ConfigureBindings()
 
   frc2::Trigger([this]() -> bool
                 { return this->m_stick0.LeftBumper().Get() && !this->m_stick0.LeftTrigger().Get(); })
-      .OnTrue(intake());
+      .OnTrue(coral_intake());
 
   frc2::Trigger([this]() -> bool
-                { return this->m_stick0.LeftBumper().Get() && !this->m_stick0.LeftTrigger().Get(); }); // coral pickup
+                { return this->m_stick0.LeftBumper().Get() && this->m_stick0.LeftTrigger().Get(); })
+      .OnTrue(algae_intake());
 
   /*
   frc2::Trigger([this] () -> bool {
@@ -71,7 +72,12 @@ void RobotContainer::ConfigureBindings()
   //     .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L1));
 
   frc2::Trigger([this]() -> bool
-                { return this->m_stick0.X().Get() && this->m_stick0.LeftTrigger().Get(); }); // L2 algae
+                { return this->m_stick0.B().Get() && this->m_stick0.LeftTrigger().Get(); }) // L2 algae
+      .OnTrue(score_proc());
+
+  frc2::Trigger([this]() -> bool
+                { return this->m_stick0.X().Get() && this->m_stick0.LeftTrigger().Get(); }) // L2 algae
+      .OnTrue(score_net());
 
   frc2::Trigger([this]() -> bool
                 { return this->m_stick0.X().Get() && !this->m_stick0.LeftTrigger().Get(); })
@@ -95,8 +101,11 @@ void RobotContainer::ConfigureBindings()
       .OnTrue(m_climber.idle_command());
 
   frc2::Trigger([this]() -> bool
-                { return this->m_stick1.LeftBumper().Get(); })
-      .OnTrue(m_climber.extend_command());
+                { return this->m_stick1.LeftTrigger().Get(); })
+      .OnTrue(m_climber.idle_command());
+
+  frc2::Trigger([this]() -> bool
+                { return this->m_stick1.LeftBumper().Get(); });
 
   m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE));
 
@@ -155,10 +164,21 @@ frc2::CommandPtr RobotContainer::score(CONSTANTS::MANIPULATOR_STATES::Manipulato
   // }
 }
 
-frc2::CommandPtr RobotContainer::intake()
+frc2::CommandPtr RobotContainer::coral_intake()
 {
-  return set_state(CONSTANTS::MANIPULATOR_STATES::INTAKE);
-  // .Until([this] -> bool
-  // { return m_grabber.has_gp(); })
-  // .AndThen(m_elevator.set_position_command(CONSTANTS::MANIPULATOR_STATES::IDLE_W_GP.elevtor_pos).AndThen(m_wrist.set_angle_command(CONSTANTS::MANIPULATOR_STATES::IDLE_W_GP.wrist_pos)));
+  return set_state(CONSTANTS::MANIPULATOR_STATES::INTAKE).AlongWith(m_grabber.intake(CONSTANTS::GRABBER::INTAKE_CORAL_VELOCITY));
+}
+
+frc2::CommandPtr RobotContainer::algae_intake()
+{
+  return set_state(CONSTANTS::MANIPULATOR_STATES::INTAKE).AlongWith(m_grabber.intake(CONSTANTS::GRABBER::INTAKE_ALGAE_VELOCITY));
+}
+
+frc2::CommandPtr RobotContainer::score_proc()
+{
+  return set_state(CONSTANTS::MANIPULATOR_STATES::PROCESSOR).AndThen(m_grabber.extake());
+}
+frc2::CommandPtr RobotContainer::score_net()
+{
+  return set_state(CONSTANTS::MANIPULATOR_STATES::NET).AndThen(m_grabber.extake());
 }

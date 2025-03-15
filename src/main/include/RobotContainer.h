@@ -62,7 +62,11 @@ public:
   frc2::CommandPtr score();
   frc2::CommandPtr score(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target);
 
-  frc2::CommandPtr intake();
+  frc2::CommandPtr coral_intake();
+  frc2::CommandPtr algae_intake();
+
+  frc2::CommandPtr score_proc();
+  frc2::CommandPtr score_net();
 
   Drivetrain m_drivetrain;
   Odometry m_odometry{&m_drivetrain, &m_vision};
