@@ -95,14 +95,14 @@ namespace CONSTANTS
     };
     constexpr ManipulatorState L1{0_tr, 0_tr};
     constexpr ManipulatorState L2{4.79_tr, 2.95_tr}; // 18.4 follow-through
-    constexpr ManipulatorState L3{15.3_tr, 2.31_tr};
+    constexpr ManipulatorState L3{14.3_tr, 2.31_tr};
     constexpr ManipulatorState L4{32.29_tr, 2.53_tr};
     constexpr ManipulatorState IDLE{3.52_tr, 18.02_tr};
     constexpr ManipulatorState IDLE_W_GP{12.329_tr, 19.7_tr};
     constexpr ManipulatorState INTAKE{0.17_tr, 17.95_tr};
     constexpr ManipulatorState POST_SCORE{0_tr, 9.38_tr};
     constexpr ManipulatorState ALGAE_L2{15.95_tr, 10.57_tr};
-    constexpr ManipulatorState ALGAE_L3{22.71_tr, 9.74_tr};
+    constexpr ManipulatorState ALGAE_L3{21.71_tr, 9.74_tr};
     constexpr ManipulatorState PROCESSOR{0_tr, 0_tr};
     constexpr ManipulatorState NET{0_tr, 0_tr};
 

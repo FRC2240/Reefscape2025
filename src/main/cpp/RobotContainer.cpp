@@ -139,31 +139,7 @@ frc2::CommandPtr RobotContainer::set_state(CONSTANTS::MANIPULATOR_STATES::Manipu
 
 frc2::CommandPtr RobotContainer::score(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target)
 {
-  return m_wrist.set_angle_command(CONSTANTS::MANIPULATOR_STATES::POST_SCORE.wrist_pos);
-  // return set_state(
-  //     CONSTANTS::MANIPULATOR_STATES::ManipulatorState{m_elevator.get_position(), CONSTANTS::MANIPULATOR_STATES::POST_SCORE.wrist_pos});
-
-  // // Verify that the manipulator is in the correct position, if it isn't fall back to last state
-  // if (CONSTANTS::IN_THRESHOLD<units::turn_t>(m_wrist.get_angle(), target.wrist_pos, CONSTANTS::WRIST::POSITION_THRESHOLD) &&
-  //     CONSTANTS::IN_THRESHOLD<units::turn_t>(m_elevator.get_position(), target.elevtor_pos, CONSTANTS::ELEVATOR::POSITION_THRESHOLD))
-  // {
-  //   {
-  //     if (target == CONSTANTS::MANIPULATOR_STATES::L1 || target == CONSTANTS::MANIPULATOR_STATES::PROCESSOR)
-  //     {
-  //       // return m_grabber.extake();
-  //     }
-  //     else
-  //     {
-  //       // To score, you need to lower the elevator and hold the grabber at the current position
-  //       return set_state(
-  //           CONSTANTS::MANIPULATOR_STATES::ManipulatorState{target.elevtor_pos, target.wrist_pos - CONSTANTS::MANIPULATOR_STATES::POST_SCORE_DELTA});
-  //     }
-  //   }
-  // }
-  // else
-  // {
-  //   return set_state(target);
-  // }
+  return m_wrist.set_angle_command(CONSTANTS::MANIPULATOR_STATES::POST_SCORE.wrist_pos).AlongWith(m_grabber.coast());
 }
 
 frc2::CommandPtr RobotContainer::coral_intake()

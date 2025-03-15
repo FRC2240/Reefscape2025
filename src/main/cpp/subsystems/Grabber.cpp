@@ -8,7 +8,9 @@ Grabber::Grabber()
 
     // AddPID(right_grabber_motor);
     // AddPID(left_grabber_motor);
-    ctre::phoenix6::configs::TalonFXConfiguration m_right_conf{};
+    ctre::phoenix6::configs::TalonFXConfiguration conf{};
+
+    conf.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
 
     SetPID();
 
@@ -76,3 +78,13 @@ frc2::CommandPtr Grabber::intake(units::ampere_t speed)
                { return has_gp(); })
         .WithName("Intake");
 };
+
+frc2::CommandPtr Grabber::coast()
+{
+    return frc2::cmd::Run(
+        [this]
+        {
+            m_motor.SetControl(ctre::phoenix6::controls::CoastOut{});
+        },
+        {this});
+}
