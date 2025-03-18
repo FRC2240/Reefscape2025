@@ -16,6 +16,7 @@ Robot::Robot()
 
 void Robot::RobotPeriodic()
 {
+  frc::SmartDashboard::PutNumber("tof", m_container.m_grabber.Grabber_sensor.GetRange());
   m_container.m_drivetrain.update_module_coast();
   m_container.m_vision.log_metrics();
   m_container.m_odometry.update_from_vision();

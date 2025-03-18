@@ -7,7 +7,7 @@
         {
           "type": "named",
           "data": {
-            "name": "l2"
+            "name": "idle"
           }
         },
         {
@@ -36,13 +36,7 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "l2"
-          }
-        },
-        {
-          "type": "sequential",
+          "type": "parallel",
           "data": {
             "commands": [
               {
@@ -50,8 +44,20 @@
                 "data": {
                   "pathName": "(LB)reef_(L)coral"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "idle"
+                }
               }
             ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         },
         {
@@ -62,12 +68,6 @@
                 "type": "path",
                 "data": {
                   "pathName": "(L)coral_(LF)reef1"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "l4"
                 }
               }
             ]
