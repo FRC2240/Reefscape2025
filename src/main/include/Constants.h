@@ -94,12 +94,12 @@ namespace CONSTANTS
       }
     };
     constexpr ManipulatorState L1{0_tr, 0_tr};
-    constexpr ManipulatorState L2{4.79_tr, 2.95_tr}; // 18.4 follow-through
-    constexpr ManipulatorState L3{14.3_tr, 2.31_tr};
-    constexpr ManipulatorState L4{32.29_tr, 2.53_tr};
+    constexpr ManipulatorState L2{4_tr, 4.58_tr}; // 18.4 follow-through
+    constexpr ManipulatorState L3{13.88_tr, 3.18_tr};
+    constexpr ManipulatorState L4{32.0_tr, 3.8_tr};
     constexpr ManipulatorState IDLE{3.52_tr, 18.02_tr};
     constexpr ManipulatorState IDLE_W_GP{12.329_tr, 19.7_tr};
-    constexpr ManipulatorState INTAKE{0.17_tr, 17.95_tr};
+    constexpr ManipulatorState INTAKE{0_tr, 18.6_tr};
     constexpr ManipulatorState POST_SCORE{0_tr, 9.38_tr};
     constexpr ManipulatorState ALGAE_L2{15.95_tr, 10.57_tr};
     constexpr ManipulatorState ALGAE_L3{21.71_tr, 9.74_tr};
@@ -130,7 +130,7 @@ namespace CONSTANTS
 
   namespace ELEVATOR
   {
-    constexpr units::angle::turn_t POSITION_THRESHOLD = 2_tr;
+    constexpr units::angle::turn_t POSITION_THRESHOLD = 4_tr;
     constexpr units::angle::turn_t BOTTOM_POS = 0_tr;
 
     constexpr units::angle::turn_t TOP_POS = 46.75_tr;
@@ -164,7 +164,7 @@ namespace CONSTANTS
     constexpr units::current::ampere_t PEAK_STATOR_CURRENT = 20_A;
     constexpr units::angular_velocity::turns_per_second_t PEAK_VELOCITY = 10_tps;
     // This is the default PID values for the wrist motor
-    static const PidCoeff PidValue = {8, 0, 1};
+    static const PidCoeff PidValue = {12, 0, 1};
 
     constexpr units::angle::degree_t OFFSET_AMOUNT = 1_tr;
 

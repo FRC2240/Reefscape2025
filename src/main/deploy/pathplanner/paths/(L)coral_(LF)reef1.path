@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 2.926577869464482,
-        "y": 1.990788391655906
+        "y": 1.9907883916559062
       },
       "isLocked": false,
       "linkedName": null
@@ -48,9 +48,25 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.0,
-      "endWaypointRelativePos": 0.7,
-      "command": null
+      "waypointRelativePos": 0.05402417452830183,
+      "endWaypointRelativePos": 0.25014740566037713,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "intake"
+        }
+      }
+    },
+    {
+      "name": "l4",
+      "waypointRelativePos": 0.25890330188679234,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "l4"
+        }
+      }
     }
   ],
   "globalConstraints": {
