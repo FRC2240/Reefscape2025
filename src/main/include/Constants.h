@@ -252,7 +252,7 @@ namespace CONSTANTS
       constexpr ModuleConfig FL{60, 61, 14, 0.306867_tr};
       constexpr ModuleConfig FR{50, 51, 13, 0.1819_tr}; // old value 0.32_tr - 0.5_tr
       constexpr ModuleConfig BL{30, 31, 11, 0.18872_tr};
-      constexpr ModuleConfig BR{40, 41, 12, 0.42531_tr}; // old vaule -0.253_tr
+      constexpr ModuleConfig BR{40, 41, 12, 0.429443_tr}; // old vaule -0.253_tr
 
 /* -------------------------------------------------------------------------- */
 /*                        END FIRST ROBOT CONFIGURATION                       */
