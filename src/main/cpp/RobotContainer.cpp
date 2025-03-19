@@ -85,6 +85,10 @@ void RobotContainer::ConfigureBindings()
       .OnTrue(score_algae());
 
   frc2::Trigger([this]() -> bool
+                { return this->m_stick0.B().Get() && this->m_stick0.LeftTrigger().Get(); }) // L2 algae
+      .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::PROCESSOR));
+
+  frc2::Trigger([this]() -> bool
                 { return this->m_stick0.X().Get() && !this->m_stick0.LeftTrigger().Get(); })
       .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L3));
 
