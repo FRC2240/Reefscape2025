@@ -94,7 +94,7 @@ namespace CONSTANTS
       }
     };
     constexpr ManipulatorState L1{0_tr, 0_tr};
-    constexpr ManipulatorState L2{4_tr, 4.58_tr}; // 18.4 follow-through
+    constexpr ManipulatorState L2{4_tr, 4.08_tr}; // 18.4 follow-through
     constexpr ManipulatorState L3{13.88_tr, 3.18_tr};
     constexpr ManipulatorState L4{32.0_tr, 3.8_tr};
     constexpr ManipulatorState IDLE{3.52_tr, 18.02_tr};
@@ -103,7 +103,7 @@ namespace CONSTANTS
     constexpr ManipulatorState POST_SCORE{0_tr, 9.38_tr};
     constexpr ManipulatorState ALGAE_L2{15.95_tr, 10.57_tr};
     constexpr ManipulatorState ALGAE_L3{21.71_tr, 9.74_tr};
-    constexpr ManipulatorState PROCESSOR{0_tr, 0_tr};
+    constexpr ManipulatorState PROCESSOR{1.1_tr, 10.9_tr};
     constexpr ManipulatorState NET{0_tr, 0_tr};
 
   } // namespace MANIPULATOR_STATES
@@ -117,9 +117,9 @@ namespace CONSTANTS
     static CONSTANTS::PidCoeff PID = {10, 0, 0}; // values are TBD
 
     // intake
-    constexpr units::ampere_t INTAKE_ALGAE_VELOCITY = -50_A; // TBD
-    constexpr units::ampere_t INTAKE_CORAL_VELOCITY = -50_A; // TBD
-    constexpr units::millimeter_t DEFAULT_DIST_TOF = 35_mm;  // TBD
+    constexpr units::ampere_t INTAKE_ALGAE_VELOCITY = -120_A; // TBD
+    constexpr units::ampere_t INTAKE_CORAL_VELOCITY = -50_A;  // TBD
+    constexpr units::millimeter_t DEFAULT_DIST_TOF = 35_mm;   // TBD
 
     // extake
     constexpr units::ampere_t EXTAKE_VELOCITY = 10_A;       // TBD
@@ -166,7 +166,7 @@ namespace CONSTANTS
     // This is the default PID values for the wrist motor
     static const PidCoeff PidValue = {12, 0, 1};
 
-    constexpr units::angle::degree_t OFFSET_AMOUNT = 1_tr;
+    constexpr units::angle::degree_t OFFSET_AMOUNT = 2_tr;
 
     constexpr units::angle::degree_t POSITION_THRESHOLD = 5_deg;
   }; // namespace WRIST
@@ -210,8 +210,7 @@ namespace CONSTANTS
   {
     constexpr units::second_t BRAKE_TIME = 10_s;
     constexpr units::meters_per_second_t ROBOT_MAX_SPEED = 14.533_fps;
-    constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi *
-                                                                  3};
+    constexpr units::radians_per_second_t ROBOT_MAX_ANGULAR_SPEED{std::numbers::pi * 6};
     constexpr units::meters_per_second_t TELEOP_MAX_SPEED = ROBOT_MAX_SPEED;
     constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{
         std::numbers::pi * 3};
@@ -252,7 +251,7 @@ namespace CONSTANTS
       constexpr ModuleConfig FL{60, 61, 14, 0.306867_tr};
       constexpr ModuleConfig FR{50, 51, 13, 0.1819_tr}; // old value 0.32_tr - 0.5_tr
       constexpr ModuleConfig BL{30, 31, 11, 0.18872_tr};
-      constexpr ModuleConfig BR{40, 41, 12, 0.42531_tr}; // old vaule -0.253_tr
+      constexpr ModuleConfig BR{40, 41, 12, 0.429443_tr}; // old vaule -0.253_tr
 
 /* -------------------------------------------------------------------------- */
 /*                        END FIRST ROBOT CONFIGURATION                       */
