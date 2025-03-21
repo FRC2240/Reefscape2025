@@ -116,8 +116,6 @@ void RobotContainer::ConfigureBindings()
 
   m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE).AlongWith(m_grabber.idle()));
 
-  m_stick0.B().OnTrue(offsetPos());
-
   // Driver 2 overrides
   m_stick1.Start().WhileTrue(m_wrist.rezero());
 
@@ -126,17 +124,9 @@ void RobotContainer::ConfigureBindings()
 
   m_stick1.X().OnTrue(m_elevator.offset_command(CONSTANTS::ELEVATOR::OFFSET_AMOUNT));
   m_stick1.A().OnTrue(m_elevator.offset_command(-CONSTANTS::ELEVATOR::OFFSET_AMOUNT));
-}
 
-frc2::CommandPtr RobotContainer::offsetPos() {
-  return frc2::cmd::DeferredProxy([this] {
-    /*
-    frc::Pose2d currentPose = m_odometry.getPose();
-    frc::Pose2d offsetPose = {currentPose + frc::Transform2d(frc::Translation2d(1_m,1_m), frc::Rotation2d(m_odometry.getPose().Rotation()))};
-    */
-    return m_trajectory.follow_live_path(frc::Pose2d(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg)));
-    //return m_trajectory.follow_live_path(offsetPose);
-  });
+  m_stick1.LeftBumper().OnTrue(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::LEFT));
+  m_stick1.LeftBumper().OnTrue(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::RIGHT));
 }
 
 frc2::Command *RobotContainer::GetAutonomousCommand()

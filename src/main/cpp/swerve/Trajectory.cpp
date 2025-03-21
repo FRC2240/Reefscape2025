@@ -179,4 +179,8 @@ frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose)
     });
 }
 
+frc2::CommandPtr Trajectory::reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE side_side) {
+  return follow_live_path(m_odometry->get_alignment_position(m_odometry->get_nearest_reef_side(), side_side));
+}
+
 #endif

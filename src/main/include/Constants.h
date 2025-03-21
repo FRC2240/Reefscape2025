@@ -108,6 +108,46 @@ namespace CONSTANTS
 
   } // namespace MANIPULATOR_STATES
 
+  namespace FIELD_POSITIONS
+  {
+
+    // REEF SIDES CODES
+    //     3
+    //  2 /-\ 4
+    //  1 \-/ 5
+    //     0
+    // ------- DRIVER LINE
+
+    constexpr frc::Pose2d REEF_0_RIGHT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_0_LEFT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_1_RIGHT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_1_LEFT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_2_RIGHT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_2_LEFT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_3_RIGHT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_3_LEFT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_4_RIGHT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_4_LEFT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_5_RIGHT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_5_LEFT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
+
+    constexpr frc::Pose2d REEF_POSITIONS[6][2] = {
+        {REEF_0_RIGHT, REEF_0_LEFT},
+        {REEF_1_RIGHT, REEF_1_LEFT},
+        {REEF_2_RIGHT, REEF_2_LEFT},
+        {REEF_3_RIGHT, REEF_3_LEFT},
+        {REEF_4_RIGHT, REEF_4_LEFT},
+        {REEF_5_RIGHT, REEF_5_LEFT}
+    };
+
+    enum REEF_SIDE_SIDE
+    {
+      RIGHT = 0,
+      LEFT = 1,
+    };
+
+  } // namespace FIELD_POSITIONS
+
   namespace GRABBER
   {
     constexpr int MOTOR_ID = 42; // changeme
