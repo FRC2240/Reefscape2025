@@ -180,7 +180,15 @@ frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose)
 }
 
 frc2::CommandPtr Trajectory::reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE side_side) {
-  return follow_live_path(m_odometry->get_alignment_position(m_odometry->get_nearest_reef_side(), side_side));
+  int nearest_face = m_odometry->get_nearest_reef_side();
+  frc::Pose2d botPos = m_odometry->getPose();
+
+  // If the distance to the nearest reef face is too large, do not continue.
+  if (MathUtils::getDistance(m_odometry->get_reef_face_pos(nearest_face), botPos) > CONSTANTS::FIELD_POSITIONS::EFFECTIVE_DISTANCE) {
+    return frc2::cmd::RunOnce([]{}); // Empty command to exit early.
+  }
+
+  return follow_live_path(m_odometry->get_alignment_position(nearest_face, side_side));
 }
 
 #endif
