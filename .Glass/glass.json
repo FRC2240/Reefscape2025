@@ -1,38 +1,33 @@
 {
   "NetworkTables": {
-    "Transitory Values": {
-      "open": false
-    },
     "transitory": {
+      "Shuffleboard": {
+        "open": true
+      },
       "SmartDashboard": {
         "Elevator": {
+          "LOG": {
+            "open": true
+          },
           "PID": {
             "open": true
-          }
-        },
-        "Talon FX (v6) 50": {
+          },
           "open": true
         },
         "Wrist": {
+          "LOG": {
+            "open": true
+          },
           "PID": {
             "open": true
-          }
-        },
-        "cspeed": {
-          "open": true
-        },
-        "fl": {
-          "open": true
-        },
-        "odometry": {
+          },
           "open": true
         },
         "open": true,
         "vision": {
           "double[]##v_/SmartDashboard/vision/cpu_temp": {
             "open": true
-          },
-          "open": true
+          }
         }
       }
     },
@@ -99,6 +94,33 @@
                 1.0
               ],
               "id": "NT:/SmartDashboard/Elevator/pos"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/tof"
+            },
+            {
+              "color": [
+                0.3333333432674408,
+                0.658823549747467,
+                0.4078431725502014,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/Wrist/LOG/Position"
+            },
+            {
+              "color": [
+                0.7686275243759155,
+                0.30588236451148987,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/Elevator/LOG/Position"
             }
           ]
         }

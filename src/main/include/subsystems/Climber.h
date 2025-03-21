@@ -25,6 +25,7 @@ public:
     void set_position(units::angle::turn_t pos);
 
 private:
+    ctre::phoenix6::controls::MotionMagicTorqueCurrentFOC control_req{0_tr};
     ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::CLIMBER::CLIMBER_ID};
 
     CONSTANTS::PidCoeff coeff{CONSTANTS::CLIMBER::PidValue};

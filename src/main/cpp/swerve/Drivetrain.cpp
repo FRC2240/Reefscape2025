@@ -34,6 +34,46 @@ Drivetrain::Drivetrain()
   front_right = std::make_unique<SwerveModule>(50, 51, 13, CONSTANTS::DRIVE::CONFIG::FR.offset);
   back_left = std::make_unique<SwerveModule>(30, 31, 11, CONSTANTS::DRIVE::CONFIG::BL.offset);
   back_right = std::make_unique<SwerveModule>(40, 41, 12, CONSTANTS::DRIVE::CONFIG::BR.offset);
+
+  frc::SmartDashboard::PutBoolean("coast/fr", false);
+  frc::SmartDashboard::PutBoolean("coast/fl", false);
+  frc::SmartDashboard::PutBoolean("coast/br", false);
+  frc::SmartDashboard::PutBoolean("coast/bl", false);
+}
+
+void Drivetrain::update_module_coast()
+{
+  if (!frc::DriverStation::IsEStopped())
+  {
+    bool fl_brake = frc::SmartDashboard::GetBoolean("coast/fl", false);
+    bool fr_brake = frc::SmartDashboard::GetBoolean("coast/fr", false);
+    bool bl_brake = frc::SmartDashboard::GetBoolean("coast/bl", false);
+    bool br_brake = frc::SmartDashboard::GetBoolean("coast/br", false);
+
+    using namespace Module;
+
+    if (fl_last_brake != fl_brake)
+    {
+      front_left->set_brake_mode(fl_brake);
+    }
+    if (fr_last_brake != fr_brake)
+    {
+      front_right->set_brake_mode(fr_brake);
+    }
+    if (bl_last_brake != bl_brake)
+    {
+      back_left->set_brake_mode(bl_brake);
+    }
+    if (br_last_brake != br_brake)
+    {
+      back_right->set_brake_mode(br_brake);
+    }
+
+    fl_last_brake = fl_brake;
+    fr_last_brake = fr_brake;
+    bl_last_brake = bl_brake;
+    br_last_brake = br_brake;
+  }
 }
 
 void Drivetrain::set_brake_mode(bool on)

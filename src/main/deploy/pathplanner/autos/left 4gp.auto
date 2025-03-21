@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "idle"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -30,6 +36,50 @@
           }
         },
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "(LB)reef_(L)coral"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "idle"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "(L)coral_(LF)reef1"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score_l4"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "l2"
@@ -42,16 +92,10 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "(LB)reef_(L)coral"
+                  "pathName": "(LF)reef_(L)coral1"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "idle"
           }
         },
         {
@@ -61,20 +105,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "(L)coral_(LF)reef1"
+                  "pathName": "(L)coral_(F)reef"
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "l4"
-                      }
-                    }
-                  ]
+                  "name": "l4"
                 }
               }
             ]
