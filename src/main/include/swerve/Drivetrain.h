@@ -79,7 +79,7 @@ public:
     static constexpr units::meters_per_second_t TELEOP_MAX_SPEED =
         ROBOT_MAX_SPEED;
     static constexpr units::radians_per_second_t TELEOP_MAX_ANGULAR_SPEED{
-        std::numbers::pi * 1};
+        CONSTANTS::DRIVE::TELEOP_MAX_ANGULAR_SPEED};
     static constexpr units::meters_per_second_t TRAJ_MAX_SPEED = ROBOT_MAX_SPEED;
     static constexpr units::acceleration::meters_per_second_squared_t
         TRAJ_MAX_ACCELERATION = TRAJ_MAX_SPEED / 0.5_s;

@@ -102,9 +102,9 @@ void RobotContainer::ConfigureBindings()
 
   // Climber Commands on Driver #2
 
-  frc2::Trigger([this]() -> bool
-                { return this->m_stick1.RightTrigger().Get(); })
-      .OnTrue(m_climber.climb_command());
+  //frc2::Trigger([this]() -> bool
+  //              { return this->m_stick1.RightTrigger().Get(); })
+  //    .OnTrue(m_climber.climb_command());
 
   frc2::Trigger([this]() -> bool
                 { return this->m_stick1.LeftTrigger().Get(); })
@@ -124,9 +124,14 @@ void RobotContainer::ConfigureBindings()
 
   m_stick1.X().OnTrue(m_elevator.offset_command(CONSTANTS::ELEVATOR::OFFSET_AMOUNT));
   m_stick1.A().OnTrue(m_elevator.offset_command(-CONSTANTS::ELEVATOR::OFFSET_AMOUNT));
-
+  
   m_stick1.LeftBumper().OnTrue(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::LEFT));
   m_stick1.LeftBumper().OnTrue(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::RIGHT));
+  
+  //ground algae intake
+  frc2::Trigger([this]() -> bool{ 
+            return this->m_stick1.RightTrigger().Get();})
+      .OnTrue(m_wrist.set_angle_command(CONSTANTS::MANIPULATOR_STATES::GROUND_ALGAE.wrist_pos).AndThen(m_elevator.set_position_command(CONSTANTS::MANIPULATOR_STATES::GROUND_ALGAE.elevtor_pos)));
 }
 
 frc2::Command *RobotContainer::GetAutonomousCommand()
@@ -162,5 +167,5 @@ frc2::CommandPtr RobotContainer::score_algae()
 
 frc2::CommandPtr RobotContainer::algae_intake()
 {
-  return m_grabber.intake(CONSTANTS::GRABBER::INTAKE_ALGAE_VELOCITY);
+  return m_grabber.intake_algae(CONSTANTS::GRABBER::INTAKE_ALGAE_VELOCITY);
 }

@@ -14,6 +14,7 @@ public:
     Grabber();
 
     frc2::CommandPtr intake(units::ampere_t current);
+    frc2::CommandPtr intake_algae(units::ampere_t current);
     frc2::CommandPtr extake(units::ampere_t current);
     frc2::CommandPtr idle();
 
