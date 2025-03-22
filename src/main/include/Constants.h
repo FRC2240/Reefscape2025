@@ -101,17 +101,19 @@ namespace CONSTANTS
     constexpr ManipulatorState IDLE_W_GP{12.329_tr, 19.7_tr};
     constexpr ManipulatorState INTAKE{0_tr, 19.2_tr};
     constexpr ManipulatorState POST_SCORE{0_tr, 9.38_tr};
-    constexpr ManipulatorState ALGAE_L2{15.95_tr, 10.57_tr};
-    constexpr ManipulatorState ALGAE_L3{21.71_tr, 9.74_tr};
+    constexpr ManipulatorState ALGAE_L2{11.52_tr, 10.57_tr};
+    constexpr ManipulatorState ALGAE_L3{19.20_tr, 9.74_tr};
     constexpr ManipulatorState PROCESSOR{1.1_tr, 10.9_tr};
     constexpr ManipulatorState NET{0_tr, 0_tr};
+    constexpr ManipulatorState GROUND_ALGAE{-3.4_tr, 13.20_tr};  
+
 
   } // namespace MANIPULATOR_STATES
 
   namespace GRABBER
   {
     constexpr int MOTOR_ID = 42; // changeme
-    // Configuration page: http://10.22.40.2:5812
+    // Configuration page: h ttp://10.22.40.2:5812
     constexpr int TOF_ID = 32; // changeme
 
     static CONSTANTS::PidCoeff PID = {10, 0, 0}; // values are TBD
@@ -123,7 +125,7 @@ namespace CONSTANTS
 
     // extake
     constexpr units::ampere_t EXTAKE_VELOCITY = 10_A;       // TBD
-    constexpr units::ampere_t ALGAE_SCORE_VELOCITY = 360_A; // TBD
+    constexpr units::ampere_t ALGAE_SCORE_VELOCITY = 30_A; // TBD
     constexpr units::second_t EXTAKE_TIME = 1_s;            // TBD
 
   } // namespace GRABBER

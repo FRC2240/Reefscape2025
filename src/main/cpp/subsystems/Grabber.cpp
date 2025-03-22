@@ -74,6 +74,17 @@ frc2::CommandPtr Grabber::intake(units::ampere_t speed)
                    spin(speed);
                },
                {this})
+        .WithName("Intake");
+};
+
+frc2::CommandPtr Grabber::intake_algae(units::ampere_t speed)
+{
+    return frc2::cmd::Run(
+               [this, speed]
+               {
+                   spin(speed);
+               },
+               {this})
         .Until([this]
                { return has_gp(); })
         .WithName("Intake");
