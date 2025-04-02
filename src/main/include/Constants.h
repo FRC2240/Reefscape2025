@@ -188,20 +188,6 @@ namespace CONSTANTS
         -1.25_in, -10.75_in, 39.488_m, frc::Rotation3d(0_deg, 0_deg, -10_deg)};
 
   } // namespace VISION
-
-  namespace CLIMBER
-  {
-    constexpr int CLIMBER_ID = 7;
-
-    constexpr units::angle::turn_t POSITION_THRESHOLD = 2_tr;
-    constexpr units::angle::turn_t DEFAULT_POS = 0_tr;
-    constexpr units::angle::turn_t EXTEND_POS = 30_tr;
-    constexpr units::angle::turn_t CLIMB_POS = 15_tr;
-
-    static const PidCoeff PidValue = {4, 0, 0};
-
-  } // namespace CLIMBER
-
   namespace CANDLE
   {
     constexpr int CANDLE_ID = 10;
