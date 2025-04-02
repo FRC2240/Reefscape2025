@@ -126,7 +126,7 @@ void RobotContainer::ConfigureBindings()
   m_stick1.A().OnTrue(m_elevator.offset_command(-CONSTANTS::ELEVATOR::OFFSET_AMOUNT));
   
   m_stick1.LeftBumper().OnTrue(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::LEFT));
-  m_stick1.LeftBumper().OnTrue(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::RIGHT));
+  m_stick1.RightBumper().OnTrue(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::RIGHT));
   
   //ground algae intake
   frc2::Trigger([this]() -> bool{ 

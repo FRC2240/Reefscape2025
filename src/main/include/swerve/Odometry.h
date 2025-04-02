@@ -18,7 +18,6 @@
 #include "swerve/Vision.h"
 #include <frc2/command/Commands.h>
 #include <pathplanner/lib/util/FlippingUtil.h>
-#include "utility/MathUtils.h"
 
 #ifndef CFG_NO_DRIVEBASE
 class Odometry

@@ -1,6 +1,7 @@
 #include "swerve/Trajectory.h"
 #include "utility/MathUtils.h"
 #include <vector>
+#include <iostream>
 
 #ifndef CFG_NO_DRIVEBASE
 /******************************************************************/
@@ -153,42 +154,46 @@ frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose)
 {
   return frc2::cmd::DeferredProxy([this, goal_pose]
                                   {
-    // Makes a vector of waypoints. Waypoint 1 is the current pos, 2 is the goal
-  std::vector<Waypoint> waypoints = PathPlannerPath::waypointsFromPoses({
-    m_odometry->getPose(),
-    goal_pose
-  });
+                                    // Makes a vector of waypoints. Waypoint 1 is the current pos, 2 is the goal
+                                    std::vector<Waypoint> waypoints = PathPlannerPath::waypointsFromPoses({m_odometry->getPose(),
+                                                                                                           goal_pose});
 
-  // The constraints for the path. TODO CHANGE IT
-  PathConstraints constraints(0.5_mps, 0.5_mps_sq, 90_deg_per_s, 90_deg_per_s_sq); 
+                                    // The constraints for the path. TODO CHANGE IT
+                                    PathConstraints constraints(1_mps, 2_mps_sq, 90_deg_per_s, 180_deg_per_s_sq);
 
-  frc::ChassisSpeeds speeds = m_odometry->getFieldRelativeSpeeds();
-  units::meters_per_second_t vel = static_cast<units::meters_per_second_t>(MathUtils::pythag(speeds.vx(), speeds.vy()));
+                                    frc::ChassisSpeeds speeds = m_odometry->getFieldRelativeSpeeds();
+                                    units::meters_per_second_t vel = static_cast<units::meters_per_second_t>(MathUtils::pythag(speeds.vx(), speeds.vy()));
 
-  auto path = std::make_shared<PathPlannerPath>(
-    waypoints,
-    constraints,
-    IdealStartingState(vel, m_odometry->getPose().Rotation()), // The ideal starting state, might need to be changed
-    GoalEndState(0.0_mps, goal_pose.Rotation()) // Goal end state. You can set a holonomic rotation here. 
-  );
+                                    auto path = std::make_shared<PathPlannerPath>(
+                                        waypoints,
+                                        constraints,
+                                        IdealStartingState(vel, m_odometry->getPose().Rotation()), // The ideal starting state, might need to be changed
+                                        GoalEndState(0.0_mps, goal_pose.Rotation())                // Goal end state. You can set a holonomic rotation here.
+                                    );
 
-  path->preventFlipping = true;
+                                    path->preventFlipping = true;
 
-  return AutoBuilder::followPath(path); 
-    
-    });
+                                    return AutoBuilder::followPath(path);
+                                  });
 }
 
-frc2::CommandPtr Trajectory::reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE side_side) {
+frc2::CommandPtr Trajectory::reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE side_side)
+{
+  return frc2::cmd::DeferredProxy([this, side_side]
+                                  {
+
+  std::cout << "Align command called" << std::endl;
+
   int nearest_face = m_odometry->get_nearest_reef_side();
   frc::Pose2d botPos = m_odometry->getPose();
 
   // If the distance to the nearest reef face is too large, do not continue.
   if (MathUtils::getDistance(m_odometry->get_reef_face_pos(nearest_face), botPos) > CONSTANTS::FIELD_POSITIONS::EFFECTIVE_DISTANCE) {
+    std::cout << "Too far from reef" << std::endl;
     return frc2::cmd::RunOnce([]{}); // Empty command to exit early.
   }
 
-  return follow_live_path(m_odometry->get_alignment_position(nearest_face, side_side));
+  return follow_live_path(m_odometry->get_alignment_position(nearest_face, side_side)); });
 }
 
 #endif

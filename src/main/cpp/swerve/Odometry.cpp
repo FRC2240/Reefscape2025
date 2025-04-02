@@ -1,4 +1,6 @@
 #include "swerve/Odometry.h"
+#include "utility/MathUtils.h"
+
 
 #ifndef CFG_NO_DRIVEBASE
 // frc::TimeOfFlight tof_sensor{1};

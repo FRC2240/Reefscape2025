@@ -122,20 +122,20 @@ namespace CONSTANTS
   
     // If this distance from the center point of a center of a face is 
     // exceeded, nothing will happen.
-    constexpr units::meter_t EFFECTIVE_DISTANCE = 2_m;  
+    constexpr units::meter_t EFFECTIVE_DISTANCE = 20_m;  // CHANGEME
 
-    constexpr frc::Pose2d REEF_0_RIGHT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_0_LEFT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_1_RIGHT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_1_LEFT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_2_RIGHT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_2_LEFT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_3_RIGHT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_3_LEFT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_4_RIGHT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_4_LEFT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_5_RIGHT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_5_LEFT(frc::Translation2d(3_m, 3_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_0_RIGHT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_0_LEFT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_1_RIGHT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_1_LEFT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_2_RIGHT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_2_LEFT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_3_RIGHT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_3_LEFT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_4_RIGHT(frc::Translation2d(5.25_m, 3.01_m), frc::Rotation2d(120_deg));
+    constexpr frc::Pose2d REEF_4_LEFT(frc::Translation2d(4.99_m, 2.83_m), frc::Rotation2d(120_deg));
+    constexpr frc::Pose2d REEF_5_RIGHT(frc::Translation2d(3.98_m, 2.66_m), frc::Rotation2d(55_deg));
+    constexpr frc::Pose2d REEF_5_LEFT(frc::Translation2d(3.14_m, 3.02_m), frc::Rotation2d(55_deg));
 
     constexpr frc::Pose2d REEF_POSITIONS[6][2] = {
         {REEF_0_RIGHT, REEF_0_LEFT},
