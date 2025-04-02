@@ -17,7 +17,6 @@
 
 // Subsystems
 #include "subsystems/Candle.h"
-#include "subsystems/Climber.h"
 #include "subsystems/Elevator.h"
 #include "subsystems/Grabber.h"
 #include "subsystems/Wrist.h"
@@ -38,7 +37,7 @@
 #include <pathplanner/lib/auto/NamedCommands.h>
 // #include <ForceLog.h>
 #include "subsystems/Candle.h"
-#include "subsystems/Climber.h"
+//#include "subsystems/Climber.h"
 // TODO: Add w/ merge
 class RobotContainer
 {
@@ -66,7 +65,6 @@ public:
 
   Drivetrain m_drivetrain;
   Odometry m_odometry{&m_drivetrain, &m_vision};
-  Climber m_climber;
   Elevator m_elevator;
   Wrist m_wrist;
   Grabber m_grabber;

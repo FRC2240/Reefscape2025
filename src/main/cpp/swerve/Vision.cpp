@@ -57,7 +57,7 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
     }
   }
 
-  for (auto &i : m_photoncam_vec)
+ /* for (auto &i : m_photoncam_vec)
   {
     auto result = i.camera->GetLatestResult();
     frc::SmartDashboard::PutNumber("vision is present", result.HasTargets());
@@ -86,7 +86,7 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
       auto pose = i.singletag_estimator.Update(result);
       ret.push_back(pose.value().estimatedPose.ToPose2d());
     }
-  }
+  } */
   std::vector<double> printvec_x;
   std::vector<double> printvec_y;
   for (auto &i : ret)
@@ -102,6 +102,5 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
   frc::SmartDashboard::PutNumberArray("pv/x arr", printvec_x);
   frc::SmartDashboard::PutNumberArray("pv/y arr", printvec_y);
   return ret;
-}
-
+} 
 Vision::~Vision() = default;

@@ -177,18 +177,6 @@ namespace CONSTANTS
 
   } // namespace VISION
 
-  namespace CLIMBER
-  {
-    constexpr int CLIMBER_ID = 7;
-
-    constexpr units::angle::turn_t DEFAULT_POS = 0_tr;
-    constexpr units::angle::turn_t EXTEND_POS = 100_tr;
-    constexpr units::angle::turn_t CLIMB_POS = 50_tr;
-
-    static const PidCoeff PidValue = {1};
-
-  } // namespace CLIMBER
-
   namespace CANDLE
   {
     constexpr int CANDLE_ID = 10;

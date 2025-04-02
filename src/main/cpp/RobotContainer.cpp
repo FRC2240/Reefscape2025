@@ -29,7 +29,6 @@ void RobotContainer::add_named_commands()
 
 void RobotContainer::SetPID()
 {
-  m_climber.SetPID();
   m_wrist.SetPID();
   m_elevator.SetPID();
 }

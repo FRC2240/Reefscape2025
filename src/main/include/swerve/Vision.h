@@ -9,8 +9,8 @@
 #include <frc/estimator/SwerveDrivePoseEstimator.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <networktables/NetworkTableInstance.h>
-#include <photon/PhotonCamera.h>
-#include <photon/PhotonPoseEstimator.h>
+//#include <photon/PhotonCamera.h>
+//#include <photon/PhotonPoseEstimator.h>
 #include <stdlib.h>
 #include <units/angle.h>
 #include <frc/Alert.h>
@@ -46,7 +46,7 @@ public:
     void log_metrics();
 
 private:
-    struct PhotonGroup
+    /* struct PhotonGroup
     {
         std::shared_ptr<photon::PhotonCamera> camera;
         photon::PhotonPoseEstimator multitag_estimator;
@@ -59,21 +59,21 @@ private:
               singletag_estimator{asingletag_estimator}
         {
         }
-    };
+    }; */
 
     std::function<units::degree_t()> get_angle;
     bool is_hardware_zoomed = 0;
 
-    std::shared_ptr<photon::PhotonCamera> m_left_camera_a =
+    /* std::shared_ptr<photon::PhotonCamera> m_left_camera_a =
         std::make_shared<photon::PhotonCamera>("left_camera");
 
     std::shared_ptr<photon::PhotonCamera> m_right_camera_a =
         std::make_shared<photon::PhotonCamera>("right_camera");
-
+    */
     frc::AprilTagFieldLayout layout =
         frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::k2025ReefscapeWelded); // Potentially switch to kDefaultField which is an alias to the current game
 
-    photon::PhotonPoseEstimator m_left_estimator_a{
+    /* photon::PhotonPoseEstimator m_left_estimator_a{
         layout, photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
         CONSTANTS::VISION::LEFT_CAMERA_A_TF};
 
@@ -92,7 +92,7 @@ private:
     std::vector<PhotonGroup> m_photoncam_vec{};
     // std::vector<PhotonGroup> m_photoncam_vec = {{m_left_camera_a, m_left_estimator_a, m_single_left_estimator},
     // {m_right_camera_a, m_right_estimator_a, m_single_right_estimator}};
-
+     */
     std::pair<std::shared_ptr<nt::NetworkTable>, std::string> m_left_limelight =
         {nt::NetworkTableInstance::GetDefault().GetTable("limelight-left"), "limelight-left"};
 

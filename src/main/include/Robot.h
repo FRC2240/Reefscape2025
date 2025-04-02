@@ -15,7 +15,6 @@
 #include <frc/controller/ProfiledPIDController.h>
 #include <frc/motorcontrol/PWMSparkMax.h>
 #include <frc/simulation/BatterySim.h>
-#include <frc/simulation/ElevatorSim.h>
 #include <frc/simulation/EncoderSim.h>
 #include <frc/simulation/PWMSim.h>
 #include <frc/simulation/RoboRioSim.h>
