@@ -32,6 +32,12 @@
         {
           "type": "named",
           "data": {
+            "name": "align_right"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "score_l4"
           }
         },
@@ -76,6 +82,12 @@
         {
           "type": "named",
           "data": {
+            "name": "align_right"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "score_l4"
           }
         },
@@ -115,6 +127,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "align_left"
           }
         },
         {

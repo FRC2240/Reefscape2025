@@ -26,6 +26,8 @@ void RobotContainer::add_named_commands()
   pathplanner::NamedCommands::registerCommand("score_l4", frc2::cmd::Print("start score l4").AndThen(score(CONSTANTS::MANIPULATOR_STATES::L4)).WithTimeout(1_s).AndThen(frc2::cmd::Print("end score l4")));
   pathplanner::NamedCommands::registerCommand("intake", frc2::cmd::Print("start intake").AndThen(coral_intake()).AndThen(frc2::cmd::Print("end intake")));
   pathplanner::NamedCommands::registerCommand("idle", frc2::cmd::Print("start idle").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE)).AndThen(frc2::cmd::Print("end idle")));
+  pathplanner::NamedCommands::registerCommand("align_left", frc2::cmd::Print("starting align left").AndThen(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::LEFT)));
+  pathplanner::NamedCommands::registerCommand("align_right", frc2::cmd::Print("starting align right").AndThen(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::RIGHT)));
 }
 
 void RobotContainer::SetPID()
