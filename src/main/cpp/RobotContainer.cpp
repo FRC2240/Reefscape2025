@@ -5,6 +5,7 @@
 #include "RobotContainer.h"
 
 #include <frc2/command/Commands.h>
+#include <frc/geometry/Pose2d.h>
 
 RobotContainer::RobotContainer()
 {
@@ -110,10 +111,11 @@ void RobotContainer::ConfigureBindings()
 
   m_stick1.X().OnTrue(m_elevator.offset_command(CONSTANTS::ELEVATOR::OFFSET_AMOUNT));
   m_stick1.A().OnTrue(m_elevator.offset_command(-CONSTANTS::ELEVATOR::OFFSET_AMOUNT));
-
-
-//ground algae intake
-
+  
+  m_stick1.LeftBumper().OnTrue(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::LEFT));
+  m_stick1.RightBumper().OnTrue(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::RIGHT));
+  
+  //ground algae intake
   frc2::Trigger([this]() -> bool{ 
             return this->m_stick1.RightTrigger().Get();})
       .OnTrue(m_wrist.set_angle_command(CONSTANTS::MANIPULATOR_STATES::GROUND_ALGAE.wrist_pos).AndThen(m_elevator.set_position_command(CONSTANTS::MANIPULATOR_STATES::GROUND_ALGAE.elevtor_pos)));

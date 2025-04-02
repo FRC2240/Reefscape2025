@@ -1,4 +1,6 @@
 #include "swerve/Odometry.h"
+#include "utility/MathUtils.h"
+
 
 #ifndef CFG_NO_DRIVEBASE
 // frc::TimeOfFlight tof_sensor{1};
@@ -185,4 +187,50 @@ units::turn_t Odometry::get_shooter_angle()
 
   return angle;
 }
+
+int Odometry::get_nearest_reef_side()
+{
+  const frc::Pose2d botPos = getPose();
+  int bestFace = 0;
+  units::meter_t bestDist = 10000_m;
+
+  for (int i = 0; i < 6; i++)
+  {
+    frc::Pose2d facePos = get_reef_face_pos(i);
+
+    units::meter_t dist = MathUtils::getDistance(botPos, facePos);
+    if (dist < bestDist)
+    {
+      bestFace = i;
+      bestDist = dist;
+    }
+  }
+
+  return bestFace;
+}
+
+frc::Pose2d Odometry::get_reef_face_pos(int reef_side)
+{
+  auto leftSide = get_alignment_position(reef_side, CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::LEFT);
+  auto rightSide = get_alignment_position(reef_side, CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::RIGHT);
+
+  frc::Pose2d facePos = MathUtils::getMiddlePose(leftSide, rightSide);
+
+  return facePos;
+}
+
+frc::Pose2d Odometry::get_alignment_position(int reef_side, CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE side_side)
+{
+  frc::Pose2d position = CONSTANTS::FIELD_POSITIONS::REEF_POSITIONS[reef_side][side_side];
+
+  // Flip the positions if the alliance is red
+  auto alliance = frc::DriverStation::GetAlliance();
+  if (alliance && alliance.value() == frc::DriverStation::kRed)
+  {
+    position = pathplanner::FlippingUtil::flipFieldPose(position);
+  }
+
+  return position;
+}
+
 #endif

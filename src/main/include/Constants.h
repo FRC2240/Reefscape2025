@@ -110,6 +110,51 @@ namespace CONSTANTS
 
   } // namespace MANIPULATOR_STATES
 
+  namespace FIELD_POSITIONS
+  {
+
+    // REEF SIDES CODES
+    //     3
+    //  2 /-\ 4
+    //  1 \-/ 5
+    //     0
+    // ------- DRIVER LINE
+  
+    // If this distance from the center point of a center of a face is 
+    // exceeded, nothing will happen.
+    constexpr units::meter_t EFFECTIVE_DISTANCE = 3_m;  // CHANGEME
+    constexpr double DRIVER_OVERRIDE_THRESHOLD = 0.1;
+
+    constexpr frc::Pose2d REEF_0_RIGHT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_0_LEFT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_1_RIGHT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_1_LEFT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_2_RIGHT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_2_LEFT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_3_RIGHT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_3_LEFT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
+    constexpr frc::Pose2d REEF_4_RIGHT(frc::Translation2d(5.25_m, 3.01_m), frc::Rotation2d(120_deg));
+    constexpr frc::Pose2d REEF_4_LEFT(frc::Translation2d(4.99_m, 2.83_m), frc::Rotation2d(120_deg));
+    constexpr frc::Pose2d REEF_5_RIGHT(frc::Translation2d(3.98_m, 2.66_m), frc::Rotation2d(55_deg));
+    constexpr frc::Pose2d REEF_5_LEFT(frc::Translation2d(3.14_m, 3.02_m), frc::Rotation2d(55_deg));
+
+    constexpr frc::Pose2d REEF_POSITIONS[6][2] = {
+        {REEF_0_RIGHT, REEF_0_LEFT},
+        {REEF_1_RIGHT, REEF_1_LEFT},
+        {REEF_2_RIGHT, REEF_2_LEFT},
+        {REEF_3_RIGHT, REEF_3_LEFT},
+        {REEF_4_RIGHT, REEF_4_LEFT},
+        {REEF_5_RIGHT, REEF_5_LEFT}
+    };
+
+    enum REEF_SIDE_SIDE
+    {
+      RIGHT = 0,
+      LEFT = 1,
+    };
+
+  } // namespace FIELD_POSITIONS
+
   namespace GRABBER
   {
     constexpr int MOTOR_ID = 42; // changeme

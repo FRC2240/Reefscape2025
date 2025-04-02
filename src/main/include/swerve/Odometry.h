@@ -17,6 +17,7 @@
 #include <frc/DriverStation.h>
 #include "swerve/Vision.h"
 #include <frc2/command/Commands.h>
+#include <pathplanner/lib/util/FlippingUtil.h>
 
 #ifndef CFG_NO_DRIVEBASE
 class Odometry
@@ -70,5 +71,15 @@ public:
     std::optional<units::meter_t> get_dist_to_tgt();
 
     units::turn_t get_shooter_angle();
+
+    // Autoalign stuff
+    // Gets the alignment position in field coordinates, correcting for alliance 
+    frc::Pose2d get_alignment_position(int reef_side, CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE side_side);
+
+    // Gets the center point of the side of the reef
+    frc::Pose2d get_reef_face_pos(int reef_side);
+    
+    // Gets the nearest face of the reef
+    int get_nearest_reef_side();
 };
 #endif
