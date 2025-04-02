@@ -122,7 +122,8 @@ namespace CONSTANTS
   
     // If this distance from the center point of a center of a face is 
     // exceeded, nothing will happen.
-    constexpr units::meter_t EFFECTIVE_DISTANCE = 20_m;  // CHANGEME
+    constexpr units::meter_t EFFECTIVE_DISTANCE = 3_m;  // CHANGEME
+    constexpr double DRIVER_OVERRIDE_THRESHOLD = 0.1;
 
     constexpr frc::Pose2d REEF_0_RIGHT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
     constexpr frc::Pose2d REEF_0_LEFT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));

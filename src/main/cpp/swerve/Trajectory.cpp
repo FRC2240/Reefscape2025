@@ -173,8 +173,13 @@ frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose)
 
                                     path->preventFlipping = true;
 
-                                    return AutoBuilder::followPath(path);
-                                  });
+                                    return AutoBuilder::followPath(path).Until([this]-> bool{
+                                      const double t = CONSTANTS::FIELD_POSITIONS::DRIVER_OVERRIDE_THRESHOLD;
+                                      return std::abs(m_stick->GetRightX()) > t || 
+                                             std::abs(m_stick->GetRightY()) > t || 
+                                             std::abs(m_stick->GetLeftX()) > t || 
+                                             std::abs(m_stick->GetLeftY()) > t;
+                                    }); });
 }
 
 frc2::CommandPtr Trajectory::reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE side_side)
