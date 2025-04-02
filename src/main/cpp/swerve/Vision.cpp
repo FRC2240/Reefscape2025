@@ -40,9 +40,8 @@ void Vision::log_metrics()
 
 std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
 {
-
   std::vector<std::optional<frc::Pose2d>> ret;
-  for (auto &i : m_limelight_vec)
+  /* for (auto &i : m_limelight_vec)
   {
 
     LimelightHelpers::SetRobotOrientation(i.second, get_angle().value(), 0, 0, 0, 0, 0);
@@ -86,7 +85,7 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
       auto pose = i.singletag_estimator.Update(result);
       ret.push_back(pose.value().estimatedPose.ToPose2d());
     }
-  }
+  } 
   std::vector<double> printvec_x;
   std::vector<double> printvec_y;
   for (auto &i : ret)
@@ -101,7 +100,7 @@ std::vector<std::optional<frc::Pose2d>> Vision::get_bot_position()
   // frc::SmartDashboard::PutNumberArray("pv/pos", std::vector<double>{0.0, 0.0, 0.0});
   frc::SmartDashboard::PutNumberArray("pv/x arr", printvec_x);
   frc::SmartDashboard::PutNumberArray("pv/y arr", printvec_y);
-  return ret;
-}
+  return ret; */
+} 
 
 Vision::~Vision() = default;

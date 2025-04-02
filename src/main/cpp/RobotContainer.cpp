@@ -29,7 +29,6 @@ void RobotContainer::add_named_commands()
 
 void RobotContainer::SetPID()
 {
-  m_climber.SetPID();
   m_wrist.SetPID();
   m_elevator.SetPID();
 }
@@ -99,19 +98,7 @@ void RobotContainer::ConfigureBindings()
                 { return this->m_stick0.A().Get() && !this->m_stick0.LeftTrigger().Get(); })
       .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L2));
 
-  // Climber Commands on Driver #2
-
-  //frc2::Trigger([this]() -> bool
-  //              { return this->m_stick1.RightTrigger().Get(); })
-  //    .OnTrue(m_climber.climb_command());
-
-  frc2::Trigger([this]() -> bool
-                { return this->m_stick1.LeftTrigger().Get(); })
-      .OnTrue(m_climber.idle_command());
-
-  frc2::Trigger([this]() -> bool
-                { return this->m_stick1.LeftTrigger().Get(); })
-      .OnTrue(m_climber.idle_command());
+  
 
   m_stick0.RightTrigger().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE).AlongWith(m_grabber.idle()));
 
