@@ -45,8 +45,8 @@
     },
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.18009177587365593,
-      "maxWaypointRelativePos": 0.28910975302419356,
+      "minWaypointRelativePos": 0.25,
+      "maxWaypointRelativePos": 0.3,
       "constraints": {
         "maxVelocity": 0.5,
         "maxAcceleration": 6.0,
@@ -61,8 +61,8 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.22358030913978494,
-      "endWaypointRelativePos": 0.36793829805107525,
+      "waypointRelativePos": 0.3,
+      "endWaypointRelativePos": 0.45,
       "command": {
         "type": "named",
         "data": {
@@ -72,7 +72,7 @@
     },
     {
       "name": "l4",
-      "waypointRelativePos": 0.3888031334005376,
+      "waypointRelativePos": 0.45,
       "endWaypointRelativePos": 1.0,
       "command": {
         "type": "named",
