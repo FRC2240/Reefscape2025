@@ -57,14 +57,17 @@ public:
     frc2::CommandPtr follow_live_path(frc::Pose2d goal_pose);
     frc2::CommandPtr reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE side_side);
 
-
     frc2::CommandPtr extract(std::string auton);
 
 private:
     int cyclecounter = 0;
     Drivetrain *m_drivetrain;
     Odometry *m_odometry;
+    
     frc2::CommandXboxController *m_stick;
+    bool left_stick_centered = false;
+    bool right_stick_centered = false;
+
     Vision *m_vision;
 
     units::degree_t desired_angle;

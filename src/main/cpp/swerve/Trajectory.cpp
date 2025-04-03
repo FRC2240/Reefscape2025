@@ -173,12 +173,30 @@ frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose)
 
                                     path->preventFlipping = true;
 
+                                    left_stick_centered = false;
+                                    right_stick_centered = false;
+
                                     return AutoBuilder::followPath(path).Until([this]-> bool{
                                       const double t = CONSTANTS::FIELD_POSITIONS::DRIVER_OVERRIDE_THRESHOLD;
-                                      return std::abs(m_stick->GetRightX()) > t || 
-                                             std::abs(m_stick->GetRightY()) > t || 
-                                             std::abs(m_stick->GetLeftX()) > t || 
-                                             std::abs(m_stick->GetLeftY()) > t;
+                                      if (std::abs(m_stick->GetRightX()) <= t && 
+                                          std::abs(m_stick->GetRightY()) <= t) {
+                                        // If the right stick goes back to "0", set the flag as true
+                                        right_stick_centered = true;
+                                      } else if (right_stick_centered) {
+                                        // The right stick is outside of the threshold and was previously inside of it
+                                        return true;
+                                      }
+
+                                      if (std::abs(m_stick->GetLeftX()) <= t && 
+                                          std::abs(m_stick->GetLeftY()) <= t) {
+                                        // If the left stick goes back to "0", set the flag as true
+                                        left_stick_centered = true;
+                                      } else if (left_stick_centered) {
+                                        // The left stick is outside of the threshold and was previously inside of it
+                                        return true;
+                                      }
+
+                                      return false;
                                     }); });
 }
 
