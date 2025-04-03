@@ -89,4 +89,7 @@ public:
   std::vector<std::optional<frc::Pose2d>> bot_pose = m_vision.get_bot_position();
 
   Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision};
+
+  void SelfTest();
+
 };

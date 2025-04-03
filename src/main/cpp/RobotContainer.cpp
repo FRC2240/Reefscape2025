@@ -156,3 +156,74 @@ frc2::CommandPtr RobotContainer::algae_intake()
 {
   return m_grabber.intake_algae(CONSTANTS::GRABBER::INTAKE_ALGAE_VELOCITY);
 }
+
+
+void RobotContainer::SelfTest() {
+  
+  bool MOTORS_OK     = false;
+  bool BATTERY_OK    = false;
+  bool ELEVATOR_OK   = false;
+  bool WRIST_OK      = false;
+  bool GP_LOADED     = false;
+  bool JOYSTICKS_OK  = false;
+  bool ODOMETRY_OK   = false;
+  bool AUTO_SELECTED = false;
+  bool STARTPOS_OK   = false;
+
+
+  // No motors report issues ***
+
+  // Battery voltage > 12.3
+
+  if (frc::DriverStation::GetBatteryVoltage() >= CONSTANTS::SELFTEST::BATTERY_VOLTAGE_THRESHOLD) {
+    BATTERY_OK = true;
+  }
+
+  // elevator down
+
+  if (CONSTANTS::IN_THRESHOLD<units::turn_t>(
+    m_elevator.get_position(),
+    CONSTANTS::ELEVATOR::BOTTOM_POS,
+    CONSTANTS::ELEVATOR::POSITION_THRESHOLD
+  )) {
+    ELEVATOR_OK = true;
+  }
+
+  // wrist pos ~= intake state
+
+  if (CONSTANTS::IN_THRESHOLD<units::degree_t>(
+    m_wrist.get_angle(),
+    CONSTANTS::MANIPULATOR_STATES::INTAKE.wrist_pos,
+    CONSTANTS::WRIST::POSITION_THRESHOLD
+  )) {
+    WRIST_OK = true;
+  }
+
+  // game piece loaded
+
+  if (m_grabber.has_gp()) {
+    GP_LOADED = true;
+  }
+
+  // 2 joysticks
+
+  if (
+    frc::DriverStation::IsJoystickConnected(0) &&
+    frc::DriverStation::IsJoystickConnected(1)
+  ) {
+    JOYSTICKS_OK = true;
+  }
+
+  // apriltag angle +/- 10deg from gyro angle ***
+
+  // auto selected (not sure if this works)
+
+  frc2::CommandPtr lval_none = frc2::cmd::None();
+  if (autoChooser.GetSelected() != lval_none.get()) {
+    AUTO_SELECTED = true;
+  }
+
+  // within 1.5m of start pos ***
+
+
+}

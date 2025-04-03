@@ -215,7 +215,7 @@ namespace CONSTANTS
 
     constexpr units::angle::degree_t OFFSET_AMOUNT = 2_tr;
 
-    constexpr units::angle::degree_t POSITION_THRESHOLD = 5_deg;
+    constexpr units::angle::degree_t POSITION_THRESHOLD = 5_deg + 3_tr;
   }; // namespace WRIST
 
   namespace VISION
@@ -307,4 +307,11 @@ namespace CONSTANTS
 #endif // SABERTOOTH
     } // namespace CONFIG
   } // namespace DRIVE
+
+  namespace SELFTEST {
+
+    constexpr double BATTERY_VOLTAGE_THRESHOLD = 12.3; // volts
+
+  }
+
 } // namespace CONSTANTS
