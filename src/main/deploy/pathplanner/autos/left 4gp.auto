@@ -63,7 +63,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.5
+            "waitTime": 0.5
           }
         },
         {
@@ -98,13 +98,19 @@
           }
         },
         {
-          "type": "sequential",
+          "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
                   "pathName": "(LF)reef_(L)coral1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "idle"
                 }
               }
             ]
@@ -118,12 +124,6 @@
                 "type": "path",
                 "data": {
                   "pathName": "(L)coral_(F)reef"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "l4"
                 }
               }
             ]
