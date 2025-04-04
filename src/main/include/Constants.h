@@ -218,6 +218,12 @@ namespace CONSTANTS
     constexpr units::angle::degree_t POSITION_THRESHOLD = 5_deg;
   }; // namespace WRIST
 
+  namespace POWEREDFUNNELVROOM
+  {
+    constexpr int POWEREDFUN_ID = 100; //change
+    constexpr units::current::ampere_t PEAK_TORQUE_CURRENT = 40_A; //change
+
+  };
   namespace VISION
   {
     /* Transforms from 2024:
