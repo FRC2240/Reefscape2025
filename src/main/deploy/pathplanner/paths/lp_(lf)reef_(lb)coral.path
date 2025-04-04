@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.038714909957626,
-        "y": 5.272830872616526
+        "x": 5.039,
+        "y": 2.802
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.856533865201271,
-        "y": 5.273072944253178
+        "x": 3.920691107916139,
+        "y": 2.136347824089998
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.24433676509534,
-        "y": 5.272830872616526
+        "x": 1.661,
+        "y": 0.757
       },
       "prevControl": {
-        "x": 6.305016524793258,
-        "y": 5.269603054938615
+        "x": 2.2823140473211607,
+        "y": 1.118605229614341
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -119.10861614941494
+    "rotation": 51.65535373423945
   },
   "reversed": false,
-  "folder": "push_start",
+  "folder": "lolipop_l_4gp",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 178.2085513480857
+    "rotation": 122.28379449726582
   },
   "useDefaultConstraints": true
 }

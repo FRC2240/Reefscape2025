@@ -67,7 +67,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "(L)coral_(LF)reef1"
+                  "pathName": "lp_(lb)coral_(lf)reef"
                 }
               }
             ]
@@ -92,7 +92,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "(LF)reef_(L)coral1"
+                  "pathName": "lp_(lf)reef_(lb)coral"
                 }
               },
               {
@@ -117,7 +117,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "(L)coral_(F)reef"
+                  "pathName": "(L)coral_(LF)reef1"
                 }
               }
             ]

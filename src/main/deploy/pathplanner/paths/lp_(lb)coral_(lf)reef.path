@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1415778694644825,
-        "y": 1.7387883916559064
+        "x": 3.724015406558388,
+        "y": 1.3394152189555917
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.936729452054794,
-        "y": 2.7628424657534243
+        "x": 5.038957455283716,
+        "y": 2.8020655581825658
       },
       "prevControl": {
-        "x": 3.065239726027397,
-        "y": 1.365453767123287
+        "x": 5.4034173262746705,
+        "y": 1.3373480545847043
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,12 +31,12 @@
   "rotationTargets": [],
   "constraintZones": [
     {
-      "name": "eepy time",
-      "minWaypointRelativePos": 0.7576953433307025,
-      "maxWaypointRelativePos": 1.0,
+      "name": "coral jerk",
+      "minWaypointRelativePos": 0.17659483477970628,
+      "maxWaypointRelativePos": 0.24906124833110813,
       "constraints": {
         "maxVelocity": 1.0,
-        "maxAcceleration": 4.0,
+        "maxAcceleration": 4.8,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -44,12 +44,12 @@
       }
     },
     {
-      "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.10552771226415097,
-      "maxWaypointRelativePos": 0.14053655660377362,
+      "name": "slow to stop",
+      "minWaypointRelativePos": 0.668792765353805,
+      "maxWaypointRelativePos": 1.0,
       "constraints": {
-        "maxVelocity": 0.1,
-        "maxAcceleration": 5.0,
+        "maxVelocity": 1.0,
+        "maxAcceleration": 4.8,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -61,8 +61,8 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.14880601415094338,
-      "endWaypointRelativePos": 0.25014740566037713,
+      "waypointRelativePos": 0.2664125083444593,
+      "endWaypointRelativePos": 0.3538050734312415,
       "command": {
         "type": "named",
         "data": {
@@ -72,7 +72,7 @@
     },
     {
       "name": "l4",
-      "waypointRelativePos": 0.25890330188679234,
+      "waypointRelativePos": 0.3559068341121495,
       "endWaypointRelativePos": 1.0,
       "command": {
         "type": "named",
@@ -91,14 +91,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 1.0,
-    "rotation": 58.734069189191906
+    "velocity": 0,
+    "rotation": 121.38935910187138
   },
   "reversed": false,
-  "folder": "left_4gp",
+  "folder": "lolipop_l_4gp",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 50.0
+    "rotation": 52.32099930151515
   },
   "useDefaultConstraints": true
 }
