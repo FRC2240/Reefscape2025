@@ -3,6 +3,9 @@
 #include "frc/smartdashboard/SmartDashboard.h"
 #include "frc2/command/Commands.h"
 
+PoweredFun::PoweredFun() {
+
+};
 
 frc2::CommandPtr PoweredFun::spin(units::ampere_t current)
 {
