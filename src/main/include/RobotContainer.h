@@ -20,7 +20,7 @@
 #include "subsystems/Elevator.h"
 #include "subsystems/Grabber.h"
 #include "subsystems/Wrist.h"
-#include "subsystems/FunnelPoweredVroomVroom.h"
+#include "subsystems/FunnelPowered.h"
 
 // Swerve
 #include "swerve/Drivetrain.h"
