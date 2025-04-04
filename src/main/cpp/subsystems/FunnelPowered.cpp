@@ -1,5 +1,5 @@
 #pragma once
-#include "subsystems/FunnelPoweredVroomVroom.h"
+#include "subsystems/FunnelPowered.h"
 #include "frc/smartdashboard/SmartDashboard.h"
 #include "frc2/command/Commands.h"
 
