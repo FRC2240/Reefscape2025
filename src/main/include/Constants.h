@@ -105,8 +105,7 @@ namespace CONSTANTS
     constexpr ManipulatorState ALGAE_L3{19.20_tr, 9.74_tr};
     constexpr ManipulatorState PROCESSOR{1.1_tr, 10.9_tr};
     constexpr ManipulatorState NET{0_tr, 0_tr};
-    constexpr ManipulatorState GROUND_ALGAE{-3.4_tr, 13.20_tr};  
-
+    constexpr ManipulatorState GROUND_ALGAE{-3.4_tr, 13.20_tr};
 
   } // namespace MANIPULATOR_STATES
 
@@ -119,10 +118,10 @@ namespace CONSTANTS
     //  1 \-/ 5
     //     0
     // ------- DRIVER LINE
-  
-    // If this distance from the center point of a center of a face is 
+
+    // If this distance from the center point of a center of a face is
     // exceeded, nothing will happen.
-    constexpr units::meter_t EFFECTIVE_DISTANCE = 3_m;  // CHANGEME
+    constexpr units::meter_t EFFECTIVE_DISTANCE = 3_m; // CHANGEME
     constexpr double DRIVER_OVERRIDE_THRESHOLD = 0.1;
 
     constexpr frc::Pose2d REEF_0_RIGHT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
@@ -144,8 +143,7 @@ namespace CONSTANTS
         {REEF_2_RIGHT, REEF_2_LEFT},
         {REEF_3_RIGHT, REEF_3_LEFT},
         {REEF_4_RIGHT, REEF_4_LEFT},
-        {REEF_5_RIGHT, REEF_5_LEFT}
-    };
+        {REEF_5_RIGHT, REEF_5_LEFT}};
 
     enum REEF_SIDE_SIDE
     {
@@ -169,9 +167,9 @@ namespace CONSTANTS
     constexpr units::millimeter_t DEFAULT_DIST_TOF = 35_mm;   // TBD
 
     // extake
-    constexpr units::ampere_t EXTAKE_VELOCITY = 10_A;       // TBD
+    constexpr units::ampere_t EXTAKE_VELOCITY = 10_A;      // TBD
     constexpr units::ampere_t ALGAE_SCORE_VELOCITY = 30_A; // TBD
-    constexpr units::second_t EXTAKE_TIME = 1_s;            // TBD
+    constexpr units::second_t EXTAKE_TIME = 1_s;           // TBD
 
   } // namespace GRABBER
 
@@ -218,10 +216,10 @@ namespace CONSTANTS
     constexpr units::angle::degree_t POSITION_THRESHOLD = 5_deg;
   }; // namespace WRIST
 
-  namespace POWEREDFUNNELVROOM
+  namespace POWEREDFUNNEL
   {
-    constexpr int POWEREDFUN_ID = 100; //change
-    constexpr units::current::ampere_t PEAK_TORQUE_CURRENT = 40_A; //change
+    constexpr int POWEREDFUN_ID = 33;                              // change
+    constexpr units::current::ampere_t PEAK_TORQUE_CURRENT = 40_A; // change
 
   };
   namespace VISION

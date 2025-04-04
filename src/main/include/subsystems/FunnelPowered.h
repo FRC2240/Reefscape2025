@@ -12,18 +12,14 @@
 #include <frc/DataLogManager.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
-
 class PoweredFun : public frc2::SubsystemBase
 {
 public:
     PoweredFun();
     frc2::CommandPtr spin(units::ampere_t current = 40_A);
 
-
     frc2::CommandPtr coast();
 
 private:
-    ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::POWEREDFUNNELVROOM::POWEREDFUN_ID};
-
-    
+    ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::POWEREDFUNNEL::POWEREDFUN_ID};
 };
