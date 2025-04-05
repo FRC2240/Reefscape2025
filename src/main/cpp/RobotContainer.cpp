@@ -155,26 +155,26 @@ frc2::CommandPtr RobotContainer::algae_intake()
   return m_grabber.intake_algae(CONSTANTS::GRABBER::INTAKE_ALGAE_VELOCITY);
 }
 
+void RobotContainer::SelfTest()
+{
 
-void RobotContainer::SelfTest() {
-  
-  bool MOTORS_OK     = false;
-  bool BATTERY_OK    = false;
-  bool ELEVATOR_OK   = false;
-  bool WRIST_OK      = false;
-  bool GP_LOADED     = false;
-  bool JOYSTICKS_OK  = false;
-  bool ODOMETRY_OK   = false;
+  bool MOTORS_OK = false;
+  bool BATTERY_OK = false;
+  bool ELEVATOR_OK = false;
+  bool WRIST_OK = false;
+  bool GP_LOADED = false;
+  bool JOYSTICKS_OK = false;
+  bool ODOMETRY_OK = false;
   bool AUTO_SELECTED = false;
-//bool STARTPOS_OK   = false; // this is probably impossible without reimplementing the auto chooser
-
+  // bool STARTPOS_OK   = false; // this is probably impossible without reimplementing the auto chooser
 
   // No motors report issues ***
 
-  for (auto motor : motors) {
+  for (auto motor : motors)
+  {
     if ( // not entirely sure if this will work
-      motor->GetFaultField().GetValue() + motor->GetStickyFaultField().GetValue() != 0
-    ) {
+        motor->GetFaultField().GetValue() + motor->GetStickyFaultField().GetValue() != 0)
+    {
       MOTORS_OK = false;
     }
   }
@@ -212,45 +212,46 @@ void RobotContainer::SelfTest() {
   //   }
   // }
 
-
   // Battery voltage > 12.3
 
-  if (frc::DriverStation::GetBatteryVoltage() >= CONSTANTS::SELFTEST::BATTERY_VOLTAGE_THRESHOLD) {
+  if (frc::DriverStation::GetBatteryVoltage() >= CONSTANTS::SELFTEST::BATTERY_VOLTAGE_THRESHOLD)
+  {
     BATTERY_OK = true;
   }
 
   // elevator down
 
   if (CONSTANTS::IN_THRESHOLD<units::turn_t>(
-    m_elevator.get_position(),
-    CONSTANTS::ELEVATOR::BOTTOM_POS,
-    CONSTANTS::ELEVATOR::POSITION_THRESHOLD
-  )) {
+          m_elevator.get_position(),
+          CONSTANTS::ELEVATOR::BOTTOM_POS,
+          CONSTANTS::ELEVATOR::POSITION_THRESHOLD))
+  {
     ELEVATOR_OK = true;
   }
 
   // wrist pos ~= intake state
 
   if (CONSTANTS::IN_THRESHOLD<units::degree_t>(
-    m_wrist.get_angle(),
-    CONSTANTS::MANIPULATOR_STATES::INTAKE.wrist_pos,
-    CONSTANTS::WRIST::POSITION_THRESHOLD
-  )) {
+          m_wrist.get_angle(),
+          CONSTANTS::MANIPULATOR_STATES::INTAKE.wrist_pos,
+          CONSTANTS::WRIST::POSITION_THRESHOLD))
+  {
     WRIST_OK = true;
   }
 
   // game piece loaded
 
-  if (m_grabber.has_gp()) {
+  if (m_grabber.has_gp())
+  {
     GP_LOADED = true;
   }
 
   // 2 joysticks
 
   if (
-    frc::DriverStation::IsJoystickConnected(0) &&
-    frc::DriverStation::IsJoystickConnected(1)
-  ) {
+      frc::DriverStation::IsJoystickConnected(0) &&
+      frc::DriverStation::IsJoystickConnected(1))
+  {
     JOYSTICKS_OK = true;
   }
 
@@ -259,31 +260,35 @@ void RobotContainer::SelfTest() {
   units::degree_t vision_pose = LimelightHelpers::toPose2D(LimelightHelpers::getBotpose()).Rotation().Degrees();
   units::degree_t gyro_pose = m_drivetrain.getAngle();
   if (
-    CONSTANTS::IN_THRESHOLD<units::degree_t>(vision_pose, gyro_pose, CONSTANTS::SELFTEST::YAW_ERROR_THRESHOLD)
-  ) {
+      CONSTANTS::IN_THRESHOLD<units::degree_t>(vision_pose, gyro_pose, CONSTANTS::SELFTEST::YAW_ERROR_THRESHOLD))
+  {
     ODOMETRY_OK = true;
   }
 
   // auto selected (not sure if this works)
 
   frc2::CommandPtr lval_none = frc2::cmd::None();
-  if (autoChooser.GetSelected() != lval_none.get()) {
+  if (autoChooser.GetSelected() != lval_none.get())
+  {
     AUTO_SELECTED = true;
   }
 
   int ERRORS =
-    MOTORS_OK +
-    BATTERY_OK +
-    ELEVATOR_OK +
-    WRIST_OK +
-    GP_LOADED +
-    JOYSTICKS_OK +
-    ODOMETRY_OK +
-    AUTO_SELECTED;
+      MOTORS_OK +
+      BATTERY_OK +
+      ELEVATOR_OK +
+      WRIST_OK +
+      GP_LOADED +
+      JOYSTICKS_OK +
+      ODOMETRY_OK +
+      AUTO_SELECTED;
 
-  if (ERRORS) {
+  if (ERRORS)
+  {
     fail_selftest.Set(true);
-  } else {
+  }
+  else
+  {
     fail_selftest.Set(false);
   }
 
@@ -295,25 +300,26 @@ void RobotContainer::SelfTest() {
   frc::SmartDashboard::PutBoolean("selftest/joysticks_ok", JOYSTICKS_OK);
   frc::SmartDashboard::PutBoolean("selftest/odometry_ok", ODOMETRY_OK);
   frc::SmartDashboard::PutBoolean("selftest/auto_selected", AUTO_SELECTED);
-
 }
 
-std::vector<ctre::phoenix6::hardware::TalonFX*> RobotContainer::get_motors() {
+std::vector<ctre::phoenix6::hardware::TalonFX *> RobotContainer::get_motors()
+{
 
   // IMPORTANT: Add new motors to this if any new motors are added!!!
-  std::vector<ctre::phoenix6::hardware::TalonFX*> motors = {
-    &m_elevator.m_motor,
-    &m_elevator.m_follower_motor,
-    &m_grabber.m_motor,
-    &m_wrist.m_motor,
-    &Module::front_right->driver,
-    &Module::front_right->turner,
-    &Module::front_left->driver,
-    &Module::front_left->turner,
-    &Module::back_right->driver,
-    &Module::back_right->turner,
-    &Module::back_left->driver,
-    &Module::back_left->turner,
+  std::vector<ctre::phoenix6::hardware::TalonFX *> motors = {
+      &m_elevator.m_motor,
+      &m_elevator.m_follower_motor,
+      &m_grabber.m_motor,
+      &m_wrist.m_motor,
+      &Module::front_right->driver,
+      &Module::front_right->turner,
+      &Module::front_left->driver,
+      &Module::front_left->turner,
+      &Module::back_right->driver,
+      &Module::back_right->turner,
+      &Module::back_left->driver,
+      &Module::back_left->turner,
   };
 
+  return motors;
 }
