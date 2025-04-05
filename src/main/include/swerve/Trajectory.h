@@ -66,6 +66,7 @@ private:
     Odometry *m_odometry;
     frc2::CommandXboxController *m_stick;
     Vision *m_vision;
+    frc::Timer m_timer;
 
     units::degree_t desired_angle;
 };
