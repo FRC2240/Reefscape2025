@@ -317,6 +317,7 @@ namespace CONSTANTS
   namespace SELFTEST {
 
     constexpr double BATTERY_VOLTAGE_THRESHOLD = 12.3; // volts
+    constexpr units::degree_t YAW_ERROR_THRESHOLD = 10_deg;
 
   }
 

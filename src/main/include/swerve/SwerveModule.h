@@ -59,6 +59,10 @@ public:
     SwerveModule(SwerveModule const &) = delete;
     SwerveModule(SwerveModule &&) = delete;
 
+    // these were moved to public to support selftest
+    ctre::phoenix6::hardware::TalonFX driver, turner;
+    ctre::phoenix6::hardware::CANcoder cancoder;
+
 private:
     ctre::phoenix6::controls::MotionMagicVelocityTorqueCurrentFOC driver_velocity_req{0_tps};
     inline units::meters_per_second_t wheel_speed_to_bot_speed(units::turns_per_second_t wheel_speed);
@@ -80,8 +84,6 @@ private:
     /*                        Private Variables                       */
     /******************************************************************/
 
-    ctre::phoenix6::hardware::TalonFX driver, turner;
-    ctre::phoenix6::hardware::CANcoder cancoder;
     // double const magnet_offset;
     int turner_addr;
 };
