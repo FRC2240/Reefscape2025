@@ -127,13 +127,15 @@ frc2::Command *RobotContainer::GetAutonomousCommand()
 
 frc2::CommandPtr RobotContainer::set_state(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target)
 {
+  CONSTANTS::MANIPULATOR_STATES::ManipulatorState last_state = current_state;
   current_state = target;
-  if (target == CONSTANTS::MANIPULATOR_STATES::IDLE)
-  {
 
+  if (
+      target == CONSTANTS::MANIPULATOR_STATES::IDLE ||
+      (last_state == CONSTANTS::MANIPULATOR_STATES::IDLE && target == CONSTANTS::MANIPULATOR_STATES::L2))
+  {
     return m_elevator.set_position_command(target.elevtor_pos).AndThen(m_wrist.set_angle_command(target.wrist_pos));
   }
-  return m_elevator.set_position_command(target.elevtor_pos).AlongWith(m_wrist.set_angle_command(target.wrist_pos));
 }
 
 frc2::CommandPtr RobotContainer::score(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target)
