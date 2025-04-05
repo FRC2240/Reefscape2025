@@ -1,4 +1,4 @@
-//This code is self doccumenting.
+// This code is self doccumenting.
 #include <subsystems/Grabber.h>
 
 Grabber::Grabber()
@@ -13,8 +13,11 @@ Grabber::Grabber()
 
     conf.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
     conf.Slot0.kS = 1;
+    conf.MotorOutput.Inverted = ctre::phoenix6::signals::InvertedValue::Clockwise_Positive;
 
     SetPID();
+
+    m_motor.GetConfigurator().Apply(conf);
 
     // ctre::phoenix6::configs::CANrangeConfiguration can_range_conf{};
     // can_range_conf.ProximityParams.MinSignalStrengthForValidMeasurement = 2500;
@@ -71,12 +74,12 @@ frc2::CommandPtr Grabber::intake(units::ampere_t speed)
 {
     return frc2::cmd::Run(
                [this, speed]
-                    {
-                        spin(speed);
-                    },
-                {this})
-            .Until([this]
-            { return has_gp(); })
+               {
+                   spin(speed);
+               },
+               {this})
+        .Until([this]
+               { return has_gp(); })
         .WithName("Intake");
 };
 
@@ -84,9 +87,9 @@ frc2::CommandPtr Grabber::intake_algae(units::ampere_t speed)
 {
     return frc2::cmd::Run(
                [this, speed]
-                    {
-                        spin(speed);
-                    },
+               {
+                   spin(speed);
+               },
                {this})
         .WithName("Intake_algae");
 };
@@ -94,12 +97,10 @@ frc2::CommandPtr Grabber::intake_algae(units::ampere_t speed)
 frc2::CommandPtr Grabber::coral_release()
 {
     return frc2::cmd::Run([this]
-            {
+                          {
                 ctre::phoenix6::controls::VelocityTorqueCurrentFOC req{CONSTANTS::GRABBER::CORAL_RELEASE_VELOCITY};
-                m_motor.SetControl(req);
-            }
-    )
-    .WithName("Coral_release");
+                m_motor.SetControl(req); })
+        .WithName("Coral_release");
 }
 
 frc2::CommandPtr Grabber::coast()
@@ -111,4 +112,3 @@ frc2::CommandPtr Grabber::coast()
         },
         {this});
 }
-

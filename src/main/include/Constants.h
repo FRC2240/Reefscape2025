@@ -107,7 +107,6 @@ namespace CONSTANTS
     constexpr ManipulatorState NET{0_tr, 0_tr};
     constexpr ManipulatorState GROUND_ALGAE{-3.4_tr, 13.20_tr};
 
-
   } // namespace MANIPULATOR_STATES
 
   namespace FIELD_POSITIONS
@@ -172,7 +171,7 @@ namespace CONSTANTS
     constexpr units::ampere_t ALGAE_SCORE_VELOCITY = 30_A; // TBD
     constexpr units::second_t EXTAKE_TIME = 1_s;           // TBD
 
-    constexpr units::turns_per_second_t CORAL_RELEASE_VELOCITY = 0.001_tps; //TBD
+    constexpr units::turns_per_second_t CORAL_RELEASE_VELOCITY = 0.001_tps; // TBD
 
   } // namespace GRABBER
 
@@ -212,7 +211,7 @@ namespace CONSTANTS
     constexpr units::current::ampere_t PEAK_STATOR_CURRENT = 20_A;
     constexpr units::angular_velocity::turns_per_second_t PEAK_VELOCITY = 10_tps;
     // This is the default PID values for the wrist motor
-    static const PidCoeff PidValue = {12, 0, 1};
+    static const PidCoeff PidValue = {24, 0, 1};
 
     constexpr units::angle::degree_t OFFSET_AMOUNT = 2_tr;
 

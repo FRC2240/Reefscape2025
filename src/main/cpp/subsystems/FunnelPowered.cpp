@@ -9,6 +9,8 @@ PoweredFun::PoweredFun() {
 
 frc2::CommandPtr PoweredFun::spin(units::ampere_t current)
 {
+    return frc2::cmd::Run([this, current]
+                          {
     ctre::phoenix6::controls::TorqueCurrentFOC req{current};
-    m_motor.SetControl(req);
+    m_motor.SetControl(req); }, {this});
 };
