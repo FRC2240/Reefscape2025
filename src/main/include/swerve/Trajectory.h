@@ -56,6 +56,7 @@ public:
     // Autoalign stuff
     frc2::CommandPtr follow_live_path(frc::Pose2d goal_pose);
     frc2::CommandPtr reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE side_side);
+    frc::Timer t_buffer;
 
 
     frc2::CommandPtr extract(std::string auton);
