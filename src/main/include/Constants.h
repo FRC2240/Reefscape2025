@@ -95,8 +95,8 @@ namespace CONSTANTS
     };
     constexpr ManipulatorState L1{0_tr, 0_tr};
     constexpr ManipulatorState L2{0.17_tr, -11.69_tr}; // 18.4 follow-through
-    constexpr ManipulatorState L3{7.83_tr, -9.61_tr};
-    constexpr ManipulatorState L4{27.05_tr, -10.83_tr};
+    constexpr ManipulatorState L3{8.33_tr, -9.11_tr};
+    constexpr ManipulatorState L4{28.55_tr, -10.43_tr};
     constexpr ManipulatorState IDLE{3.82_tr, -33.47_tr};
     constexpr ManipulatorState IDLE_W_GP{12.329_tr, 19.7_tr};
     constexpr ManipulatorState INTAKE{0.41_tr, -33.6_tr};

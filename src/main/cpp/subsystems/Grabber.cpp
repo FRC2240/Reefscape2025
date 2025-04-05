@@ -12,7 +12,7 @@ Grabber::Grabber()
     ctre::phoenix6::configs::TalonFXConfiguration conf{};
 
     conf.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
-    conf.Slot0.kS = 1;
+    conf.Slot0.kS = 3;
     conf.MotorOutput.Inverted = ctre::phoenix6::signals::InvertedValue::Clockwise_Positive;
 
     SetPID();
