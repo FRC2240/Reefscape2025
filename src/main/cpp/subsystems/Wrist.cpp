@@ -41,7 +41,6 @@ frc2::CommandPtr Wrist::offset_command(units::degree_t amount)
 
 frc2::CommandPtr Wrist::rezero()
 {
-  // MAKE SO YOU JUST HOLD THE BUTTON
   return frc2::RunCommand([this]
                           { m_motor.SetControl(ctre::phoenix6::controls::VoltageOut{-3_V}); },
                           {this})

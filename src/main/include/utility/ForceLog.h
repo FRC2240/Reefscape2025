@@ -18,4 +18,4 @@ namespace ForceLog
     void fatal(const std::string &message);
     void debug(const std::string &message);
 
-} // namespace ForceLog
+} // namespace ForceLog #2025 Best Comment

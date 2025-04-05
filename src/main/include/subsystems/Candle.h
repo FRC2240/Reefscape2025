@@ -42,7 +42,6 @@ private:
     };
 
     unsigned long long cycles_in_state = 0;
-    // char cycles_in_state = 0;
     Color teamcolor{255, 255, 255};
     int blink_counter = 0;
     CANDLE_STATE state = ERROR;

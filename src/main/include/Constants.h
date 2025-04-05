@@ -218,7 +218,7 @@ namespace CONSTANTS
 
   namespace POWEREDFUNNEL
   {
-    constexpr int POWEREDFUN_ID = 33;                              // change
+    constexpr int POWEREDFUNNEL_ID = 33;                              // change
     constexpr units::current::ampere_t PEAK_TORQUE_CURRENT = 40_A; // change
 
   };
@@ -260,7 +260,7 @@ namespace CONSTANTS
         std::numbers::pi};
     static constexpr auto WHEEL_CIRCUMFERENCE = 12.02_in / 1.0_tr;
     // static constexpr auto WHEEL_CIRCUMFERENCE = 11.992_in / 1.0_tr;
-    constexpr int GYRO_ID = 48; // CHANGEME
+    constexpr int GYRO_ID = 48;
     constexpr double SLOW_MODE = 0.5;
     namespace CONFIG
     {

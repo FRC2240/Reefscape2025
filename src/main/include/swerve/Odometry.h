@@ -70,8 +70,6 @@ public:
 
     std::optional<units::meter_t> get_dist_to_tgt();
 
-    units::turn_t get_shooter_angle();
-
     // Autoalign stuff
     // Gets the alignment position in field coordinates, correcting for alliance 
     frc::Pose2d get_alignment_position(int reef_side, CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE side_side);

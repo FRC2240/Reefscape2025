@@ -7,7 +7,7 @@ Vision::Vision(std::function<units::degree_t()> get_angle_fn)
 
 void Vision::log_metrics()
 {
-  // fps, cpu temp, ram usage, temp]
+  // fps, cpu temp, ram usage, temp] Access is done in order
   std::vector<double> fps;
   std::vector<double> cpu_temp;
   std::vector<double> ram_usage;

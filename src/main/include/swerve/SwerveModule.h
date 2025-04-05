@@ -65,7 +65,6 @@ private:
     inline units::turns_per_second_t bot_speed_to_wheel_speed(units::meters_per_second_t bot_speed);
 
     // static constexpr units::length::meter_t WHEEL_RADIUS = 2.42_in; // measured
-    // static constexpr auto WHEEL_CIRCUMFERENCE = 12.56_in / 1.0_tr;
     static constexpr auto WHEEL_CIRCUMFERENCE = CONSTANTS::DRIVE::WHEEL_CIRCUMFERENCE;
 
     // Sourced from https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=39598777172081

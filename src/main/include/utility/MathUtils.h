@@ -4,7 +4,6 @@
 
 namespace MathUtils
 {
-    // Does the pythagorean theorem
     template <typename T>
     T pythag(T a, T b);
 

@@ -20,7 +20,7 @@
 #include "subsystems/Elevator.h"
 #include "subsystems/Grabber.h"
 #include "subsystems/Wrist.h"
-#include "subsystems/FunnelPowered.h"
+#include "subsystems/PoweredFunnel.h"
 
 // Swerve
 #include "swerve/Drivetrain.h"
@@ -71,7 +71,7 @@ public:
   Elevator m_elevator;
   Wrist m_wrist;
   Grabber m_grabber;
-  PoweredFun m_poweredfun;
+  PoweredFunnel m_poweredfun;
   Candle m_candle{[this]() -> bool
                   { return m_grabber.has_gp(); }};
 
