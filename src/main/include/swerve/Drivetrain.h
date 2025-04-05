@@ -23,10 +23,10 @@
 
 namespace Module
 {
-  std::unique_ptr<SwerveModule> front_left;
-  std::unique_ptr<SwerveModule> front_right;
-  std::unique_ptr<SwerveModule> back_left;
-  std::unique_ptr<SwerveModule> back_right;
+  static std::unique_ptr<SwerveModule> front_left;
+  static std::unique_ptr<SwerveModule> front_right;
+  static std::unique_ptr<SwerveModule> back_left;
+  static std::unique_ptr<SwerveModule> back_right;
 }
 
 class Drivetrain

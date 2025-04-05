@@ -27,8 +27,6 @@ public:
 
     pwf::TimeOfFlight Grabber_sensor{CONSTANTS::GRABBER::TOF_ID};
 
-    frc2::CommandPtr coast();
-
     // moved to public to support selftest
     ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::GRABBER::MOTOR_ID};
 
