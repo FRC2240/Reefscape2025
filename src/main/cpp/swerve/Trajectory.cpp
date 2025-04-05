@@ -90,15 +90,7 @@ frc2::CommandPtr Trajectory::manual_drive(bool field_relative)
         {
           m_drivetrain->zero_yaw();
         }
-        if (m_stick->POVRight().Get())
-        {
-          field_relative = false;
-          // fmt::println("here");
-        }
-        else
-        {
-          field_relative = true;
-        }
+        field_relative = true;
         units::meters_per_second_t left_right;
         units::meters_per_second_t front_back;
         units::angular_velocity::radians_per_second_t rot;
@@ -172,13 +164,19 @@ frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose)
                                     );
 
                                     path->preventFlipping = true;
+                                    m_timer.Restart();
 
-                                    return AutoBuilder::followPath(path).Until([this]-> bool{
+                                    return AutoBuilder::followPath(path).Repeatedly().Until([this, goal_pose] -> bool {
+                                      return MathUtils::getDistance(goal_pose, m_odometry->getPose()) < CONSTANTS::FIELD_POSITIONS::PATH_FINISHED_DIST_THRESHOLD &&
+                                              units::math::abs(goal_pose.Rotation().Degrees() - m_odometry->getPose().Rotation().Degrees()) < CONSTANTS::FIELD_POSITIONS::PATH_FINISHED_ANGLE_THRESHOLD;
+                                    }).Until([this] -> bool {
                                       const double t = CONSTANTS::FIELD_POSITIONS::DRIVER_OVERRIDE_THRESHOLD;
-                                      return std::abs(m_stick->GetRightX()) > t || 
+                                      return m_timer.HasElapsed(0.5_s) && (std::abs(m_stick->GetRightX()) > t || 
                                              std::abs(m_stick->GetRightY()) > t || 
                                              std::abs(m_stick->GetLeftX()) > t || 
-                                             std::abs(m_stick->GetLeftY()) > t;
+                                             std::abs(m_stick->GetLeftY()) > t);
+                                    }).AndThen([this] {
+                                      m_timer.Stop();
                                     }); });
 }
 

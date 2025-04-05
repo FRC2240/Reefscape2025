@@ -42,7 +42,7 @@ void RobotContainer::ConfigureBindings()
   frc::SmartDashboard::PutData(&m_elevator);
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
   m_grabber.SetDefaultCommand(m_grabber.idle());
-  // m_poweredfun.SetDefaultCommand(m_poweredfun.spin());
+  m_poweredfun.SetDefaultCommand(m_poweredfun.spin());
 
   // https://files.slack.com/files-pri/T0CS7MN06-F08BXRSU770/image.png
 
@@ -111,8 +111,8 @@ void RobotContainer::ConfigureBindings()
   m_stick1.X().OnTrue(m_elevator.offset_command(CONSTANTS::ELEVATOR::OFFSET_AMOUNT));
   m_stick1.A().OnTrue(m_elevator.offset_command(-CONSTANTS::ELEVATOR::OFFSET_AMOUNT));
 
-  m_stick1.LeftBumper().OnTrue(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::LEFT));
-  m_stick1.RightBumper().OnTrue(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::RIGHT));
+  m_stick0.POVLeft().OnTrue(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::LEFT));
+  m_stick0.POVRight().OnTrue(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::RIGHT));
 
   // ground algae intake
   frc2::Trigger([this]() -> bool
@@ -130,12 +130,20 @@ frc2::CommandPtr RobotContainer::set_state(CONSTANTS::MANIPULATOR_STATES::Manipu
   CONSTANTS::MANIPULATOR_STATES::ManipulatorState last_state = current_state;
   current_state = target;
 
-  if (
-      target == CONSTANTS::MANIPULATOR_STATES::IDLE ||
-      (last_state == CONSTANTS::MANIPULATOR_STATES::IDLE && target == CONSTANTS::MANIPULATOR_STATES::L2))
+  if (target == CONSTANTS::MANIPULATOR_STATES::IDLE)
   {
     return m_elevator.set_position_command(target.elevtor_pos).AndThen(m_wrist.set_angle_command(target.wrist_pos));
   }
+    if (target == CONSTANTS::MANIPULATOR_STATES::L2)
+  {
+    return m_wrist.set_angle_command(target.wrist_pos).AndThen(m_elevator.set_position_command(target.elevtor_pos));
+  }
+
+  if (last_state == CONSTANTS::MANIPULATOR_STATES::BARGE) {
+    return m_wrist.set_angle_command(target.wrist_pos).AndThen(m_elevator.set_position_command(target.elevtor_pos));
+  }
+  
+  return m_wrist.set_angle_command(target.wrist_pos).AlongWith(m_elevator.set_position_command(target.elevtor_pos));
 }
 
 frc2::CommandPtr RobotContainer::score(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target)

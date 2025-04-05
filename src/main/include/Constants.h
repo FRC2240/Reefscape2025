@@ -97,15 +97,16 @@ namespace CONSTANTS
     constexpr ManipulatorState L2{0.17_tr, -11.69_tr}; // 18.4 follow-through
     constexpr ManipulatorState L3{8.33_tr, -9.11_tr};
     constexpr ManipulatorState L4{28.55_tr, -10.43_tr};
-    constexpr ManipulatorState IDLE{3.82_tr, -33.47_tr};
+    constexpr ManipulatorState IDLE{6.82_tr, -33.47_tr};
     constexpr ManipulatorState IDLE_W_GP{12.329_tr, 19.7_tr};
     constexpr ManipulatorState INTAKE{0.41_tr, -33.6_tr};
     constexpr ManipulatorState POST_SCORE{0_tr, -16.83_tr};
     constexpr ManipulatorState ALGAE_L2{3.98_tr, -17.00_tr};
     constexpr ManipulatorState ALGAE_L3{15.83_tr, -16.90_tr};
     constexpr ManipulatorState PROCESSOR{1.1_tr, 10.9_tr};
-    constexpr ManipulatorState NET{0_tr, 0_tr};
+    constexpr ManipulatorState BARGE{0_tr, 0_tr};
     constexpr ManipulatorState GROUND_ALGAE{-3.4_tr, 13.20_tr};
+
 
   } // namespace MANIPULATOR_STATES
 
@@ -123,19 +124,21 @@ namespace CONSTANTS
     // exceeded, nothing will happen.
     constexpr units::meter_t EFFECTIVE_DISTANCE = 3_m; // CHANGEME
     constexpr double DRIVER_OVERRIDE_THRESHOLD = 0.1;
+    constexpr units::meter_t PATH_FINISHED_DIST_THRESHOLD = 1.8_in;
+    constexpr units::angle::degree_t PATH_FINISHED_ANGLE_THRESHOLD = 5_deg;
 
-    constexpr frc::Pose2d REEF_0_RIGHT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_0_LEFT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_1_RIGHT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_1_LEFT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_2_RIGHT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_2_LEFT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_3_RIGHT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_3_LEFT(frc::Translation2d(10_m, 10_m), frc::Rotation2d(0_deg));
-    constexpr frc::Pose2d REEF_4_RIGHT(frc::Translation2d(5.25_m, 3.01_m), frc::Rotation2d(120_deg));
-    constexpr frc::Pose2d REEF_4_LEFT(frc::Translation2d(4.99_m, 2.83_m), frc::Rotation2d(120_deg));
-    constexpr frc::Pose2d REEF_5_RIGHT(frc::Translation2d(3.98_m, 2.66_m), frc::Rotation2d(55_deg));
-    constexpr frc::Pose2d REEF_5_LEFT(frc::Translation2d(3.14_m, 3.02_m), frc::Rotation2d(55_deg));
+    constexpr frc::Pose2d REEF_0_RIGHT(frc::Translation2d(2.95_m, 3.95_m), frc::Rotation2d(0_deg)); //
+    constexpr frc::Pose2d REEF_0_LEFT(frc::Translation2d(2.97_m, 4.10_m), frc::Rotation2d(0_deg)); 
+    constexpr frc::Pose2d REEF_1_RIGHT(frc::Translation2d(3.65_m, 5.31_m), frc::Rotation2d(300_deg)); //
+    constexpr frc::Pose2d REEF_1_LEFT(frc::Translation2d(3.80_m, 5.38_m), frc::Rotation2d(300_deg)); 
+    constexpr frc::Pose2d REEF_2_RIGHT(frc::Translation2d(5.19_m, 5.39_m), frc::Rotation2d(240_deg)); // 
+    constexpr frc::Pose2d REEF_2_LEFT(frc::Translation2d(5.31_m, 5.30_m), frc::Rotation2d(240_deg)); //
+    constexpr frc::Pose2d REEF_3_RIGHT(frc::Translation2d(6.02_m, 4.11_m), frc::Rotation2d(180_deg)); // 
+    constexpr frc::Pose2d REEF_3_LEFT(frc::Translation2d(6.00_m, 3.95_m), frc::Rotation2d(180_deg)); //
+    constexpr frc::Pose2d REEF_4_RIGHT(frc::Translation2d(5.33_m, 2.74_m), frc::Rotation2d(120_deg)); // 
+    constexpr frc::Pose2d REEF_4_LEFT(frc::Translation2d(5.19_m, 2.68_m), frc::Rotation2d(120_deg)); //
+    constexpr frc::Pose2d REEF_5_RIGHT(frc::Translation2d(3.8_m, 2.66_m), frc::Rotation2d(60_deg)); //
+    constexpr frc::Pose2d REEF_5_LEFT(frc::Translation2d(3.68_m, 2.74_m), frc::Rotation2d(60_deg)); //
 
     constexpr frc::Pose2d REEF_POSITIONS[6][2] = {
         {REEF_0_RIGHT, REEF_0_LEFT},
