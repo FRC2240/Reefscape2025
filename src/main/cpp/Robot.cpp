@@ -12,6 +12,8 @@ Robot::Robot()
   frc::DataLogManager::Start();
   frc::DriverStation::SilenceJoystickConnectionWarning(1);
   frc::SmartDashboard::PutData(&frc2::CommandScheduler::GetInstance());
+
+  m_container.motors = m_container.get_motors();
 }
 
 void Robot::RobotPeriodic()
@@ -55,6 +57,8 @@ void Robot::DisabledPeriodic()
     disabled_timer.Reset();
     disabled_timer.Stop();
   }
+
+  m_container.SelfTest();
 }
 
 void Robot::DisabledExit()

@@ -28,11 +28,12 @@ public:
     void InitSendable(wpi::SendableBuilder &builder) override;
     void SetPID();
 
-private:
-    ctre::phoenix6::controls::MotionMagicTorqueCurrentFOC control_req{0_tr};
-
+    // moved to public to support selftest
     ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::ELEVATOR::LEFT_ID};
     ctre::phoenix6::hardware::TalonFX m_follower_motor{CONSTANTS::ELEVATOR::RIGHT_ID};
+
+private:
+    ctre::phoenix6::controls::MotionMagicTorqueCurrentFOC control_req{0_tr};
 
     CONSTANTS::PidCoeff coeff{CONSTANTS::ELEVATOR::PidValue};
 };

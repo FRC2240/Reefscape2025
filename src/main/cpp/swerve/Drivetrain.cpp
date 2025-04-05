@@ -7,13 +7,14 @@
 // static std::unique_ptr<AHRS> navx;
 //  These are "public" (not static) bc they are accessed by the Trajectory namespace
 
-namespace Module
-{
-  std::unique_ptr<SwerveModule> front_left;
-  std::unique_ptr<SwerveModule> front_right;
-  std::unique_ptr<SwerveModule> back_left;
-  std::unique_ptr<SwerveModule> back_right;
-}
+// this was moved to Drivetrain.h to support selftest
+// namespace Module
+// {
+//   std::unique_ptr<SwerveModule> front_left;
+//   std::unique_ptr<SwerveModule> front_right;
+//   std::unique_ptr<SwerveModule> back_left;
+//   std::unique_ptr<SwerveModule> back_right;
+// }
 // This is not how it should be but doing it "correctly" (++,+-,-+,--) causes
 // the wheels to form an "X" instead of diamond while turning.
 // It's wrong but it works, no touchy.

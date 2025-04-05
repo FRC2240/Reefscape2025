@@ -120,7 +120,7 @@ frc::FieldObject2d *Odometry::getField2dObject(std::string_view name)
   return field2d.GetObject(name);
 }
 
-void Odometry::add_vision_measurment(const frc::Pose2d &pose)
+void Odometry::add_vision_measurment(const frc::Pose2d &pose) // this is unused
 {
   estimator.AddVisionMeasurement(pose, frc::Timer::GetFPGATimestamp());
 }
@@ -158,7 +158,7 @@ std::optional<units::meter_t> Odometry::get_dist_to_tgt()
   }
 }
 
-units::turn_t Odometry::get_shooter_angle()
+units::turn_t Odometry::get_shooter_angle() // I don't know why this is here since it (1) is from last year's game and (2) isn't even related to odometry
 {
   auto pose = getPose();
   double x = pose.X().value();

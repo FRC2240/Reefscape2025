@@ -21,6 +21,14 @@
 #include <fmt/format.h>
 #include <iostream>
 
+namespace Module
+{
+  std::unique_ptr<SwerveModule> front_left;
+  std::unique_ptr<SwerveModule> front_right;
+  std::unique_ptr<SwerveModule> back_left;
+  std::unique_ptr<SwerveModule> back_right;
+}
+
 class Drivetrain
 {
 public:

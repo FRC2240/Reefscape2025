@@ -14,6 +14,7 @@
 // Misc
 #include "Constants.h"
 #include <pathplanner/lib/auto/NamedCommands.h>
+#include "swerve/LimelightHelpers.h"
 
 // Subsystems
 #include "subsystems/Candle.h"
@@ -91,5 +92,10 @@ public:
   Trajectory m_trajectory{&m_drivetrain, &m_odometry, &m_stick0, &m_vision};
 
   void SelfTest();
+
+  frc::Alert fail_selftest{"Self-test failed, see SmartDashboard/selftest", frc::Alert::AlertType::kError};
+
+  std::vector<ctre::phoenix6::hardware::TalonFX*> motors;
+  std::vector<ctre::phoenix6::hardware::TalonFX*> get_motors();
 
 };

@@ -168,10 +168,52 @@ void RobotContainer::SelfTest() {
   bool JOYSTICKS_OK  = false;
   bool ODOMETRY_OK   = false;
   bool AUTO_SELECTED = false;
-  bool STARTPOS_OK   = false;
+//bool STARTPOS_OK   = false; // this is probably impossible without reimplementing the auto chooser
 
 
   // No motors report issues ***
+
+  for (auto motor : motors) {
+    if ( // not entirely sure if this will work
+      motor->GetFaultField().GetValue() + motor->GetStickyFaultField().GetValue() != 0
+    ) {
+      MOTORS_OK = false;
+    }
+  }
+
+  // MOTORS_OK = true;
+  // for (auto motor : motors) {
+  //   int faults = 0;
+  //   faults += motor->GetFault_ForwardSoftLimit().GetValue();
+  //   faults += motor->GetFault_ReverseSoftLimit().GetValue();
+  //   faults += motor->GetFault_ForwardHardLimit().GetValue();
+  //   faults += motor->GetFault_ReverseHardLimit().GetValue();
+  //   faults += motor->GetFault_UnstableSupplyV().GetValue();
+  //   faults += motor->GetFault_OverSupplyV().GetValue();
+  //   faults += motor->GetFault_RemoteSensorPosOverflow().GetValue();
+  //   faults += motor->GetFault_MissingDifferentialFX().GetValue();
+  //   faults += motor->GetFault_RemoteSensorReset().GetValue();
+  //   faults += motor->GetFault_BridgeBrownout().GetValue();
+  //   faults += motor->GetFault_UnlicensedFeatureInUse().GetValue();
+  //   faults += motor->GetFault_BootDuringEnable().GetValue();
+  //   faults += motor->GetFault_Undervoltage().GetValue();
+  //   faults += motor->GetFault_DeviceTemp().GetValue();
+  //   faults += motor->GetFault_ProcTemp().GetValue();
+  //   faults += motor->GetFault_Hardware().GetValue();
+  //   faults += motor->GetFault_StaticBrakeDisabled().GetValue();
+  //   faults += motor->GetFault_UsingFusedCANcoderWhileUnlicensed().GetValue();
+  //   faults += motor->GetFault_SupplyCurrLimit().GetValue();
+  //   faults += motor->GetFault_StatorCurrLimit().GetValue();
+  //   faults += motor->GetFault_FusedSensorOutOfSync().GetValue();
+  //   faults += motor->GetStickyFault_RemoteSensorDataInvalid().GetValue();
+  //   faults += motor->GetFault_MissingHardLimitRemote().GetValue();
+  //   faults += motor->GetFault_MissingSoftLimitRemote().GetValue();
+  //   if (faults) {
+  //     MOTORS_OK = false;
+  //     break;
+  //   }
+  // }
+
 
   // Battery voltage > 12.3
 
@@ -216,6 +258,14 @@ void RobotContainer::SelfTest() {
 
   // apriltag angle +/- 10deg from gyro angle ***
 
+  units::degree_t vision_pose = LimelightHelpers::toPose2D(LimelightHelpers::getBotpose()).Rotation().Degrees();
+  units::degree_t gyro_pose = m_drivetrain.getAngle();
+  if (
+    CONSTANTS::IN_THRESHOLD<units::degree_t>(vision_pose, gyro_pose, CONSTANTS::SELFTEST::YAW_ERROR_THRESHOLD)
+  ) {
+    ODOMETRY_OK = true;
+  }
+
   // auto selected (not sure if this works)
 
   frc2::CommandPtr lval_none = frc2::cmd::None();
@@ -223,7 +273,49 @@ void RobotContainer::SelfTest() {
     AUTO_SELECTED = true;
   }
 
-  // within 1.5m of start pos ***
+  int ERRORS =
+    MOTORS_OK +
+    BATTERY_OK +
+    ELEVATOR_OK +
+    WRIST_OK +
+    GP_LOADED +
+    JOYSTICKS_OK +
+    ODOMETRY_OK +
+    AUTO_SELECTED;
 
+  if (ERRORS) {
+    fail_selftest.Set(true);
+  } else {
+    fail_selftest.Set(false);
+  }
+
+  frc::SmartDashboard::PutBoolean("selftest/motors_ok", MOTORS_OK);
+  frc::SmartDashboard::PutBoolean("selftest/battery_ok", BATTERY_OK);
+  frc::SmartDashboard::PutBoolean("selftest/elevator_ok", ELEVATOR_OK);
+  frc::SmartDashboard::PutBoolean("selftest/wrist_ok", WRIST_OK);
+  frc::SmartDashboard::PutBoolean("selftest/gp_loaded", GP_LOADED);
+  frc::SmartDashboard::PutBoolean("selftest/joysticks_ok", JOYSTICKS_OK);
+  frc::SmartDashboard::PutBoolean("selftest/odometry_ok", ODOMETRY_OK);
+  frc::SmartDashboard::PutBoolean("selftest/auto_selected", AUTO_SELECTED);
+
+}
+
+std::vector<ctre::phoenix6::hardware::TalonFX*> RobotContainer::get_motors() {
+
+  // IMPORTANT: Add new motors to this if any new motors are added!!!
+  std::vector<ctre::phoenix6::hardware::TalonFX*> motors = {
+    &m_elevator.m_motor,
+    &m_elevator.m_follower_motor,
+    &m_grabber.m_motor,
+    &m_wrist.m_motor,
+    &Module::front_right->driver,
+    &Module::front_right->turner,
+    &Module::front_left->driver,
+    &Module::front_left->turner,
+    &Module::back_right->driver,
+    &Module::back_right->turner,
+    &Module::back_left->driver,
+    &Module::back_left->turner,
+  };
 
 }

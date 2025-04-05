@@ -27,8 +27,10 @@ public:
 
     frc2::CommandPtr coast();
 
-private:
+    // moved to public to support selftest
     ctre::phoenix6::hardware::TalonFX m_motor{CONSTANTS::GRABBER::MOTOR_ID};
+
+private:
 
     CONSTANTS::PidCoeff coeff{CONSTANTS::GRABBER::PID};
 
