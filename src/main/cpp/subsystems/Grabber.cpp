@@ -1,3 +1,4 @@
+//This code is self doccumenting.
 #include <subsystems/Grabber.h>
 
 Grabber::Grabber()
@@ -11,6 +12,7 @@ Grabber::Grabber()
     ctre::phoenix6::configs::TalonFXConfiguration conf{};
 
     conf.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
+    conf.Slot0.kS = 1;
 
     SetPID();
 
@@ -18,7 +20,6 @@ Grabber::Grabber()
     // can_range_conf.ProximityParams.MinSignalStrengthForValidMeasurement = 2500;
     // can_range_conf.ProximityParams.ProximityThreshold = 4_in;
     // m_can_range.GetConfigurator().Apply(can_range_conf);
-    //  can sensor using fusion
 };
 
 void Grabber::InitSendable(wpi::SendableBuilder &builder)
@@ -70,10 +71,12 @@ frc2::CommandPtr Grabber::intake(units::ampere_t speed)
 {
     return frc2::cmd::Run(
                [this, speed]
-               {
-                   spin(speed);
-               },
-               {this})
+                    {
+                        spin(speed);
+                    },
+                {this})
+            .Until([this]
+            { return has_gp(); })
         .WithName("Intake");
 };
 
@@ -81,14 +84,23 @@ frc2::CommandPtr Grabber::intake_algae(units::ampere_t speed)
 {
     return frc2::cmd::Run(
                [this, speed]
-               {
-                   spin(speed);
-               },
+                    {
+                        spin(speed);
+                    },
                {this})
-        .Until([this]
-               { return has_gp(); })
-        .WithName("Intake");
+        .WithName("Intake_algae");
 };
+
+frc2::CommandPtr Grabber::coral_release()
+{
+    return frc2::cmd::Run([this]
+            {
+                ctre::phoenix6::controls::VelocityTorqueCurrentFOC req{CONSTANTS::GRABBER::CORAL_RELEASE_VELOCITY};
+                m_motor.SetControl(req);
+            }
+    )
+    .WithName("Coral_release");
+}
 
 frc2::CommandPtr Grabber::coast()
 {
@@ -99,3 +111,4 @@ frc2::CommandPtr Grabber::coast()
         },
         {this});
 }
+
