@@ -160,15 +160,14 @@ void RobotContainer::SelfTest()
 
   bool MOTORS_OK = false;
   bool BATTERY_OK = false;
-  bool ELEVATOR_OK = false;
+  bool ELEVATOR_OK = false; //WORKS
   bool WRIST_OK = false;
   bool GP_LOADED = false;
   bool JOYSTICKS_OK = false;
   bool ODOMETRY_OK = false;
-  bool AUTO_SELECTED = false;
-  // bool STARTPOS_OK   = false; // this is probably impossible without reimplementing the auto chooser
+  bool AUTO_SELECTED = false; //BROKEN
 
-  // No motors report issues ***
+  // No motors report issues (seems to NOT work)
 
   for (auto motor : motors)
   {
@@ -212,14 +211,14 @@ void RobotContainer::SelfTest()
   //   }
   // }
 
-  // Battery voltage > 12.3
+  // Battery voltage > 12.3 (WORKS)
 
   if (frc::DriverStation::GetBatteryVoltage() >= CONSTANTS::SELFTEST::BATTERY_VOLTAGE_THRESHOLD)
   {
     BATTERY_OK = true;
   }
 
-  // elevator down
+  // elevator down (WORKS)
 
   if (CONSTANTS::IN_THRESHOLD<units::turn_t>(
           m_elevator.get_position(),
@@ -229,7 +228,7 @@ void RobotContainer::SelfTest()
     ELEVATOR_OK = true;
   }
 
-  // wrist pos ~= intake state
+  // wrist pos ~= intake state (untested)
 
   if (CONSTANTS::IN_THRESHOLD<units::degree_t>(
           m_wrist.get_angle(),
@@ -239,14 +238,14 @@ void RobotContainer::SelfTest()
     WRIST_OK = true;
   }
 
-  // game piece loaded
+  // game piece loaded (untested)
 
   if (m_grabber.has_gp())
   {
     GP_LOADED = true;
   }
 
-  // 2 joysticks
+  // 2 joysticks (untested)
 
   if (
       frc::DriverStation::IsJoystickConnected(0) &&
@@ -255,7 +254,7 @@ void RobotContainer::SelfTest()
     JOYSTICKS_OK = true;
   }
 
-  // apriltag angle +/- 10deg from gyro angle ***
+  // apriltag angle +/- 10deg from gyro angle (untested)
 
   units::degree_t vision_pose = LimelightHelpers::toPose2D(LimelightHelpers::getBotpose()).Rotation().Degrees();
   units::degree_t gyro_pose = m_drivetrain.getAngle();
@@ -265,7 +264,7 @@ void RobotContainer::SelfTest()
     ODOMETRY_OK = true;
   }
 
-  // auto selected (not sure if this works)
+  // auto selected (does NOT work) - fix by getting string value from NT
 
   frc2::CommandPtr lval_none = frc2::cmd::None();
   if (autoChooser.GetSelected() != lval_none.get())
@@ -304,22 +303,26 @@ void RobotContainer::SelfTest()
 
 std::vector<ctre::phoenix6::hardware::TalonFX *> RobotContainer::get_motors()
 {
+  
+  //If it still crashes, this is why
 
-  // IMPORTANT: Add new motors to this if any new motors are added!!!
+  //IMPORTANT: Add new motors to this if any new motors are added!!!
   std::vector<ctre::phoenix6::hardware::TalonFX *> motors = {
       &m_elevator.m_motor,
       &m_elevator.m_follower_motor,
       &m_grabber.m_motor,
       &m_wrist.m_motor,
-      &Module::front_right->driver,
-      &Module::front_right->turner,
-      &Module::front_left->driver,
-      &Module::front_left->turner,
-      &Module::back_right->driver,
-      &Module::back_right->turner,
-      &Module::back_left->driver,
-      &Module::back_left->turner,
+      &Module::front_right.get()->driver,
+      &Module::front_right.get()->turner,
+      &Module::front_left.get()->driver,
+      &Module::front_left.get()->turner,
+      &Module::back_right.get()->driver,
+      &Module::back_right.get()->turner,
+      &Module::back_left.get()->driver,
+      &Module::back_left.get()->turner,
   };
 
   return motors;
+
+  // return std::vector<ctre::phoenix6::hardware::TalonFX*>{};
 }

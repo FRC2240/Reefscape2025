@@ -25,6 +25,9 @@
           "open": true
         },
         "open": true,
+        "selftest": {
+          "open": true
+        },
         "vision": {
           "double[]##v_/SmartDashboard/vision/cpu_temp": {
             "open": true
@@ -85,7 +88,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 338,
+          "height": 0,
           "series": [
             {
               "color": [
@@ -136,7 +139,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 338,
+          "height": 0,
           "series": [
             {
               "color": [
