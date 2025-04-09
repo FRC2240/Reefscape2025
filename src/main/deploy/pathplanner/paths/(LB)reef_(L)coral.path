@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.372898463199013,
-        "y": 2.8790392423930915
+        "x": 5.379,
+        "y": 2.795
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.187863653268982,
-        "y": 2.1015037832691057
+        "x": 4.267840909090909,
+        "y": 2.110454545454544
       },
       "isLocked": false,
       "linkedName": null
@@ -62,7 +62,7 @@
   "folder": "left_4gp",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 120.70164642729749
+    "rotation": 119.99999999999999
   },
   "useDefaultConstraints": true
 }
