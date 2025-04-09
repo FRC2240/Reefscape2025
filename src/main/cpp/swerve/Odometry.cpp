@@ -1,7 +1,6 @@
 #include "swerve/Odometry.h"
 #include "utility/MathUtils.h"
 
-
 #ifndef CFG_NO_DRIVEBASE
 // frc::TimeOfFlight tof_sensor{1};
 /******************************************************************/
@@ -12,7 +11,8 @@
 
 // This is not how it should be but doing it "correctly" (++,+-,-+,--) causes
 // the wheels to form an "X" instead of diamond while turning.
-// It's wrong but it works, no touchy.
+// It's wrong but i
+// t works, no touchy.
 
 frc::Field2d field2d;
 
