@@ -1,6 +1,6 @@
 {
-  "robotWidth": 0.9398,
-  "robotLength": 0.9398,
+  "robotWidth": 0.91,
+  "robotLength": 0.91,
   "holonomicMode": true,
   "pathFolders": [
     "lolipop_l_4gp",

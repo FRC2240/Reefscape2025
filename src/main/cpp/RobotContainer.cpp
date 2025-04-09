@@ -111,8 +111,8 @@ void RobotContainer::ConfigureBindings()
   m_stick1.X().OnTrue(m_elevator.offset_command(CONSTANTS::ELEVATOR::OFFSET_AMOUNT));
   m_stick1.A().OnTrue(m_elevator.offset_command(-CONSTANTS::ELEVATOR::OFFSET_AMOUNT));
 
-  m_stick0.POVLeft().OnTrue(frc2::cmd::RunOnce([this] {if (m_trajectory.GetCurrentCommand() != nullptr) m_trajectory.GetCurrentCommand()->Cancel();}).AndThen(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::LEFT)));
-  m_stick0.POVRight().OnTrue(frc2::cmd::RunOnce([this] {if (m_trajectory.GetCurrentCommand() != nullptr) m_trajectory.GetCurrentCommand()->Cancel();}).AndThen(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::RIGHT)));
+  m_stick0.POVLeft().OnTrue(frc2::cmd::RunOnce([this] {if (m_trajectory.GetCurrentCommand()) m_trajectory.GetCurrentCommand()->Cancel();}).AndThen(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::LEFT)));
+  m_stick0.POVRight().OnTrue(frc2::cmd::RunOnce([this] {if (m_trajectory.GetCurrentCommand()) m_trajectory.GetCurrentCommand()->Cancel();}).AndThen(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::RIGHT)));
 
   // ground algae intake
   frc2::Trigger([this]() -> bool
