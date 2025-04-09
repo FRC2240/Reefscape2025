@@ -124,8 +124,8 @@ namespace CONSTANTS
     // exceeded, nothing will happen.
     constexpr units::meter_t EFFECTIVE_DISTANCE = 3_m; // CHANGEME
     constexpr double DRIVER_OVERRIDE_THRESHOLD = 0.1;
-    constexpr units::meter_t PATH_FINISHED_DIST_THRESHOLD = 1.8_in;
-    constexpr units::angle::degree_t PATH_FINISHED_ANGLE_THRESHOLD = 5_deg;
+    constexpr units::meter_t PATH_FINISHED_DIST_THRESHOLD = 0.9_in;
+    constexpr units::angle::degree_t PATH_FINISHED_ANGLE_THRESHOLD = 2_deg;
 
     constexpr frc::Pose2d REEF_0_RIGHT(frc::Translation2d(2.95_m, 3.95_m), frc::Rotation2d(0_deg)); //
     constexpr frc::Pose2d REEF_0_LEFT(frc::Translation2d(2.97_m, 4.10_m), frc::Rotation2d(0_deg)); 
@@ -133,8 +133,8 @@ namespace CONSTANTS
     constexpr frc::Pose2d REEF_1_LEFT(frc::Translation2d(3.80_m, 5.38_m), frc::Rotation2d(300_deg)); 
     constexpr frc::Pose2d REEF_2_RIGHT(frc::Translation2d(5.19_m, 5.39_m), frc::Rotation2d(240_deg)); // 
     constexpr frc::Pose2d REEF_2_LEFT(frc::Translation2d(5.31_m, 5.30_m), frc::Rotation2d(240_deg)); //
-    constexpr frc::Pose2d REEF_3_RIGHT(frc::Translation2d(6.02_m, 4.11_m), frc::Rotation2d(180_deg)); // 
-    constexpr frc::Pose2d REEF_3_LEFT(frc::Translation2d(6.00_m, 3.95_m), frc::Rotation2d(180_deg)); //
+    constexpr frc::Pose2d REEF_3_RIGHT(frc::Translation2d(6.00_m, 4.181_m), frc::Rotation2d(180_deg)); // 
+    constexpr frc::Pose2d REEF_3_LEFT(frc::Translation2d(6.00_m, 3.862_m), frc::Rotation2d(180_deg)); //
     constexpr frc::Pose2d REEF_4_RIGHT(frc::Translation2d(5.33_m, 2.74_m), frc::Rotation2d(120_deg)); // 
     constexpr frc::Pose2d REEF_4_LEFT(frc::Translation2d(5.19_m, 2.68_m), frc::Rotation2d(120_deg)); //
     constexpr frc::Pose2d REEF_5_RIGHT(frc::Translation2d(3.8_m, 2.66_m), frc::Rotation2d(60_deg)); //

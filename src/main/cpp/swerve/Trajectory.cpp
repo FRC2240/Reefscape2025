@@ -60,7 +60,7 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry,
       std::make_shared<pathplanner::PPHolonomicDriveController>(
           pathplanner::PIDConstants(
               5.0, 0.0, 0.0),                    // Translation PID constants. Originally 1P
-          pathplanner::PIDConstants(5.0, 0.0, 0) // Rotation PID constants
+          pathplanner::PIDConstants(10.0, 1.0, 1.0) // Rotation PID constants
                                                  // T: 1.75, 0, 0.0
                                                  // R: 0.625, 0.0, 0
           ),
@@ -151,7 +151,7 @@ frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose)
                                                                                                            goal_pose});
 
                                     // The constraints for the path. TODO CHANGE IT
-                                    PathConstraints constraints(1_mps, 2_mps_sq, 90_deg_per_s, 180_deg_per_s_sq);
+                                    PathConstraints constraints(1_mps, 1_mps_sq, 180_deg_per_s, 270_deg_per_s_sq);
 
                                     frc::ChassisSpeeds speeds = m_odometry->getFieldRelativeSpeeds();
                                     units::meters_per_second_t vel = static_cast<units::meters_per_second_t>(MathUtils::pythag(speeds.vx(), speeds.vy()));
@@ -164,20 +164,8 @@ frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose)
                                     );
 
                                     path->preventFlipping = true;
-                                    m_timer.Restart();
 
-                                    return AutoBuilder::followPath(path).Repeatedly().Until([this, goal_pose] -> bool {
-                                      return MathUtils::getDistance(goal_pose, m_odometry->getPose()) < CONSTANTS::FIELD_POSITIONS::PATH_FINISHED_DIST_THRESHOLD &&
-                                              units::math::abs(goal_pose.Rotation().Degrees() - m_odometry->getPose().Rotation().Degrees()) < CONSTANTS::FIELD_POSITIONS::PATH_FINISHED_ANGLE_THRESHOLD;
-                                    }).Until([this] -> bool {
-                                      const double t = CONSTANTS::FIELD_POSITIONS::DRIVER_OVERRIDE_THRESHOLD;
-                                      return m_timer.HasElapsed(0.5_s) && (std::abs(m_stick->GetRightX()) > t || 
-                                             std::abs(m_stick->GetRightY()) > t || 
-                                             std::abs(m_stick->GetLeftX()) > t || 
-                                             std::abs(m_stick->GetLeftY()) > t);
-                                    }).AndThen([this] {
-                                      m_timer.Stop();
-                                    }); });
+                                    return AutoBuilder::followPath(path); });
 }
 
 frc2::CommandPtr Trajectory::reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE side_side)
@@ -196,7 +184,22 @@ frc2::CommandPtr Trajectory::reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF
     return frc2::cmd::RunOnce([]{}); // Empty command to exit early.
   }
 
-  return follow_live_path(m_odometry->get_alignment_position(nearest_face, side_side)); });
+  const frc::Pose2d goal_pose = m_odometry->get_alignment_position(nearest_face, side_side);
+
+  m_timer.Restart();
+
+  return follow_live_path(goal_pose).Repeatedly().Until([this, goal_pose] -> bool {
+                                      return MathUtils::getDistance(goal_pose, m_odometry->getPose()) < CONSTANTS::FIELD_POSITIONS::PATH_FINISHED_DIST_THRESHOLD &&
+                                              units::math::abs(goal_pose.Rotation().Degrees() - m_odometry->getPose().Rotation().Degrees()) < CONSTANTS::FIELD_POSITIONS::PATH_FINISHED_ANGLE_THRESHOLD;
+                                    }).Until([this] -> bool {
+                                      const double t = CONSTANTS::FIELD_POSITIONS::DRIVER_OVERRIDE_THRESHOLD;
+                                      return m_timer.HasElapsed(0.5_s) && (std::abs(m_stick->GetRightX()) > t || 
+                                             std::abs(m_stick->GetRightY()) > t || 
+                                             std::abs(m_stick->GetLeftX()) > t || 
+                                             std::abs(m_stick->GetLeftY()) > t);
+                                    }).AndThen([this] {
+                                      m_timer.Stop();
+                                    });; });
 }
 
 #endif
