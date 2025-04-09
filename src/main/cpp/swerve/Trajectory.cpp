@@ -209,6 +209,24 @@ frc2::CommandPtr Trajectory::reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF
     std::cout << "Exception in reef_align_command: " << e.what() << std::endl;
     return frc2::cmd::RunOnce([] {});
   }
+  catch (const char *e)
+  {
+    std::cout << "char Exception in reef_align_command: " << e << std::endl;
+    return frc2::cmd::RunOnce([] {});
+  }
+  catch (const std::string &e)
+  {
+    std::cout << "Exception in reef_align_command: " << e << std::endl;
+    return frc2::cmd::RunOnce([] {});
+  }
+  catch (const int &e)
+  {
+    std::cout << "Exception in reef_align_command: " << e << std::endl;
+    return frc2::cmd::RunOnce([] {});
+  }
+  catch (std::runtime_error &e){
+    std::cout << "Exception in reef_align_command: " << e.what() << std::endl;
+  }
   catch (...)
   {
     
