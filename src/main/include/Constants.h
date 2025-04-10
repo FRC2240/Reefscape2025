@@ -104,7 +104,7 @@ namespace CONSTANTS
     constexpr ManipulatorState ALGAE_L2{3.98_tr, -17.00_tr};
     constexpr ManipulatorState ALGAE_L3{15.83_tr, -16.90_tr};
     constexpr ManipulatorState PROCESSOR{1.1_tr, 10.9_tr};
-    constexpr ManipulatorState BARGE{0_tr, 0_tr};
+    constexpr ManipulatorState BARGE{35.1_tr, -5.1_tr};
     constexpr ManipulatorState GROUND_ALGAE{-3.4_tr, 13.20_tr};
 
 

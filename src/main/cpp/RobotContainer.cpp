@@ -62,6 +62,10 @@ void RobotContainer::ConfigureBindings()
                 { return this->m_stick0.X().Get() && this->m_stick0.LeftTrigger().Get(); })
       .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::ALGAE_L3).AlongWith(m_grabber.idle()));
 
+  frc2::Trigger([this]() -> bool
+                { return this->m_stick0.LeftTrigger().Get() && this->m_stick0.Y().Get(); })
+      .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::BARGE));
+
   /*
   frc2::Trigger([this] () -> bool {
     return this->m_stick0.RightBumper().Get() && this->m_stick0.LeftTrigger().Get();
@@ -134,15 +138,16 @@ frc2::CommandPtr RobotContainer::set_state(CONSTANTS::MANIPULATOR_STATES::Manipu
   {
     return m_elevator.set_position_command(target.elevtor_pos).AndThen(m_wrist.set_angle_command(target.wrist_pos));
   }
-    if (target == CONSTANTS::MANIPULATOR_STATES::L2)
+  if (target == CONSTANTS::MANIPULATOR_STATES::L2)
   {
     return m_wrist.set_angle_command(target.wrist_pos).AndThen(m_elevator.set_position_command(target.elevtor_pos));
   }
 
-  if (last_state == CONSTANTS::MANIPULATOR_STATES::BARGE) {
+  if (last_state == CONSTANTS::MANIPULATOR_STATES::BARGE)
+  {
     return m_wrist.set_angle_command(target.wrist_pos).AndThen(m_elevator.set_position_command(target.elevtor_pos));
   }
-  
+
   return m_wrist.set_angle_command(target.wrist_pos).AlongWith(m_elevator.set_position_command(target.elevtor_pos));
 }
 
