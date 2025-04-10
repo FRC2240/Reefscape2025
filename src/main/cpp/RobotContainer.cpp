@@ -65,8 +65,7 @@ void RobotContainer::ConfigureBindings()
 
   frc2::Trigger([this]() -> bool
                 { return this->m_stick0.LeftTrigger().Get() && this->m_stick0.Y().Get(); })
-      .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::BARGE).AlongWith(frc2::cmd::RunOnce([] {std::cout << "BARGE" << std::endl;})));
-
+      .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::BARGE));
   /*
   frc2::Trigger([this] () -> bool {
     return this->m_stick0.RightBumper().Get() && this->m_stick0.LeftTrigger().Get();
