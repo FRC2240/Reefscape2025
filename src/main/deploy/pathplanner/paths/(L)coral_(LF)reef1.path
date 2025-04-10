@@ -32,7 +32,7 @@
   "constraintZones": [
     {
       "name": "eepy time",
-      "minWaypointRelativePos": 0.7576953433307025,
+      "minWaypointRelativePos": 0.6318529781879199,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
@@ -91,7 +91,7 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 1.0,
+    "velocity": 0.0,
     "rotation": 59.99999999999999
   },
   "reversed": false,
