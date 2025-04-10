@@ -32,16 +32,9 @@ frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos)
 {
     return frc2::RunCommand([this, pos]
                             {         
-        units::angle::turn_t position = pos;
-        if (position > CONSTANTS::ELEVATOR::TOP_POS) {
-            position = CONSTANTS::ELEVATOR::TOP_POS;
-        } else if (position < CONSTANTS::ELEVATOR::BOTTOM_POS) {
-            position = CONSTANTS::ELEVATOR::BOTTOM_POS;
-        }
-
-        frc::SmartDashboard::PutNumber("elv/desired", position.value());
-        frc::SmartDashboard::PutNumber("elv/delta", m_motor.GetPosition().GetValueAsDouble() - position.value());
-        set_position(position); },
+        frc::SmartDashboard::PutNumber("elv/desired", pos.value());
+        frc::SmartDashboard::PutNumber("elv/delta", m_motor.GetPosition().GetValueAsDouble() - pos.value());
+        set_position(pos); },
                             {this})
         .Until([this, pos]
                { return CONSTANTS::IN_THRESHOLD<units::angle::turn_t>(get_position(), pos, CONSTANTS::ELEVATOR::POSITION_THRESHOLD); });

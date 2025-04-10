@@ -25,6 +25,8 @@ void Wrist::SetPID() { MotorUtils::SetPID(m_motor, coeff); }
 
 void Wrist::set_angle(units::angle::degree_t angle)
 {
+  frc::SmartDashboard::PutNumber("wrst/desired", angle.value());
+
   m_motor.SetControl(m_control_req.WithPosition(angle));
 }
 

@@ -6,6 +6,7 @@
 
 #include <frc2/command/Commands.h>
 #include <frc/geometry/Pose2d.h>
+#include <iostream>
 
 RobotContainer::RobotContainer()
 {
@@ -64,7 +65,7 @@ void RobotContainer::ConfigureBindings()
 
   frc2::Trigger([this]() -> bool
                 { return this->m_stick0.LeftTrigger().Get() && this->m_stick0.Y().Get(); })
-      .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::BARGE));
+      .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::BARGE).AlongWith(frc2::cmd::RunOnce([] {std::cout << "BARGE" << std::endl;})));
 
   /*
   frc2::Trigger([this] () -> bool {
@@ -76,7 +77,9 @@ void RobotContainer::ConfigureBindings()
                 { return this->m_stick0.RightBumper().Get() && !this->m_stick0.LeftTrigger().Get(); })
       .OnTrue(score(current_state));
 
-  m_stick0.Y().OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
+  frc2::Trigger([this]() -> bool {
+    return this->m_stick0.Y().Get() && !this->m_stick0.LeftTrigger().Get();
+  }).OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L4));
 
   // frc2::Trigger([this]() -> bool
   //               { return this->m_stick0.B().Get() && this->m_stick0.LeftTrigger().Get(); }); // proc
