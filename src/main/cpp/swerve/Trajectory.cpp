@@ -2,6 +2,7 @@
 #include "utility/MathUtils.h"
 #include <vector>
 #include <iostream>
+#include <utility/ForceLog.h>
 
 #ifndef CFG_NO_DRIVEBASE
 /******************************************************************/
@@ -146,25 +147,55 @@ frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose)
 {
   return frc2::cmd::DeferredProxy([this, goal_pose]
                                   {
+                                    attempts++;
+                                    frc::ChassisSpeeds speeds = m_odometry->getFieldRelativeSpeeds();
                                     // Makes a vector of waypoints. Waypoint 1 is the current pos, 2 is the goal
-                                    std::vector<Waypoint> waypoints = PathPlannerPath::waypointsFromPoses({m_odometry->getPose(),
+                                    std::vector<Waypoint> waypoints = PathPlannerPath::waypointsFromPoses({frc::Pose2d(m_odometry->getPose().Translation(), units::math::atan(speeds.vy/speeds.vx)),
                                                                                                            goal_pose});
 
+                                    frc::DataLogManager::Log("NumWaypoints: " + std::to_string(waypoints.size()) );
+                                    int i = 0;
+                                    for (auto &waypoint : waypoints)
+                                    {
+                                      auto nc = waypoint.nextControl ? waypoint.nextControl.value() : frc::Translation2d(-10_m, -10_m);
+                                      auto pc = waypoint.prevControl ? waypoint.prevControl.value() : frc::Translation2d(-10_m, -10_m);
+                                      frc::SmartDashboard::PutNumberArray(std::to_string(attempts)+"/waypoint/" + std::to_string(i) +"/nc", std::vector<double>{nc.X().value(), nc.Y().value()});
+                                      frc::SmartDashboard::PutNumberArray(std::to_string(attempts)+"/waypoint/"+ std::to_string(i) +"/pc", std::vector<double>{pc.X().value(), pc.Y().value()});
+                                      frc::SmartDashboard::PutNumberArray(std::to_string(attempts)+"/waypoint/" + std::to_string(i) +"/anchor", std::vector<double>{waypoint.anchor.X().value(), waypoint.anchor.Y().value()});
+                                      if (i==0 && !waypoint.nextControl){
+                                      frc::DataLogManager::Log("Triggered optional guards case 3");
+                                        return frc2::cmd::None();
+                                      } 
+                                      if (i==waypoints.size()-1 && !waypoint.prevControl){
+                                      frc::DataLogManager::Log("Triggered optional guards case 3");
+                                        return frc2::cmd::None();
+                                      }
+                                      if (!waypoint.prevControl || !waypoint.nextControl){
+                                      frc::DataLogManager::Log("Triggered optional guards case 3");
+                                        return frc2::cmd::None();
+                                      }
+                                      
+                                      i++;
+                                    }
+
+                                      frc::DataLogManager::Log("Didn't trigger optional guards");
                                     // The constraints for the path. TODO CHANGE IT
                                     PathConstraints constraints(1_mps, 2_mps_sq, 90_deg_per_s, 180_deg_per_s_sq);
 
-                                    frc::ChassisSpeeds speeds = m_odometry->getFieldRelativeSpeeds();
                                     units::meters_per_second_t vel = static_cast<units::meters_per_second_t>(MathUtils::pythag(speeds.vx(), speeds.vy()));
 
                                     auto path = std::make_shared<PathPlannerPath>(
                                         waypoints,
                                         constraints,
-                                        IdealStartingState(vel, m_odometry->getPose().Rotation()), // The ideal starting state, might need to be changed
+                                        // Heading is the direction of movment, so $\theta = tan^{-1}(y/x)$
+                                        IdealStartingState(vel, units::math::atan((speeds.vy/speeds.vx)) ), // The ideal starting state, might need to be changed
                                         GoalEndState(0.0_mps, goal_pose.Rotation())                // Goal end state. You can set a holonomic rotation here.
                                     );
 
                                     path->preventFlipping = true;
                                     m_timer.Restart();
+
+                                    frc::SmartDashboard::PutBoolean(std::to_string(attempts)+"/valid", true);
 
                                     return AutoBuilder::followPath(path).Repeatedly().Until([this, goal_pose] -> bool {
                                       return MathUtils::getDistance(goal_pose, m_odometry->getPose()) < CONSTANTS::FIELD_POSITIONS::PATH_FINISHED_DIST_THRESHOLD &&
