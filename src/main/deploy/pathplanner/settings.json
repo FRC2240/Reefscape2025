@@ -1,6 +1,6 @@
 {
-  "robotWidth": 0.91,
-  "robotLength": 0.91,
+  "robotWidth": 0.94,
+  "robotLength": 0.9398,
   "holonomicMode": true,
   "pathFolders": [
     "lolipop_l_4gp",
@@ -19,9 +19,9 @@
   "robotMass": 67.3,
   "robotMOI": 4.3443591491,
   "robotTrackwidth": 0.546,
-  "driveWheelRadius": 0.04861592356687898,
+  "driveWheelRadius": 0.049,
   "driveGearing": 6.75,
-  "maxDriveSpeed": 5.45,
+  "maxDriveSpeed": 4.0,
   "driveMotorType": "krakenX60",
   "driveCurrentLimit": 66.0,
   "wheelCOF": 1.2,

@@ -128,16 +128,21 @@ namespace CONSTANTS
 
     constexpr frc::Pose2d REEF_0_RIGHT(frc::Translation2d(2.979_m, 3.871_m), frc::Rotation2d(0_deg)); //
     constexpr frc::Pose2d REEF_0_LEFT(frc::Translation2d(2.979_m, 4.10_m), frc::Rotation2d(0_deg));
+
     constexpr frc::Pose2d REEF_1_RIGHT(frc::Translation2d(3.60_m, 5.257_m), frc::Rotation2d(300_deg)); //
     constexpr frc::Pose2d REEF_1_LEFT(frc::Translation2d(3.876_m, 5.416_m), frc::Rotation2d(300_deg));
+
     constexpr frc::Pose2d REEF_2_RIGHT(frc::Translation2d(5.110_m, 5.412_m), frc::Rotation2d(240_deg)); //
     constexpr frc::Pose2d REEF_2_LEFT(frc::Translation2d(5.387_m, 5.252_m), frc::Rotation2d(240_deg));  //
+
     constexpr frc::Pose2d REEF_3_RIGHT(frc::Translation2d(6.00_m, 4.181_m), frc::Rotation2d(180_deg));  //
     constexpr frc::Pose2d REEF_3_LEFT(frc::Translation2d(6.00_m, 3.862_m), frc::Rotation2d(180_deg));   //
-    constexpr frc::Pose2d REEF_4_RIGHT(frc::Translation2d(5.379_m, 2.795_m), frc::Rotation2d(120_deg)); //
-    constexpr frc::Pose2d REEF_4_LEFT(frc::Translation2d(5.103_m, 2.636_m), frc::Rotation2d(120_deg));  //
-    constexpr frc::Pose2d REEF_5_RIGHT(frc::Translation2d(3.868_m, 2.640_m), frc::Rotation2d(60_deg));  //
-    constexpr frc::Pose2d REEF_5_LEFT(frc::Translation2d(3.592_m, 2.80_m), frc::Rotation2d(60_deg));    //
+
+    constexpr frc::Pose2d REEF_4_RIGHT(frc::Translation2d(5.36_m, 2.74_m), frc::Rotation2d(118.4_deg));
+    constexpr frc::Pose2d REEF_4_LEFT(frc::Translation2d(5.08_m, 2.59_m), frc::Rotation2d(120_deg));  
+
+    constexpr frc::Pose2d REEF_5_RIGHT(frc::Translation2d(3.83_m, 2.63_m), frc::Rotation2d(58.8_deg));  
+    constexpr frc::Pose2d REEF_5_LEFT(frc::Translation2d(3.53_m, 2.80_m), frc::Rotation2d(58_deg));    
 
     constexpr frc::Pose2d REEF_POSITIONS[6][2] = {
         {REEF_0_RIGHT, REEF_0_LEFT},
