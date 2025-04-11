@@ -59,10 +59,10 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry,
       },
       std::make_shared<pathplanner::PPHolonomicDriveController>(
           pathplanner::PIDConstants(
-              5.0, 0.0, 0.0),                       // Translation PID constants. Originally 1P
+              5.0, 0.0, 0.0),                      // Translation PID constants. Originally 1P
           pathplanner::PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
-                                                    // T: 1.75, 0, 0.0
-                                                    // R: 0.625, 0.0, 0
+                                                   // T: 1.75, 0, 0.0
+                                                   // R: 0.625, 0.0, 0
           ),
       config, // The robot configuration
       []()
@@ -146,9 +146,38 @@ frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose)
 {
   return frc2::cmd::DeferredProxy([this, goal_pose]
                                   {
+
+    frc::ChassisSpeeds speeds = m_odometry->getFieldRelativeSpeeds();
+
+
+    std::vector<Waypoint> waypoints = PathPlannerPath::waypointsFromPoses({frc::Pose2d(m_odometry->getPose().Translation(), units::math::atan(speeds.vy/speeds.vx)),
+                                                                                                           goal_pose});
+
     // Makes a vector of waypoints. Waypoint 1 is the current pos, 2 is the goal
     std::vector<Waypoint> waypoints = PathPlannerPath::waypointsFromPoses({m_odometry->getPose(),
                                                                            goal_pose});
+
+    bool waypointsAreBad = false;
+    auto numPoints = waypoints.size();
+
+    for (auto i = 0; i < numPoints; i++) {
+      // Check nextcontrol as long as its not the last point
+      if (i != numPoints - 1 && !waypoints[i].nextControl.has_value()) {
+        waypointsAreBad = true;
+        break;
+      }
+      
+      // Check prevcontrol if it's not the first point
+      if (i != 0 && !waypoints[i].prevControl.has_value()) {
+        waypointsAreBad = true;
+        break;
+      }
+    }
+
+    if (waypointsAreBad) {
+      std::cout << "Bad waypoints" << std::endl;
+      return frc2::cmd::None();
+    }
 
     // The constraints for the path. TODO CHANGE IT
     PathConstraints constraints(1_mps, 1_mps_sq, 180_deg_per_s, 270_deg_per_s_sq);
@@ -159,13 +188,14 @@ frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose)
     auto path = std::make_shared<PathPlannerPath>(
         waypoints,
         constraints,
-        IdealStartingState(vel, m_odometry->getPose().Rotation()), // The ideal starting state, might need to be changed
+        IdealStartingState(vel, units::math::atan((speeds.vy/speeds.vx))), // The ideal starting state, might need to be changed
         GoalEndState(0.0_mps, goal_pose.Rotation())                // Goal end state. You can set a holonomic rotation here.
     );
 
     path->preventFlipping = true;
 
-    return AutoBuilder::followPath(path); });
+    return AutoBuilder::followPath(path).AlongWith(frc2::cmd::RunOnce([] {std::cout << "Follow called" << std::endl;}));
+});
 }
 
 frc2::CommandPtr Trajectory::reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE side_side)
