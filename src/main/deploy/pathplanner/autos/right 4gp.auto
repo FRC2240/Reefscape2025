@@ -13,7 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "score"
+            "name": "score_l4"
           }
         },
         {
@@ -37,7 +37,7 @@
         {
           "type": "named",
           "data": {
-            "name": "score"
+            "name": "score_l4"
           }
         },
         {
@@ -61,7 +61,7 @@
         {
           "type": "named",
           "data": {
-            "name": "score"
+            "name": "score_l4"
           }
         },
         {

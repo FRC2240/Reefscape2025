@@ -26,9 +26,9 @@ void Robot::RobotPeriodic()
   {
     frc2::CommandScheduler::GetInstance().Run();
   }
-  catch (const std::exception &e)
+  catch (...)
   {
-    ForceLog::fatal(e.what());
+    ForceLog::fatal("An unknown exception occurred.");
   }
   m_container.LogDashboard();
 }
