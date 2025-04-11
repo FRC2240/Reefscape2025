@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 3.833,
-        "y": 2.63
+        "x": 3.7892449824983423,
+        "y": 2.503466787169965
       },
       "prevControl": {
-        "x": 3.7034932476567177,
-        "y": 2.4161589349598733
+        "x": 3.65973823015506,
+        "y": 2.2896257221298386
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,11 +32,11 @@
   "constraintZones": [
     {
       "name": "eepy time",
-      "minWaypointRelativePos": 0.6318529781879199,
+      "minWaypointRelativePos": 0.571311313291139,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
-        "maxAcceleration": 2.0,
+        "maxAcceleration": 4.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -71,7 +71,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.5,
-    "maxAcceleration": 6.0,
+    "maxAcceleration": 4.8,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
