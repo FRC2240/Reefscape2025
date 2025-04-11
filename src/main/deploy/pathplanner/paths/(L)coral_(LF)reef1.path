@@ -49,7 +49,7 @@
     {
       "name": "intake",
       "waypointRelativePos": 0.14880601415094338,
-      "endWaypointRelativePos": 0.25014740566037713,
+      "endWaypointRelativePos": 0.39631131329113894,
       "command": {
         "type": "named",
         "data": {
@@ -59,7 +59,7 @@
     },
     {
       "name": "l4",
-      "waypointRelativePos": 0.25890330188679234,
+      "waypointRelativePos": 0.4105617088607598,
       "endWaypointRelativePos": 1.0,
       "command": {
         "type": "named",
