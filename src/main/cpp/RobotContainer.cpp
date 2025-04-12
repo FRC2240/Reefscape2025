@@ -155,7 +155,16 @@ frc2::CommandPtr RobotContainer::set_state(CONSTANTS::MANIPULATOR_STATES::Manipu
 
 frc2::CommandPtr RobotContainer::score(CONSTANTS::MANIPULATOR_STATES::ManipulatorState target)
 {
-  return m_wrist.set_angle_command(CONSTANTS::MANIPULATOR_STATES::POST_SCORE.wrist_pos).AlongWith(m_grabber.coast());
+  CONSTANTS::MANIPULATOR_STATES::ManipulatorState last_state = current_state;
+  
+  if(last_state == CONSTANTS::MANIPULATOR_STATES::L1) 
+  {
+    return m_grabber.extake(CONSTANTS::GRABBER::L1_EXTAKE_VELOCITY);
+  }
+  else 
+  {
+    return m_wrist.set_angle_command(CONSTANTS::MANIPULATOR_STATES::POST_SCORE.wrist_pos).AlongWith(m_grabber.coast());
+  }
 }
 
 frc2::CommandPtr RobotContainer::coral_intake()
