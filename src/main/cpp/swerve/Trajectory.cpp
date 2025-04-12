@@ -59,10 +59,10 @@ Trajectory::Trajectory(Drivetrain *drivetrain, Odometry *odometry,
       },
       std::make_shared<pathplanner::PPHolonomicDriveController>(
           pathplanner::PIDConstants(
-              5.0, 0.0, 0.0),                    // Translation PID constants. Originally 1P
-          pathplanner::PIDConstants(5.0, 0.0, 0) // Rotation PID constants
-                                                 // T: 1.75, 0, 0.0
-                                                 // R: 0.625, 0.0, 0
+              5.0, 0.0, 0.0),                      // Translation PID constants. Originally 1P
+          pathplanner::PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
+                                                   // T: 1.75, 0, 0.0
+                                                   // R: 0.625, 0.0, 0
           ),
       config, // The robot configuration
       []()
@@ -146,57 +146,115 @@ frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose)
 {
   return frc2::cmd::DeferredProxy([this, goal_pose]
                                   {
-                                    // Makes a vector of waypoints. Waypoint 1 is the current pos, 2 is the goal
-                                    std::vector<Waypoint> waypoints = PathPlannerPath::waypointsFromPoses({m_odometry->getPose(),
-                                                                                                           goal_pose});
+    // Makes a vector of waypoints. Waypoint 1 is the current pos, 2 is the goal
+    std::vector<Waypoint> waypoints = PathPlannerPath::waypointsFromPoses({m_odometry->getPose(),
+                                                                           goal_pose});
 
-                                    // The constraints for the path. TODO CHANGE IT
-                                    PathConstraints constraints(1_mps, 2_mps_sq, 90_deg_per_s, 180_deg_per_s_sq);
+    bool waypointsAreBad = false;
+    auto numPoints = waypoints.size();
 
-                                    frc::ChassisSpeeds speeds = m_odometry->getFieldRelativeSpeeds();
-                                    units::meters_per_second_t vel = static_cast<units::meters_per_second_t>(MathUtils::pythag(speeds.vx(), speeds.vy()));
+    for (auto i = 0; i < numPoints; i++) {
+      // Check nextcontrol as long as its not the last point
+      if (i != numPoints - 1 && !waypoints[i].nextControl.has_value()) {
+        waypointsAreBad = true;
+        break;
+      }
+      
+      // Check prevcontrol if it's not the first point
+      if (i != 0 && !waypoints[i].prevControl.has_value()) {
+        waypointsAreBad = true;
+        break;
+      }
+    }
 
-                                    auto path = std::make_shared<PathPlannerPath>(
-                                        waypoints,
-                                        constraints,
-                                        IdealStartingState(vel, m_odometry->getPose().Rotation()), // The ideal starting state, might need to be changed
-                                        GoalEndState(0.0_mps, goal_pose.Rotation())                // Goal end state. You can set a holonomic rotation here.
-                                    );
+    if (waypointsAreBad) {
+      std::cout << "Bad waypoints" << std::endl;
+      return frc2::cmd::None();
+    }
 
-                                    path->preventFlipping = true;
-                                    m_timer.Restart();
+    // The constraints for the path. TODO CHANGE IT
+    PathConstraints constraints(1_mps, 1_mps_sq, 180_deg_per_s, 270_deg_per_s_sq);
 
-                                    return AutoBuilder::followPath(path).Repeatedly().Until([this, goal_pose] -> bool {
-                                      return MathUtils::getDistance(goal_pose, m_odometry->getPose()) < CONSTANTS::FIELD_POSITIONS::PATH_FINISHED_DIST_THRESHOLD &&
-                                              units::math::abs(goal_pose.Rotation().Degrees() - m_odometry->getPose().Rotation().Degrees()) < CONSTANTS::FIELD_POSITIONS::PATH_FINISHED_ANGLE_THRESHOLD;
-                                    }).Until([this] -> bool {
-                                      const double t = CONSTANTS::FIELD_POSITIONS::DRIVER_OVERRIDE_THRESHOLD;
-                                      return m_timer.HasElapsed(0.5_s) && (std::abs(m_stick->GetRightX()) > t || 
-                                             std::abs(m_stick->GetRightY()) > t || 
-                                             std::abs(m_stick->GetLeftX()) > t || 
-                                             std::abs(m_stick->GetLeftY()) > t);
-                                    }).AndThen([this] {
-                                      m_timer.Stop();
-                                    }); });
+    frc::ChassisSpeeds speeds = m_odometry->getFieldRelativeSpeeds();
+    units::meters_per_second_t vel = static_cast<units::meters_per_second_t>(MathUtils::pythag(speeds.vx(), speeds.vy()));
+
+    auto path = std::make_shared<PathPlannerPath>(
+        waypoints,
+        constraints,
+        IdealStartingState(vel, m_odometry->getPose().Rotation()), // The ideal starting state, might need to be changed
+        GoalEndState(0.0_mps, goal_pose.Rotation())                // Goal end state. You can set a holonomic rotation here.
+    );
+
+    path->preventFlipping = true;
+
+    return AutoBuilder::followPath(path);
+});
 }
 
 frc2::CommandPtr Trajectory::reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE side_side)
 {
   return frc2::cmd::DeferredProxy([this, side_side]
                                   {
+  try
+  {
 
-  std::cout << "Align command called" << std::endl;
+    std::cout << "Align command called" << std::endl;
 
-  int nearest_face = m_odometry->get_nearest_reef_side();
-  frc::Pose2d botPos = m_odometry->getPose();
+    int nearest_face = m_odometry->get_nearest_reef_side();
+    frc::Pose2d botPos = m_odometry->getPose();
 
-  // If the distance to the nearest reef face is too large, do not continue.
-  if (MathUtils::getDistance(m_odometry->get_reef_face_pos(nearest_face), botPos) > CONSTANTS::FIELD_POSITIONS::EFFECTIVE_DISTANCE) {
-    std::cout << "Too far from reef" << std::endl;
-    return frc2::cmd::RunOnce([]{}); // Empty command to exit early.
+    // If the distance to the nearest reef face is too large, do not continue.
+    if (MathUtils::getDistance(m_odometry->get_reef_face_pos(nearest_face), botPos) > CONSTANTS::FIELD_POSITIONS::EFFECTIVE_DISTANCE)
+    {
+      std::cout << "Too far from reef" << std::endl;
+      return frc2::cmd::RunOnce([] {}); // Empty command to exit early.
+    }
+
+    const frc::Pose2d goal_pose = m_odometry->get_alignment_position(nearest_face, side_side);
+
+    m_timer.Restart();
+
+    return follow_live_path(goal_pose).Repeatedly().Until([this, goal_pose] -> bool
+                                                          { return MathUtils::getDistance(goal_pose, m_odometry->getPose()) < CONSTANTS::FIELD_POSITIONS::PATH_FINISHED_DIST_THRESHOLD &&
+                                                                   units::math::abs(goal_pose.Rotation().Degrees() - m_odometry->getPose().Rotation().Degrees()) < CONSTANTS::FIELD_POSITIONS::PATH_FINISHED_ANGLE_THRESHOLD; })
+        .Until([this] -> bool
+               {
+                                      const double t = CONSTANTS::FIELD_POSITIONS::DRIVER_OVERRIDE_THRESHOLD;
+                                      return m_timer.HasElapsed(0.5_s) && (std::abs(m_stick->GetRightX()) > t || 
+                                             std::abs(m_stick->GetRightY()) > t || 
+                                             std::abs(m_stick->GetLeftX()) > t || 
+                                             std::abs(m_stick->GetLeftY()) > t); })
+        .AndThen([this]
+                 { m_timer.Stop(); });
   }
-
-  return follow_live_path(m_odometry->get_alignment_position(nearest_face, side_side)); });
+  catch (const std::exception &e)
+  {
+    std::cout << "Exception in reef_align_command: " << e.what() << std::endl;
+    return frc2::cmd::RunOnce([] {});
+  }
+  catch (const char *e)
+  {
+    std::cout << "char Exception in reef_align_command: " << e << std::endl;
+    return frc2::cmd::RunOnce([] {});
+  }
+  catch (const std::string &e)
+  {
+    std::cout << "Exception in reef_align_command: " << e << std::endl;
+    return frc2::cmd::RunOnce([] {});
+  }
+  catch (const int &e)
+  {
+    std::cout << "Exception in reef_align_command: " << e << std::endl;
+    return frc2::cmd::RunOnce([] {});
+  }
+  catch (std::runtime_error &e){
+    std::cout << "Exception in reef_align_command: " << e.what() << std::endl;
+  }
+  catch (...)
+  {
+    
+    std::cout << "unkown exception" << std::endl;
+  } });
 }
 
 #endif

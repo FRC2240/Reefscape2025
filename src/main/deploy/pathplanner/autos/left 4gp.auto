@@ -55,12 +55,6 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -77,12 +71,6 @@
           "type": "named",
           "data": {
             "name": "score_l4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "l2"
           }
         },
         {
@@ -105,12 +93,6 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.25
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -130,9 +112,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "l2"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "back2station"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "idle"
+                }
+              }
+            ]
           }
         }
       ]
