@@ -14,3 +14,14 @@ frc2::CommandPtr PoweredFun::spin(units::ampere_t current)
     ctre::phoenix6::controls::TorqueCurrentFOC req{current};
     m_motor.SetControl(req); }, {this});
 };
+
+void PoweredFun::monitor_temp(){
+    frc::SmartDashboard::PutNumber("Funnel Temp", m_motor.GetDeviceTemp().GetValue().value());
+    if (m_motor.GetDeviceTemp().GetValue().value() > 80)
+    {
+        my_alert.Set(true);
+    } else
+    {
+        my_alert.Set(false);
+    }
+}
