@@ -74,12 +74,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "idle"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
