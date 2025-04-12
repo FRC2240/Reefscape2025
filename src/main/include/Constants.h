@@ -122,6 +122,7 @@ namespace CONSTANTS
     // If this distance from the center point of a center of a face is
     // exceeded, nothing will happen.
     constexpr units::meter_t EFFECTIVE_DISTANCE = 3_m; // CHANGEME
+    constexpr units::meter_t MIN_DISTANCE = 0.2_m; 
     constexpr double DRIVER_OVERRIDE_THRESHOLD = 0.1;
     constexpr units::meter_t PATH_FINISHED_DIST_THRESHOLD = 0.9_in;
     constexpr units::angle::degree_t PATH_FINISHED_ANGLE_THRESHOLD = 2_deg;
