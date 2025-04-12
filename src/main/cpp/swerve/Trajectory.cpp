@@ -219,8 +219,7 @@ frc2::CommandPtr Trajectory::reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF
     auto dist = MathUtils::getDistance(m_odometry->get_reef_face_pos(nearest_face), botPos);
     std::cout << "dist: " << dist.value() << std::endl;
     // If the distance to the nearest reef face is too large, do not continue.
-    if (MathUtils::getDistance(m_odometry->get_reef_face_pos(nearest_face), botPos) > CONSTANTS::FIELD_POSITIONS::EFFECTIVE_DISTANCE ||
-        MathUtils::getDistance(m_odometry->get_reef_face_pos(nearest_face), botPos) < CONSTANTS::FIELD_POSITIONS::MIN_DISTANCE)
+    if (MathUtils::getDistance(m_odometry->get_reef_face_pos(nearest_face), botPos) > CONSTANTS::FIELD_POSITIONS::EFFECTIVE_DISTANCE)
     {
       std::cout << "reposition robot" << std::endl;
       return frc2::cmd::RunOnce([] {}); // Empty command to exit early.
