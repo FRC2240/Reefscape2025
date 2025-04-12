@@ -101,8 +101,8 @@ namespace CONSTANTS
     constexpr ManipulatorState IDLE_W_GP{12.329_tr, 19.7_tr};
     constexpr ManipulatorState INTAKE{0.41_tr, -33.6_tr};
     constexpr ManipulatorState POST_SCORE{0_tr, -16.83_tr};
-    constexpr ManipulatorState ALGAE_L2{3.98_tr, -17.00_tr};
-    constexpr ManipulatorState ALGAE_L3{15.83_tr, -16.90_tr};
+    constexpr ManipulatorState ALGAE_L2{4.35_tr, -16.80_tr};
+    constexpr ManipulatorState ALGAE_L3{16.20_tr, -16.80_tr};
     constexpr ManipulatorState PROCESSOR{1.1_tr, 10.9_tr};
     constexpr ManipulatorState BARGE{35.1_tr, -5.1_tr};
     constexpr ManipulatorState GROUND_ALGAE{-3.4_tr, 13.20_tr};
