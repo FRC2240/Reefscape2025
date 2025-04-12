@@ -41,12 +41,7 @@
       "name": "barge",
       "waypointRelativePos": 0.25010486577181207,
       "endWaypointRelativePos": 0.9249790268456375,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "barge"
-        }
-      }
+      "command": null
     }
   ],
   "globalConstraints": {

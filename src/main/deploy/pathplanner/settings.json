@@ -3,10 +3,11 @@
   "robotLength": 0.9398,
   "holonomicMode": true,
   "pathFolders": [
-    "lolipop_l_4gp",
+    "barge",
     "em_test",
     "leave_1gp",
     "left_4gp",
+    "lolipop_l_4gp",
     "push_start",
     "right_4gp"
   ],

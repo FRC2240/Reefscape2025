@@ -27,6 +27,10 @@ void RobotContainer::add_named_commands()
   pathplanner::NamedCommands::registerCommand("score_l4", frc2::cmd::Print("start score l4").AndThen(score(CONSTANTS::MANIPULATOR_STATES::L4)).WithTimeout(0.25_s).AndThen(frc2::cmd::Print("end score l4")));
   pathplanner::NamedCommands::registerCommand("intake", frc2::cmd::Print("start intake").AndThen(coral_intake()).AndThen(frc2::cmd::Print("end intake")));
   pathplanner::NamedCommands::registerCommand("idle", frc2::cmd::Print("start idle").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE)).AndThen(frc2::cmd::Print("end idle")));
+  pathplanner::NamedCommands::registerCommand("algae_intake", frc2::cmd::Print("start algae intake").AndThen(algae_intake()).AndThen(frc2::cmd::Print("end intake")));
+  pathplanner::NamedCommands::registerCommand("algae_l2", frc2::cmd::Print("start l2").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::ALGAE_L2)).AndThen(frc2::cmd::Print("end l2")));
+  pathplanner::NamedCommands::registerCommand("algae_score", frc2::cmd::Print("start algae score").AndThen(score_algae()).AndThen(frc2::cmd::Print("end algae score")));
+  pathplanner::NamedCommands::registerCommand("barge", frc2::cmd::Print("start barge").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::BARGE)).AndThen(frc2::cmd::Print("end barge")));
 }
 
 void RobotContainer::SetPID()
