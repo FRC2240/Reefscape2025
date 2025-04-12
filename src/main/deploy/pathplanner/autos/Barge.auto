@@ -11,6 +11,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "l4"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "b_coral"
@@ -20,6 +26,12 @@
           "type": "named",
           "data": {
             "name": "score_l4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "algae_score"
           }
         },
         {
@@ -47,9 +59,9 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "barge_score"
+            "pathName": "b_drive_back"
           }
         }
       ]

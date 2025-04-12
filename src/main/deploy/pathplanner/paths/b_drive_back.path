@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.624,
-        "y": 4.14
+        "x": 7.649132709251102,
+        "y": 5.994777003889042
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.374,
-        "y": 4.14
+        "x": 5.293826653703194,
+        "y": 5.9917065494218065
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.99888653438883,
-        "y": 3.9857349298392473
+        "x": 6.440667590170705,
+        "y": 4.946524491499174
       },
       "prevControl": {
-        "x": 6.24888653438883,
-        "y": 3.9857349298392473
+        "x": 6.421301645959526,
+        "y": 5.2604943901431716
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,13 +33,13 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "algae_intake",
-      "waypointRelativePos": 0,
+      "name": "idle",
+      "waypointRelativePos": 0.6564911912751674,
       "endWaypointRelativePos": 1.0,
       "command": {
         "type": "named",
         "data": {
-          "name": "algae_intake"
+          "name": "idle"
         }
       }
     }
@@ -54,13 +54,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": "barge",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }
