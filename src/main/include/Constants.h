@@ -101,9 +101,9 @@ namespace CONSTANTS
     constexpr ManipulatorState IDLE_W_GP{12.329_tr, 19.7_tr};
     constexpr ManipulatorState INTAKE{0.41_tr, -33.6_tr};
     constexpr ManipulatorState POST_SCORE{0_tr, -16.83_tr};
-    constexpr ManipulatorState ALGAE_L2{3.98_tr, -17.00_tr};
-    constexpr ManipulatorState ALGAE_L3{15.83_tr, -16.90_tr};
     constexpr ManipulatorState PROCESSOR{3.5_tr, -26.56_tr};
+    constexpr ManipulatorState ALGAE_L2{4.35_tr, -16.80_tr};
+    constexpr ManipulatorState ALGAE_L3{16.20_tr, -16.80_tr};
     constexpr ManipulatorState BARGE{35.1_tr, -5.1_tr};
     constexpr ManipulatorState GROUND_ALGAE{0.113_tr, -25.688_tr};
 
@@ -122,6 +122,7 @@ namespace CONSTANTS
     // If this distance from the center point of a center of a face is
     // exceeded, nothing will happen.
     constexpr units::meter_t EFFECTIVE_DISTANCE = 3_m; // CHANGEME
+    constexpr units::meter_t MIN_DISTANCE = 0.2_m; 
     constexpr double DRIVER_OVERRIDE_THRESHOLD = 0.1;
     constexpr units::meter_t PATH_FINISHED_DIST_THRESHOLD = 0.9_in;
     constexpr units::angle::degree_t PATH_FINISHED_ANGLE_THRESHOLD = 2_deg;
