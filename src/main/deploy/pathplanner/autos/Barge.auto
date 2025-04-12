@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "idle"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "b_coral"

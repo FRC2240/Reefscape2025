@@ -130,10 +130,15 @@ void RobotContainer::ConfigureBindings()
                 { return this->m_stick1.RightTrigger().Get(); })
       .OnTrue(m_wrist.set_angle_command(CONSTANTS::MANIPULATOR_STATES::GROUND_ALGAE.wrist_pos).AndThen(m_elevator.set_position_command(CONSTANTS::MANIPULATOR_STATES::GROUND_ALGAE.elevtor_pos)));
 
-// togglable funnel 
+  // togglable funnel 
   frc2::Trigger([this]() -> bool
               {return this->m_stick1.LeftTrigger().Get(); })
-      .ToggleOnTrue(m_poweredfun.spin());
+      .ToggleOnTrue(m_poweredfun.spin(0_A));
+
+  // L1 state command on driver 2
+  frc2::Trigger([this]() -> bool
+                { return this->m_stick1.LeftBumper().Get(); })
+      .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L1));
 
 }
 
@@ -160,7 +165,7 @@ frc2::CommandPtr RobotContainer::set_state(CONSTANTS::MANIPULATOR_STATES::Manipu
   {
     return m_wrist.set_angle_command(target.wrist_pos).AndThen(m_elevator.set_position_command(target.elevtor_pos));
   }
-  if (target == CONSTANTS::MANIPULATOR_STATES::L4 && last_state == CONSTANTS::MANIPULATOR_STATES::IDLE)
+  if (target == CONSTANTS::MANIPULATOR_STATES::L4 && last_state == CONSTANTS::MANIPULATOR_STATES::IDLE && !frc::DriverStation::IsAutonomous())
   {
     return m_elevator.set_position_command(target.elevtor_pos).AndThen(m_wrist.set_angle_command(target.wrist_pos));
   }
