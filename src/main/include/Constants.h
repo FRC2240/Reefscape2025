@@ -93,7 +93,7 @@ namespace CONSTANTS
                                             0.00005_tr));
       }
     };
-    constexpr ManipulatorState L1{0_tr, 0_tr};
+    constexpr ManipulatorState L1{7.33_tr, -24.9_tr};
     constexpr ManipulatorState L2{0.17_tr, -11.69_tr}; // 18.4 follow-through
     constexpr ManipulatorState L3{8.33_tr, -9.11_tr};
     constexpr ManipulatorState L4{28.55_tr, -10.43_tr};
@@ -101,11 +101,11 @@ namespace CONSTANTS
     constexpr ManipulatorState IDLE_W_GP{12.329_tr, 19.7_tr};
     constexpr ManipulatorState INTAKE{0.41_tr, -33.6_tr};
     constexpr ManipulatorState POST_SCORE{0_tr, -16.83_tr};
+    constexpr ManipulatorState PROCESSOR{3.5_tr, -26.56_tr};
     constexpr ManipulatorState ALGAE_L2{4.35_tr, -16.80_tr};
     constexpr ManipulatorState ALGAE_L3{16.20_tr, -16.80_tr};
-    constexpr ManipulatorState PROCESSOR{1.1_tr, 10.9_tr};
     constexpr ManipulatorState BARGE{35.1_tr, -5.1_tr};
-    constexpr ManipulatorState GROUND_ALGAE{-3.4_tr, 13.20_tr};
+    constexpr ManipulatorState GROUND_ALGAE{0.113_tr, -25.688_tr};
 
   } // namespace MANIPULATOR_STATES
 
