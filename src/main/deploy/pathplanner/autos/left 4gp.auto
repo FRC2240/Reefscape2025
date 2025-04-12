@@ -112,9 +112,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "idle"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "back2station"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "idle"
+                }
+              }
+            ]
           }
         }
       ]

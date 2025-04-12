@@ -48,8 +48,8 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.5327088155864199,
-      "endWaypointRelativePos": 0.6814115547839508,
+      "waypointRelativePos": 0.5197120949074073,
+      "endWaypointRelativePos": 0.6688247492283941,
       "command": {
         "type": "named",
         "data": {
@@ -59,7 +59,7 @@
     },
     {
       "name": "l4",
-      "waypointRelativePos": 0.6821108217592597,
+      "waypointRelativePos": 0.6668716242283951,
       "endWaypointRelativePos": 1.0,
       "command": {
         "type": "named",

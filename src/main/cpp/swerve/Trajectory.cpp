@@ -146,12 +146,9 @@ frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose)
 {
   return frc2::cmd::DeferredProxy([this, goal_pose]
                                   {
-
-    frc::ChassisSpeeds speeds = m_odometry->getFieldRelativeSpeeds();
-
-
-    std::vector<Waypoint> waypoints = PathPlannerPath::waypointsFromPoses({frc::Pose2d(m_odometry->getPose().Translation(), units::math::atan(speeds.vy/speeds.vx)),
-                                                                                                           goal_pose});
+    // Makes a vector of waypoints. Waypoint 1 is the current pos, 2 is the goal
+    std::vector<Waypoint> waypoints = PathPlannerPath::waypointsFromPoses({m_odometry->getPose(),
+                                                                           goal_pose});
 
     bool waypointsAreBad = false;
     auto numPoints = waypoints.size();
@@ -178,12 +175,13 @@ frc2::CommandPtr Trajectory::follow_live_path(frc::Pose2d goal_pose)
     // The constraints for the path. TODO CHANGE IT
     PathConstraints constraints(1_mps, 1_mps_sq, 180_deg_per_s, 270_deg_per_s_sq);
 
+    frc::ChassisSpeeds speeds = m_odometry->getFieldRelativeSpeeds();
     units::meters_per_second_t vel = static_cast<units::meters_per_second_t>(MathUtils::pythag(speeds.vx(), speeds.vy()));
 
     auto path = std::make_shared<PathPlannerPath>(
         waypoints,
         constraints,
-        IdealStartingState(vel, units::math::atan((speeds.vy/speeds.vx))), // The ideal starting state, might need to be changed
+        IdealStartingState(vel, m_odometry->getPose().Rotation()), // The ideal starting state, might need to be changed
         GoalEndState(0.0_mps, goal_pose.Rotation())                // Goal end state. You can set a holonomic rotation here.
     );
 
