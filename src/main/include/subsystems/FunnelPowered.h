@@ -16,7 +16,7 @@ class PoweredFun : public frc2::SubsystemBase
 {
 public:
     PoweredFun();
-    frc2::CommandPtr spin(units::ampere_t current = 40_A);
+    frc2::CommandPtr spin(units::ampere_t current = 20_A);
 
     frc2::CommandPtr coast();
 

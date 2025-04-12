@@ -156,6 +156,13 @@ frc2::CommandPtr RobotContainer::set_state(CONSTANTS::MANIPULATOR_STATES::Manipu
   {
     return m_wrist.set_angle_command(target.wrist_pos).AndThen(m_elevator.set_position_command(target.elevtor_pos));
   }
+  if (target == CONSTANTS::MANIPULATOR_STATES::L4 && last_state == CONSTANTS::MANIPULATOR_STATES::IDLE)
+  {
+    return m_elevator.set_position_command(target.elevtor_pos).AndThen(m_wrist.set_angle_command(target.wrist_pos));
+  }
+  {
+    return m_wrist.set_angle_command(target.wrist_pos).AndThen(m_elevator.set_position_command(target.elevtor_pos));
+  }
 
   return m_wrist.set_angle_command(target.wrist_pos).AlongWith(m_elevator.set_position_command(target.elevtor_pos));
 }
