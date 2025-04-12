@@ -43,6 +43,7 @@ void RobotContainer::ConfigureBindings()
   frc::SmartDashboard::PutData(&m_elevator);
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
   m_grabber.SetDefaultCommand(m_grabber.idle());
+  m_poweredfun.SetDefaultCommand(m_poweredfun.spin());
 
 
   // https://files.slack.com/files-pri/T0CS7MN06-F08BXRSU770/image.png
