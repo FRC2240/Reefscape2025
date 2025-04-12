@@ -43,7 +43,7 @@ void RobotContainer::ConfigureBindings()
   frc::SmartDashboard::PutData(&m_elevator);
   m_trajectory.SetDefaultCommand(m_trajectory.manual_drive());
   m_grabber.SetDefaultCommand(m_grabber.idle());
-  m_poweredfun.SetDefaultCommand(m_poweredfun.spin());
+
 
   // https://files.slack.com/files-pri/T0CS7MN06-F08BXRSU770/image.png
 
@@ -120,10 +120,16 @@ void RobotContainer::ConfigureBindings()
   m_stick0.POVLeft().OnTrue(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::LEFT));
   m_stick0.POVRight().OnTrue(m_trajectory.reef_align_command(CONSTANTS::FIELD_POSITIONS::REEF_SIDE_SIDE::RIGHT));
 
-  // ground algae intake
+  // ground algae intake(driver 2)
   frc2::Trigger([this]() -> bool
                 { return this->m_stick1.RightTrigger().Get(); })
       .OnTrue(m_wrist.set_angle_command(CONSTANTS::MANIPULATOR_STATES::GROUND_ALGAE.wrist_pos).AndThen(m_elevator.set_position_command(CONSTANTS::MANIPULATOR_STATES::GROUND_ALGAE.elevtor_pos)));
+
+// togglable funnel 
+  frc2::Trigger([this]() -> bool
+              {return this->m_stick1.LeftTrigger().Get(); })
+      .ToggleOnTrue(m_poweredfun.spin());
+
 }
 
 frc2::Command *RobotContainer::GetAutonomousCommand()
