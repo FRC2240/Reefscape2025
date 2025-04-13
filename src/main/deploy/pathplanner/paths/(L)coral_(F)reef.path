@@ -32,7 +32,7 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.5157634493670886,
+      "minWaypointRelativePos": 0.25,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
@@ -48,8 +48,8 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.5197120949074073,
-      "endWaypointRelativePos": 0.6688247492283941,
+      "waypointRelativePos": 0.15,
+      "endWaypointRelativePos": 0.4,
       "command": {
         "type": "named",
         "data": {
@@ -59,7 +59,7 @@
     },
     {
       "name": "l4",
-      "waypointRelativePos": 0.6668716242283951,
+      "waypointRelativePos": 0.4,
       "endWaypointRelativePos": 1.0,
       "command": {
         "type": "named",
@@ -70,8 +70,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.5,
-    "maxAcceleration": 4.8,
+    "maxVelocity": 4.0,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

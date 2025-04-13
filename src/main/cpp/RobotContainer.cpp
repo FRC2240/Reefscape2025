@@ -27,6 +27,10 @@ void RobotContainer::add_named_commands()
   pathplanner::NamedCommands::registerCommand("score_l4", frc2::cmd::Print("start score l4").AndThen(score(CONSTANTS::MANIPULATOR_STATES::L4)).WithTimeout(0.25_s).AndThen(frc2::cmd::Print("end score l4")));
   pathplanner::NamedCommands::registerCommand("intake", frc2::cmd::Print("start intake").AndThen(coral_intake()).AndThen(frc2::cmd::Print("end intake")));
   pathplanner::NamedCommands::registerCommand("idle", frc2::cmd::Print("start idle").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::IDLE)).AndThen(frc2::cmd::Print("end idle")));
+  pathplanner::NamedCommands::registerCommand("algae_intake", frc2::cmd::Print("start algae intake").AndThen(algae_intake()).AndThen(frc2::cmd::Print("end intake")));
+  pathplanner::NamedCommands::registerCommand("algae_l2", frc2::cmd::Print("start l2").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::ALGAE_L2)).AndThen(frc2::cmd::Print("end l2")));
+  pathplanner::NamedCommands::registerCommand("algae_score", frc2::cmd::Print("start algae score").AndThen(score_algae()).AndThen(frc2::cmd::Print("end algae score")));
+  pathplanner::NamedCommands::registerCommand("barge", frc2::cmd::Print("start barge").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::BARGE)).AndThen(frc2::cmd::Print("end barge")));
 }
 
 void RobotContainer::SetPID()
@@ -126,10 +130,15 @@ void RobotContainer::ConfigureBindings()
                 { return this->m_stick1.RightTrigger().Get(); })
       .OnTrue(m_wrist.set_angle_command(CONSTANTS::MANIPULATOR_STATES::GROUND_ALGAE.wrist_pos).AndThen(m_elevator.set_position_command(CONSTANTS::MANIPULATOR_STATES::GROUND_ALGAE.elevtor_pos)));
 
-// togglable funnel 
+  // togglable funnel 
   frc2::Trigger([this]() -> bool
               {return this->m_stick1.LeftTrigger().Get(); })
-      .ToggleOnTrue(m_poweredfun.spin());
+      .ToggleOnTrue(m_poweredfun.spin(0_A));
+
+  // L1 state command on driver 2
+  frc2::Trigger([this]() -> bool
+                { return this->m_stick1.LeftBumper().Get(); })
+      .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L1));
 
 }
 
@@ -153,6 +162,14 @@ frc2::CommandPtr RobotContainer::set_state(CONSTANTS::MANIPULATOR_STATES::Manipu
   }
 
   if (last_state == CONSTANTS::MANIPULATOR_STATES::BARGE)
+  {
+    return m_wrist.set_angle_command(target.wrist_pos).AndThen(m_elevator.set_position_command(target.elevtor_pos));
+  }
+  // if (target == CONSTANTS::MANIPULATOR_STATES::L4 && last_state == CONSTANTS::MANIPULATOR_STATES::IDLE && !frc::DriverStation::IsAutonomous())
+  if (target == CONSTANTS::MANIPULATOR_STATES::L4)
+  {
+    return m_elevator.set_position_command(target.elevtor_pos).AndThen(m_wrist.set_angle_command(target.wrist_pos));
+  }
   {
     return m_wrist.set_angle_command(target.wrist_pos).AndThen(m_elevator.set_position_command(target.elevtor_pos));
   }

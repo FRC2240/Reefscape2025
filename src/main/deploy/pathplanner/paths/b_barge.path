@@ -1,0 +1,100 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 6.02,
+        "y": 4.18
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.825426977216409,
+        "y": 4.163845892414647
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.643470152464207,
+        "y": 6.027582082874448
+      },
+      "prevControl": {
+        "x": 6.199706923699064,
+        "y": 6.045324760806717
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.1880214654126213,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 0.4520820691747573,
+      "rotationDegrees": 0.0
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "slow",
+      "minWaypointRelativePos": 0.5911178691275168,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 1.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 360.0,
+        "maxAngularAcceleration": 360.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "barge",
+      "waypointRelativePos": 0.25010486577181207,
+      "endWaypointRelativePos": 0.9249790268456375,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "barge"
+        }
+      }
+    },
+    {
+      "name": "score",
+      "waypointRelativePos": 0.8940278942953022,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "algae_score"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 360.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "barge",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -178.5318181587229
+  },
+  "useDefaultConstraints": false
+}

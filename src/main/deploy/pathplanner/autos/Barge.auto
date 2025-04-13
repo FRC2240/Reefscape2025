@@ -1,0 +1,73 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "idle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "l4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "b_coral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "score_l4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "algae_score"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "move_back"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "algae_l2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "b_algae_intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "b_barge"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "b_drive_back"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

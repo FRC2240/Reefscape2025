@@ -32,7 +32,7 @@
   "constraintZones": [
     {
       "name": "eepy time",
-      "minWaypointRelativePos": 0.571311313291139,
+      "minWaypointRelativePos": 0.2514052013422819,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
@@ -48,8 +48,8 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.5026523919753086,
-      "endWaypointRelativePos": 0.6488956404320988,
+      "waypointRelativePos": 0.15,
+      "endWaypointRelativePos": 0.4034710570469795,
       "command": {
         "type": "named",
         "data": {
@@ -59,7 +59,7 @@
     },
     {
       "name": "l4",
-      "waypointRelativePos": 0.6467737268518517,
+      "waypointRelativePos": 0.4000157298657717,
       "endWaypointRelativePos": 1.0,
       "command": {
         "type": "named",
@@ -70,8 +70,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.5,
-    "maxAcceleration": 4.8,
+    "maxVelocity": 4.0,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
