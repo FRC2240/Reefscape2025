@@ -188,6 +188,11 @@ try {
     );
 }
 catch (const std::bad_optional_access &e){
+  // ...
+  std::cout << "The check failed fr" << std::endl;
+  const frc::Pose2d current_pose = m_odometry->getPose();
+  std::cout << "Desired pose: (x:" << goal_pose.X().value() << " y:" << goal_pose.Y().value() << ")";
+  std::cout << "Current pose: (x:" << current_pose.X().value() << " y:" << current_pose.Y().value() << ")";
   std::cout << "bad optional acess: " << e.what() << std::endl;
   return frc2::cmd::None();
 }
