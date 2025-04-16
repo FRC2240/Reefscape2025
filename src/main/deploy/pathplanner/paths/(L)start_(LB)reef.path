@@ -20,8 +20,8 @@
         "y": 2.74
       },
       "prevControl": {
-        "x": 5.774378376447036,
-        "y": 1.9736232249806211
+        "x": 5.736483776411132,
+        "y": 1.9545695663528102
       },
       "nextControl": null,
       "isLocked": false,
@@ -61,7 +61,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 118.40000000000002
+    "rotation": 115.61000000000001
   },
   "reversed": false,
   "folder": "left_4gp",
