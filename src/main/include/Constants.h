@@ -102,8 +102,8 @@ namespace CONSTANTS
     constexpr ManipulatorState INTAKE{0.41_tr, -33.6_tr};
     constexpr ManipulatorState POST_SCORE{0_tr, -16.83_tr};
     constexpr ManipulatorState PROCESSOR{4_tr, -25_tr};
-    constexpr ManipulatorState ALGAE_L2{4.35_tr, -16.80_tr};
-    constexpr ManipulatorState ALGAE_L3{16.20_tr, -16.80_tr};
+    constexpr ManipulatorState ALGAE_L2{7.35_tr, -16.80_tr};
+    constexpr ManipulatorState ALGAE_L3{19.20_tr, -16.80_tr};
     constexpr ManipulatorState BARGE{35.1_tr, -5.1_tr};
     constexpr ManipulatorState GROUND_ALGAE{0.113_tr, -25.688_tr};
 
@@ -172,12 +172,12 @@ namespace CONSTANTS
     // intake
     constexpr units::ampere_t INTAKE_ALGAE_VELOCITY = -120_A; // TBD
     constexpr units::ampere_t INTAKE_CORAL_VELOCITY = -50_A;  // TBD
-    constexpr units::millimeter_t DEFAULT_DIST_TOF = 35_mm;   // TBD
+    constexpr units::millimeter_t DEFAULT_DIST_TOF = 40_mm;   // TBD
 
     // extake
     constexpr units::ampere_t EXTAKE_VELOCITY = 10_A;      // TBD
     constexpr units::ampere_t ALGAE_SCORE_VELOCITY = 30_A; // TBD
-    constexpr units::second_t EXTAKE_TIME = 1_s;           // TBD
+    constexpr units::second_t EXTAKE_TIME = 0.5_s;           // TBD
     constexpr units::ampere_t L1_EXTAKE_VELOCITY = 0.5_A; // TBD
 
     constexpr units::turns_per_second_t CORAL_RELEASE_VELOCITY = 0.001_tps; // TBD

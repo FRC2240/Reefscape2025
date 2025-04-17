@@ -23,9 +23,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "score_l4"
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.25
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "score_l4"
+                }
+              }
+            ]
           }
         },
         {
@@ -65,27 +78,15 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "algae_intake"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Barge_2"
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "barge"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "algae_score"
+            "pathName": "end"
           }
         }
       ]

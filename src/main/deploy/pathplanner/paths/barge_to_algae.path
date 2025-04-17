@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 7.649,
-        "y": 5.5
+        "y": 5.38
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.116216628497243,
-        "y": 5.652152317880794
+        "x": 5.843352272727272,
+        "y": 5.4958096590909085
       },
       "isLocked": false,
       "linkedName": null
@@ -49,7 +49,7 @@
       }
     },
     {
-      "name": "algae_l2",
+      "name": "algae_l3",
       "waypointRelativePos": 0.4,
       "endWaypointRelativePos": 1.0,
       "command": {
@@ -65,7 +65,7 @@
             {
               "type": "named",
               "data": {
-                "name": "algae_l2"
+                "name": "algae_l3"
               }
             }
           ]
