@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 3.8183921930380986,
-        "y": 2.5907213244798823
+        "x": 3.84,
+        "y": 2.59
       },
       "prevControl": {
-        "x": 3.688885440694816,
-        "y": 2.376880259439756
+        "x": 3.7099338575094762,
+        "y": 2.3764987152787254
       },
       "nextControl": null,
       "isLocked": false,
@@ -79,7 +79,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 58.8
+    "rotation": 58.650000000000006
   },
   "reversed": false,
   "folder": "left_4gp",
