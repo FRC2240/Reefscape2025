@@ -49,7 +49,7 @@
       }
     },
     {
-      "name": "algae_l2",
+      "name": "algae_l3",
       "waypointRelativePos": 0.4,
       "endWaypointRelativePos": 1.0,
       "command": {
