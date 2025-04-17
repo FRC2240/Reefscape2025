@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 6.4,
+        "x": 6.6244771778375995,
         "y": 4.139547228828453
       },
       "prevControl": {
-        "x": 6.150124522313146,
+        "x": 6.374601700150746,
         "y": 4.131657637535719
       },
       "nextControl": null,
@@ -31,14 +31,7 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "algae_l2",
-      "waypointRelativePos": 0.75,
-      "endWaypointRelativePos": 1.0,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 4.0,
     "maxAcceleration": 4.0,
