@@ -135,9 +135,13 @@ void RobotContainer::ConfigureBindings()
               {return this->m_stick1.LeftTrigger().Get(); })
       .ToggleOnTrue(m_poweredfun.spin(0_A));
 
-  // L1 state command on driver 2
+  // // L1 state command on driver 2
+  // frc2::Trigger([this]() -> bool
+  //               { return this->m_stick1.LeftBumper().Get(); })
+  //     .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L1));
+
   frc2::Trigger([this]() -> bool
-                { return this->m_stick1.LeftBumper().Get(); })
+                { return this->m_stick0.B().Get(); })
       .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L1));
 
 }
