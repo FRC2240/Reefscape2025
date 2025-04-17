@@ -61,7 +61,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "b_drive_back"
+            "pathName": "barge_to_algae"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "algae_intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Barge_2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "barge"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "algae_score"
           }
         }
       ]

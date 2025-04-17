@@ -31,6 +31,7 @@ void RobotContainer::add_named_commands()
   pathplanner::NamedCommands::registerCommand("algae_l2", frc2::cmd::Print("start l2").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::ALGAE_L2)).AndThen(frc2::cmd::Print("end l2")));
   pathplanner::NamedCommands::registerCommand("algae_score", frc2::cmd::Print("start algae score").AndThen(score_algae()).AndThen(frc2::cmd::Print("end algae score")));
   pathplanner::NamedCommands::registerCommand("barge", frc2::cmd::Print("start barge").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::BARGE)).AndThen(frc2::cmd::Print("end barge")));
+  pathplanner::NamedCommands::registerCommand("algae_l3", frc2::cmd::Print("start l3").AndThen(set_state(CONSTANTS::MANIPULATOR_STATES::ALGAE_L3)).AndThen(frc2::cmd::Print("end l3")));
 }
 
 void RobotContainer::SetPID()
@@ -136,8 +137,12 @@ void RobotContainer::ConfigureBindings()
       .ToggleOnTrue(m_poweredfun.spin(0_A));
 
   // L1 state command on driver 2
+  // frc2::Trigger([this]() -> bool
+  //               { return this->m_stick1.LeftBumper().Get(); })
+  //     .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L1));
+
   frc2::Trigger([this]() -> bool
-                { return this->m_stick1.LeftBumper().Get(); })
+                { return this->m_stick0.B().Get(); })
       .OnTrue(set_state(CONSTANTS::MANIPULATOR_STATES::L1));
 
 }

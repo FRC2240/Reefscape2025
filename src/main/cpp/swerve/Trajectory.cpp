@@ -95,19 +95,19 @@ frc2::CommandPtr Trajectory::manual_drive(bool field_relative)
         units::meters_per_second_t front_back;
         units::angular_velocity::radians_per_second_t rot;
 
-        if (m_stick->B().Get())
-        {
-          left_right = (frc::ApplyDeadband(m_stick->GetLeftX(), 0.1) *
-                        CONSTANTS::DRIVE::SLOW_MODE) *
-                       (CONSTANTS::DRIVE::TELEOP_MAX_SPEED);
-          front_back = (frc::ApplyDeadband(m_stick->GetLeftY(), 0.1) *
-                        CONSTANTS::DRIVE::SLOW_MODE) *
-                       (CONSTANTS::DRIVE::TELEOP_MAX_SPEED);
-          rot = (frc::ApplyDeadband(m_stick->GetRightX(), .1) *
-                 CONSTANTS::DRIVE::SLOW_MODE) *
-                (m_drivetrain->TELEOP_MAX_ANGULAR_SPEED);
-        }
-        else
+        // if (m_stick->B().Get())
+        // {
+        //   left_right = (frc::ApplyDeadband(m_stick->GetLeftX(), 0.1) *
+        //                 CONSTANTS::DRIVE::SLOW_MODE) *
+        //                (CONSTANTS::DRIVE::TELEOP_MAX_SPEED);
+        //   front_back = (frc::ApplyDeadband(m_stick->GetLeftY(), 0.1) *
+        //                 CONSTANTS::DRIVE::SLOW_MODE) *
+        //                (CONSTANTS::DRIVE::TELEOP_MAX_SPEED);
+        //   rot = (frc::ApplyDeadband(m_stick->GetRightX(), .1) *
+        //          CONSTANTS::DRIVE::SLOW_MODE) *
+        //         (m_drivetrain->TELEOP_MAX_ANGULAR_SPEED);
+        // }
+        // else
         {
           left_right = frc::ApplyDeadband(m_stick->GetLeftX(), 0.1) *
                        (CONSTANTS::DRIVE::TELEOP_MAX_SPEED);

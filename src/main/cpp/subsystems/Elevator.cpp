@@ -32,8 +32,6 @@ frc2::CommandPtr Elevator::set_position_command(units::angle::turn_t pos)
 {
     return frc2::RunCommand([this, pos]
                             {         
-        frc::SmartDashboard::PutNumber("elv/desired", pos.value());
-        frc::SmartDashboard::PutNumber("elv/delta", m_motor.GetPosition().GetValueAsDouble() - pos.value());
         set_position(pos); },
                             {this})
         .Until([this, pos]
@@ -58,5 +56,7 @@ units::angle::turn_t Elevator::get_position()
 
 void Elevator::set_position(units::angle::turn_t pos)
 {
+    frc::SmartDashboard::PutNumber("elv/desired", pos.value());
+    frc::SmartDashboard::PutNumber("elv/delta", m_motor.GetPosition().GetValueAsDouble() - pos.value());
     m_motor.SetControl(control_req.WithPosition(pos));
 };
