@@ -39,8 +39,8 @@
   "eventMarkers": [
     {
       "name": "idle",
-      "waypointRelativePos": 0.1,
-      "endWaypointRelativePos": 0.25,
+      "waypointRelativePos": 0.15,
+      "endWaypointRelativePos": 0.4,
       "command": {
         "type": "named",
         "data": {
@@ -50,7 +50,7 @@
     },
     {
       "name": "algae_l3",
-      "waypointRelativePos": 0.26,
+      "waypointRelativePos": 0.4,
       "endWaypointRelativePos": 1.0,
       "command": {
         "type": "parallel",
