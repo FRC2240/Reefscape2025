@@ -177,7 +177,7 @@ namespace CONSTANTS
     // extake
     constexpr units::ampere_t EXTAKE_VELOCITY = 10_A;      // TBD
     constexpr units::ampere_t ALGAE_SCORE_VELOCITY = 30_A; // TBD
-    constexpr units::second_t EXTAKE_TIME = 0.5_s;           // TBD
+    constexpr units::second_t EXTAKE_TIME = 0.3_s;           // TBD
     constexpr units::ampere_t L1_EXTAKE_VELOCITY = 0.5_A; // TBD
 
     constexpr units::turns_per_second_t CORAL_RELEASE_VELOCITY = 0.001_tps; // TBD
