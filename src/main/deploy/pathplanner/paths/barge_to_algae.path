@@ -3,43 +3,72 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.649132709251102,
-        "y": 5.994777003889042
+        "x": 7.649,
+        "y": 5.38
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.293826653703194,
-        "y": 5.9917065494218065
+        "x": 5.843352272727272,
+        "y": 5.4958096590909085
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.440667590170705,
-        "y": 4.946524491499174
+        "x": 5.2,
+        "y": 5.3
       },
       "prevControl": {
-        "x": 6.421301645959526,
-        "y": 5.2604943901431716
+        "x": 5.95,
+        "y": 6.599038105676658
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.4,
+      "rotationDegrees": -119.99999999999999
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [
     {
       "name": "idle",
-      "waypointRelativePos": 0.6564911912751674,
-      "endWaypointRelativePos": 1.0,
+      "waypointRelativePos": 0.1,
+      "endWaypointRelativePos": 0.25,
       "command": {
         "type": "named",
         "data": {
           "name": "idle"
+        }
+      }
+    },
+    {
+      "name": "algae_l3",
+      "waypointRelativePos": 0.26,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "algae_intake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "algae_l3"
+              }
+            }
+          ]
         }
       }
     }
@@ -54,7 +83,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -119.99999999999999
   },
   "reversed": false,
   "folder": "barge",

@@ -94,16 +94,16 @@ namespace CONSTANTS
       }
     };
     constexpr ManipulatorState L1{7.83_tr, -24.9_tr};
-    constexpr ManipulatorState L2{0.17_tr, -11.69_tr}; // 18.4 follow-through
-    constexpr ManipulatorState L3{8.33_tr, -9.11_tr};
+    constexpr ManipulatorState L2{0_tr, -10.25_tr}; // 18.4 follow-through
+    constexpr ManipulatorState L3{11.58_tr, -9.9_tr};
     constexpr ManipulatorState L4{28.55_tr, -10.43_tr};
     constexpr ManipulatorState IDLE{6.82_tr, -33.47_tr};
     constexpr ManipulatorState IDLE_W_GP{12.329_tr, 19.7_tr};
     constexpr ManipulatorState INTAKE{0.41_tr, -33.6_tr};
     constexpr ManipulatorState POST_SCORE{0_tr, -16.83_tr};
     constexpr ManipulatorState PROCESSOR{4_tr, -25_tr};
-    constexpr ManipulatorState ALGAE_L2{4.35_tr, -16.80_tr};
-    constexpr ManipulatorState ALGAE_L3{16.20_tr, -16.80_tr};
+    constexpr ManipulatorState ALGAE_L2{7.35_tr, -16.80_tr};
+    constexpr ManipulatorState ALGAE_L3{19.20_tr, -16.80_tr};
     constexpr ManipulatorState BARGE{35.1_tr, -5.1_tr};
     constexpr ManipulatorState GROUND_ALGAE{0.113_tr, -25.688_tr};
 
@@ -127,23 +127,23 @@ namespace CONSTANTS
     constexpr units::meter_t PATH_FINISHED_DIST_THRESHOLD = 0.9_in;
     constexpr units::angle::degree_t PATH_FINISHED_ANGLE_THRESHOLD = 2_deg;
 
-    constexpr frc::Pose2d REEF_0_RIGHT(frc::Translation2d(2.93_m, 3.93_m), frc::Rotation2d(0_deg)); //
-    constexpr frc::Pose2d REEF_0_LEFT(frc::Translation2d(2.94_m, 4.23_m), frc::Rotation2d(0_deg)); // +
+    constexpr frc::Pose2d REEF_0_RIGHT(frc::Translation2d(2.9237_m, 3.8894_m), frc::Rotation2d(-2.66_deg)); //
+    constexpr frc::Pose2d REEF_0_LEFT(frc::Translation2d(2.9437_m, 4.2409_m), frc::Rotation2d(-3.86_deg)); // +
 
-    constexpr frc::Pose2d REEF_1_RIGHT(frc::Translation2d(3.57_m, 5.28_m), frc::Rotation2d(300_deg)); // +
-    constexpr frc::Pose2d REEF_1_LEFT(frc::Translation2d(3.84_m, 5.44_m), frc::Rotation2d(300_deg)); // +
+    constexpr frc::Pose2d REEF_1_RIGHT(frc::Translation2d(3.5964_m, 5.3152_m), frc::Rotation2d(-62.28_deg)); // +
+    constexpr frc::Pose2d REEF_1_LEFT(frc::Translation2d(3.8876_m, 5.4759_m), frc::Rotation2d(-62.2_deg)); // +
 
-    constexpr frc::Pose2d REEF_2_RIGHT(frc::Translation2d(5.150_m, 5.43_m), frc::Rotation2d(240_deg)); // +
-    constexpr frc::Pose2d REEF_2_LEFT(frc::Translation2d(5.43_m, 5.26_m), frc::Rotation2d(240_deg));  //      +
+    constexpr frc::Pose2d REEF_2_RIGHT(frc::Translation2d(5.1928_m, 5.4357_m), frc::Rotation2d(-125.31_deg)); // +
+    constexpr frc::Pose2d REEF_2_LEFT(frc::Translation2d(5.4639_m, 5.2550_m), frc::Rotation2d(-125.15_deg));  //      +
 
-    constexpr frc::Pose2d REEF_3_RIGHT(frc::Translation2d(6.02_m, 4.18_m), frc::Rotation2d(180_deg));  // +
-    constexpr frc::Pose2d REEF_3_LEFT(frc::Translation2d(6.04_m, 3.83_m), frc::Rotation2d(180_deg));   // +
+    constexpr frc::Pose2d REEF_3_RIGHT(frc::Translation2d(6.0563_m, 4.1605_m), frc::Rotation2d(179.24_deg));  // +
+    constexpr frc::Pose2d REEF_3_LEFT(frc::Translation2d(6.0563_m, 3.8392_m), frc::Rotation2d(179.56_deg));   // +
 
-    constexpr frc::Pose2d REEF_4_RIGHT(frc::Translation2d(5.36_m, 2.74_m), frc::Rotation2d(118.4_deg));
-    constexpr frc::Pose2d REEF_4_LEFT(frc::Translation2d(5.09_m, 2.59_m), frc::Rotation2d(120_deg));  
+    constexpr frc::Pose2d REEF_4_RIGHT(frc::Translation2d(5.3535_m, 2.7147_m), frc::Rotation2d(115.61_deg));
+    constexpr frc::Pose2d REEF_4_LEFT(frc::Translation2d(5.0724_m, 2.5741_m), frc::Rotation2d(115.46_deg));  
 
-    constexpr frc::Pose2d REEF_5_RIGHT(frc::Translation2d(3.83_m, 2.63_m), frc::Rotation2d(58.8_deg));  
-    constexpr frc::Pose2d REEF_5_LEFT(frc::Translation2d(3.53_m, 2.80_m), frc::Rotation2d(58_deg));    
+    constexpr frc::Pose2d REEF_5_RIGHT(frc::Translation2d(3.8374_m, 2.5842_m), frc::Rotation2d(58.65_deg));  
+    constexpr frc::Pose2d REEF_5_LEFT(frc::Translation2d(3.5362_m, 2.7749_m), frc::Rotation2d(58.19_deg));    
 
     constexpr frc::Pose2d REEF_POSITIONS[6][2] = {
         {REEF_0_RIGHT, REEF_0_LEFT},
@@ -172,12 +172,12 @@ namespace CONSTANTS
     // intake
     constexpr units::ampere_t INTAKE_ALGAE_VELOCITY = -120_A; // TBD
     constexpr units::ampere_t INTAKE_CORAL_VELOCITY = -50_A;  // TBD
-    constexpr units::millimeter_t DEFAULT_DIST_TOF = 35_mm;   // TBD
+    constexpr units::millimeter_t DEFAULT_DIST_TOF = 40_mm;   // TBD
 
     // extake
     constexpr units::ampere_t EXTAKE_VELOCITY = 10_A;      // TBD
     constexpr units::ampere_t ALGAE_SCORE_VELOCITY = 30_A; // TBD
-    constexpr units::second_t EXTAKE_TIME = 1_s;           // TBD
+    constexpr units::second_t EXTAKE_TIME = 0.3_s;           // TBD
     constexpr units::ampere_t L1_EXTAKE_VELOCITY = 0.5_A; // TBD
 
     constexpr units::turns_per_second_t CORAL_RELEASE_VELOCITY = 0.001_tps; // TBD

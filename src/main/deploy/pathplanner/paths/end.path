@@ -3,45 +3,40 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.979686536287006,
-        "y": 1.8961965460526313
+        "x": 7.649,
+        "y": 6.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.047267483414177,
-        "y": 2.568102358695096
+        "x": 6.319741798500454,
+        "y": 6.5
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.36,
-        "y": 2.74
+        "x": 6.0,
+        "y": 6.5
       },
       "prevControl": {
-        "x": 5.736483776411132,
-        "y": 1.9545695663528102
+        "x": 7.0,
+        "y": 6.5
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 120.80490628394956
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.20994651845637605,
-      "maxWaypointRelativePos": 1.0,
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0.05,
       "constraints": {
         "maxVelocity": 1.0,
-        "maxAcceleration": 2.0,
+        "maxAcceleration": 1.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -50,7 +45,30 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "barge",
+      "waypointRelativePos": 0.0,
+      "endWaypointRelativePos": 0.6,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "barge"
+        }
+      }
+    },
+    {
+      "name": "idle",
+      "waypointRelativePos": 0.61,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "idle"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 4.0,
     "maxAcceleration": 4.0,
@@ -61,13 +79,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 115.61000000000001
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "left_4gp",
+  "folder": "barge",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 127.93
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }
